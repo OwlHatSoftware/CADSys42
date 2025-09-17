@@ -4,3 +4,10 @@
 *.o
 *.dcr
 *.compiled
+/Demos/delphi/CAD2D/__history
+*.~dsk
+*.exe
+*.dcu
+/Packages/delphi/__history
+/Sources/__history
+*.zip
