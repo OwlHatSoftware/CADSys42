@@ -405,8 +405,18 @@ end;
 
 { GroupDel = Group delimiter }
 function TDXFRead.ReadAnEntry(GroupDel: Word; var Values: TGroupTable): Word;
+var
+  I: Integer;
 begin
   Result := 0;
+  { CS4-FIX: Values was never cleared between entities, so every slot the
+    current entity does not define kept the *previous* entity's value. In
+    ReadPolyline2D the same LocalEntry is reused for the whole VERTEX loop, so
+    a vertex omitting group 10 or 20 silently repeated the previous vertex's
+    coordinate, and the 'VarType(...) <> varEmpty' guards throughout this unit
+    were reading stale data rather than detecting an absent group. }
+  for I := Low(Values) to High(Values) do
+    VarClear(Values[I]);
   { Find the start of the entry. }
   while (fGroupCode <> GroupDel) and (fGroupCode <> 0) do
     if ConsumeGroup = False then
