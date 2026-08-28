@@ -1697,7 +1697,17 @@ constructor TCADPrgPan.Create(const CADPrg: TCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
-  Param := TCADPrgParam.Create(StateParam.AfterState);
+  { CS4-FIX (M6): the state is documented as taking no parameter, so the
+    documented call StartOperation(TCADPrgPan, nil) faulted on StateParam.
+    NOTE: StateParam is deliberately NOT freed here. SuspendOperation
+    (CADSys4.pas ~20705) aliases the suspended state's own param into
+    StateParam when the caller supplies none, so freeing it would destroy
+    the suspended task's parameter. That leak is resolved together with the
+    param-ownership rework (findings M7/M8/A3). }
+  if Assigned(StateParam) then
+    Param := TCADPrgParam.Create(StateParam.AfterState)
+  else
+    Param := TCADPrgParam.Create(nil);
   Param.UserObject := TLine2D.Create(0, Point2D(0, 0), Point2D(0, 0));
   Description := 'Select the start point of the pan.'
 end;
@@ -1715,7 +1725,8 @@ begin
       ceUserDefined:
         if Key = CADPRG_CANCEL then
         begin
-          TLine2D(UserObject).Free;
+          { CS4-FIX (M1): TCADPrgParam.Destroy already frees UserObject, so
+            freeing the line here freed it twice. }
           Param.Free;
           Param := nil;
           NextState := DefaultState;
@@ -1738,7 +1749,8 @@ end;
 
 procedure TCADPrgPan.OnStop;
 begin
-  TCADPrgParam(Param).UserObject.Free;
+  { CS4-FIX (M1): TCADPrgParam.Destroy already frees UserObject, so freeing
+    it here freed it twice. }
   Param.Free;
   Param := nil;
 end;
@@ -1764,7 +1776,8 @@ begin
       ceUserDefined:
         if Key = CADPRG_CANCEL then
         begin
-          TLine2D(UserObject).Free;
+          { CS4-FIX (M1): TCADPrgParam.Destroy already frees UserObject, so
+            freeing the line here freed it twice. }
           Param.Free;
           Param := nil;
           NextState := DefaultState;
@@ -1786,7 +1799,8 @@ begin
               NextState := AfterState
             else
               NextState := DefaultState;
-            Free;
+            { CS4-FIX (M1): this bare Free bound to TLine2D(UserObject) via the
+              enclosing with-block; TCADPrgParam.Destroy frees it too. }
             Param.Free;
             Param := nil;
             Result := True;
@@ -1811,7 +1825,8 @@ end;
 
 procedure TCADPrgDragPan.OnStop;
 begin
-  TCADPrgParam(Param).UserObject.Free;
+  { CS4-FIX (M1): TCADPrgParam.Destroy already frees UserObject, so freeing
+    it here freed it twice. }
   Param.Free;
   Param := nil;
 end;
