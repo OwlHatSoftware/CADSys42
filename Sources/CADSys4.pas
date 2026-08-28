@@ -12382,8 +12382,15 @@ var
   ClipRes: TClipResult;
   TmpClip: TRect2D;
 begin
-  if (Count = 0) or (EndIdx > Count) or (StartIdx > EndIdx) then
+  { CS4-FIX (P3b): EndIdx = Count read one element past the end of the source
+    vector and wrote one past the end of the scratch buffer. }
+  if (Count = 0) or (StartIdx < 0) or (EndIdx >= Count) or (StartIdx > EndIdx)
+  then
     Exit;
+  { CS4-FIX (P3b): when StartIdx = EndIdx neither clipping loop below runs, yet
+    ClipRes and TmpPt2 are read afterwards. Seed them deterministically. }
+  ClipRes := [];
+  TmpPt2 := TransformPoint2D(PVectPoints2D(Vect)^[StartIdx], S);
   if ToBeClosed then
     AllocatedMem := (Count + 1) * SizeOf(TPoint)
   else
@@ -12483,7 +12490,9 @@ var
   ClipRes: TClipResult;
   TmpClip: TRect2D;
 begin
-  if (Count = 0) or (EndIdx > Count) or (StartIdx > EndIdx) then
+  { CS4-FIX (P3b): EndIdx = Count read one element past the end of Vect. }
+  if (Count = 0) or (StartIdx < 0) or (EndIdx >= Count) or (StartIdx > EndIdx)
+  then
     Exit;
   GetMem(TmpPts, Count * 3 * SizeOf(TPoint));
   GetMem(FirstClipPts, Count * 3 * SizeOf(TPoint));
@@ -13272,9 +13281,11 @@ begin
   for Cont := fCapacity to NewCapacity - 1 do
     with PVectPoints3D(fPoints)^[Cont] do
     begin
-      X := 0;
-      Y := 0;
-      X := 0;
+      X := 0.0;
+      Y := 0.0;
+      { CS4-FIX: this was a second 'X := 0' - Z was never initialised, so grown
+        slots carried whatever ReAllocMem returned into GetExtension. }
+      Z := 0.0;
       W := 1.0;
     end;
   fCapacity := NewCapacity;
@@ -14544,7 +14555,10 @@ begin
     TLayer(fLayers[Cont]).fName := Format('Layer %d', [Cont]);
     TLayer(fLayers[Cont]).fPen.Color := clBlack;
     TLayer(fLayers[Cont]).fPen.Style := psSolid;
-    TLayer(fLayers[Cont]).fBrush := TBrush.Create;
+    { CS4-FIX: this used to allocate a fresh TBrush over the one created in
+      TLayer.Create - leaking 256 brushes per call and, because the new brush
+      had no OnChange handler, silently breaking fModified tracking (and so
+      the layer's participation in SaveToStream). Reuse the existing brush. }
     TLayer(fLayers[Cont]).fBrush.Color := clWhite;
     TLayer(fLayers[Cont]).fBrush.Style := bsSolid;
     TLayer(fLayers[Cont]).fActive := True;
@@ -16621,7 +16635,7 @@ procedure TContainer2D.Assign(const Obj: TGraphicObject);
 var
   TmpIter: TGraphicObjIterator;
   TmpClass: TGraphicObjectClass;
-  TmpObj: TGraphicObject;
+  TmpObj, TmpSrc: TGraphicObject;
 begin
   if (Obj = Self) then
     Exit;
@@ -16642,12 +16656,17 @@ begin
     // Alloca un iterator locale
     TmpIter := TContainer2D(Obj).fObjects.GetIterator;
     try
-      repeat
-        TmpClass := TGraphicObjectClass(TmpIter.Current.ClassType);
-        TmpObj := TmpClass.Create(TmpIter.Current.ID);
-        TmpObj.Assign(TmpIter.Current);
+      { CS4-FIX (M12): 'repeat' ran the body once unconditionally, so copying an
+        empty container dereferenced a nil TmpIter.Current. }
+      TmpSrc := TmpIter.First;
+      while TmpSrc <> nil do
+      begin
+        TmpClass := TGraphicObjectClass(TmpSrc.ClassType);
+        TmpObj := TmpClass.Create(TmpSrc.ID);
+        TmpObj.Assign(TmpSrc);
         fObjects.Add(TmpObj);
-      until TmpIter.Next = nil;
+        TmpSrc := TmpIter.Next;
+      end;
     finally
       TmpIter.Free;
     end;
@@ -18280,7 +18299,7 @@ procedure TContainer3D.Assign(const Obj: TGraphicObject);
 var
   TmpIter: TGraphicObjIterator;
   TmpClass: TGraphicObjectClass;
-  TmpObj: TGraphicObject;
+  TmpObj, TmpSrc: TGraphicObject;
 begin
   if (Obj = Self) then
     Exit;
@@ -18297,12 +18316,17 @@ begin
     // Alloca un iterator locale
     TmpIter := TContainer3D(Obj).fObjects.GetIterator;
     try
-      repeat
-        TmpClass := TGraphicObjectClass(TmpIter.Current.ClassType);
-        TmpObj := TmpClass.Create(TmpIter.Current.ID);
-        TmpObj.Assign(TmpIter.Current);
+      { CS4-FIX (M12): 'repeat' ran the body once unconditionally, so copying an
+        empty container dereferenced a nil TmpIter.Current. }
+      TmpSrc := TmpIter.First;
+      while TmpSrc <> nil do
+      begin
+        TmpClass := TGraphicObjectClass(TmpSrc.ClassType);
+        TmpObj := TmpClass.Create(TmpSrc.ID);
+        TmpObj.Assign(TmpSrc);
         fObjects.Add(TmpObj);
-      until TmpIter.Next = nil;
+        TmpSrc := TmpIter.Next;
+      end;
     finally
       TmpIter.Free;
     end;
@@ -20219,8 +20243,9 @@ begin
   begin
 {$IFDEF windows}
     if not(csDestroying in fLinkedViewport.ComponentState) then
-      SetWindowLong(fLinkedViewport.Handle, gwl_wndProc,
-{%H-}LongInt(fOldWndProc));
+      { CS4-FIX (X1): SetWindowLong truncates a WndProc pointer on Win64. }
+      SetWindowLongPtr(fLinkedViewport.Handle, GWLP_WNDPROC,
+        LONG_PTR(fOldWndProc));
     FreeObjectInstance(fNewWndProc);
 {$ELSE}
     if not(csDestroying in fLinkedViewport.ComponentState) then
@@ -20241,8 +20266,9 @@ begin
     V.FreeNotification(Self);
 {$IFDEF windows}
     fNewWndProc := MakeObjectInstance(SubclassedWinProc);
-    fOldWndProc := {%H-}Pointer(SetWindowLong(V.Handle, gwl_wndProc,
-{%H-}LongInt(fNewWndProc)));
+    { CS4-FIX (X1): SetWindowLong truncates a WndProc pointer on Win64. }
+    fOldWndProc := Pointer(SetWindowLongPtr(V.Handle, GWLP_WNDPROC,
+      LONG_PTR(fNewWndProc)));
 {$ELSE}
     fNewWndProc := SubclassedWinProc;
     fOldWndProc := V.WindowProc;
