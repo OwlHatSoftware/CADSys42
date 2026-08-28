@@ -500,8 +500,19 @@ Unit CADSys4;
 
 Interface
 
-uses WinAPI.Windows, WinAPI.Messages, System.Math, System.SysUtils,
-  System.Classes, System.Types, Vcl.Graphics, Controls, ClipBrd, ComCtrls,
+uses
+  WinAPI.Windows,
+  WinAPI.Messages,
+  System.Math,
+  System.SysUtils,
+  System.Classes,
+  System.Types,
+  System.UITypes,
+  System.JSON,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.ClipBrd,
+  Vcl.ComCtrls,
   CS4BaseTypes;
 
 type
@@ -2602,6 +2613,11 @@ type
       See also <See=Object's Persistance@PERSISTANCE>.
     }
     procedure SaveObjectsToStream(const Stream: TStream); virtual; abstract;
+
+    procedure LoadObjectsFromJSON(const AJSONObject: TJSONObject;
+      const Version: TCADVersion); virtual; abstract;
+    procedure SaveObjectsToJSON(const AJSONObject: TJSONObject);
+      virtual; abstract;
     { : This method adds a new source block.
 
       <I=ID> is the identifier number of the source block and Obj is the
@@ -4798,7 +4814,10 @@ type
   protected
     procedure LoadObjectsFromStream(const Stream: TStream;
       const Version: TCADVersion); override;
+    procedure LoadObjectsFromJSON(const AJSONObject: TJSONObject;
+      const Version: TCADVersion); override;
     procedure SaveObjectsToStream(const Stream: TStream); override;
+    procedure SaveObjectsToJSON(const AJSONObject: TJSONObject); override;
   public
     { : This method loads the blocks definitions (see <See Class=TSourceBlock2D>) from a drawing.
       This is an abstract method that must be implemented in a concrete control.
@@ -6693,6 +6712,7 @@ type
       when the <B=task> is ended, passing it the current parameter.
       If you define a new state you have to implement this behaviour.
     }
+    destructor Destroy; override;
     property AfterState: TCADStateClass read fAfterState write fAfterState;
     { : This property may contain a user object reference interpreted
       by the current task.
@@ -6788,6 +6808,7 @@ type
       Use this method to handle the events and perform operations
       or change the active state.
     }
+    destructor Destroy; override;
     function OnEvent({%H-}Event: TCADPrgEvent;
 {%H-}MouseButton: TCS4MouseButton;
 {%H-}Shift: TShiftState; {%H-}Key: Word; var
@@ -14568,12 +14589,13 @@ begin
   Cont := 1;
   Stream.Write(Cont, SizeOf(Cont));
   for Cont := 0 to 255 do
-    with Stream do
-      if TLayer(fLayers[Cont]).fModified then
-      begin
-        Write(Cont, SizeOf(Cont));
-        TLayer(fLayers[Cont]).SaveToStream(Stream);
-      end;
+  begin
+    if TLayer(fLayers[Cont]).fModified then
+    begin
+      Stream.Write(Cont, SizeOf(Cont));
+      TLayer(fLayers[Cont]).SaveToStream(Stream);
+    end;
+  end;
   Cont := 256;
   Stream.Write(Cont, SizeOf(Cont));
 end;
@@ -14588,13 +14610,12 @@ begin
   if Cont <> 1 then
     Raise ECADFileNotValid.Create('TLayers.LoadFromStream: No layers found');
   while Stream.Position < Stream.Size do
-    with Stream do
-    begin
-      Read(Cont, SizeOf(Cont));
-      if Cont = 256 then
-        Break;
-      TLayer(fLayers[Cont]).LoadFromStream(Stream, Version);
-    end;
+  begin
+    Stream.Read(Cont, SizeOf(Cont));
+    if Cont = 256 then
+      Break;
+    TLayer(fLayers[Cont]).LoadFromStream(Stream, Version);
+  end;
 end;
 
 function TLayers.SetCanvas(const Cnv: TDecorativeCanvas;
@@ -16971,9 +16992,55 @@ begin
   end;
 end;
 
+
+
 // =====================================================================
 // TCADCmp2D
 // =====================================================================
+
+procedure TCADCmp2D.SaveObjectsToJSON(const AJSONObject: TJSONObject);
+var
+  TmpObj: TObject2D;
+  TmpWord: Word;
+  TmpLong, TmpObjPerc: LongInt;
+  TmpIter: TGraphicObjIterator;
+begin
+  // WORK IN PROGRESS!!!!
+  // TmpIter := ObjectList.GetPrivilegedIterator;
+  // // with Stream do
+  // try
+  // { Save the objects. }
+  // TmpLong := TmpIter.Count;
+  // if TmpLong > 0 then
+  // TmpObjPerc := 100 div TmpLong
+  // else
+  // TmpObjPerc := 0;
+  // Write(TmpLong, SizeOf(TmpLong));
+  // TmpObj := TmpIter.First as TObject2D;
+  // while TmpObj <> nil do
+  // begin
+  // if Layers[TmpObj.Layer].Streamable and TmpObj.fToBeSaved then
+  // begin
+  // TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
+  // { Save the class index. }
+  // Write(TmpWord, SizeOf(TmpWord));
+  // TmpObj.SaveToJSON(AJSONObject);
+  // if Assigned(OnSaveProgress) then
+  // OnSaveProgress(Self, 100 - TmpObjPerc * TmpLong);
+  // Dec(TmpLong);
+  // end;
+  // TmpObj := TmpIter.Next as TObject2D;
+  // end;
+  // { End the list of objects if not all objects were saved. }
+  // if TmpLong > 0 then
+  // begin
+  // TmpWord := 65535;
+  // Write(TmpWord, SizeOf(TmpWord));
+  // end;
+  // finally
+  // TmpIter.Free;
+  // end;
+end;
 
 procedure TCADCmp2D.SaveObjectsToStream(const Stream: TStream);
 var
@@ -17019,6 +17086,12 @@ begin
 end;
 
 {$WARNINGS OFF}
+
+procedure TCADCmp2D.LoadObjectsFromJSON(const AJSONObject: TJSONObject;
+  const Version: TCADVersion);
+begin
+
+end;
 
 procedure TCADCmp2D.LoadObjectsFromStream(const Stream: TStream;
   const Version: TCADVersion);
@@ -20066,6 +20139,13 @@ begin
   fAfterState := AfterS;
 end;
 
+destructor TCADPrgParam.Destroy;
+begin
+  if Assigned(fUserObject) then
+    fUserObject.Free;
+  inherited;
+end;
+
 // =====================================================================
 // TCADState
 // =====================================================================
@@ -20086,6 +20166,13 @@ begin
   fDescription := D;
   if Assigned(fCAD) and Assigned(fCAD.fOnDescriptionChanged) then
     fCAD.fOnDescriptionChanged(Self);
+end;
+
+destructor TCADState.Destroy;
+begin
+//  if Assigned(Param) then
+//     FreeAndNil(Param);
+  inherited;
 end;
 
 function TCADState.OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;

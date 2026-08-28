@@ -41,10 +41,144 @@ unit CS4Tasks;
 
 Interface
 
-uses System.SysUtils, System.Classes, System.Types, WinApi.Windows, Vcl.Graphics, Vcl.Dialogs,
+uses System.SysUtils, System.Classes, System.Types, WinApi.Windows,
+  Vcl.Graphics, Vcl.Dialogs,
   CADSys4, CS4BaseTypes, CS4Shapes;
 
 type
+  // TCAD2DDeleteObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DScaleObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DMirrorXObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DMirrorYObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  TCAD2DExplodeObjects = class(TCADState)
+  public
+    constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+      var NextState: TCADStateClass); override;
+  end;
+
+  //
+  // TCAD2DReverse = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DInverse = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DCreateSourceBlock = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const AStateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DBringToFront = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DSendToBack = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DBringForward = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DSendBackwards = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DSwapObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DAlignLeft = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DAlignTop = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DAlignRight = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DAlignBottom = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DCopyObjectsToCADClipboard = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DCutObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  // TCAD2DPasteObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+  //
+  TCAD2DMakeContainer = class(TCADState)
+  public
+    constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+      var NextState: TCADStateClass); override;
+  end;
+  //
+  // TCAD2DOffsetObjects = class(TCADState)
+  // public
+  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // var NextState: TCADStateClass); override;
+  // end;
+
   { ******************* Zooming states *********************** }
 
   { : This class rapresents the parameter for zooming tasks.
@@ -1245,7 +1379,7 @@ type
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
       : Boolean; override;
-    procedure OnStop; override;
+    // procedure OnStop; override;
   end;
 
   { : This class implements the <I=select and edit primitive task>.
@@ -3126,6 +3260,12 @@ begin
     NewParam.DrawOSD(Viewport2D, Point2D(0, 0), True);
     NewParam.DrawModifiedPrim(Viewport2D);
   end;
+  // The incoming StateParam is replaced here, so it must be released or it
+  // leaks (see TCAD2DMoveSelectedObjects / TCAD2DRotateSelectedObjects).
+  // Its UserObject is the primitive owned by the drawing and TCADPrgParam.Destroy
+  // frees UserObject, so detach it first.
+  TCADPrgParam(StateParam).UserObject := nil;
+  StateParam.Free;
   Param := NewParam;
   TCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
 end;
@@ -3204,11 +3344,11 @@ begin
     end;
 end;
 
-procedure TCAD2DEditPrimitive.OnStop;
-begin
-  Param.Free;
-  Param := nil;
-end;
+// procedure TCAD2DEditPrimitive.OnStop;
+// begin
+// Param.Free;
+// Param := nil;
+// end;
 
 constructor TCAD2DEditSelectedPrimitive.Create(const CADPrg: TCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
@@ -3220,23 +3360,294 @@ begin
   inherited;
   if not(StateParam is TCAD2DSelectObjectsParam) then
     Raise ECADSysException.Create('TCAD2DEditSelectedObjects: Invalid param');
-  with TCAD2DSelectObjectsParam(StateParam) do
+  if TCAD2DSelectObjectsParam(StateParam).SelectedObjects.Count = 0 then
   begin
-    TmpIter := SelectedObjects.GetIterator;
-    try
-      NewObj := TmpIter.First as TObject2D;
-    finally
-      TmpIter.Free;
-    end;
-    if not(NewObj is TPrimitive2D) then
-      Raise ECADSysException.Create('TCAD2DEditSelectedObjects: Invalid param');
-    NewParam := TCADPrgParam.Create(nil);
-    NewParam.UserObject := NewObj;
+    Param.Free;
+    Param := nil;
+    NextState := CADPrg.DefaultState;
+    Exit;
   end;
-  StateParam.Free;
-  Param := NewParam;
+  // with TCAD2DSelectObjectsParam(StateParam) do
+  // begin
+  TmpIter := TCAD2DSelectObjectsParam(StateParam).SelectedObjects.GetIterator;
+  try
+    NewObj := TmpIter.First as TObject2D;
+  finally
+    TmpIter.Free;
+  end;
+  if not(NewObj is TPrimitive2D) then
+    Raise ECADSysException.Create('TCAD2DEditSelectedObjects: Invalid param');
+//  FreeAndNil(Param.UserObject);
+//  Param.UserObject := NewObj;
+  // NewParam := TCADPrgParam.Create(nil);
+  // // there is a problem here when editing an object!
+  // NewParam.UserObject := NewObj;
+  // end;
+  // Param.Free;
+  // Param := NewParam;
+  NewParam := TCADPrgParam.Create(nil);
+  try
+    NewParam.UserObject := NewObj;
+    FreeAndNil(Param);
+    Param := NewParam;
+  except
+    NewParam.Free;
+    raise;
+  end;
   CADPrg.CurrentOperation := TCAD2DEditSelectedPrimitive;
   NextState := TCAD2DEditPrimitive;
+end;
+
+{ TCAD2DExplodeObjects }
+
+procedure ExplodePolyline2DTPolygon2D(AOutline2D: TOutline2D);
+var
+  i: Integer;
+  TmpLine2D: TLine2D;
+  P0, P1: TPoint2D;
+begin
+  AOutline2D.BeginUseProfilePoints;
+  for i := 0 to AOutline2D.ProfilePoints.Count - 2 do
+  begin
+    TmpLine2D := TLine2D.Create(-1, AOutline2D.ProfilePoints[i],
+      AOutline2D.ProfilePoints[i + 1]);
+    { TmpLine2D.Color      := AOutline2D.Color;
+      TmpLine2D.PenStyle   := AOutline2D.PenStyle;
+      TmpLine2D.PenWidth   := AOutline2D.PenWidth;
+      TmpLine2D.ArrowStyle := AOutline2D.ArrowStyle;
+      TmpLine2D.ReserveInt2:= AOutline2D.ReserveInt2;
+      TmpLine2D.ReserveStr1:= AOutline2D.ReserveStr1;
+      TmpLine2D.ReserveStr2:= AOutline2D.ReserveStr2;
+    }
+    TmpLine2D.Transform(AOutline2D.ModelTransform);
+    TCADCmp2D(AOutline2D.OwnerCAD).AddObject(TmpLine2D.ID, TmpLine2D);
+    // TmpLine2D.fReserveInt1:= AOutline2D.fReserveInt1;
+    TmpLine2D.Layer := AOutline2D.Layer;
+  end;
+  if (AOutline2D is TPolygon2D) then
+  begin
+    P0 := AOutline2D.ProfilePoints[AOutline2D.ProfilePoints.Count - 1];
+    P1 := AOutline2D.ProfilePoints[0];
+    TmpLine2D := TLine2D.Create(-1, P0, P1);
+    { TmpLine2D.Color    := AOutline2D.Color;
+      TmpLine2D.PenStyle := AOutline2D.PenStyle;
+      TmpLine2D.PenWidth := AOutline2D.PenWidth;
+      TmpLine2D.ArrowStyle := AOutline2D.ArrowStyle;
+      TmpLine2D.ReserveInt1:= AOutline2D.ReserveInt1;
+      TmpLine2D.ReserveInt2:= AOutline2D.ReserveInt2;
+      TmpLine2D.ReserveStr1:= AOutline2D.ReserveStr1;
+      TmpLine2D.ReserveStr2:= AOutline2D.ReserveStr2;
+    }
+    TmpLine2D.Transform(AOutline2D.ModelTransform);
+    TCADCmp2D(AOutline2D.OwnerCAD).AddObject(TmpLine2D.ID, TmpLine2D);
+    // TmpLine2D.fReserveInt1:= AOutline2D.fReserveInt1;
+    TmpLine2D.Layer := AOutline2D.Layer;
+
+  end;
+  AOutline2D.EndUseProfilePoints;
+end;
+
+procedure ExplodeOutline2D(AOutline2D: TOutline2D);
+var
+  i: Integer;
+  TmpLine2D: TLine2D;
+  TmpPolyline2D: TPolyline2D;
+  P0, P1: TPoint2D;
+begin
+  if AOutline2D is TPolyline2D then
+  begin
+    ExplodePolyline2DTPolygon2D(AOutline2D);
+    Exit;
+  end;
+  AOutline2D.BeginUseProfilePoints;
+  TmpPolyline2D := TPolyline2D.Create(-1, []);
+  for i := 0 to AOutline2D.ProfilePoints.Count - 1 do
+    TmpPolyline2D.Points.Add(AOutline2D.ProfilePoints[i]);
+  TmpPolyline2D.Transform(AOutline2D.ModelTransform);
+  TCADCmp2D(AOutline2D.OwnerCAD).AddObject(-1, TmpPolyline2D);
+  AOutline2D.EndUseProfilePoints;
+end;
+
+procedure ExplodeContainer(AContainer2D: TContainer2D; ADestCAD: TCADCmp2D);
+var
+  TmpIter: TExclusiveGraphicObjIterator;
+  TmpClass: TGraphicObjectClass;
+  TmpObj: TGraphicObject;
+begin
+  TmpIter := AContainer2D.Objects.GetExclusiveIterator;
+  TmpObj := TmpIter.First;
+  try
+    repeat
+      // if (TmpIter.Current is TCircle2D) then
+      // begin
+      // TmpObj := TCircle2D.Create(TmpIter.Current.ID, Point2D(0, 0), 0);
+      // TCircle2D(TmpObj).Assign(TCircle2D(TmpIter.Current));
+      // ADestCAD.AddObject(-1, TCircle2D(TmpObj));
+      // exit;
+      // end;
+      TmpClass := TGraphicObjectClass(TmpIter.Current.ClassType);
+      TmpObj := TmpClass.Create(TmpIter.Current.ID);
+      // if (TmpObj is TCircle2D) then
+      //
+      // TmpObj.Assign(TmpIter.Current);
+      if (TmpObj is TPrimitive2D) then
+      begin
+        TPrimitive2D(TmpObj).Transform(AContainer2D.ModelTransform);
+        ADestCAD.AddObject(-1, TObject2D(TmpObj));
+      end
+      else if (TmpObj is TContainer2D) then
+      begin
+        ExplodeContainer(TContainer2D(TmpObj), ADestCAD);
+      end;
+    until TmpIter.Next = nil;
+  finally
+    TmpIter.Free;
+  end;
+end;
+
+procedure ExplodeBlock(ABlock: TBlock2D; ADestCAD: TCADCmp2D);
+var
+  TmpIter: TExclusiveGraphicObjIterator;
+  TmpClass: TGraphicObjectClass;
+  TmpObj: TGraphicObject;
+begin
+  TmpIter := ABlock.SourceBlock.Objects.GetExclusiveIterator;
+  TmpObj := TmpIter.First;
+  try
+    repeat
+      TmpClass := TGraphicObjectClass(TmpIter.Current.ClassType);
+      TmpObj := TmpClass.Create(TmpIter.Current.ID);
+      TmpObj.Assign(TmpIter.Current);
+      if (TmpObj is TPrimitive2D) then
+      begin
+        TPrimitive2D(TmpObj).Transform(ABlock.ModelTransform);
+        ADestCAD.AddObject(-1, TObject2D(TmpObj));
+      end
+      else if (TmpObj is TBlock2D) then
+      begin
+        ExplodeBlock(TBlock2D(TmpObj), ADestCAD);
+      end;
+    until TmpIter.Next = nil;
+  finally
+    TmpIter.Free;
+  end;
+end;
+
+procedure ExplodeFrame2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+var
+  TmpPolygon2D: TPolygon2D;
+begin
+  TmpPolygon2D := TPolygon2D.Create(-1, []);
+  TmpPolygon2D.Assign(AObject2D);
+  TmpPolygon2D.ProfilePoints.Copy(TFrame2D(AObject2D).ProfilePoints, 0,
+    TFrame2D(AObject2D).ProfilePoints.Count - 2);
+  ADestCAD.AddObject(-1, TmpPolygon2D);
+end;
+
+procedure ExplodePolygon2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+var
+  TmpPolyline2D: TPolyline2D;
+begin
+  TmpPolyline2D := TPolyline2D.Create(-1, []);
+  TmpPolyline2D.Assign(TPolygon2D(AObject2D));
+  TmpPolyline2D.ProfilePoints.Copy(TPolygon2D(AObject2D).ProfilePoints, 0,
+    TPolygon2D(AObject2D).ProfilePoints.Count - 1);
+  TmpPolyline2D.ProfilePoints.Add(TPolygon2D(AObject2D).ProfilePoints[0]);
+  // TmpPolyline2D.Points.Add(TPolygon2D(AObject2D).ProfilePoints[0]);
+  TmpPolyline2D.UpdateExtension(nil);
+  ADestCAD.AddObject(-1, TmpPolyline2D);
+end;
+
+// procedure ExplodeSegment2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+// var TmpCircularArc2D: TCircularArc2D;  TmpLine2D: TLine2D;
+// begin
+// with TSegment2D(AObject2D) do
+// begin
+// TmpCircularArc2D := TCircularArc2D.Create(-1, MiddlePoint, Radius, StartAngle, EndAngle);
+// TmpCircularArc2D.Direction := Direction;
+// ADestCAD.AddObject(-1, TmpCircularArc2D);
+// TmpLine2D := TLine2D.Create(-1, TmpCircularArc2D.ProfilePoints[TmpCircularArc2D.ProfilePoints.Count -1], TmpCircularArc2D.MiddlePoint);
+// ADestCAD.AddObject(-1, TmpLine2D);
+// TmpLine2D := TLine2D.Create(-1, TmpCircularArc2D.MiddlePoint, TmpCircularArc2D.ProfilePoints[0]);
+// ADestCAD.AddObject(-1, TmpLine2D);
+// end;
+// end;
+//
+// procedure ExplodeSector2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+// var TmpCircularArc2D: TCircularArc2D;  TmpLine2D: TLine2D;
+// begin
+// with TSector2D(AObject2D) do
+// begin
+// TmpCircularArc2D := TCircularArc2D.Create(-1, MiddlePoint, Radius, StartAngle, EndAngle);
+// TmpCircularArc2D.Direction := Direction;
+// ADestCAD.AddObject(-1, TmpCircularArc2D);
+// TmpLine2D := TLine2D.Create(-1, TmpCircularArc2D.ProfilePoints[TmpCircularArc2D.ProfilePoints.Count -1], TmpCircularArc2D.ProfilePoints[0]);
+// ADestCAD.AddObject(-1, TmpLine2D);
+// end;
+// end;
+
+procedure Explode(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+begin
+  if (AObject2D is TPolygon2D) then
+    ExplodePolygon2D(AObject2D, ADestCAD)
+  else if (AObject2D is TFrame2D) then
+    ExplodeFrame2D(AObject2D, ADestCAD)
+    {
+      else if (AObject2D is TSegment2D) then
+      ExplodeSegment2D(AObject2D, ADestCAD)
+      else if (AObject2D is TSector2D) then
+      ExplodeSector2D(AObject2D, ADestCAD)
+    }
+  else if (AObject2D is TOutline2D) then
+    ExplodeOutline2D(TOutline2D(AObject2D))
+    // else if (AObject2D is TJustifiedVectText2D) then
+    // ExplodeJustifiedVectText2D(TJustifiedVectText2D(AObject2D))
+  else if (AObject2D is TContainer2D) then
+    ExplodeContainer(TContainer2D(AObject2D), ADestCAD)
+  else if (AObject2D is TBlock2D) then
+    // ExplodeContainer(TContainer2D(TBlock2D(AObject2D).SourceBlock), ADestCAD);
+    ExplodeBlock(TBlock2D(AObject2D), ADestCAD);
+end;
+
+constructor TCAD2DExplodeObjects.Create(const ACADPrg: TCADPrg;
+  const StateParam: TCADPrgParam; var NextState: TCADStateClass);
+var
+  TmpIter: TExclusiveGraphicObjIterator;
+begin
+  inherited;
+  // if Param is TCAD2DSelectObjectsParam then
+  // with TCAD2DSelectObjectsParam(Param) do
+  // begin
+  // TmpIter := SelectedObjects.GetExclusiveIterator;
+  // try
+  // TmpIter.First;
+  // while TmpIter.Current <> nil do
+  // begin
+  // if not (TmpIter.Current is TLine2D) then
+  // begin
+  // TObject2D(TmpIter.Current).Explode(true);
+  // if (not (TObject2D(TmpIter.Current) is TBitmap2D)) and (not (TObject2D(TmpIter.Current) is TJustifiedVectText2D))
+  // then TCADPrg2D(CADPrg).Viewport2D.CADCmp2D.DeleteObject(TmpIter.Current.ID);
+  // end;
+  // TmpIter.Next;
+  // end;
+  // finally
+  // TmpIter.Free;
+  // end;
+  // TCADPrg2D(CADPrg).Viewport2D.CADCmp2D.RepaintViewports;
+  // end;
+  // Param.Free;
+  // Param := nil;
+  // NextState := CADPrg.DefaultState;
+end;
+
+{ TCAD2DMakeContainer }
+
+constructor TCAD2DMakeContainer.Create(const ACADPrg: TCADPrg;
+  const StateParam: TCADPrgParam; var NextState: TCADStateClass);
+begin
+  inherited;
+
 end;
 
 end.

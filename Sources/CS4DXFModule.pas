@@ -16,9 +16,16 @@ unit CS4DXFModule;
 
 Interface
 
-uses WinApi.Windows, System.SysUtils, System.Classes, Vcl.Graphics,
+uses
+  WinApi.Windows,
+  System.SysUtils,
+  System.Classes,
+  System.UITypes,
+  Vcl.Graphics,
   Vcl.ComCtrls,
-  CADSys4, CS4BaseTypes, CS4Shapes;
+  CADSys4,
+  CS4BaseTypes,
+  CS4Shapes;
 
 type
   // -----===== Starting Cs4DXFReadWrite.pas =====-----
@@ -169,66 +176,70 @@ type
 
   // -----===== Starting Cs4DXF3DConverter.pas =====-----
 
-   TDXF3DImport = class(TObject)
-   private
-   fTextFont: TVectFont;
-   fScale: TRealType;
-   FDXFRead: TDXFRead;
-   FCADCmp3D: TCADCmp3D;
-   FAngleDir: TArcDirection;
-   FExtension: TRect3D;
-   fSetLayers: Boolean; // Se True i layers letti modificano quelli del CAD in base all'ordine di recupero.
-   fHasExtension, fAllowEmptyBlocks, fUnableToReadAll, fVerbose: Boolean;
-   FLayerList: TStringList; { Contain the name of the layers and the layer itself. }
-   FBlockList: TStringList; { Contain the name of the blocks and the block itself. }
+  TDXF3DImport = class(TObject)
+  private
+    fTextFont: TVectFont;
+    fScale: TRealType;
+    fDXFRead: TDXFRead;
+    FCADCmp3D: TCADCmp3D;
+    fAngleDir: TArcDirection;
+    fExtension: TRect3D;
+    fSetLayers: Boolean;
+    // Se True i layers letti modificano quelli del CAD in base all'ordine di recupero.
+    fHasExtension, fAllowEmptyBlocks, fUnableToReadAll, fVerbose: Boolean;
+    fLayerList: TStringList;
+    { Contain the name of the layers and the layer itself. }
+    fBlockList: TStringList;
+    { Contain the name of the blocks and the block itself. }
 
-   procedure ReadEntitiesAsContainer(const Container: TContainer3D);
-   { Read the DXF blocks. }
-   procedure ReadBlocks;
-   { Read the DXF entities. }
-   procedure ReadEntities;
-   protected
-   function ReadLine3D(Entry: TGroupTable): TLine3D;
-   function ReadCircle3D(Entry: TGroupTable): TEllipse3D;
-   function ReadEllipse3D(Entry: TGroupTable): TPlanarCurve3D;
-   function ReadArc3D(Entry: TGroupTable): TArc3D;
-   function ReadTrace3D(Entry: TGroupTable): TPolyline3D;
-   function ReadText3D(Entry: TGroupTable): TJustifiedVectText3D;
-   function ReadPolyline3D(Entry: TGroupTable): TPrimitive3D;
-   function ReadPlanarFace3D(Entry: TGroupTable): TPlanarFace3D;
-   function ReadSourceBlock(Entry: TGroupTable): TSourceBlock3D;
-   function ReadBlock(Entry: TGroupTable): TBlock3D; virtual;
-   function ReadEntity(IgnoreBlock: Boolean): TObject3D; virtual;
-   public
-   constructor Create(const FileName: String; const CAD: TCADCmp3D);
-   destructor Destroy; override;
+    procedure ReadEntitiesAsContainer(const Container: TContainer3D);
+    { Read the DXF blocks. }
+    procedure ReadBlocks;
+    { Read the DXF entities. }
+    procedure ReadEntities;
+  protected
+    function ReadLine3D(Entry: TGroupTable): TLine3D;
+    function ReadCircle3D(Entry: TGroupTable): TEllipse3D;
+    function ReadEllipse3D(Entry: TGroupTable): TPlanarCurve3D;
+    function ReadArc3D(Entry: TGroupTable): TArc3D;
+    function ReadTrace3D(Entry: TGroupTable): TPolyline3D;
+    function ReadText3D(Entry: TGroupTable): TJustifiedVectText3D;
+    function ReadPolyline3D(Entry: TGroupTable): TPrimitive3D;
+    function ReadPlanarFace3D(Entry: TGroupTable): TPlanarFace3D;
+    function ReadSourceBlock(Entry: TGroupTable): TSourceBlock3D;
+    function ReadBlock(Entry: TGroupTable): TBlock3D; virtual;
+    function ReadEntity(IgnoreBlock: Boolean): TObject3D; virtual;
+  public
+    constructor Create(const FileName: String; const CAD: TCADCmp3D);
+    destructor Destroy; override;
 
-   function GoToSection(Sect: TSections): Boolean;
-   procedure SetTextFont(F: TVectFont);
+    function GoToSection(Sect: TSections): Boolean;
+    procedure SetTextFont(F: TVectFont);
 
-   { Read the DXF headers. }
-   procedure ReadHeader;
-   { Read the DXF tables. }
-   procedure ReadTables;
-   { Read the DXF informations. }
-   procedure ReadDXF;
-   { Read the DXF informations as a block. }
-   function ReadDXFAsSourceBlock(const Name: TSourceBlockName): TSourceBlock3D;
-   { Read the DXF informations as a container. }
-   function ReadDXFAsContainer: TContainer3D;
+    { Read the DXF headers. }
+    procedure ReadHeader;
+    { Read the DXF tables. }
+    procedure ReadTables;
+    { Read the DXF informations. }
+    procedure ReadDXF;
+    { Read the DXF informations as a block. }
+    function ReadDXFAsSourceBlock(const Name: TSourceBlockName): TSourceBlock3D;
+    { Read the DXF informations as a container. }
+    function ReadDXFAsContainer: TContainer3D;
 
-   property DXFRead: TDXFRead read FDXFRead;
-   property Extension: TRect3D read FExtension;
-   property HasExtension: Boolean read fHasExtension;
-   property BlockList: TStringList read FBlockList;
-   property LayerList: TStringList read FLayerList;
-   property Scale: TRealType read fScale write fScale;
-   property SetLayers: Boolean read fSetLayers write fSetLayers;
-   property UnableToReadAllTheFile: Boolean read fUnableToReadAll;
-   { If TRUE empty blocks are read anyway. Default is True. }
-   property AllowEmptyBlocks: Boolean read fAllowEmptyBlocks write fAllowEmptyBlocks;
-   property Verbose: Boolean read fVerbose write fVerbose;
-   end;
+    property DXFRead: TDXFRead read fDXFRead;
+    property Extension: TRect3D read fExtension;
+    property HasExtension: Boolean read fHasExtension;
+    property BlockList: TStringList read fBlockList;
+    property LayerList: TStringList read fLayerList;
+    property Scale: TRealType read fScale write fScale;
+    property SetLayers: Boolean read fSetLayers write fSetLayers;
+    property UnableToReadAllTheFile: Boolean read fUnableToReadAll;
+    { If TRUE empty blocks are read anyway. Default is True. }
+    property AllowEmptyBlocks: Boolean read fAllowEmptyBlocks
+      write fAllowEmptyBlocks;
+    property Verbose: Boolean read fVerbose write fVerbose;
+  end;
 
 var
   Colors: array [0 .. 255] of TColor;
@@ -573,7 +584,7 @@ begin
   TmpRect.FirstEdge := Point2D(Entry[10], Entry[20]);
   TmpRect.SecondEdge := Point2D(Entry[10], Entry[20] + Entry[40]);
   Result := TJustifiedVectText2D.Create(0, fTextFont, TmpRect, Entry[40],
-    Entry[1]);
+    VarToStr(Entry[1]));
   if Entry[1] = 'F' then
   begin
     Result.DrawBox := True;
@@ -911,7 +922,7 @@ begin
           Pen.Color := Colors[Abs(Round(Real(Entry[62])))];
           Brush.Style := bsClear;
           Active := Entry[62] >= 0;
-          Name := Entry[2];
+          Name := VarToStr(Entry[2]);
         end;
       fLayerList.AddObject(Entry[2], fCADCmp2D.Layers[fLayerList.Count]);
     end;
@@ -1419,698 +1430,697 @@ end;
 
 { --================ DXF3DImport ==================-- }
 
- constructor TDXF3DImport.Create(const FileName: String; const CAD: TCADCmp3D);
- begin
-   inherited Create;
-   try
-     fTextFont := CADSysFindFontByIndex(0);
-   except
-   end;
-   fDXFRead := TDXFRead.Create(FileName);
-   FCADCmp3D := CAD;
-   fLayerList := TStringList.Create;
-   fBlockList := TStringList.Create;
-   fHasExtension := False;
-   fScale := 1.0;
-   fSetLayers := True;
-   fUnableToReadAll := False;
- end;
+constructor TDXF3DImport.Create(const FileName: String; const CAD: TCADCmp3D);
+begin
+  inherited Create;
+  try
+    fTextFont := CADSysFindFontByIndex(0);
+  except
+  end;
+  fDXFRead := TDXFRead.Create(FileName);
+  FCADCmp3D := CAD;
+  fLayerList := TStringList.Create;
+  fBlockList := TStringList.Create;
+  fHasExtension := False;
+  fScale := 1.0;
+  fSetLayers := True;
+  fUnableToReadAll := False;
+end;
 
- destructor TDXF3DImport.Destroy;
- begin
-   fDXFRead.Free;
-   fLayerList.Free;
-   fBlockList.Free;
-   inherited Destroy;
- end;
+destructor TDXF3DImport.Destroy;
+begin
+  fDXFRead.Free;
+  fLayerList.Free;
+  fBlockList.Free;
+  inherited Destroy;
+end;
 
- function TDXF3DImport.GoToSection(Sect: TSections): Boolean;
- begin
-   fDXFRead.Rewind;
-   while (fDXFRead.CurrentSection <> scUnknow) and
-     (fDXFRead.CurrentSection <> Sect) do
-     fDXFRead.NextSection;
-   Result := fDXFRead.CurrentSection = Sect;
- end;
+function TDXF3DImport.GoToSection(Sect: TSections): Boolean;
+begin
+  fDXFRead.Rewind;
+  while (fDXFRead.CurrentSection <> scUnknow) and
+    (fDXFRead.CurrentSection <> Sect) do
+    fDXFRead.NextSection;
+  Result := fDXFRead.CurrentSection = Sect;
+end;
 
- procedure TDXF3DImport.SetTextFont(F: TVectFont);
- begin
-   fTextFont := F;
- end;
+procedure TDXF3DImport.SetTextFont(F: TVectFont);
+begin
+  fTextFont := F;
+end;
 
- procedure TDXF3DImport.ReadDXF;
- begin
-   if FCADCmp3D = nil then
-     Exit;
-   fDXFRead.Rewind;
-   while (fDXFRead.CurrentSection <> scUnknow) do
-   begin
-     case fDXFRead.CurrentSection of
-       scHeader:
-         ReadHeader;
-       scTables:
-         ReadTables;
-       scBlocks:
-         ReadBlocks;
-       scEntities:
-         ReadEntities;
-     end;
-     fDXFRead.NextSection;
-   end;
- end;
+procedure TDXF3DImport.ReadDXF;
+begin
+  if FCADCmp3D = nil then
+    Exit;
+  fDXFRead.Rewind;
+  while (fDXFRead.CurrentSection <> scUnknow) do
+  begin
+    case fDXFRead.CurrentSection of
+      scHeader:
+        ReadHeader;
+      scTables:
+        ReadTables;
+      scBlocks:
+        ReadBlocks;
+      scEntities:
+        ReadEntities;
+    end;
+    fDXFRead.NextSection;
+  end;
+end;
 
- procedure TDXF3DImport.ReadEntitiesAsContainer(const Container: TContainer3D);
- var
-   Tmp: TObject3D;
-   ID: Integer;
- begin
-   ID := 0;
-   while DXFRead.GroupValue <> 'ENDSEC' do
-   begin
-     Tmp := ReadEntity(True);
-     if Assigned(Tmp) then
-     begin
-       Tmp.Transform(Scale3D(fScale, fScale, fScale));
-       Tmp.ApplyTransform;
-       Tmp.ID := ID;
-       Container.Objects.Add(Tmp);
-       Inc(ID)
-     end
-     else
-       fUnableToReadAll := True;
-   end;
-   Container.UpdateExtension(Self);
- end;
+procedure TDXF3DImport.ReadEntitiesAsContainer(const Container: TContainer3D);
+var
+  Tmp: TObject3D;
+  ID: Integer;
+begin
+  ID := 0;
+  while DXFRead.GroupValue <> 'ENDSEC' do
+  begin
+    Tmp := ReadEntity(True);
+    if Assigned(Tmp) then
+    begin
+      Tmp.Transform(Scale3D(fScale, fScale, fScale));
+      Tmp.ApplyTransform;
+      Tmp.ID := ID;
+      Container.Objects.Add(Tmp);
+      Inc(ID)
+    end
+    else
+      fUnableToReadAll := True;
+  end;
+  Container.UpdateExtension(Self);
+end;
 
- function TDXF3DImport.ReadDXFAsSourceBlock(const Name: TSourceBlockName)
-   : TSourceBlock3D;
- begin
-   ReadHeader;
-   Result := TSourceBlock3D.Create(0, Name, [nil]);
-   try
-     fDXFRead.Rewind;
-     while (fDXFRead.CurrentSection <> scUnknow) do
-     begin
-       if fDXFRead.CurrentSection = scEntities then
-         ReadEntitiesAsContainer(Result);
-       fDXFRead.NextSection;
-     end;
-     Result.UpdateExtension(Self);
-   except
-     on Exception do
-     begin
-       Result.Free;
-       Result := nil;
-     end;
-   end;
- end;
+function TDXF3DImport.ReadDXFAsSourceBlock(const Name: TSourceBlockName)
+  : TSourceBlock3D;
+begin
+  ReadHeader;
+  Result := TSourceBlock3D.Create(0, Name, [nil]);
+  try
+    fDXFRead.Rewind;
+    while (fDXFRead.CurrentSection <> scUnknow) do
+    begin
+      if fDXFRead.CurrentSection = scEntities then
+        ReadEntitiesAsContainer(Result);
+      fDXFRead.NextSection;
+    end;
+    Result.UpdateExtension(Self);
+  except
+    on Exception do
+    begin
+      Result.Free;
+      Result := nil;
+    end;
+  end;
+end;
 
- function TDXF3DImport.ReadDXFAsContainer: TContainer3D;
- begin
-   ReadHeader;
-   Result := TContainer3D.Create(0, [nil]);
-   try
-     fDXFRead.Rewind;
-     while (fDXFRead.CurrentSection <> scUnknow) do
-     begin
-       if fDXFRead.CurrentSection = scEntities then
-         ReadEntitiesAsContainer(Result);
-       fDXFRead.NextSection;
-     end;
-     Result.UpdateExtension(Self);
-   except
-     on Exception do
-     begin
-       Result.Free;
-       Result := nil;
-     end;
-   end;
- end;
+function TDXF3DImport.ReadDXFAsContainer: TContainer3D;
+begin
+  ReadHeader;
+  Result := TContainer3D.Create(0, [nil]);
+  try
+    fDXFRead.Rewind;
+    while (fDXFRead.CurrentSection <> scUnknow) do
+    begin
+      if fDXFRead.CurrentSection = scEntities then
+        ReadEntitiesAsContainer(Result);
+      fDXFRead.NextSection;
+    end;
+    Result.UpdateExtension(Self);
+  except
+    on Exception do
+    begin
+      Result.Free;
+      Result := nil;
+    end;
+  end;
+end;
 
- procedure TDXF3DImport.ReadHeader;
- var
-   Entry: TGroupTable;
- begin
-   fHasExtension := False;
-   fAngleDir := adCounterClockwise;
-   while fDXFRead.ReadAnEntry(9, {%H-}Entry) <> 0 do
-   begin
-     if Entry[9] = '$ANGDIR' then
-     begin
-       if Entry[70] = 1 then
-         fAngleDir := adClockwise
-       else
-         fAngleDir := adCounterClockwise
-     end
-     else if Entry[9] = '$EXTMAX' then
-     begin
-       fExtension.Right := Entry[10];
-       fExtension.Top := Entry[20];
-       fExtension.Front := Entry[30];
-       fHasExtension := True;
-     end
-     else if Entry[9] = '$EXTMIN' then
-     begin
-       fExtension.Left := Entry[10];
-       fExtension.Bottom := Entry[20];
-       fExtension.Back := Entry[30];
-       fHasExtension := True;
-     end;
-   end;
-   if fHasExtension then
-     fExtension := ReOrderRect3D(fExtension);
- end;
+procedure TDXF3DImport.ReadHeader;
+var
+  Entry: TGroupTable;
+begin
+  fHasExtension := False;
+  fAngleDir := adCounterClockwise;
+  while fDXFRead.ReadAnEntry(9, {%H-}Entry) <> 0 do
+  begin
+    if Entry[9] = '$ANGDIR' then
+    begin
+      if Entry[70] = 1 then
+        fAngleDir := adClockwise
+      else
+        fAngleDir := adCounterClockwise
+    end
+    else if Entry[9] = '$EXTMAX' then
+    begin
+      fExtension.Right := Entry[10];
+      fExtension.Top := Entry[20];
+      fExtension.Front := Entry[30];
+      fHasExtension := True;
+    end
+    else if Entry[9] = '$EXTMIN' then
+    begin
+      fExtension.Left := Entry[10];
+      fExtension.Bottom := Entry[20];
+      fExtension.Back := Entry[30];
+      fHasExtension := True;
+    end;
+  end;
+  if fHasExtension then
+    fExtension := ReOrderRect3D(fExtension);
+end;
 
- procedure TDXF3DImport.ReadTables;
- var
-   Entry: TGroupTable;
- begin
-   if FCADCmp3D = nil then
-     Exit;
-   fDXFRead.ReadAnEntry(0, {%H-}Entry);
-   while fDXFRead.GroupValue <> 'ENDSEC' do
-   begin
-     if Entry[0] = 'LAYER' then
-     begin
-       if fSetLayers then
-         with FCADCmp3D.Layers[fLayerList.Count] do
-         begin
-           Pen.Color := Colors[Abs(Round(Double(Entry[62])))];
-           Brush.Style := bsClear;
-           Active := Entry[62] >= 0;
-           Name := Entry[2];
-         end;
-       fLayerList.AddObject(Entry[2], FCADCmp3D.Layers[fLayerList.Count]);
-     end;
-     fDXFRead.ReadAnEntry(0, Entry);
-   end;
- end;
+procedure TDXF3DImport.ReadTables;
+var
+  Entry: TGroupTable;
+begin
+  if FCADCmp3D = nil then
+    Exit;
+  fDXFRead.ReadAnEntry(0, {%H-}Entry);
+  while fDXFRead.GroupValue <> 'ENDSEC' do
+  begin
+    if Entry[0] = 'LAYER' then
+    begin
+      if fSetLayers then
+        with FCADCmp3D.Layers[fLayerList.Count] do
+        begin
+          Pen.Color := Colors[Abs(Round(Double(Entry[62])))];
+          Brush.Style := bsClear;
+          Active := Entry[62] >= 0;
+          Name := VarToStr(Entry[2]);
+        end;
+      fLayerList.AddObject(Entry[2], FCADCmp3D.Layers[fLayerList.Count]);
+    end;
+    fDXFRead.ReadAnEntry(0, Entry);
+  end;
+end;
 
- procedure TDXF3DImport.ReadEntities;
- var
-   Tmp: TObject3D;
- begin
-   if FCADCmp3D = nil then
-     Exit;
-   while DXFRead.GroupValue <> 'ENDSEC' do
-   begin
-     Tmp := ReadEntity(False);
-     if Assigned(Tmp) then
-     begin
-       Tmp.Transform(Scale3D(fScale, fScale, fScale));
-       Tmp.ApplyTransform;
-       FCADCmp3D.AddObject(-1, Tmp);
-     end
-     else
-       fUnableToReadAll := True;
-   end;
- end;
+procedure TDXF3DImport.ReadEntities;
+var
+  Tmp: TObject3D;
+begin
+  if FCADCmp3D = nil then
+    Exit;
+  while DXFRead.GroupValue <> 'ENDSEC' do
+  begin
+    Tmp := ReadEntity(False);
+    if Assigned(Tmp) then
+    begin
+      Tmp.Transform(Scale3D(fScale, fScale, fScale));
+      Tmp.ApplyTransform;
+      FCADCmp3D.AddObject(-1, Tmp);
+    end
+    else
+      fUnableToReadAll := True;
+  end;
+end;
 
- procedure TDXF3DImport.ReadBlocks;
- var
-   Entry: TGroupTable;
-   Tmp: TSourceBlock3D;
-   NLayer: Integer;
- begin
-   if FCADCmp3D = nil then
-     Exit;
-   while DXFRead.GroupValue <> 'ENDSEC' do
-   begin
-     fDXFRead.ReadAnEntry(0, {%H-}Entry);
-     NLayer := fLayerList.IndexOf(Entry[8]);
-     if NLayer > -1 then
-       FCADCmp3D.CurrentLayer := NLayer;
-     if (Entry[0] = 'BLOCK') then
-     begin
-       Tmp := ReadSourceBlock(Entry);
-       if Assigned(Tmp) then
-         FCADCmp3D.AddSourceBlock(Tmp);
-     end;
-   end;
- end;
+procedure TDXF3DImport.ReadBlocks;
+var
+  Entry: TGroupTable;
+  Tmp: TSourceBlock3D;
+  NLayer: Integer;
+begin
+  if FCADCmp3D = nil then
+    Exit;
+  while DXFRead.GroupValue <> 'ENDSEC' do
+  begin
+    fDXFRead.ReadAnEntry(0, {%H-}Entry);
+    NLayer := fLayerList.IndexOf(Entry[8]);
+    if NLayer > -1 then
+      FCADCmp3D.CurrentLayer := NLayer;
+    if (Entry[0] = 'BLOCK') then
+    begin
+      Tmp := ReadSourceBlock(Entry);
+      if Assigned(Tmp) then
+        FCADCmp3D.AddSourceBlock(Tmp);
+    end;
+  end;
+end;
 
- function TDXF3DImport.ReadLine3D(Entry: TGroupTable): TLine3D;
- begin
-   Result := TLine3D.Create(-1, Point3D(Entry[10], Entry[20], Entry[30]),
-     Point3D(Entry[11], Entry[21], Entry[31]));
- end;
+function TDXF3DImport.ReadLine3D(Entry: TGroupTable): TLine3D;
+begin
+  Result := TLine3D.Create(-1, Point3D(Entry[10], Entry[20], Entry[30]),
+    Point3D(Entry[11], Entry[21], Entry[31]));
+end;
 
- function TDXF3DImport.ReadEllipse3D(Entry: TGroupTable): TPlanarCurve3D;
- var
-   CenterPt, MajorAx: TPoint3D;
-   XAx, YAx, NAx: TVector3D;
-   MinorLen, MajorLen, SA, EA: TRealType;
- begin
-   CenterPt := Point3D(Entry[10], Entry[20], Entry[30]);
-   MajorAx := Point3D(Entry[11], Entry[21], Entry[31]);
-   MinorLen := Entry[40];
-   MajorLen := PointDistance3D(CenterPt, MajorAx);
-   SA := Entry[41];
-   EA := Entry[42];
+function TDXF3DImport.ReadEllipse3D(Entry: TGroupTable): TPlanarCurve3D;
+var
+  CenterPt, MajorAx: TPoint3D;
+  XAx, YAx, NAx: TVector3D;
+  MinorLen, MajorLen, SA, EA: TRealType;
+begin
+  CenterPt := Point3D(Entry[10], Entry[20], Entry[30]);
+  MajorAx := Point3D(Entry[11], Entry[21], Entry[31]);
+  MinorLen := Entry[40];
+  MajorLen := PointDistance3D(CenterPt, MajorAx);
+  SA := Entry[41];
+  EA := Entry[42];
 
-   XAx := Direction3D(CenterPt, MajorAx);
-   if VarType(Entry[210]) <> 0 then
-     NAx := Versor3D(Entry[210], Entry[220], Entry[230])
-   else
-     NAx := Versor3D(0, 0, 1);
-   YAx := CrossProd3D(NAx, XAx);
+  XAx := Direction3D(CenterPt, MajorAx);
+  if VarType(Entry[210]) <> 0 then
+    NAx := Versor3D(Entry[210], Entry[220], Entry[230])
+  else
+    NAx := Versor3D(0, 0, 1);
+  YAx := CrossProd3D(NAx, XAx);
 
-   if (SA = 0.0) and (EA = 2 * Pi) then
-     // Ellisse completa
-     Result := TEllipse3D.Create(0, CenterPt, XAx, YAx, CenterPt, CenterPt)
-   else
-     // Arco di ellisse
-     Result := TArc3D.Create(0, CenterPt, XAx, YAx, CenterPt, CenterPt, SA, EA);
-   with Result do
-   begin
-     MajorAx := ExtrudePoint3D(CenterPt, XAx, -MajorLen);
-     MajorAx := ExtrudePoint3D(MajorAx, YAx, -MinorLen);
-     Points[0] := Result.WorldToObject(MajorAx);
-     MajorAx := ExtrudePoint3D(CenterPt, XAx, MajorLen);
-     MajorAx := ExtrudePoint3D(MajorAx, YAx, MinorLen);
-     Points[1] := Result.WorldToObject(MajorAx);
-   end;
- end;
+  if (SA = 0.0) and (EA = 2 * Pi) then
+    // Ellisse completa
+    Result := TEllipse3D.Create(0, CenterPt, XAx, YAx, CenterPt, CenterPt)
+  else
+    // Arco di ellisse
+    Result := TArc3D.Create(0, CenterPt, XAx, YAx, CenterPt, CenterPt, SA, EA);
+  with Result do
+  begin
+    MajorAx := ExtrudePoint3D(CenterPt, XAx, -MajorLen);
+    MajorAx := ExtrudePoint3D(MajorAx, YAx, -MinorLen);
+    Points[0] := Result.WorldToObject(MajorAx);
+    MajorAx := ExtrudePoint3D(CenterPt, XAx, MajorLen);
+    MajorAx := ExtrudePoint3D(MajorAx, YAx, MinorLen);
+    Points[1] := Result.WorldToObject(MajorAx);
+  end;
+end;
 
- function TDXF3DImport.ReadCircle3D(Entry: TGroupTable): TEllipse3D;
- var
-   CenterPt, P1, P2: TPoint3D;
-   XAx, YAx, NAx: TVector3D;
-   Radious: TRealType;
- begin
-   CenterPt := Point3D(Entry[10], Entry[20], Entry[30]);
-   Radious := Entry[40];
-   if VarType(Entry[210]) <> 0 then
-     NAx := Versor3D(Entry[210], Entry[220], Entry[230])
-   else
-     NAx := Versor3D(0, 0, 1);
-   XAx := Versor3D(1, 0, 0);
-   YAx := CrossProd3D(NAx, XAx);
+function TDXF3DImport.ReadCircle3D(Entry: TGroupTable): TEllipse3D;
+var
+  CenterPt, P1, P2: TPoint3D;
+  XAx, YAx, NAx: TVector3D;
+  Radious: TRealType;
+begin
+  CenterPt := Point3D(Entry[10], Entry[20], Entry[30]);
+  Radious := Entry[40];
+  if VarType(Entry[210]) <> 0 then
+    NAx := Versor3D(Entry[210], Entry[220], Entry[230])
+  else
+    NAx := Versor3D(0, 0, 1);
+  XAx := Versor3D(1, 0, 0);
+  YAx := CrossProd3D(NAx, XAx);
 
-   P1 := ExtrudePoint3D(CenterPt, XAx, -Radious);
-   P1 := ExtrudePoint3D(P1, YAx, -Radious);
-   P2 := ExtrudePoint3D(CenterPt, XAx, Radious);
-   P2 := ExtrudePoint3D(P2, YAx, Radious);
-   Result := TEllipse3D.Create(-1, CenterPt, XAx, YAx, Point3D(0, 0, 0),
-     Point3D(10, 10, 0));
-   // I punti di controllo sono in coordinate oggetto.
-   Result.Points[0] := Result.WorldToObject(Result.Points[0]);
-   Result.Points[1] := Result.WorldToObject(Result.Points[1]);
- end;
+  P1 := ExtrudePoint3D(CenterPt, XAx, -Radious);
+  P1 := ExtrudePoint3D(P1, YAx, -Radious);
+  P2 := ExtrudePoint3D(CenterPt, XAx, Radious);
+  P2 := ExtrudePoint3D(P2, YAx, Radious);
+  Result := TEllipse3D.Create(-1, CenterPt, XAx, YAx, Point3D(0, 0, 0),
+    Point3D(10, 10, 0));
+  // I punti di controllo sono in coordinate oggetto.
+  Result.Points[0] := Result.WorldToObject(Result.Points[0]);
+  Result.Points[1] := Result.WorldToObject(Result.Points[1]);
+end;
 
- function TDXF3DImport.ReadArc3D(Entry: TGroupTable): TArc3D;
- var
-   CenterPt, P1, P2: TPoint3D;
-   XAx, YAx, NAx: TVector3D;
-   SA, EA, Radious: TRealType;
- begin
-   CenterPt := Point3D(Entry[10], Entry[20], Entry[30]);
-   Radious := Entry[40];
-   SA := Entry[50];
-   EA := Entry[51];
-   if VarType(Entry[210]) <> 0 then
-     NAx := Versor3D(Entry[210], Entry[220], Entry[230])
-   else
-     NAx := Versor3D(0, 0, 1);
-   XAx := Versor3D(1, 0, 0);
-   YAx := CrossProd3D(NAx, XAx);
+function TDXF3DImport.ReadArc3D(Entry: TGroupTable): TArc3D;
+var
+  CenterPt, P1, P2: TPoint3D;
+  XAx, YAx, NAx: TVector3D;
+  SA, EA, Radious: TRealType;
+begin
+  CenterPt := Point3D(Entry[10], Entry[20], Entry[30]);
+  Radious := Entry[40];
+  SA := Entry[50];
+  EA := Entry[51];
+  if VarType(Entry[210]) <> 0 then
+    NAx := Versor3D(Entry[210], Entry[220], Entry[230])
+  else
+    NAx := Versor3D(0, 0, 1);
+  XAx := Versor3D(1, 0, 0);
+  YAx := CrossProd3D(NAx, XAx);
 
-   P1 := ExtrudePoint3D(CenterPt, XAx, -Radious);
-   P1 := ExtrudePoint3D(P1, YAx, -Radious);
-   P2 := ExtrudePoint3D(CenterPt, XAx, Radious);
-   P2 := ExtrudePoint3D(P2, YAx, Radious);
+  P1 := ExtrudePoint3D(CenterPt, XAx, -Radious);
+  P1 := ExtrudePoint3D(P1, YAx, -Radious);
+  P2 := ExtrudePoint3D(CenterPt, XAx, Radious);
+  P2 := ExtrudePoint3D(P2, YAx, Radious);
 
-   Result := TArc3D.Create(-1, CenterPt, XAx, YAx, Point3D(0, 0, 0),
-     Point3D(10, 10, 0), SA, EA);
-   // I punti di controllo sono in coordinate oggetto.
-   Result.Points[0] := Result.WorldToObject(Result.Points[0]);
-   Result.Points[1] := Result.WorldToObject(Result.Points[1]);
-   Result.Direction := fAngleDir;
- end;
+  Result := TArc3D.Create(-1, CenterPt, XAx, YAx, Point3D(0, 0, 0),
+    Point3D(10, 10, 0), SA, EA);
+  // I punti di controllo sono in coordinate oggetto.
+  Result.Points[0] := Result.WorldToObject(Result.Points[0]);
+  Result.Points[1] := Result.WorldToObject(Result.Points[1]);
+  Result.Direction := fAngleDir;
+end;
 
- function TDXF3DImport.ReadTrace3D(Entry: TGroupTable): TPolyline3D;
- var
-   P1, P2, P3, P4: TPoint3D;
- begin
-   P1 := Point3D(Entry[10], Entry[20], Entry[30]);
-   P2 := Point3D(Entry[11], Entry[21], Entry[31]);
-   P3 := Point3D(Entry[12], Entry[22], Entry[32]);
-   P4 := Point3D(Entry[13], Entry[23], Entry[33]);
-   Result := TPolyline3D.Create(0, [P1, P2, P3, P4]);
- end;
+function TDXF3DImport.ReadTrace3D(Entry: TGroupTable): TPolyline3D;
+var
+  P1, P2, P3, P4: TPoint3D;
+begin
+  P1 := Point3D(Entry[10], Entry[20], Entry[30]);
+  P2 := Point3D(Entry[11], Entry[21], Entry[31]);
+  P3 := Point3D(Entry[12], Entry[22], Entry[32]);
+  P4 := Point3D(Entry[13], Entry[23], Entry[33]);
+  Result := TPolyline3D.Create(0, [P1, P2, P3, P4]);
+end;
 
- function TDXF3DImport.ReadText3D(Entry: TGroupTable): TJustifiedVectText3D;
- var
-   TmpRect: TRect2D;
-   YAx, NAx: TVector3D;
-   P: TPoint3D;
- begin
-   Result := nil;
-   if fTextFont = nil then
-     Exit;
-   // Trova i parametri del piano.
-   if VarType(Entry[210]) <> 0 then
-     NAx := Versor3D(Entry[210], Entry[220], Entry[230])
-   else
-     NAx := Versor3D(0, 0, 1);
-   if IsSameVector3D(CrossProd3D(NAx, Versor3D(0, 1, 0)), Versor3D(0, 0, 0))
-   then
-     YAx := Versor3D(1, 0, 0)
-   else
-     YAx := Versor3D(0, 1, 0);
-   P := Point3D(Entry[10], Entry[20], Entry[30]);
-   TmpRect.FirstEdge := Point2D(0, 0);
-   TmpRect.SecondEdge := Point2D(0, 0);
-   Result := TJustifiedVectText3D.Create(-1, P, NAx, YAx, fTextFont, TmpRect,
-     Entry[40], Entry[1]);
-   if VarType(Entry[72]) <> 0 then
-   begin
-     case Entry[72] of
-       1:
-         Result.HorizontalJust := jhCenter;
-       2:
-         Result.HorizontalJust := jhRight;
-     end;
-     case Entry[73] of
-       1:
-         Result.VerticalJust := jvBottom;
-       2:
-         Result.VerticalJust := jvCenter;
-     end;
-   end;
-   if VarType(Entry[50]) <> varEmpty then
-     Result.Transform(RotateOnAxis3D(P, NAx, Entry[50]));
- end;
+function TDXF3DImport.ReadText3D(Entry: TGroupTable): TJustifiedVectText3D;
+var
+  TmpRect: TRect2D;
+  YAx, NAx: TVector3D;
+  P: TPoint3D;
+begin
+  Result := nil;
+  if fTextFont = nil then
+    Exit;
+  // Trova i parametri del piano.
+  if VarType(Entry[210]) <> 0 then
+    NAx := Versor3D(Entry[210], Entry[220], Entry[230])
+  else
+    NAx := Versor3D(0, 0, 1);
+  if IsSameVector3D(CrossProd3D(NAx, Versor3D(0, 1, 0)), Versor3D(0, 0, 0)) then
+    YAx := Versor3D(1, 0, 0)
+  else
+    YAx := Versor3D(0, 1, 0);
+  P := Point3D(Entry[10], Entry[20], Entry[30]);
+  TmpRect.FirstEdge := Point2D(0, 0);
+  TmpRect.SecondEdge := Point2D(0, 0);
+  Result := TJustifiedVectText3D.Create(-1, P, NAx, YAx, fTextFont, TmpRect,
+    Entry[40], VarToStr(Entry[1]));
+  if VarType(Entry[72]) <> 0 then
+  begin
+    case Entry[72] of
+      1:
+        Result.HorizontalJust := jhCenter;
+      2:
+        Result.HorizontalJust := jhRight;
+    end;
+    case Entry[73] of
+      1:
+        Result.VerticalJust := jvBottom;
+      2:
+        Result.VerticalJust := jvCenter;
+    end;
+  end;
+  if VarType(Entry[50]) <> varEmpty then
+    Result.Transform(RotateOnAxis3D(P, NAx, Entry[50]));
+end;
 
- function TDXF3DImport.ReadPolyline3D(Entry: TGroupTable): TPrimitive3D;
- var
-   LocalEntry: TGroupTable;
-   IsClosedInM, IsMesh3D, IsPolyFace3D, IsSpline3D: Boolean;
-   V1, V2, V3, V4, Cont: Integer;
- begin
-   // Considera le polilinee 2D e 3D alla stessa maniera.
-   // Determina i flags della polilinea.
-   if VarType(Entry[70]) <> varEmpty then
-   begin
-     IsClosedInM := (Entry[70] and 1) = 1;
-     IsMesh3D := (Entry[70] and 16) = 16;
-     IsPolyFace3D := (Entry[70] and 64) = 64;
-     IsSpline3D := ((Entry[70] and 2) = 2) or ((Entry[70] and 4) = 4);
-   end
-   else
-   begin
-     IsClosedInM := False;
-     IsMesh3D := False;
-     IsSpline3D := False;
-     IsPolyFace3D := False;
-   end;
+function TDXF3DImport.ReadPolyline3D(Entry: TGroupTable): TPrimitive3D;
+var
+  LocalEntry: TGroupTable;
+  IsClosedInM, IsMesh3D, IsPolyFace3D, IsSpline3D: Boolean;
+  V1, V2, V3, V4, Cont: Integer;
+begin
+  // Considera le polilinee 2D e 3D alla stessa maniera.
+  // Determina i flags della polilinea.
+  if VarType(Entry[70]) <> varEmpty then
+  begin
+    IsClosedInM := (Entry[70] and 1) = 1;
+    IsMesh3D := (Entry[70] and 16) = 16;
+    IsPolyFace3D := (Entry[70] and 64) = 64;
+    IsSpline3D := ((Entry[70] and 2) = 2) or ((Entry[70] and 4) = 4);
+  end
+  else
+  begin
+    IsClosedInM := False;
+    IsMesh3D := False;
+    IsSpline3D := False;
+    IsPolyFace3D := False;
+  end;
 
-   if IsPolyFace3D then
-   begin
-     Result := TPolyface3D.Create(-1, Entry[71], Entry[72], [Point3D(0, 0, 0)]);
-     Result.Points.Delete(0);
-     Cont := 0;
-     // Leggo i punti della polyface.
-     fDXFRead.ReadAnEntry(0, {%H-}LocalEntry);
-     while LocalEntry[0] = 'VERTEX' do
-       with TPolyface3D(Result) do
-       begin
-         if (VarType(LocalEntry[70]) <> varEmpty) and
-           ((LocalEntry[70] and 128) = 128) then
-         begin
-           if ((LocalEntry[70] and 64) = 64) then
-             Points.Add(Point3D(LocalEntry[10], LocalEntry[20], LocalEntry[30]))
-           else
-           begin
-             if VarType(LocalEntry[71]) <> varEmpty then
-               V1 := LocalEntry[71]
-             else
-               V1 := 0;
-             if VarType(LocalEntry[72]) <> varEmpty then
-               V2 := LocalEntry[72]
-             else
-               V2 := 0;
-             if VarType(LocalEntry[73]) <> varEmpty then
-               V3 := LocalEntry[73]
-             else
-               V3 := 0;
-             if VarType(LocalEntry[74]) <> varEmpty then
-               V4 := LocalEntry[74]
-             else
-               V4 := 0;
-             AddFace(Cont, V1, V2, V3, V4);
-             Inc(Cont);
-           end;
-         end;
-         fDXFRead.ReadAnEntry(0, LocalEntry);
-       end;
-   end
-   else if IsSpline3D then
-   begin // Leggo la spline3D
-     Result := TPolyline3D.Create(0, [Point3D(0, 0, 0)]);
-     Result.Points.Delete(0);
-     // Leggo soli punti aggiunti, quindi gruppo 70 con bit 8.
-     fDXFRead.ReadAnEntry(0, LocalEntry);
-     while LocalEntry[0] = 'VERTEX' do
-     begin
-       if (VarType(LocalEntry[70]) <> varEmpty) and ((LocalEntry[70] and 1) = 1)
-         or ((LocalEntry[70] and 8) = 8) then
-         Result.Points.Add(Point3D(LocalEntry[10], LocalEntry[20],
-           LocalEntry[30]));
-       fDXFRead.ReadAnEntry(0, LocalEntry);
-     end;
-     if Result.Points.Count = 0 then
-     begin // La spline è stata creata senza i punti aggiuntivi.
-       Result.Free;
-       Result := nil;
-       if fVerbose then
-         ShowMessage('Spline without spline-fitting isn''t supported.');
-     end;
-   end
-   else if IsMesh3D then
-   begin // Leggo la mesh3D
-     Result := TMesh3D.Create(-1, Entry[71], Entry[72], [Point3D(0, 0, 0)]);
-     Result.Points.Delete(0);
-     // Leggo i punti della mesh.
-     fDXFRead.ReadAnEntry(0, LocalEntry);
-     while LocalEntry[0] = 'VERTEX' do
-     begin
-       if (VarType(LocalEntry[70]) <> varEmpty) and
-         ((LocalEntry[70] and 64) = 64) then
-         Result.Points.Add(Point3D(LocalEntry[10], LocalEntry[20],
-           LocalEntry[30]));
-       fDXFRead.ReadAnEntry(0, LocalEntry);
-     end;
-   end
-   else
-   begin // Leggo la polilinea3D
-     Result := TPolyline3D.Create(0, [Point3D(0, 0, 0)]);
-     Result.Points.Delete(0);
-     // Leggo tutti i punti.
-     fDXFRead.ReadAnEntry(0, LocalEntry);
-     while LocalEntry[0] = 'VERTEX' do
-     begin
-       Result.Points.Add(Point3D(LocalEntry[10], LocalEntry[20],
-         LocalEntry[30]));
-       fDXFRead.ReadAnEntry(0, LocalEntry);
-     end;
-     if IsClosedInM then // la chiudo.
-       Result.Points.Add(Result.Points[0]);
-   end;
-   if (LocalEntry[0] <> 'SEQEND') then
-     Raise EDXFInvalidDXF.Create('Invalid DXF file.');
- end;
+  if IsPolyFace3D then
+  begin
+    Result := TPolyface3D.Create(-1, Entry[71], Entry[72], [Point3D(0, 0, 0)]);
+    Result.Points.Delete(0);
+    Cont := 0;
+    // Leggo i punti della polyface.
+    fDXFRead.ReadAnEntry(0, {%H-}LocalEntry);
+    while LocalEntry[0] = 'VERTEX' do
+      with TPolyface3D(Result) do
+      begin
+        if (VarType(LocalEntry[70]) <> varEmpty) and
+          ((LocalEntry[70] and 128) = 128) then
+        begin
+          if ((LocalEntry[70] and 64) = 64) then
+            Points.Add(Point3D(LocalEntry[10], LocalEntry[20], LocalEntry[30]))
+          else
+          begin
+            if VarType(LocalEntry[71]) <> varEmpty then
+              V1 := LocalEntry[71]
+            else
+              V1 := 0;
+            if VarType(LocalEntry[72]) <> varEmpty then
+              V2 := LocalEntry[72]
+            else
+              V2 := 0;
+            if VarType(LocalEntry[73]) <> varEmpty then
+              V3 := LocalEntry[73]
+            else
+              V3 := 0;
+            if VarType(LocalEntry[74]) <> varEmpty then
+              V4 := LocalEntry[74]
+            else
+              V4 := 0;
+            AddFace(Cont, V1, V2, V3, V4);
+            Inc(Cont);
+          end;
+        end;
+        fDXFRead.ReadAnEntry(0, LocalEntry);
+      end;
+  end
+  else if IsSpline3D then
+  begin // Leggo la spline3D
+    Result := TPolyline3D.Create(0, [Point3D(0, 0, 0)]);
+    Result.Points.Delete(0);
+    // Leggo soli punti aggiunti, quindi gruppo 70 con bit 8.
+    fDXFRead.ReadAnEntry(0, LocalEntry);
+    while LocalEntry[0] = 'VERTEX' do
+    begin
+      if (VarType(LocalEntry[70]) <> varEmpty) and ((LocalEntry[70] and 1) = 1)
+        or ((LocalEntry[70] and 8) = 8) then
+        Result.Points.Add(Point3D(LocalEntry[10], LocalEntry[20],
+          LocalEntry[30]));
+      fDXFRead.ReadAnEntry(0, LocalEntry);
+    end;
+    if Result.Points.Count = 0 then
+    begin // La spline è stata creata senza i punti aggiuntivi.
+      Result.Free;
+      Result := nil;
+      if fVerbose then
+        ShowMessage('Spline without spline-fitting isn''t supported.');
+    end;
+  end
+  else if IsMesh3D then
+  begin // Leggo la mesh3D
+    Result := TMesh3D.Create(-1, Entry[71], Entry[72], [Point3D(0, 0, 0)]);
+    Result.Points.Delete(0);
+    // Leggo i punti della mesh.
+    fDXFRead.ReadAnEntry(0, LocalEntry);
+    while LocalEntry[0] = 'VERTEX' do
+    begin
+      if (VarType(LocalEntry[70]) <> varEmpty) and ((LocalEntry[70] and 64) = 64)
+      then
+        Result.Points.Add(Point3D(LocalEntry[10], LocalEntry[20],
+          LocalEntry[30]));
+      fDXFRead.ReadAnEntry(0, LocalEntry);
+    end;
+  end
+  else
+  begin // Leggo la polilinea3D
+    Result := TPolyline3D.Create(0, [Point3D(0, 0, 0)]);
+    Result.Points.Delete(0);
+    // Leggo tutti i punti.
+    fDXFRead.ReadAnEntry(0, LocalEntry);
+    while LocalEntry[0] = 'VERTEX' do
+    begin
+      Result.Points.Add(Point3D(LocalEntry[10], LocalEntry[20],
+        LocalEntry[30]));
+      fDXFRead.ReadAnEntry(0, LocalEntry);
+    end;
+    if IsClosedInM then // la chiudo.
+      Result.Points.Add(Result.Points[0]);
+  end;
+  if (LocalEntry[0] <> 'SEQEND') then
+    Raise EDXFInvalidDXF.Create('Invalid DXF file.');
+end;
 
- function TDXF3DImport.ReadPlanarFace3D(Entry: TGroupTable): TPlanarFace3D;
- var
-   TmpVect: TPointsSet3D;
-   XDir, YDir: TVector3D;
- begin
-   TmpVect := TPointsSet3D.Create(4);
-   try
-     TmpVect.Add(Point3D(Entry[10], Entry[20], Entry[30]));
-     if not IsSamePoint3D(TmpVect[0], Point3D(Entry[11], Entry[21], Entry[31]))
-     then
-       TmpVect.Add(Point3D(Entry[11], Entry[21], Entry[31]));
-     if not IsSamePoint3D(TmpVect[1], Point3D(Entry[12], Entry[22], Entry[32]))
-     then
-       TmpVect.Add(Point3D(Entry[12], Entry[22], Entry[32]));
-     if VarType(Entry[13]) <> varEmpty then
-     begin
-       if not IsSamePoint3D(TmpVect[2], Point3D(Entry[13], Entry[23], Entry[33]))
-       then
-         TmpVect.Add(Point3D(Entry[13], Entry[23], Entry[33]));
-     end;
-     case TmpVect.Count of
-       1, 2:
-         Result := nil;
-       3:
-         begin
-           XDir := Direction3D(TmpVect[0], TmpVect[1]);
-           YDir := CrossProd3D(GetVectNormal(TmpVect.PointsReference,
-             TmpVect.Count), XDir);
-           Result := TPlanarFace3D.Create(0, TmpVect[0], XDir, YDir,
-             [TmpVect[0]]);
-           // I punti di controllo sono in coordinate oggetto.
-           Result.Points.Clear;
-           Result.Points.Add(Result.WorldToObject(TmpVect[0]));
-           Result.Points.Add(Result.WorldToObject(TmpVect[1]));
-           Result.Points.Add(Result.WorldToObject(TmpVect[2]));
-         end;
-       4:
-         begin
-           XDir := Direction3D(TmpVect[0], TmpVect[1]);
-           YDir := CrossProd3D(GetVectNormal(TmpVect.PointsReference,
-             TmpVect.Count), XDir);
-           Result := TPlanarFace3D.Create(0, TmpVect[0], XDir, YDir,
-             [TmpVect[0]]);
-           // I punti di controllo sono in coordinate oggetto.
-           Result.Points.Clear;
-           Result.Points.Add(Result.WorldToObject(TmpVect[0]));
-           Result.Points.Add(Result.WorldToObject(TmpVect[1]));
-           Result.Points.Add(Result.WorldToObject(TmpVect[2]));
-           Result.Points.Add(Result.WorldToObject(TmpVect[3]));
-         end;
-     else
-       Result := nil;
-     end;
-   finally
-     TmpVect.Free;
-   end;
- end;
+function TDXF3DImport.ReadPlanarFace3D(Entry: TGroupTable): TPlanarFace3D;
+var
+  TmpVect: TPointsSet3D;
+  XDir, YDir: TVector3D;
+begin
+  TmpVect := TPointsSet3D.Create(4);
+  try
+    TmpVect.Add(Point3D(Entry[10], Entry[20], Entry[30]));
+    if not IsSamePoint3D(TmpVect[0], Point3D(Entry[11], Entry[21], Entry[31]))
+    then
+      TmpVect.Add(Point3D(Entry[11], Entry[21], Entry[31]));
+    if not IsSamePoint3D(TmpVect[1], Point3D(Entry[12], Entry[22], Entry[32]))
+    then
+      TmpVect.Add(Point3D(Entry[12], Entry[22], Entry[32]));
+    if VarType(Entry[13]) <> varEmpty then
+    begin
+      if not IsSamePoint3D(TmpVect[2], Point3D(Entry[13], Entry[23], Entry[33]))
+      then
+        TmpVect.Add(Point3D(Entry[13], Entry[23], Entry[33]));
+    end;
+    case TmpVect.Count of
+      1, 2:
+        Result := nil;
+      3:
+        begin
+          XDir := Direction3D(TmpVect[0], TmpVect[1]);
+          YDir := CrossProd3D(GetVectNormal(TmpVect.PointsReference,
+            TmpVect.Count), XDir);
+          Result := TPlanarFace3D.Create(0, TmpVect[0], XDir, YDir,
+            [TmpVect[0]]);
+          // I punti di controllo sono in coordinate oggetto.
+          Result.Points.Clear;
+          Result.Points.Add(Result.WorldToObject(TmpVect[0]));
+          Result.Points.Add(Result.WorldToObject(TmpVect[1]));
+          Result.Points.Add(Result.WorldToObject(TmpVect[2]));
+        end;
+      4:
+        begin
+          XDir := Direction3D(TmpVect[0], TmpVect[1]);
+          YDir := CrossProd3D(GetVectNormal(TmpVect.PointsReference,
+            TmpVect.Count), XDir);
+          Result := TPlanarFace3D.Create(0, TmpVect[0], XDir, YDir,
+            [TmpVect[0]]);
+          // I punti di controllo sono in coordinate oggetto.
+          Result.Points.Clear;
+          Result.Points.Add(Result.WorldToObject(TmpVect[0]));
+          Result.Points.Add(Result.WorldToObject(TmpVect[1]));
+          Result.Points.Add(Result.WorldToObject(TmpVect[2]));
+          Result.Points.Add(Result.WorldToObject(TmpVect[3]));
+        end;
+    else
+      Result := nil;
+    end;
+  finally
+    TmpVect.Free;
+  end;
+end;
 
- function TDXF3DImport.ReadBlock(Entry: TGroupTable): TBlock3D;
- var
-   TmpSource: TSourceBlock3D;
-   TmpTransf: TTransf3D;
-   InsertPt: TPoint3D;
-   XScl, YScl, ZScl, RotAng, ColSpace, RowSpace: TRealType;
-   XAx, YAx, NAx: TVector3D;
-   ColCont, RowCont, C, R: Integer;
- begin
-   Result := nil;
-   TmpSource := FCADCmp3D.FindSourceBlock(StringToBlockName(Entry[2]));
-   if TmpSource <> nil then
-   begin
-     InsertPt := Point3D(Entry[10], Entry[20], Entry[30]);
-     if VarType(Entry[41]) <> varEmpty then
-       XScl := Entry[41]
-     else
-       XScl := 1.0;
-     if VarType(Entry[41]) <> varEmpty then
-       YScl := Entry[42]
-     else
-       YScl := 1.0;
-     if VarType(Entry[41]) <> varEmpty then
-       ZScl := Entry[43]
-     else
-       ZScl := 1.0;
-     RotAng := Entry[50];
-     if VarType(Entry[70]) <> varEmpty then
-       ColCont := Entry[70]
-     else
-       ColCont := 1;
-     if VarType(Entry[71]) <> varEmpty then
-       RowCont := Entry[71]
-     else
-       RowCont := 1;
-     ColSpace := Entry[44];
-     RowSpace := Entry[45];
-     if VarType(Entry[210]) <> 0 then
-       NAx := Versor3D(Entry[210], Entry[220], Entry[230])
-     else
-       NAx := Versor3D(0, 0, 1);
-     XAx := Versor3D(1, 0, 0);
-     YAx := CrossProd3D(NAx, XAx);
-     // Creazione trasformazione.
-     TmpTransf := Scale3D(XScl, YScl, ZScl);
-     TmpTransf := MultiplyTransform3D(TmpTransf, RotateOnAxis3D(InsertPt,
-       NAx, RotAng));
-     // Creazione oggetti.
-     for R := 1 to RowCont do
-     begin
-       for C := 1 to ColCont do
-       begin
-         Result := TBlock3D.Create(0, TmpSource);
-         Result.ModelTransform := TmpTransf;
-         Result.ApplyTransform;
-         Result.UpdateExtension(Self);
-         TmpTransf := MultiplyTransform3D(TmpTransf,
-           Translate3D(XAx.X * ColSpace, XAx.Y * ColSpace, XAx.Z * ColSpace));
-       end;
-       TmpTransf := MultiplyTransform3D(TmpTransf, Translate3D(YAx.X * RowSpace,
-         YAx.Y * RowSpace, YAx.Z * RowSpace));
-     end;
-   end;
- end;
+function TDXF3DImport.ReadBlock(Entry: TGroupTable): TBlock3D;
+var
+  TmpSource: TSourceBlock3D;
+  TmpTransf: TTransf3D;
+  InsertPt: TPoint3D;
+  XScl, YScl, ZScl, RotAng, ColSpace, RowSpace: TRealType;
+  XAx, YAx, NAx: TVector3D;
+  ColCont, RowCont, C, R: Integer;
+begin
+  Result := nil;
+  TmpSource := FCADCmp3D.FindSourceBlock(StringToBlockName(Entry[2]));
+  if TmpSource <> nil then
+  begin
+    InsertPt := Point3D(Entry[10], Entry[20], Entry[30]);
+    if VarType(Entry[41]) <> varEmpty then
+      XScl := Entry[41]
+    else
+      XScl := 1.0;
+    if VarType(Entry[41]) <> varEmpty then
+      YScl := Entry[42]
+    else
+      YScl := 1.0;
+    if VarType(Entry[41]) <> varEmpty then
+      ZScl := Entry[43]
+    else
+      ZScl := 1.0;
+    RotAng := Entry[50];
+    if VarType(Entry[70]) <> varEmpty then
+      ColCont := Entry[70]
+    else
+      ColCont := 1;
+    if VarType(Entry[71]) <> varEmpty then
+      RowCont := Entry[71]
+    else
+      RowCont := 1;
+    ColSpace := Entry[44];
+    RowSpace := Entry[45];
+    if VarType(Entry[210]) <> 0 then
+      NAx := Versor3D(Entry[210], Entry[220], Entry[230])
+    else
+      NAx := Versor3D(0, 0, 1);
+    XAx := Versor3D(1, 0, 0);
+    YAx := CrossProd3D(NAx, XAx);
+    // Creazione trasformazione.
+    TmpTransf := Scale3D(XScl, YScl, ZScl);
+    TmpTransf := MultiplyTransform3D(TmpTransf, RotateOnAxis3D(InsertPt,
+      NAx, RotAng));
+    // Creazione oggetti.
+    for R := 1 to RowCont do
+    begin
+      for C := 1 to ColCont do
+      begin
+        Result := TBlock3D.Create(0, TmpSource);
+        Result.ModelTransform := TmpTransf;
+        Result.ApplyTransform;
+        Result.UpdateExtension(Self);
+        TmpTransf := MultiplyTransform3D(TmpTransf,
+          Translate3D(XAx.X * ColSpace, XAx.Y * ColSpace, XAx.Z * ColSpace));
+      end;
+      TmpTransf := MultiplyTransform3D(TmpTransf, Translate3D(YAx.X * RowSpace,
+        YAx.Y * RowSpace, YAx.Z * RowSpace));
+    end;
+  end;
+end;
 
- function TDXF3DImport.ReadEntity(IgnoreBlock: Boolean): TObject3D;
- var
-   Entry: TGroupTable;
-   NLayer: Integer;
- begin
-   Result := nil;
-   fDXFRead.ReadAnEntry(0, {%H-}Entry);
-   NLayer := fLayerList.IndexOf(Entry[8]);
-   if NLayer > -1 then
-     FCADCmp3D.CurrentLayer := NLayer;
-   if Entry[0] = 'LINE' then
-     Result := ReadLine3D(Entry)
-   else if Entry[0] = 'ELLIPSE' then
-     Result := ReadEllipse3D(Entry)
-   else if Entry[0] = 'CIRCLE' then
-     Result := ReadCircle3D(Entry)
-   else if Entry[0] = 'ARC' then
-     Result := ReadArc3D(Entry)
-   else if Entry[0] = 'TEXT' then
-     Result := ReadText3D(Entry)
-   else if Entry[0] = 'TRACE' then
-     Result := ReadTrace3D(Entry)
-   else if Entry[0] = 'POLYLINE' then
-     Result := ReadPolyline3D(Entry)
-   else if Entry[0] = '3DFACE' then
-     Result := ReadPlanarFace3D(Entry)
-   else if (not IgnoreBlock) and (Entry[0] = 'INSERT') then
-     Result := ReadBlock(Entry);
- end;
+function TDXF3DImport.ReadEntity(IgnoreBlock: Boolean): TObject3D;
+var
+  Entry: TGroupTable;
+  NLayer: Integer;
+begin
+  Result := nil;
+  fDXFRead.ReadAnEntry(0, {%H-}Entry);
+  NLayer := fLayerList.IndexOf(Entry[8]);
+  if NLayer > -1 then
+    FCADCmp3D.CurrentLayer := NLayer;
+  if Entry[0] = 'LINE' then
+    Result := ReadLine3D(Entry)
+  else if Entry[0] = 'ELLIPSE' then
+    Result := ReadEllipse3D(Entry)
+  else if Entry[0] = 'CIRCLE' then
+    Result := ReadCircle3D(Entry)
+  else if Entry[0] = 'ARC' then
+    Result := ReadArc3D(Entry)
+  else if Entry[0] = 'TEXT' then
+    Result := ReadText3D(Entry)
+  else if Entry[0] = 'TRACE' then
+    Result := ReadTrace3D(Entry)
+  else if Entry[0] = 'POLYLINE' then
+    Result := ReadPolyline3D(Entry)
+  else if Entry[0] = '3DFACE' then
+    Result := ReadPlanarFace3D(Entry)
+  else if (not IgnoreBlock) and (Entry[0] = 'INSERT') then
+    Result := ReadBlock(Entry);
+end;
 
- function TDXF3DImport.ReadSourceBlock(Entry: TGroupTable): TSourceBlock3D;
- var
-   BasePoint: TPoint3D;
-   Tmp: TObject3D;
-   TmpName: TSourceBlockName;
- begin
-   Result := nil;
-   if (Entry[70] and $4 = $4) then
-     Exit;
-   BasePoint.X := Entry[10];
-   BasePoint.Y := Entry[20];
-   BasePoint.Z := Entry[30];
-   BasePoint.W := 1.0;
-   if Entry[2] = '' then
-     TmpName := StringToBlockName(Format('BLOCK%d',
-       [FCADCmp3D.SourceBlocksCount]))
-   else
-     TmpName := StringToBlockName(Entry[2]);
-   Result := TSourceBlock3D.Create(0, TmpName, [nil]);
-   while fDXFRead.GroupValue <> 'ENDBLK' do
-   begin
-     Tmp := ReadEntity(False);
-     if Assigned(Tmp) then
-       Result.Objects.Add(Tmp);
-   end;
-   if fAllowEmptyBlocks or (Result.Objects.Count > 0) then
-   begin
-     Result.Transform(Translate3D(-BasePoint.X, -BasePoint.Y, -BasePoint.Z));
-     Result.ApplyTransform;
-     Result.UpdateExtension(Self);
-   end
-   else
-   begin
-     Result.Free;
-     Result := nil;
-   end;
- end;
+function TDXF3DImport.ReadSourceBlock(Entry: TGroupTable): TSourceBlock3D;
+var
+  BasePoint: TPoint3D;
+  Tmp: TObject3D;
+  TmpName: TSourceBlockName;
+begin
+  Result := nil;
+  if (Entry[70] and $4 = $4) then
+    Exit;
+  BasePoint.X := Entry[10];
+  BasePoint.Y := Entry[20];
+  BasePoint.Z := Entry[30];
+  BasePoint.W := 1.0;
+  if Entry[2] = '' then
+    TmpName := StringToBlockName(Format('BLOCK%d',
+      [FCADCmp3D.SourceBlocksCount]))
+  else
+    TmpName := StringToBlockName(Entry[2]);
+  Result := TSourceBlock3D.Create(0, TmpName, [nil]);
+  while fDXFRead.GroupValue <> 'ENDBLK' do
+  begin
+    Tmp := ReadEntity(False);
+    if Assigned(Tmp) then
+      Result.Objects.Add(Tmp);
+  end;
+  if fAllowEmptyBlocks or (Result.Objects.Count > 0) then
+  begin
+    Result.Transform(Translate3D(-BasePoint.X, -BasePoint.Y, -BasePoint.Z));
+    Result.ApplyTransform;
+    Result.UpdateExtension(Self);
+  end
+  else
+  begin
+    Result.Free;
+    Result := nil;
+  end;
+end;
 
 const
   ColArray1: array [1 .. 4] of Byte = (0, 63, 127, 191);
