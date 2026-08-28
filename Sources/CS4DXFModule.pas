@@ -38,6 +38,13 @@ type
   TDXFRead = class(TObject)
   private
     fStream: TextFile;
+    { CS4-FIX (X2): per-instance format settings, so DXF parsing never writes
+      the process-global FormatSettings. }
+    fFS: TFormatSettings;
+    { CS4-FIX: a DXF is two lines per group, and the default TextFile buffer is
+      128 bytes. Must be a field, never a stack local - the file record keeps a
+      pointer to it for the lifetime of the handle. }
+    fTextBuf: array [0 .. 65535] of Byte;
     fCurrentSection: TSections;
     fGroupCode: Word;
     fGroupValue: Variant;
@@ -62,6 +69,13 @@ type
   TDXFWrite = class(TObject)
   private
     fStream: TextFile;
+    { CS4-FIX (X2): per-instance format settings, so DXF parsing never writes
+      the process-global FormatSettings. }
+    fFS: TFormatSettings;
+    { CS4-FIX: a DXF is two lines per group, and the default TextFile buffer is
+      128 bytes. Must be a field, never a stack local - the file record keeps a
+      pointer to it for the lifetime of the handle. }
+    fTextBuf: array [0 .. 65535] of Byte;
   public
     constructor Create(FileName: String);
     destructor Destroy; override;
@@ -294,7 +308,11 @@ constructor TDXFRead.Create(FileName: String);
 begin
   inherited Create;
   fProgressBar := nil;
+  fFS := FormatSettings;
+  fFS.DecimalSeparator := '.';
+  fFS.ThousandSeparator := #0;
   AssignFile(fStream, FileName);
+  SetTextBuf(fStream, fTextBuf);
   Reset(fStream);
   ConsumeGroup;
   NextSection;
@@ -308,6 +326,7 @@ end;
 
 procedure TDXFRead.Rewind;
 begin
+  SetTextBuf(fStream, fTextBuf);
   Reset(fStream);
   if Assigned(fProgressBar) then
     fProgressBar.Position := 0;
@@ -318,51 +337,44 @@ end;
 function TDXFRead.ConsumeGroup;
 var
   TxtLine: String;
-  LastSep: Char;
 begin
-  LastSep := FormatSettings.DecimalSeparator;
-  try
-    ReadLn(fStream, fGroupCode);
-    ReadLn(fStream, TxtLine);
-    if EOF(fStream) then
-    begin
-      Result := False;
-      Exit;
-    end;
-    case fGroupCode of
-      0 .. 9, 999, 1000 .. 1009:
-        fGroupValue := Trim(TxtLine);
-      10 .. 59, 140 .. 147, 210 .. 239, 1010 .. 1059:
-        begin
-          if Pos('.', TxtLine) > 0 then
-            FormatSettings.DecimalSeparator := '.'
-          else
-            FormatSettings.DecimalSeparator := ',';
-          try
-            fGroupValue := StrToFloat(Trim(TxtLine));
-          except
-            fGroupValue := varEmpty;
-          end;
-        end;
-      60 .. 79, 170 .. 175, 1060 .. 1079:
-        begin
-          if Pos('.', TxtLine) > 0 then
-            FormatSettings.DecimalSeparator := '.'
-          else
-            FormatSettings.DecimalSeparator := ',';
-          try
-            fGroupValue := StrToInt(Trim(TxtLine));
-          except
-            fGroupValue := varEmpty;
-          end;
-        end;
-    else
-      fGroupValue := TxtLine;
-    end;
-    Result := True;
-  finally
-    FormatSettings.DecimalSeparator := LastSep;
+  { CS4-FIX (X2): this used to save, overwrite and restore
+    FormatSettings.DecimalSeparator - a process-global - around every parsed
+    group. That is not thread-safe against the library's own painting thread,
+    and an exception escaping between the writes left the application's locale
+    altered. DXF is always '.'-decimal, so sniffing the separator was pointless
+    to begin with; fFS pins it per instance. }
+  ReadLn(fStream, fGroupCode);
+  ReadLn(fStream, TxtLine);
+  if EOF(fStream) then
+  begin
+    Result := False;
+    Exit;
   end;
+  case fGroupCode of
+    0 .. 9, 999, 1000 .. 1009:
+      fGroupValue := Trim(TxtLine);
+    10 .. 59, 140 .. 147, 210 .. 239, 1010 .. 1059:
+      try
+        fGroupValue := StrToFloat(Trim(TxtLine), fFS);
+      except
+        { CS4-FIX (X6): this used to assign 'varEmpty', which is a TVarType
+          constant equal to 0 - so it stored the *value* zero and VarType()
+          never reported varEmpty. Every 'VarType(Entry[n]) <> varEmpty' guard
+          in this unit was therefore defeated on the parse-failure path, and an
+          unreadable coordinate silently became 0.0 at the origin. }
+        VarClear(fGroupValue);
+      end;
+    60 .. 79, 170 .. 175, 1060 .. 1079:
+      try
+        fGroupValue := StrToInt(Trim(TxtLine));
+      except
+        VarClear(fGroupValue);
+      end;
+  else
+    fGroupValue := TxtLine;
+  end;
+  Result := True;
   // if Assigned(fProgressBar) then
   // fProgressBar.Position := FilePos(fStream);
 end;
@@ -405,8 +417,11 @@ begin
   repeat
     if fGroupCode < 256 then
       Values[fGroupCode] := fGroupValue
-    else if fGroupCode > 999 then
-      { The extended data types are remapped from 256=1000. }
+    { The extended data types are remapped from 256=1000. }
+    { CS4-FIX: the upper bound was missing, so a group code above 1256 wrote
+      a Variant past the end of TGroupTable - and every caller declares that
+      table as a stack local. }
+    else if (fGroupCode >= 1000) and (fGroupCode <= 1256) then
       Values[fGroupCode - 744] := fGroupValue;
     ConsumeGroup;
   until (fGroupCode = GroupDel) or (fGroupCode = 0);
@@ -418,7 +433,11 @@ end;
 constructor TDXFWrite.Create(FileName: String);
 begin
   inherited Create;
+  fFS := FormatSettings;
+  fFS.DecimalSeparator := '.';
+  fFS.ThousandSeparator := #0;
   AssignFile(fStream, FileName);
+  SetTextBuf(fStream, fTextBuf);
   Rewrite(fStream);
 end;
 
@@ -430,32 +449,28 @@ end;
 
 procedure TDXFWrite.Reset;
 begin
+  SetTextBuf(fStream, fTextBuf);
   Rewrite(fStream);
 end;
 
 procedure TDXFWrite.WriteGroup(GroupCode: Word; GroupValue: Variant);
 var
   TxtLine: String;
-  LastSep: Char;
 begin
-  LastSep := FormatSettings.DecimalSeparator;
-  try
-    FormatSettings.DecimalSeparator := '.';
-    WriteLn(fStream, Format('%3d', [GroupCode]));
-    case GroupCode of
-      0 .. 9, 999, 1000 .. 1009:
-        TxtLine := Copy(GroupValue, 1, 255);
-      10 .. 59, 140 .. 147, 210 .. 239, 1010 .. 1059:
-        TxtLine := Format('%.6f', [Double(GroupValue)]);
-      60 .. 79, 170 .. 175, 1060 .. 1079:
-        TxtLine := Format('%6d', [Integer(GroupValue)]);
-    else
-      TxtLine := '';
-    end;
-    WriteLn(fStream, TxtLine);
-  finally
-    FormatSettings.DecimalSeparator := LastSep;
+  { CS4-FIX (X2): see TDXFRead.ConsumeGroup - the global FormatSettings is no
+    longer written; fFS carries the '.'-decimal DXF requires. }
+  WriteLn(fStream, Format('%3d', [GroupCode]));
+  case GroupCode of
+    0 .. 9, 999, 1000 .. 1009:
+      TxtLine := Copy(GroupValue, 1, 255);
+    10 .. 59, 140 .. 147, 210 .. 239, 1010 .. 1059:
+      TxtLine := Format('%.6f', [Double(GroupValue)], fFS);
+    60 .. 79, 170 .. 175, 1060 .. 1079:
+      TxtLine := Format('%6d', [Integer(GroupValue)], fFS);
+  else
+    TxtLine := '';
   end;
+  WriteLn(fStream, TxtLine);
 end;
 
 procedure TDXFWrite.BeginSection(Sect: TSections);
@@ -672,6 +687,10 @@ begin
   if (LocalEntry[0] <> 'SEQEND') then
   begin
     fUnableToReadAll := True;
+    { CS4-FIX: Result holds a fully built polyline here and nobody owns a
+      function result until the function returns normally, so raising dropped
+      the only reference to it. }
+    FreeAndNil(Result);
     Raise EDXFInvalidDXF.Create('Invalid DXF file.');
   end;
 end;
