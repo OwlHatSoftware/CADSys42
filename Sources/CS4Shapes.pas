@@ -3143,6 +3143,11 @@ var
 
 procedure TExtendedFont.SetHeight(Value: Word);
 begin
+  { CS4-FIX (P4): TText2D.Draw assigns Height on every repaint. Without this
+    guard SetNewValue rebuilt the HFONT (CreateFontIndirect + DeleteObject)
+    once per text shape per frame, even at a constant zoom. }
+  if LogFont.lfHeight = Integer(Value) then
+    Exit;
   LogFont.lfHeight := Value;
   SetNewValue;
 end;
@@ -3711,7 +3716,13 @@ end;
 procedure TCurve2D.SetCurvePrecision(N: Word);
 begin
   if fCurvePrecision <> N then
+  begin
     fCurvePrecision := N;
+    { CS4-FIX (P6): without this the flattened profile keeps the old segment
+      count until an unrelated edit triggers _UpdateExtension. The sibling
+      setter SetPrimitiveSavingType already does exactly this. }
+    UpdateExtension(Self);
+  end;
 end;
 
 function TCurve2D.PopulateCurvePoints(N: Word): TRect2D;
@@ -4831,7 +4842,13 @@ end;
 
 function TVectFont.GetChar(Ch: Char): TVectChar;
 begin
-  Result := TVectChar(fVects[Ord(Ch)]);
+  { CS4-FIX (X5): fVects holds 256 slots but Ch is a WideChar, so any character
+    above U+00FF raised ECADOutOfBound out of Draw. Fall back to the same
+    _NullChar glyph already used for unmapped Latin-1 codes. }
+  if Ord(Ch) > 255 then
+    Result := _NullChar
+  else
+    Result := TVectChar(fVects[Ord(Ch)]);
 end;
 
 constructor TVectFont.Create;
@@ -4894,6 +4911,11 @@ end;
 
 function TVectFont.CreateChar(Ch: Char; N: Integer): TVectChar;
 begin
+  { CS4-FIX (X5): fonts are loaded from streams; refuse an out-of-range slot
+    explicitly rather than corrupting the list. }
+  if Ord(Ch) > 255 then
+    Raise ECADOutOfBound.Create
+      ('TVectFont.CreateChar: character code above 255 is not supported');
   if fVects[Ord(Ch)] <> nil then
     fVects[Ord(Ch)].Free;
   Result := TVectChar.Create(N);
@@ -4914,7 +4936,7 @@ begin
     DrawPoint.X := DrawPoint.X + (0.4 + ICS) * H;
     Exit;
   end
-  else if fVects[Ord(Ch)] <> nil then
+  else if (Ord(Ch) <= 255) and (fVects[Ord(Ch)] <> nil) then
     TmpCh := GetChar(Ch)
   else if (Ch <> #13) then
     TmpCh := _NullChar;
@@ -4954,7 +4976,7 @@ begin
     DrawPoint.X := DrawPoint.X + (0.4 + ICS) * H;
     Exit;
   end
-  else if fVects[Ord(Ch)] <> nil then
+  else if (Ord(Ch) <= 255) and (fVects[Ord(Ch)] <> nil) then
     TmpCh := GetChar(Ch)
   else if (Ch <> #13) then
     TmpCh := _NullChar;
@@ -5000,7 +5022,7 @@ begin
   RowHeight := 0.0;
   for Cont := 1 to Length(Str) do
   begin
-    if fVects[Ord(Str[Cont])] <> nil then
+    if (Ord(Str[Cont]) <= 255) and (fVects[Ord(Str[Cont])] <> nil) then
       with GetChar(Str[Cont]).Extension do
       begin
         RowLen := RowLen + (Right + InterChar);
@@ -5049,7 +5071,10 @@ end;
 
 function CADSysFindFontByIndex(Index: Word): TVectFont;
 begin
-  if not Assigned(VectFonts2DRegistered[Index]) then
+  { CS4-FIX: Index arrives unchecked from a stream; every sibling accessor
+    bounds-checks, this one did not. }
+  if (Index > MAX_REGISTERED_FONTS) or
+    not Assigned(VectFonts2DRegistered[Index]) then
   begin
     if Assigned(_DefaultFont) then
       Result := _DefaultFont
@@ -5120,7 +5145,11 @@ var
 begin
   for Cont := 0 to MAX_REGISTERED_FONTS do
     if Assigned(VectFonts2DRegistered[Cont]) then
+    begin
       VectFonts2DRegistered[Cont].Free;
+      { CS4-FIX: the slot was left dangling, so a second call double-freed. }
+      VectFonts2DRegistered[Cont] := nil;
+    end;
 end;
 
 function CADSysGetDefaultFont: TVectFont;
@@ -7040,7 +7069,13 @@ end;
 procedure TCurve3D.SetCurvePrecision(N: Word);
 begin
   if fCurvePrecision <> N then
+  begin
     fCurvePrecision := N;
+    { CS4-FIX (P6): without this the flattened profile keeps the old segment
+      count until an unrelated edit triggers _UpdateExtension. The sibling
+      setter SetPrimitiveSavingType already does exactly this. }
+    UpdateExtension(Self);
+  end;
 end;
 
 function TCurve3D.PopulateCurvePoints(N: Word): TRect3D;
@@ -8405,12 +8440,17 @@ var
   TmpTransf: TTransf3D;
   TmpNeedToBeClosed: Boolean;
 begin
+  { CS4-FIX (M14): Result was unassigned on the early-Exit and exception
+    paths, and TmpProf was never freed on any path. }
+  Result := Rect3D(0, 0, 0, 0, 0, 0);
+  TmpProf := nil;
   // Calcola i parametri di iterazione.
   fStartSweepDir := Versor3D(0, 0, 1);
   fEndSweepDir := Versor3D(0, 0, 1);
   Iterations := GetSweepIterations;
   // Comincia le iterazioni.
   fBaseOutline.BeginUseProfilePoints;
+  try
   try
     // Controllo se il profilo ha o meno il punto di chiusura esplicito (ossia il punto finale è lo stesso del punto iniziale)
     // Se il profilo è chiuso ma non ha il punto di chiusura esplicito, allora lo aggiungerò successivamente.
@@ -8498,9 +8538,16 @@ begin
       Result := TransformBoundingBox3D(fPolyface.Box, ModelTransform);
     end;
   except
-    fBaseOutline.EndUseProfilePoints;
     fPolyface.Free;
     fPolyface := nil;
+  end;
+  finally
+    { CS4-FIX (M14): the outer block was try..except, so EndUseProfilePoints ran
+      only when an exception escaped - never on success and never on the
+      ProfPoints < 2 Exit. fCountReference stayed raised for the life of the
+      object, pinning the base outline's profile cache. }
+    TmpProf.Free;
+    fBaseOutline.EndUseProfilePoints;
   end;
 end;
 
