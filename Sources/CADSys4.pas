@@ -812,6 +812,9 @@ type
     fPoints: Pointer;
     fCapacity, fCount: Word;
     fGrownEnabled, fDisableEvents: Boolean;
+    { CS4-FIX (P2): nesting depth of BeginUpdate/EndUpdate. While non-zero,
+      CallOnChange is suppressed. }
+    fUpdateLock: Integer;
     fOnChange: TOnChangePointsSet;
     fTag: Integer;
 
@@ -884,6 +887,20 @@ type
       optimization. Only the <See Property=TPointsSet2D@Count> is reset to zero.
     }
     procedure Clear;
+    { : Suspend the <See Property=TPointsSet2D@OnChange> notification until
+      the matching <I=EndUpdate>.
+
+      <B=CS4-FIX (P2)>: <I=Add> fires OnChange once per point, and OnChange is
+      normally wired to the owning shape's <I=UpdateExtension>, which rescans
+      every point. Building an n-point primitive with <I=Add> is therefore
+      O(n^2) plus n redraw requests. Wrap the batch in BeginUpdate/EndUpdate
+      to pay for one notification instead of n. Calls nest.
+    }
+    procedure BeginUpdate;
+    { : Resume notification suspended by <I=BeginUpdate>, and fire OnChange
+      once if this was the outermost call.
+    }
+    procedure EndUpdate;
     { : Copy a subset of the points from another set. The
       points are copied in the respective positions, so
       the second point of S is copied on the second point
@@ -1195,6 +1212,8 @@ type
     fPoints: Pointer;
     fCapacity, fCount: Word;
     fGrownEnabled, fDisableEvents: Boolean;
+    { CS4-FIX (P2): see TPointsSet2D. }
+    fUpdateLock: Integer;
     fTag: Integer;
     fOnChange: TOnChangePointsSet;
 
@@ -1266,6 +1285,20 @@ type
       optimization. Only the <See Property=TPointsSet3D@Count> is reset to zero.
     }
     procedure Clear;
+    { : Suspend the <See Property=TPointsSet3D@OnChange> notification until
+      the matching <I=EndUpdate>.
+
+      <B=CS4-FIX (P2)>: <I=Add> fires OnChange once per point, and OnChange is
+      normally wired to the owning shape's <I=UpdateExtension>, which rescans
+      every point. Building an n-point primitive with <I=Add> is therefore
+      O(n^2) plus n redraw requests. Wrap the batch in BeginUpdate/EndUpdate
+      to pay for one notification instead of n. Calls nest.
+    }
+    procedure BeginUpdate;
+    { : Resume notification suspended by <I=BeginUpdate>, and fire OnChange
+      once if this was the outermost call.
+    }
+    procedure EndUpdate;
     { : Copy a subset of the points from another set. The
       points are copied in the respective positions, so
       the second point of S is copied on the second point
@@ -4209,7 +4242,9 @@ type
       link the handler to a 2D shape object.
     }
     constructor Create(AObject: TObject2D);
-    procedure FreeInstance; override;
+    { CS4-FIX (M11): reference release. Use this instead of Free - see the
+      implementation for why FreeInstance was the wrong hook. }
+    procedure Release;
     destructor Destroy; override;
     { : This method is called by the library when it is necessary to show the control
       points.
@@ -5175,7 +5210,8 @@ type
   public
     constructor Create(AObject: TObject3D);
     destructor Destroy; override;
-    procedure FreeInstance; override;
+    { CS4-FIX (M11): reference release. Use this instead of Free. }
+    procedure Release;
 
     procedure DrawControlPoints(const Sender: TObject3D;
       const NormTransf: TTransf3D; const VRP: TPoint3D; const VT: TTransf2D;
@@ -12370,13 +12406,25 @@ begin
             end;
 end;
 
+{ CS4-FIX (P3): the Draw2D/3DSubSet helpers used to GetMem/FreeMem their
+  scratch buffer on every call - once per shape per repaint, so a
+  5000-primitive drawing did 5000 heap round-trips per frame (the polygon
+  helper did two). Almost every primitive fits in a stack buffer of this
+  size, so the heap is now touched only by unusually large ones. A stack
+  buffer is also inherently per-thread, which matters because the library
+  can paint from TPaintingThread as well as the main thread. }
+const
+  CS4_SCRATCH_POINTS = 512;
+
 procedure Draw2DSubSetAsPolyline(const Vect: Pointer; Count: Integer;
   const Cnv: TDecorativeCanvas; const Clip, Extent: TRect2D; const S: TTransf2D;
   const StartIdx, EndIdx: Integer; const ToBeClosed: Boolean);
 type
   TPoints = array [0 .. 0] of TPoint;
 var
-  VisPoints, Cont, AllocatedMem: Integer;
+  VisPoints, Cont, NeededPts: Integer;
+  HeapPts: Pointer;
+  StackPts: array [0 .. CS4_SCRATCH_POINTS - 1] of TPoint;
   TmpPt1, TmpPt2: TPoint2D;
   TmpPts: ^TPoints;
   ClipRes: TClipResult;
@@ -12392,10 +12440,20 @@ begin
   ClipRes := [];
   TmpPt2 := TransformPoint2D(PVectPoints2D(Vect)^[StartIdx], S);
   if ToBeClosed then
-    AllocatedMem := (Count + 1) * SizeOf(TPoint)
+    NeededPts := Count + 1
   else
-    AllocatedMem := Count * SizeOf(TPoint);
-  GetMem(TmpPts, AllocatedMem);
+    NeededPts := Count;
+  { CS4-FIX (P3): stack buffer for the common case, heap only when needed. }
+  if NeededPts <= CS4_SCRATCH_POINTS then
+  begin
+    HeapPts := nil;
+    TmpPts := @StackPts[0];
+  end
+  else
+  begin
+    GetMem(HeapPts, NeededPts * SizeOf(TPoint));
+    TmpPts := HeapPts;
+  end;
   try
     VisPoints := 0;
     if IsBoxAllInBox2D(TransformRect2D(Extent, S), Clip) then
@@ -12474,7 +12532,8 @@ begin
     if (VisPoints > 0) then
       Cnv.Polyline(TmpPts, VisPoints);
   finally
-    FreeMem(TmpPts, AllocatedMem);
+    if HeapPts <> nil then
+      FreeMem(HeapPts, NeededPts * SizeOf(TPoint));
   end;
 end;
 
@@ -12484,7 +12543,9 @@ procedure Draw2DSubSetAsPolygon(const Vect: Pointer; Count: Integer;
 type
   TPoints = array [0 .. 0] of TPoint;
 var
-  VisPoints, VisPoints1, Cont: Integer;
+  VisPoints, VisPoints1, Cont, NeededPts: Integer;
+  HeapPts, HeapFirst: Pointer;
+  StackPts, StackFirst: array [0 .. CS4_SCRATCH_POINTS - 1] of TPoint;
   TmpPt1, TmpPt2: TPoint2D;
   TmpPts, FirstClipPts: ^TPoints;
   ClipRes: TClipResult;
@@ -12494,8 +12555,22 @@ begin
   if (Count = 0) or (StartIdx < 0) or (EndIdx >= Count) or (StartIdx > EndIdx)
   then
     Exit;
-  GetMem(TmpPts, Count * 3 * SizeOf(TPoint));
-  GetMem(FirstClipPts, Count * 3 * SizeOf(TPoint));
+  { CS4-FIX (P3): see Draw2DSubSetAsPolyline. This one allocated twice. }
+  NeededPts := Count * 3;
+  if NeededPts <= CS4_SCRATCH_POINTS then
+  begin
+    HeapPts := nil;
+    HeapFirst := nil;
+    TmpPts := @StackPts[0];
+    FirstClipPts := @StackFirst[0];
+  end
+  else
+  begin
+    GetMem(HeapPts, NeededPts * SizeOf(TPoint));
+    GetMem(HeapFirst, NeededPts * SizeOf(TPoint));
+    TmpPts := HeapPts;
+    FirstClipPts := HeapFirst;
+  end;
   try
     VisPoints := 0;
     VisPoints1 := 0;
@@ -12551,8 +12626,10 @@ begin
     if (VisPoints > 0) then
       Polygon(Cnv.Canvas.Handle, TmpPts^, VisPoints { ,False } );
   finally
-    FreeMem(TmpPts, Count * 3 * SizeOf(TPoint));
-    FreeMem(FirstClipPts, Count * 3 * SizeOf(TPoint));
+    if HeapPts <> nil then
+      FreeMem(HeapPts, NeededPts * SizeOf(TPoint));
+    if HeapFirst <> nil then
+      FreeMem(HeapFirst, NeededPts * SizeOf(TPoint));
   end;
 end;
 
@@ -12786,7 +12863,9 @@ procedure Draw3DSubSetAsPolyline(const Vect: Pointer; Count: Integer;
 type
   TPoints = array [0 .. 0] of TPoint;
 var
-  VisPoints, Cont, AllocatedMem: Integer;
+  VisPoints, Cont, NeededPts: Integer;
+  HeapPts: Pointer;
+  StackPts: array [0 .. CS4_SCRATCH_POINTS - 1] of TPoint;
   TmpPt1, TmpPt2: TPoint3D;
   TmpPt12D, TmpPt22D: TPoint2D;
   TmpPts: ^TPoints;
@@ -12795,10 +12874,20 @@ begin
   if (Count = 0) or (EndIdx >= Count) or (StartIdx >= EndIdx) then
     Exit;
   if ToBeClosed then
-    AllocatedMem := (Count + 1) * SizeOf(TPoint)
+    NeededPts := Count + 1
   else
-    AllocatedMem := Count * SizeOf(TPoint);
-  GetMem(TmpPts, AllocatedMem);
+    NeededPts := Count;
+  { CS4-FIX (P3): stack buffer for the common case, heap only when needed. }
+  if NeededPts <= CS4_SCRATCH_POINTS then
+  begin
+    HeapPts := nil;
+    TmpPts := @StackPts[0];
+  end
+  else
+  begin
+    GetMem(HeapPts, NeededPts * SizeOf(TPoint));
+    TmpPts := HeapPts;
+  end;
   try
     VisPoints := 0;
     if ToBeClosed then
@@ -12865,7 +12954,8 @@ begin
     if (VisPoints > 0) then
       Cnv.Polyline(TmpPts, VisPoints);
   finally
-    FreeMem(TmpPts, AllocatedMem);
+    if HeapPts <> nil then
+      FreeMem(HeapPts, NeededPts * SizeOf(TPoint));
   end;
 end;
 
@@ -13059,8 +13149,24 @@ begin
   fDisableEvents := B;
 end;
 
+procedure TPointsSet2D.BeginUpdate;
+begin
+  Inc(fUpdateLock);
+end;
+
+procedure TPointsSet2D.EndUpdate;
+begin
+  if fUpdateLock > 0 then
+    Dec(fUpdateLock);
+  if fUpdateLock = 0 then
+    CallOnChange;
+end;
+
 procedure TPointsSet2D.CallOnChange;
 begin
+  { CS4-FIX (P2): suppressed inside a BeginUpdate/EndUpdate batch. }
+  if fUpdateLock > 0 then
+    Exit;
   // Call onChange only if the events are enabled.
   if (not fDisableEvents) and Assigned(fOnChange) then
   begin
@@ -13291,8 +13397,24 @@ begin
   fCapacity := NewCapacity;
 end;
 
+procedure TPointsSet3D.BeginUpdate;
+begin
+  Inc(fUpdateLock);
+end;
+
+procedure TPointsSet3D.EndUpdate;
+begin
+  if fUpdateLock > 0 then
+    Dec(fUpdateLock);
+  if fUpdateLock = 0 then
+    CallOnChange;
+end;
+
 procedure TPointsSet3D.CallOnChange;
 begin
+  { CS4-FIX (P2): suppressed inside a BeginUpdate/EndUpdate batch. }
+  if fUpdateLock > 0 then
+    Exit;
   if (not fDisableEvents) and Assigned(fOnChange) then
   begin
     fDisableEvents := True;
@@ -15227,8 +15349,11 @@ end;
 
 procedure TCADViewport.WMEraseBkgnd(var Message: TWMEraseBkgnd);
 begin
-  if (not Assigned(fOnClear)) and (not fTransparent) or
-    (csDesigning in ComponentState) then
+  { CS4-FIX (P12): the old condition erased in the DEFAULT configuration (no
+    OnClearCanvas, not transparent) - exactly the case where the blit that
+    follows covers every pixel. Only the transparent and design-time cases
+    actually need the inherited erase. }
+  if fTransparent or (csDesigning in ComponentState) then
     inherited
   else
     Message.Result := 1;
@@ -15317,6 +15442,12 @@ begin
   begin
     StopRepaint;
     fTransparent := B;
+    { CS4-FIX (P12): a transparent viewport genuinely needs the parent's
+      pixels underneath, so it must not claim to be opaque. }
+    if B then
+      ControlStyle := ControlStyle - [csOpaque]
+    else
+      ControlStyle := ControlStyle + [csOpaque];
     Repaint;
   end;
 end;
@@ -15413,7 +15544,12 @@ begin
   inherited Create(AOwner);
 
   fViewGuard := TCADSysCriticalSection.Create;
-  ControlStyle := ControlStyle - [csOpaque];
+  { CS4-FIX (P12): the offscreen bitmap always covers the whole client rect,
+    so the control is opaque. Without csOpaque the VCL erases the background
+    immediately before DoCopyCanvas blits over the identical area - one
+    wasted full-client FillRect per frame, plus flicker. SetTransparent
+    removes csOpaque again if transparency is switched on. }
+  ControlStyle := ControlStyle + [csOpaque];
   ControlStyle := ControlStyle + [csClickEvents, csSetCaption, csDoubleClicks];
   fPaintingThread := nil;
   CopingFrequency := 0;
@@ -16260,12 +16396,17 @@ begin
   inherited;
 end;
 
-procedure TObject2DHandler.FreeInstance;
+procedure TObject2DHandler.Release;
 begin
+  { CS4-FIX (M11): this used to override FreeInstance, which Delphi calls
+    from the destructor epilogue - i.e. AFTER Destroy has already run. A
+    handler with fRefCount > 1 was therefore fully destructed (clearing
+    fHandledObject.fHandler) and then had its memory leaked, leaving every
+    other holder pointing at a dead object. Reference counting has to
+    happen INSTEAD OF destruction, not after it. }
   Dec(fRefCount);
-  if fRefCount > 0 then
-    Exit;
-  inherited;
+  if fRefCount <= 0 then
+    Destroy;
 end;
 
 // =====================================================================
@@ -16285,7 +16426,7 @@ end;
 destructor TObject2D.Destroy;
 begin
   if Assigned(fHandler) then
-    fHandler.Free;
+    fHandler.Release;   { CS4-FIX (M11) }
   if fModelTransform <> nil then
     FreeMem(fModelTransform, SizeOf(TTransf2D));
   if fSavedTransform <> nil then
@@ -16492,7 +16633,7 @@ end;
 procedure TObject2D.SetSharedHandler(const Hndl: TObject2DHandler);
 begin
   if Assigned(fHandler) then
-    fHandler.Free;
+    fHandler.Release;   { CS4-FIX (M11) }
   fHandler := Hndl;
   if (Hndl <> nil) then
     Inc(fHandler.fRefCount);
@@ -16501,7 +16642,7 @@ end;
 procedure TObject2D.SetHandler(const Hndl: TObject2DHandlerClass);
 begin
   if Assigned(fHandler) then
-    fHandler.Free;
+    fHandler.Release;   { CS4-FIX (M11) }
   if (Hndl <> nil) then
     fHandler := Hndl.Create(Self)
   else
@@ -16697,36 +16838,68 @@ begin
   UpdateExtension(Self);
 end;
 
+{ CS4-FIX (P9): TContainer2D.Draw and TContainer3D.Draw used to construct a
+  TPen and a TBrush per call - two GDI-backed VCL objects with change
+  notification and a lazily created handle - purely to snapshot and restore
+  the canvas state around their children. Containers nest, so it compounded
+  per level. A plain record copy does the same job. No shape in the library
+  assigns Pen.Brush or Brush.Bitmap, so these six fields are the whole of
+  the state the children actually touch. }
+type
+  TSavedCanvasState = record
+    PenColor: TColor;
+    PenStyle: TPenStyle;
+    PenMode: TPenMode;
+    PenWidth: Integer;
+    BrushColor: TColor;
+    BrushStyle: TBrushStyle;
+  end;
+
+procedure _SaveCanvasState(const Cnv: TDecorativeCanvas;
+  var St: TSavedCanvasState);
+begin
+  St.PenColor := Cnv.Canvas.Pen.Color;
+  St.PenStyle := Cnv.Canvas.Pen.Style;
+  St.PenMode := Cnv.Canvas.Pen.Mode;
+  St.PenWidth := Cnv.Canvas.Pen.Width;
+  St.BrushColor := Cnv.Canvas.Brush.Color;
+  St.BrushStyle := Cnv.Canvas.Brush.Style;
+end;
+
+procedure _RestoreCanvasState(const Cnv: TDecorativeCanvas;
+  const St: TSavedCanvasState);
+begin
+  Cnv.Canvas.Pen.Color := St.PenColor;
+  Cnv.Canvas.Pen.Style := St.PenStyle;
+  Cnv.Canvas.Pen.Mode := St.PenMode;
+  Cnv.Canvas.Pen.Width := St.PenWidth;
+  Cnv.Canvas.Brush.Color := St.BrushColor;
+  Cnv.Canvas.Brush.Style := St.BrushStyle;
+end;
+
 procedure TContainer2D.Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas;
   const ClipRect2D: TRect2D; const DrawMode: Integer);
 var
   TmpObj: TObject2D;
   TmpTransf: TTransf2D;
   TmpIter: TGraphicObjIterator;
-  TmpPen: TPen;
-  TmpBrush: TBrush;
+  SavedState: TSavedCanvasState;   { CS4-FIX (P9) }
 begin
   // Crea un iterator temporaneo.
   TmpIter := fObjects.GetIterator;
-  TmpPen := TPen.Create;
-  TmpBrush := TBrush.Create;
   try
     { Transform the container. }
     TmpTransf := MultiplyTransform2D(ModelTransform, VT);
     TmpObj := TObject2D(TmpIter.First);
-    TmpPen.Assign(Cnv.Canvas.Pen);
-    TmpBrush.Assign(Cnv.Canvas.Brush);
+    _SaveCanvasState(Cnv, SavedState);
     while TmpObj <> nil do
     begin
-      Cnv.Canvas.Pen.Assign(TmpPen);
-      Cnv.Canvas.Brush.Assign(TmpBrush);
+      _RestoreCanvasState(Cnv, SavedState);
       { Transform the object in the container. }
       TmpObj.Draw(TmpTransf, Cnv, ClipRect2D, DrawMode);
       TmpObj := TObject2D(TmpIter.Next);
     end;
   finally
-    TmpPen.Free;
-    TmpBrush.Free;
     TmpIter.Free;
   end;
 end;
@@ -17915,12 +18088,17 @@ begin
   inherited;
 end;
 
-procedure TObject3DHandler.FreeInstance;
+procedure TObject3DHandler.Release;
 begin
+  { CS4-FIX (M11): this used to override FreeInstance, which Delphi calls
+    from the destructor epilogue - i.e. AFTER Destroy has already run. A
+    handler with fRefCount > 1 was therefore fully destructed (clearing
+    fHandledObject.fHandler) and then had its memory leaked, leaving every
+    other holder pointing at a dead object. Reference counting has to
+    happen INSTEAD OF destruction, not after it. }
   Dec(fRefCount);
-  if fRefCount > 0 then
-    Exit;
-  inherited;
+  if fRefCount <= 0 then
+    Destroy;
 end;
 
 // =====================================================================
@@ -17940,7 +18118,7 @@ end;
 destructor TObject3D.Destroy;
 begin
   if Assigned(fHandler) then
-    fHandler.Free;
+    fHandler.Release;   { CS4-FIX (M11) }
   if fModelTransform <> nil then
     FreeMem(fModelTransform, SizeOf(TTransf3D));
   if fSavedTransform <> nil then
@@ -18163,7 +18341,7 @@ end;
 procedure TObject3D.SetSharedHandler(const Hndl: TObject3DHandler);
 begin
   if Assigned(fHandler) then
-    fHandler.Free;
+    fHandler.Release;   { CS4-FIX (M11) }
   fHandler := Hndl;
   if (Hndl <> nil) then
     Inc(fHandler.fRefCount);
@@ -18172,7 +18350,7 @@ end;
 procedure TObject3D.SetHandler(const Hndl: TObject3DHandlerClass);
 begin
   if Assigned(fHandler) then
-    fHandler.Free;
+    fHandler.Release;   { CS4-FIX (M11) }
   if (Hndl <> nil) then
     fHandler := Hndl.Create(Self)
   else
@@ -18363,8 +18541,7 @@ var
   TmpObj: TObject3D;
   TmpIter: TGraphicObjIterator;
   TmpTransf: TTransf3D;
-  TmpPen: TPen;
-  TmpBrush: TBrush;
+  SavedState: TSavedCanvasState;   { CS4-FIX (P9) }
 begin
   if (DrawMode and DRAWMODE_ONLYBOUNDINGBOX) = DRAWMODE_ONLYBOUNDINGBOX then
   begin
@@ -18374,8 +18551,6 @@ begin
   end;
   // Crea un iterator temporaneo.
   TmpIter := fObjects.GetIterator;
-  TmpPen := TPen.Create;
-  TmpBrush := TBrush.Create;
   try
     if HasTransform then
       TmpTransf := MultiplyTransform3D(ModelTransform, NormTransf)
@@ -18384,19 +18559,15 @@ begin
     TmpObj := TObject3D(TmpIter.First);
     with Cnv do
     begin
-      TmpPen.Assign(Canvas.Pen);
-      TmpBrush.Assign(Canvas.Brush);
+      _SaveCanvasState(Cnv, SavedState);
       while TmpObj <> nil do
       begin
-        Canvas.Pen.Assign(TmpPen);
-        Canvas.Brush.Assign(TmpBrush);
+        _RestoreCanvasState(Cnv, SavedState);
         TmpObj.Draw(TmpTransf, VRP, VT, Cnv, DrawMode);
         TmpObj := TObject3D(TmpIter.Next);
       end;
     end;
   finally
-    TmpPen.Free;
-    TmpBrush.Free;
     TmpIter.Free;
   end;
 end;

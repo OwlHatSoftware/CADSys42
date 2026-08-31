@@ -3487,34 +3487,45 @@ procedure ExplodeContainer(AContainer2D: TContainer2D; ADestCAD: TCADCmp2D);
 var
   TmpIter: TExclusiveGraphicObjIterator;
   TmpClass: TGraphicObjectClass;
-  TmpObj: TGraphicObject;
+  TmpObj, TmpSrc: TGraphicObject;
 begin
+  { CS4-FIX (M13): three defects in one loop. TmpObj.Assign was commented out,
+    so every exploded primitive was added to the drawing default-constructed
+    with no geometry at all. The TContainer2D branch then recursed into that
+    freshly created EMPTY container and neither freed nor added it. And
+    'repeat' runs its body before testing, so an empty container dereferenced
+    a nil TmpIter.Current.
+    NOTE: for a nested container the outer transform is now composed onto the
+    copy before recursing, so it reaches the grandchildren. That is the one
+    part of this worth checking visually - the original never got far enough
+    to define the intended nesting order. }
   TmpIter := AContainer2D.Objects.GetExclusiveIterator;
-  TmpObj := TmpIter.First;
   try
-    repeat
-      // if (TmpIter.Current is TCircle2D) then
-      // begin
-      // TmpObj := TCircle2D.Create(TmpIter.Current.ID, Point2D(0, 0), 0);
-      // TCircle2D(TmpObj).Assign(TCircle2D(TmpIter.Current));
-      // ADestCAD.AddObject(-1, TCircle2D(TmpObj));
-      // exit;
-      // end;
-      TmpClass := TGraphicObjectClass(TmpIter.Current.ClassType);
-      TmpObj := TmpClass.Create(TmpIter.Current.ID);
-      // if (TmpObj is TCircle2D) then
-      //
-      // TmpObj.Assign(TmpIter.Current);
-      if (TmpObj is TPrimitive2D) then
-      begin
-        TPrimitive2D(TmpObj).Transform(AContainer2D.ModelTransform);
-        ADestCAD.AddObject(-1, TObject2D(TmpObj));
-      end
-      else if (TmpObj is TContainer2D) then
-      begin
-        ExplodeContainer(TContainer2D(TmpObj), ADestCAD);
+    TmpSrc := TmpIter.First;
+    while TmpSrc <> nil do
+    begin
+      TmpClass := TGraphicObjectClass(TmpSrc.ClassType);
+      TmpObj := TmpClass.Create(TmpSrc.ID);
+      try
+        TmpObj.Assign(TmpSrc);
+        if (TmpObj is TPrimitive2D) then
+        begin
+          TPrimitive2D(TmpObj).Transform(AContainer2D.ModelTransform);
+          ADestCAD.AddObject(-1, TObject2D(TmpObj));
+          { Ownership has passed to the destination drawing. }
+          TmpObj := nil;
+        end
+        else if (TmpObj is TContainer2D) then
+        begin
+          TContainer2D(TmpObj).Transform(AContainer2D.ModelTransform);
+          ExplodeContainer(TContainer2D(TmpObj), ADestCAD);
+        end;
+      finally
+        { Whatever was not handed to ADestCAD is ours to release. }
+        TmpObj.Free;
       end;
-    until TmpIter.Next = nil;
+      TmpSrc := TmpIter.Next;
+    end;
   finally
     TmpIter.Free;
   end;
@@ -3524,25 +3535,35 @@ procedure ExplodeBlock(ABlock: TBlock2D; ADestCAD: TCADCmp2D);
 var
   TmpIter: TExclusiveGraphicObjIterator;
   TmpClass: TGraphicObjectClass;
-  TmpObj: TGraphicObject;
+  TmpObj, TmpSrc: TGraphicObject;
 begin
+  { CS4-FIX (M13): as ExplodeContainer - 'repeat' faulted on an empty source
+    block, and the nested TBlock2D branch leaked its copy. }
   TmpIter := ABlock.SourceBlock.Objects.GetExclusiveIterator;
-  TmpObj := TmpIter.First;
   try
-    repeat
-      TmpClass := TGraphicObjectClass(TmpIter.Current.ClassType);
-      TmpObj := TmpClass.Create(TmpIter.Current.ID);
-      TmpObj.Assign(TmpIter.Current);
-      if (TmpObj is TPrimitive2D) then
-      begin
-        TPrimitive2D(TmpObj).Transform(ABlock.ModelTransform);
-        ADestCAD.AddObject(-1, TObject2D(TmpObj));
-      end
-      else if (TmpObj is TBlock2D) then
-      begin
-        ExplodeBlock(TBlock2D(TmpObj), ADestCAD);
+    TmpSrc := TmpIter.First;
+    while TmpSrc <> nil do
+    begin
+      TmpClass := TGraphicObjectClass(TmpSrc.ClassType);
+      TmpObj := TmpClass.Create(TmpSrc.ID);
+      try
+        TmpObj.Assign(TmpSrc);
+        if (TmpObj is TPrimitive2D) then
+        begin
+          TPrimitive2D(TmpObj).Transform(ABlock.ModelTransform);
+          ADestCAD.AddObject(-1, TObject2D(TmpObj));
+          { Ownership has passed to the destination drawing. }
+          TmpObj := nil;
+        end
+        else if (TmpObj is TBlock2D) then
+        begin
+          ExplodeBlock(TBlock2D(TmpObj), ADestCAD);
+        end;
+      finally
+        TmpObj.Free;
       end;
-    until TmpIter.Next = nil;
+      TmpSrc := TmpIter.Next;
+    end;
   finally
     TmpIter.Free;
   end;

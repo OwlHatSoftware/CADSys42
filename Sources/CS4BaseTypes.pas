@@ -536,29 +536,18 @@ procedure TDecorativePen.Polyline(Cnv: TCanvas; Pts: Pointer; NPts: Integer);
 type
   TPoints = array[0..0] of TPoint;
 var
-  Cont: Integer;
   TmpPts: ^TPoints;
 begin
   if NPts <= 1 then
    Exit;
   TmpPts := Pts;
-  if( fPStyle.Size > 0 ) then
-   begin
-     fCnv := Cnv;
-     fCurBit := 0;
-     fLastPt := TmpPts^[0];
-     for Cont := 0 to NPts - 2 do
-      begin
-        if Cont > 0 then
-         fStartPt := fLastPt
-        else
-         fStartPt := TmpPts^[Cont];
-        fEndPt := TmpPts^[Cont + 1];
-        CallLineDDA;
-      end;
-   end
-  else
-   WinAPI.Windows.Polyline(Cnv.Handle, TmpPts^, NPts);
+  { CS4-FIX (S5): the patterned branch looped MoveTo/LineTo per segment through
+    CallLineDDA - whose LineDDA calls are themselves commented out - so it drew
+    exactly the same solid pixels as a single WinAPI.Windows.Polyline, at N
+    times the GDI cost, for a decorative pattern that no longer works.
+    LineDDAMethod1/2 stay unreachable; restoring them needs the Integer(Self)
+    cast replaced with an LPARAM/NativeInt one for 64-bit first. }
+  WinAPI.Windows.Polyline(Cnv.Handle, TmpPts^, NPts);
 end;
 
 procedure TDecorativePen.SetPenStyle(const SString: String);
