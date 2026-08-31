@@ -22,7 +22,9 @@ CADSys4Tests.exe --xmloutput:results.xml      NUnit XML for a CI report
 
 The exit code is non-zero if anything failed, so it drops straight into the existing `.github/workflows` setup.
 
-The Debug configuration turns on **range checking** and **integer overflow checking**. That is deliberate: several of the defects this suite covers are out-of-bounds reads and a `Word` truncation, and those are invisible without `{$R+}` and `{$Q+}`.
+The Debug configuration does **not** turn on range or overflow checking. The library's own convention is range-checks-off — `CADSys4.pas` wraps only `DotProduct3D`/`CrossProd3D` in `{$R+}` (to catch an `Extended`→`Double` narrowing) and then does `{$R-}` for the rest of the unit — so `{$R+}` project-wide is not a baseline this code was written to satisfy.
+
+It is still worth running that way deliberately. Range checking is how the `Word` capacity truncation (M2) and the draw-helper overruns (P3b) become visible at all. Tick **Range checking** and **Overflow checking** under Project → Options → Building → Delphi Compiler → Compiling, expect `ERangeError` to surface in places the library has always been sloppy about, and treat each one as a finding to triage rather than a build break.
 
 ## What is in here
 
