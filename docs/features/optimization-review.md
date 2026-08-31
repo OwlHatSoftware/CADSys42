@@ -1221,7 +1221,26 @@ Because `HEAD` stores these files LF and the working tree is CRLF, the branch op
 | DXF: `ReadAnEntry` never clears the group table | **fixed, isolated commit** — the one behaviour change in the set; revert that commit alone if an import regresses |
 | M5 — `fCallerParam` ownership | **deferred** to the ownership phase (see its revised risk note) |
 | X3 / X4 — file-format version gate | **not attempted** — see below |
+
+### Phase 2a (branch `fix/phase1-memory-and-portability`, commit `1e8ecd9`)
+
+A second, still-conservative pass: local changes only, no public signature changes, no geometry or format changes.
+
+| Finding | Status |
+|---|---|
+| M11 — handler refcount via `FreeInstance` | **fixed** — replaced with an explicit `Release`; six call sites plus `CADSysRegister`'s finalization updated |
+| M13 — `ExplodeContainer` / `ExplodeBlock` | **fixed** — `Assign` restored, nested copy no longer leaked, empty-source fault gone |
+| P2 — `Add` fires `OnChange` per point | **fixed** — `BeginUpdate`/`EndUpdate` added; purely additive, existing callers unaffected until they opt in |
+| P3 — scratch buffer allocated per shape per frame | **fixed** — 512-point stack buffer with heap fallback, in all three subset helpers |
+| P9 — `TPen`/`TBrush` constructed per container draw | **fixed** — record snapshot; verified no shape assigns `Pen.Brush` or `Brush.Bitmap` |
+| P12 — background erased then fully overpainted | **fixed** — `csOpaque` set, managed by `SetTransparent`, `WMEraseBkgnd` narrowed |
+| S5 — `TDecorativePen.Polyline` dead pattern branch | **fixed** — single `WinAPI.Windows.Polyline`, identical pixels |
+| **M4 — 11 state constructors leak `StateParam` on raise** | **deferred** — see below |
 | Everything else in Phases 2-4 | **not started** |
+
+**Why M4 moved out of the safe set.** Freeing `StateParam` before a constructor raises has exactly the hazard that kept M5 and M6 out of Phase 1: `SuspendOperation` (`CADSys4.pas:20705`) aliases the *suspended* state's param into `StateParam` when the caller passes `nil`, so a type-check failure in the new state would free a live task's parameter rather than an orphan. `SuspendOperation(TCAD2DSelectObjects, nil)` while a drawing task is running is a realistic path to exactly that. M4 is now the third finding blocked on the same root cause — which is the clearest argument yet that **M5/M7/M8/A3 are the linchpin** and should be the next real piece of work, not more leaf fixes.
+
+Two Phase 2a changes alter observable behaviour and want a visual check: **P12** changes how the viewport paints, and **M13** changes what explode produces (from blank shapes to real ones). The nested-container transform composition in `ExplodeContainer` is the one part with no prior behaviour to compare against — the original never got far enough to define an intended nesting order.
 
 ### Why the file-format version gate is not in this branch
 
