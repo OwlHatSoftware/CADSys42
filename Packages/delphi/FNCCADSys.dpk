@@ -1,0 +1,56 @@
+package FNCCADSys;
+
+{$R *.res}
+{$R 'FNCCadSys.dcr'}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS OFF}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS OFF}
+{$LOCALSYMBOLS OFF}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST ON}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'CADSys 4.2 Lite Version'}
+{$IMPLICITBUILD OFF}
+
+requires
+  vcl,
+  rtl,
+  vclimg,
+  dbrtl,
+  xmlrtl,
+  vclwinx,
+  bindengine,
+  bindcomp,
+  VCLTMSFNCCorePkg;
+
+contains
+  FNCCADSys4 in '..\..\Sources\FNCCADSys4.pas',
+  FNCCS4BaseTypes in '..\..\Sources\FNCCS4BaseTypes.pas',
+  FNCCS4Graphics in '..\..\Sources\FNCCS4Graphics.pas',
+  FNCCS4JSON in '..\..\Sources\FNCCS4JSON.pas',
+  FNCCS4GraphicsVCL in '..\..\Sources\FNCCS4GraphicsVCL.pas',
+  FNCCS4GraphicsFNC in '..\..\Sources\FNCCS4GraphicsFNC.pas',
+  FNCCS4ExportVCL in '..\..\Sources\FNCCS4ExportVCL.pas',
+  FNCCS4DXFModule in '..\..\Sources\FNCCS4DXFModule.pas',
+  FNCCS4Shapes in '..\..\Sources\FNCCS4Shapes.pas',
+  FNCCS4Tasks in '..\..\Sources\FNCCS4Tasks.pas',
+  FNCCadSysRegister in '..\..\Sources\FNCCadSysRegister.pas';
+
+end.
