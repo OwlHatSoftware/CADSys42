@@ -1,10 +1,10 @@
-{ : DUnitX tests for the core data structures of CADSys 4.2 (unit CADSys4).
+{ : DUnitX tests for the core data structures of CADSys 4.2 (unit FNCCADSys4).
 
   Scope: TPointsSet2D / TPointsSet3D, TGraphicObjList and its iterators,
   TIndexedObjectList, TLayer / TLayers and TCADPrgParam.
 
   Nothing here touches a TCanvas, a window handle or a viewport: no Draw*
-  method is ever called and no TCADViewport* is ever instantiated.
+  method is ever called and no TFNCCADViewport* is ever instantiated.
 
   Every assertion below was written against the staged sources; the behaviour
   pinned is the behaviour the code actually has, not the behaviour the doc
@@ -20,10 +20,11 @@ uses
   System.Classes,
   Vcl.Graphics,
   DUnitX.TestFramework,
-  CS4BaseTypes,
-  CADSys4,
-  CS4Shapes,
-  CADSysRegister;
+  FNCCS4BaseTypes,
+  FNCCADSys4,
+  FNCCS4Shapes,
+  FNCCS4Graphics,
+  FNCCadSysRegister;
 
 type
   { : A minimal concrete TGraphicObject.
@@ -60,7 +61,7 @@ type
 
   { : A TPointsSet2D descendant that records every (PutIndex, ItemIndex) pair
     the virtual Put receives, so the shift contract documented around
-    CADSys4.pas:848-860 can be pinned exactly.
+    FNCCADSys4.pas:848-860 can be pinned exactly.
   }
   TRecordingPointsSet2D = class(TPointsSet2D)
   private
@@ -1866,10 +1867,10 @@ procedure TLayerTests.Create_SetsDefaultPenAndBrush;
 begin
   Assert.IsTrue(FLayer.Pen <> nil, 'Pen');
   Assert.IsTrue(FLayer.Brush <> nil, 'Brush');
-  Assert.AreEqual(Integer(clBlack), Integer(FLayer.Pen.Color), 'Pen.Color');
-  Assert.IsTrue(FLayer.Pen.Style = psSolid, 'Pen.Style');
-  Assert.AreEqual(Integer(clWhite), Integer(FLayer.Brush.Color), 'Brush.Color');
-  Assert.IsTrue(FLayer.Brush.Style = bsSolid, 'Brush.Style');
+  Assert.AreEqual<Cardinal>(Cardinal(cadclBlack), Cardinal(FLayer.Pen.Color), 'Pen.Color');
+  Assert.IsTrue(FLayer.Pen.Style = cpsSolid, 'Pen.Style');
+  Assert.AreEqual<Cardinal>(Cardinal(cadclWhite), Cardinal(FLayer.Brush.Color), 'Brush.Color');
+  Assert.IsTrue(FLayer.Brush.Style = cbsSolid, 'Brush.Style');
 end;
 
 procedure TLayerTests.Create_HasADecorativePen;
@@ -1880,21 +1881,21 @@ end;
 procedure TLayerTests.ChangingPenColor_SetsModified;
 begin
   Assert.IsFalse(FLayer.Modified, 'precondition');
-  FLayer.Pen.Color := clRed;
+  FLayer.Pen.Color := TColorToCADColor(clRed);
   Assert.IsTrue(FLayer.Modified,
     'TLayer.Changed is wired to Pen.OnChange in the constructor');
 end;
 
 procedure TLayerTests.ChangingPenStyle_SetsModified;
 begin
-  FLayer.Pen.Style := psDash;
+  FLayer.Pen.Style := cpsDash;
   Assert.IsTrue(FLayer.Modified, 'Modified');
 end;
 
 procedure TLayerTests.ChangingBrushColor_SetsModified;
 begin
   Assert.IsFalse(FLayer.Modified, 'precondition');
-  FLayer.Brush.Color := clRed;
+  FLayer.Brush.Color := TColorToCADColor(clRed);
   Assert.IsTrue(FLayer.Modified,
     'TLayer.Changed is wired to Brush.OnChange in the constructor');
 end;
@@ -1915,14 +1916,14 @@ end;
 
 procedure TLayerTests.AssigningPen_CopiesTheValuesAndKeepsTheOwnPenInstance;
 var
-  Tmp: TPen;
+  Tmp: TCADSimplePen;
 begin
-  Tmp := TPen.Create;
+  Tmp := TCADSimplePen.Create;
   try
-    Tmp.Color := clRed;
+    Tmp.Color := TColorToCADColor(clRed);
     Tmp.Width := 3;
     FLayer.Pen := Tmp;
-    Assert.AreEqual(Integer(clRed), Integer(FLayer.Pen.Color), 'Color copied');
+    Assert.AreEqual<Cardinal>(TColorToCADColor(clRed), Cardinal(FLayer.Pen.Color), 'Color copied');
     Assert.AreEqual(3, FLayer.Pen.Width, 'Width copied');
     Assert.IsFalse(FLayer.Pen = Tmp,
       'SetPen assigns into the layer''s own pen, it does not take ownership');
@@ -2007,8 +2008,8 @@ var
 begin
   Lay := FLayers[3];
   Lay.Name := 'Dimensions';
-  Lay.Pen.Color := clRed;
-  Lay.Brush.Color := clRed;
+  Lay.Pen.Color := TColorToCADColor(clRed);
+  Lay.Brush.Color := TColorToCADColor(clRed);
   Lay.Active := False;
   Lay.Visible := False;
   Lay.Opaque := True;
@@ -2019,10 +2020,10 @@ begin
   FLayers.RestoreLayers;
 
   Assert.AreEqual('Layer 3', String(Lay.Name), 'Name');
-  Assert.AreEqual(Integer(clBlack), Integer(Lay.Pen.Color), 'Pen.Color');
-  Assert.IsTrue(Lay.Pen.Style = psSolid, 'Pen.Style');
-  Assert.AreEqual(Integer(clWhite), Integer(Lay.Brush.Color), 'Brush.Color');
-  Assert.IsTrue(Lay.Brush.Style = bsSolid, 'Brush.Style');
+  Assert.AreEqual<Cardinal>(Cardinal(cadclBlack), Cardinal(Lay.Pen.Color), 'Pen.Color');
+  Assert.IsTrue(Lay.Pen.Style = cpsSolid, 'Pen.Style');
+  Assert.AreEqual<Cardinal>(Cardinal(cadclWhite), Cardinal(Lay.Brush.Color), 'Brush.Color');
+  Assert.IsTrue(Lay.Brush.Style = cbsSolid, 'Brush.Style');
   Assert.IsTrue(Lay.Active, 'Active');
   Assert.IsTrue(Lay.Visible, 'Visible');
   Assert.IsFalse(Lay.Opaque, 'Opaque');
@@ -2035,8 +2036,8 @@ end;
 procedure TLayersTests.RestoreLayers_KeepsTheSameBrushInstance;
 var
   Lay: TLayer;
-  BrushBefore: TBrush;
-  PenBefore: TPen;
+  BrushBefore: TCADSimpleBrush;
+  PenBefore: TCADSimplePen;
 begin
   Lay := FLayers[3];
   BrushBefore := Lay.Brush;
@@ -2054,7 +2055,7 @@ begin
   Lay := FLayers[3];
   FLayers.RestoreLayers;
   Assert.IsFalse(Lay.Modified, 'precondition');
-  Lay.Brush.Color := clRed;
+  Lay.Brush.Color := TColorToCADColor(clRed);
   Assert.IsTrue(Lay.Modified,
     'the brush OnChange handler must survive RestoreLayers');
 end;
@@ -2066,7 +2067,7 @@ begin
   Lay := FLayers[3];
   FLayers.RestoreLayers;
   Assert.IsFalse(Lay.Modified, 'precondition');
-  Lay.Pen.Color := clRed;
+  Lay.Pen.Color := TColorToCADColor(clRed);
   Assert.IsTrue(Lay.Modified,
     'the pen OnChange handler must survive RestoreLayers');
 end;

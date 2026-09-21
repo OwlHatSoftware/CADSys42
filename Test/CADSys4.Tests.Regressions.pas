@@ -16,10 +16,10 @@ interface
 
 uses
   DUnitX.TestFramework,
-  CS4BaseTypes,
-  CADSys4,
-  CS4Shapes,
-  CADSysRegister;
+  FNCCS4BaseTypes,
+  FNCCADSys4,
+  FNCCS4Shapes,
+  FNCCadSysRegister;
 
 type
   { M12 - TContainer2D/TContainer3D.Assign used repeat..until, which executes
@@ -81,7 +81,7 @@ type
   TUntestableHeadlessRegressionNotes = class(TObject)
   public
     [Test]
-    [Ignore('M1: needs a TCADPrg driving a TCADPrg2D against a live TCADViewport2D. ' +
+    [Ignore('M1: needs a TFNCCADPrg driving a TFNCCADPrg2D against a live TFNCCADViewport2D. ' +
             'The double free happens in TCADPrgPan/TCADPrgDragPan OnEvent/OnStop, ' +
             'which are only reachable through the FSM event pump. Verify with FastMM ' +
             'full-debug mode in the CAD2D demo: pan, then cancel.')]
@@ -100,14 +100,14 @@ type
     procedure X1_WndProcPointerTruncation;
 
     [Test]
-    [Ignore('P4: TExtendedFont.SetHeight now skips the rebuild when the height is ' +
-            'unchanged. The effect is a GDI handle not being recreated, which the ' +
-            'public API does not expose. Verify with a GDI object count in a profiler.')]
+    [Ignore('P4: TExtendedFont no longer owns a GDI handle at all - it is a ' +
+            'description, and the VCL backend caches one HFONT keyed on it. There ' +
+            'is no churn left to observe through the public API.')]
     procedure P4_FontHandleChurn;
 
     [Test]
     [Ignore('TPointsSet3D.Expand Z-initialisation: Get() bounds-checks against fCount, ' +
-            'not fCapacity (CADSys4.pas:13326), so grown-but-unwritten slots are ' +
+            'not fCapacity (FNCCADSys4.pas:13326), so grown-but-unwritten slots are ' +
             'unreachable through the public API. The fix is correct but unobservable ' +
             'without touching PointsReference directly, which would itself be UB.')]
     procedure PointsSet3D_ExpandInitialisesZ;
@@ -131,10 +131,10 @@ type
     procedure PointsSet_CapacityAbove32767;
 
     [Test]
-    [Ignore('X3/X4 - on-disk format doubled under Unicode (TCADVersion, ' +
-            'TSourceBlockName, TText2D). Pinned as current behaviour in ' +
-            'CADSys4.Tests.Persistence; this becomes a real test once the ' +
-            'version gate lands.')]
+    [Ignore('X3/X4 - the binary on-disk format doubled under Unicode ' +
+            '(TCADVersion, TSourceBlockName, TText2D). Fixed by dropping ' +
+            'that format: drawings are JSON now, and the round trips in ' +
+            'CADSys4.Tests.Persistence cover it. Kept as a marker.')]
     procedure StreamFormat_VersionGate;
   end;
 
@@ -153,7 +153,7 @@ begin
       Src, Dst: TContainer2D;
     begin
       { [nil] is the documented way to build a void container - see the
-        TContainer2D.Create doc comment in CADSys4.pas. }
+        TContainer2D.Create doc comment in FNCCADSys4.pas. }
       Src := TContainer2D.Create(1, [nil]);
       try
         Dst := TContainer2D.Create(2, [nil]);
@@ -339,7 +339,7 @@ begin
   { VectFonts2DRegistered is array[0..MAX_REGISTERED_FONTS] with
     MAX_REGISTERED_FONTS = 512. Before the fix this read past the end of the
     array and returned whatever pointer happened to be there. With no default
-    font registered (CADSysRegister sets _DefaultFont := nil) the bounds check
+    font registered (FNCCadSysRegister sets _DefaultFont := nil) the bounds check
     now surfaces as a clean ECADObjClassNotFound. }
   Assert.WillRaise(
     procedure

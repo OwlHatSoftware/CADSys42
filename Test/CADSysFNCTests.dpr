@@ -1,6 +1,7 @@
-program CADSys4Tests;
+program CADSysFNCTests;
 
-{ DUnitX console test runner for the CADSys 4.2 library.
+{ DUnitX console test runner for the TMS FNC drawing backend of CADSys.
+  Needs TMS FNC Core (VCL) on the library path.
 
   Build:   the library units are reached through the unit search path
            ..\Sources, set in CADSys4Tests.dproj. Nothing from Sources is
@@ -14,15 +15,6 @@ program CADSys4Tests;
            initialization section is what populates the class and font
            registries. Without it, anything that streams an object or looks
            a class up by name raises ECADObjClassNotFound.
-
-  Note:    FNCCS4ExportVCL is listed below with nothing testing it, on
-           purpose. It has no tests because printing and the clipboard
-           need a device; but it is a library unit, and a unit that no
-           build ever compiles rots. It did: it sat broken from the day
-           it was written, calling three members of TFNCCADViewport that
-           were private or protected, and nobody found out until the
-           package was next built. Listing it here means the suite fails
-           to build rather than the user's project.
 }
 
 {$IFNDEF TESTINSIGHT}
@@ -38,14 +30,7 @@ uses
   DUnitX.Loggers.Console,
   DUnitX.Loggers.Xml.NUnit,
   DUnitX.TestFramework,
-  CADSys4.Tests.Geometry in 'CADSys4.Tests.Geometry.pas',
-  CADSys4.Tests.Structures in 'CADSys4.Tests.Structures.pas',
-  CADSys4.Tests.Shapes in 'CADSys4.Tests.Shapes.pas',
-  CADSys4.Tests.Persistence in 'CADSys4.Tests.Persistence.pas',
-  CADSys4.Tests.Regressions in 'CADSys4.Tests.Regressions.pas',
-  CADSys4.Tests.Graphics in 'CADSys4.Tests.Graphics.pas',
-  CADSys4.Tests.DXF in 'CADSys4.Tests.DXF.pas',
-  FNCCS4ExportVCL;
+  CADSys4.Tests.GraphicsFNC in 'CADSys4.Tests.GraphicsFNC.pas';
 
 {$IFNDEF TESTINSIGHT}
 var

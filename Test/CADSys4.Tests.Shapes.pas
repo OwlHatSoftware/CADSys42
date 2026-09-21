@@ -1,16 +1,16 @@
-{ : DUnitX test suite for the 2D shape hierarchy of CADSys 4.2 (CS4Shapes.pas).
+{ : DUnitX test suite for the 2D shape hierarchy of CADSys 4.2 (FNCCS4Shapes.pas).
 
   Target: Delphi 12 Athens, the DUnitX bundled with the IDE, console runner.
 
   IMPORTANT: this suite never touches a TCanvas, a window handle or a
   TDecorativeCanvas. No Draw / DrawControlPoints / DrawObject* call is made and
-  no TCADViewport* is instantiated. Everything exercised here is pure geometry,
+  no TFNCCADViewport* is instantiated. Everything exercised here is pure geometry,
   bounding-box, profile-point and picking logic.
 
-  CADSysRegister is in the uses clause because its `initialization` section is
+  FNCCadSysRegister is in the uses clause because its `initialization` section is
   what registers the shape classes, initialises the font list and creates
   _DefaultHandler2D. Every TPrimitive2D attaches that shared handler to itself
-  in its constructor (CS4Shapes.pas:3437) and the handler takes part in OnMe,
+  in its constructor (FNCCS4Shapes.pas:3437) and the handler takes part in OnMe,
   so several picking expectations below depend on it being present.
 }
 unit CADSys4.Tests.Shapes;
@@ -20,10 +20,10 @@ interface
 uses
   System.SysUtils,
   DUnitX.TestFramework,
-  CS4BaseTypes,
-  CADSys4,
-  CS4Shapes,
-  CADSysRegister;
+  FNCCS4BaseTypes,
+  FNCCADSys4,
+  FNCCS4Shapes,
+  FNCCadSysRegister;
 
 type
 
@@ -573,7 +573,7 @@ end;
 procedure TPolyOutlineTests.Polyline_ProfilePointsAreTheControlPoints;
 begin
   { For an outline the profile points and the control points are literally the
-    same set object (CS4Shapes.pas:3658). }
+    same set object (FNCCS4Shapes.pas:3658). }
   Assert.IsTrue(FPolyline.ProfilePoints = FPolyline.Points);
   Assert.AreEqual(3, FPolyline.NumberOfProfilePts);
 end;
@@ -988,7 +988,7 @@ end;
 procedure TArcEllipseTests.Ellipse_BoxIsTheControlPointBox;
 begin
   { TEllipse2D.PopulateCurvePoints returns the extension of the CONTROL points,
-    not of the flattened profile (CS4Shapes.pas:4225). }
+    not of the flattened profile (FNCCS4Shapes.pas:4225). }
   Assert.AreEqual(0.0, FEllipse.Box.Left, TOL_EXACT);
   Assert.AreEqual(0.0, FEllipse.Box.Bottom, TOL_EXACT);
   Assert.AreEqual(10.0, FEllipse.Box.Right, TOL_EXACT);
@@ -1165,7 +1165,7 @@ var
   Small: TBSpline2D;
 begin
   { With Points.Count < Order the curve degenerates into its control polygon
-    (CS4Shapes.pas:4360). }
+    (FNCCS4Shapes.pas:4360). }
   Small := TBSpline2D.Create(602, [Point2D(0.0, 0.0), Point2D(4.0, 4.0)]);
   try
     Assert.AreEqual(2, Integer(Small.Points.Count));
@@ -1418,8 +1418,8 @@ end;
 
 procedure TText2DTests.Construction_LogFontIsCreated;
 begin
-  { TExtendedFont only wraps a TLOGFONT and a GDI font handle - no canvas is
-    attached here, so nothing needs a window. }
+  { TExtendedFont is a plain font description now - no handle, no canvas,
+    so nothing here needs a window. }
   Assert.IsTrue(Assigned(FText.LogFont),
     'TText2D.Create builds its TExtendedFont');
 end;
@@ -1515,7 +1515,7 @@ var
 begin
   { A one-glyph vectorial font. Per TVectChar's contract the outline lives in
     the unit square, so this glyph's box is (0,0)-(0.6,1): advance 0.6, full
-    height, no descender. CADSysRegister's initialization has already run
+    height, no descender. FNCCadSysRegister's initialization has already run
     CADSysInitFontList and built _NullChar. }
   FFont := TVectFont.Create;
   Glyph := FFont.CreateChar('A', 1);

@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{7B2E4C11-9A3D-4F62-8E51-6C0D4A9B2F73}</ProjectGuid>
-        <MainSource>CADSys4Tests.dpr</MainSource>
+        <ProjectGuid>{0E147E6D-377E-4D8B-A4CA-35CD384C14E0}</ProjectGuid>
+        <MainSource>CADSysFNCTests.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <TargetedPlatforms>3</TargetedPlatforms>
@@ -9,7 +9,7 @@
         <FrameworkType>None</FrameworkType>
         <ProjectVersion>20.3</ProjectVersion>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
-        <ProjectName Condition="'$(ProjectName)'==''">CADSys4Tests</ProjectName>
+        <ProjectName Condition="'$(ProjectName)'==''">CADSysFNCTests</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -95,7 +95,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <DCC_DcuOutput>.\$(Platform)\$(Config)\dcu</DCC_DcuOutput>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)\dcu-fnc</DCC_DcuOutput>
         <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_UnitSearchPath>..\Sources;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_E>false</DCC_E>
@@ -105,7 +105,7 @@
         <DCC_S>false</DCC_S>
         <DCC_Define>DUNITX;$(DCC_Define)</DCC_Define>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <SanitizedProjectName>CADSys4Tests</SanitizedProjectName>
+        <SanitizedProjectName>CADSysFNCTests</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
         <VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=35</VerInfo_Keys>
@@ -139,11 +139,11 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;System.Win;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=;FileDescription=CADSys 4.2 DUnitX test suite;FileVersion=1.0.0.0;InternalName=CADSys4Tests;LegalCopyright=;LegalTrademarks=;OriginalFilename=CADSys4Tests.exe;ProgramID=com.embarcadero.CADSys4Tests;ProductName=CADSys4Tests;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=CADSys 4.2 DUnitX test suite;FileVersion=1.0.0.0;InternalName=CADSysFNCTests;LegalCopyright=;LegalTrademarks=;OriginalFilename=CADSysFNCTests.exe;ProgramID=com.embarcadero.CADSysFNCTests;ProductName=CADSysFNCTests;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;System.Win;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>CompanyName=;FileDescription=CADSys 4.2 DUnitX test suite;FileVersion=1.0.0.0;InternalName=CADSys4Tests;LegalCopyright=;LegalTrademarks=;OriginalFilename=CADSys4Tests.exe;ProgramID=com.embarcadero.CADSys4Tests;ProductName=CADSys4Tests;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=CADSys 4.2 DUnitX test suite;FileVersion=1.0.0.0;InternalName=CADSysFNCTests;LegalCopyright=;LegalTrademarks=;OriginalFilename=CADSysFNCTests.exe;ProgramID=com.embarcadero.CADSysFNCTests;ProductName=CADSysFNCTests;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
@@ -178,13 +178,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="CADSys4.Tests.Geometry.pas"/>
-        <DCCReference Include="CADSys4.Tests.Structures.pas"/>
-        <DCCReference Include="CADSys4.Tests.Shapes.pas"/>
-        <DCCReference Include="CADSys4.Tests.Persistence.pas"/>
-        <DCCReference Include="CADSys4.Tests.Regressions.pas"/>
-        <DCCReference Include="CADSys4.Tests.Graphics.pas"/>
-        <DCCReference Include="CADSys4.Tests.DXF.pas"/>
+        <DCCReference Include="CADSys4.Tests.GraphicsFNC.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -203,7 +197,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">CADSys4Tests.dpr</Source>
+                    <Source Name="MainSource">CADSysFNCTests.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k290.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>

@@ -33,7 +33,9 @@ It is still worth running that way deliberately. Range checking is how the `Word
 | `CADSys4.Tests.Geometry` | `CS4BaseTypes` value types and every canvas-free geometry function in `CADSys4`: vector algebra, homogeneous coordinates, the 2D/3D transform algebra, box algebra, distance and clipping helpers. |
 | `CADSys4.Tests.Structures` | `TPointsSet2D`/`3D`, `TGraphicObjList` and its iterators, `TIndexedObjectList`, `TLayer`/`TLayers`, `TCADPrgParam` ownership. |
 | `CADSys4.Tests.Shapes` | Eight 2D shape families: construction, `Assign` round-trips and independence, bounding boxes, the `BeginUseProfilePoints` protocol, `OnMe` hit-testing, curve precision. |
-| `CADSys4.Tests.Persistence` | Native `SaveToStream`/`LoadFromStream` round-trips, layer and document persistence, and DXF read/write round-trips against temp files. |
+| `CADSys4.Tests.Persistence` | JSON persistence: the `CS4JSON` helpers, per-shape `SaveToJSON`/`CreateFromJSON`, whole-document round trips (layers, blocks, files, text) and the class registry. |
+| `CADSys4.Tests.DXF` | DXF group-level round trips and one end-to-end import; split out of the persistence suite when the drawing format moved to JSON. |
+| `CADSys4.Tests.Graphics` | The drawing layer: VCL backend pixel tests and shapes drawn through a recording backend. |
 | `CADSys4.Tests.Regressions` | One test per defect from `docs/features/optimization-review.md`. These should fail on commit `a0ccd7a` and pass on the fix branch. |
 
 ## Two things to know before you read the results
