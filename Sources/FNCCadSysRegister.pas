@@ -1,9 +1,11 @@
-unit CADSysRegister;
+unit FNCCadSysRegister;
+
+{$I CADSys.inc}
 
 interface
 
 uses
-  Classes, CS4Shapes, CADSys4, CS4BaseTypes, CS4DXFModule;
+  Classes, FNCCS4Shapes, FNCCADSys4, FNCCS4BaseTypes, FNCCS4DXFModule;
 
 procedure register;
 
@@ -17,14 +19,14 @@ implementation
 
 procedure register;
 begin
-  RegisterComponents('CadSys4', [TCADprg2D]);
-  RegisterComponents('CadSys4', [TCADCmp2D]);
-  RegisterComponents('CadSys4', [TCADViewport2D]);
+  RegisterComponents('FNCCadSys', [TFNCCADPrg2D]);
+  RegisterComponents('FNCCadSys', [TFNCCADCmp2D]);
+  RegisterComponents('FNCCadSys', [TFNCCADViewport2D]);
 end;
 
 initialization
 
-// Spostata inizializzazione da CADSys4 a CS4Shapes perchè pare che venga fatta prima questa inizializzazione e poi quella di CADSys4
+// Spostata inizializzazione da FNCCADSys4 a FNCCS4Shapes perchè pare che venga fatta prima questa inizializzazione e poi quella di FNCCADSys4
 CADSysInitClassRegister;
 
 CADSysRegisterClass(0, TContainer2D);

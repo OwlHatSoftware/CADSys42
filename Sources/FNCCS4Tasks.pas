@@ -1,14 +1,14 @@
 { : This help file explain all the interaction task classes defined in
   the CADSys 4.0 library for both the 2D and 3D use.
 
-  These classes are defined in the CS4Tasks unit file
+  These classes are defined in the FNCCS4Tasks unit file
   that you must include in the <B=uses> clause in all of your units
   that access the types mentioned here.
 
-  See also <See Class=TCADPrg><BR>
+  See also <See Class=TFNCCADPrg><BR>
 
   The task classes defined here can be used in your program by
-  adding a <See Class=TCADPrg> component of the desired type
+  adding a <See Class=TFNCCADPrg> component of the desired type
   (2D or 3D) and using the following code to start a task:
 
   <CODE=
@@ -35,147 +35,153 @@
   >
 
   <B=Note>: All the 3D tasks work on the active
-  <See=working plane@WORKPLANE> of the <See Class=TCADPrg3D>.
+  <See=working plane@WORKPLANE> of the <See Class=TFNCCADPrg3D>.
 }
-unit CS4Tasks;
+unit FNCCS4Tasks;
+
+{$I CADSys.inc}
 
 Interface
 
-uses System.SysUtils, System.Classes, System.Types, WinApi.Windows,
-  Vcl.Graphics, Vcl.Dialogs,
-  CADSys4, CS4BaseTypes, CS4Shapes;
+uses
+{$IFDEF CADSYS_LCL}
+  SysUtils, Classes, Types, UITypes,
+{$ELSE}
+  System.SysUtils, System.Classes, System.Types, System.UITypes,
+{$ENDIF}
+  FNCCADSys4, FNCCS4BaseTypes, FNCCS4Shapes, FNCCS4Graphics;
 
 type
   // TCAD2DDeleteObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DScaleObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DMirrorXObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DMirrorYObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   TCAD2DExplodeObjects = class(TCADState)
   public
-    constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
   //
   // TCAD2DReverse = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DInverse = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DCreateSourceBlock = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const AStateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const AStateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DBringToFront = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DSendToBack = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DBringForward = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DSendBackwards = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DSwapObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DAlignLeft = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DAlignTop = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DAlignRight = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DAlignBottom = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DCopyObjectsToCADClipboard = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DCutObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   // TCAD2DPasteObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
   //
   TCAD2DMakeContainer = class(TCADState)
   public
-    constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
   //
   // TCAD2DOffsetObjects = class(TCADState)
   // public
-  // constructor Create(const ACADPrg: TCADPrg; const StateParam: TCADPrgParam;
+  // constructor Create(const ACADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
   // var NextState: TCADStateClass); override;
   // end;
 
@@ -196,11 +202,11 @@ type
     operation. It is only defined to give a
     common interface for zooming tasks.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCADPrgZoomState = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
@@ -214,7 +220,7 @@ type
     is not used.
 
     To stop the operation you can use either the
-    <See Method=TCADPrg@StopOperation> method or send the
+    <See Method=TFNCCADPrg@StopOperation> method or send the
     <I=CADPRG_CANCEL> message.
 
     The operation doesn't require any parameter and cannot be
@@ -222,7 +228,7 @@ type
   }
   TCADPrgZoomArea = class(TCADPrgZoomState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
@@ -237,7 +243,7 @@ type
     not used.
 
     To stop the operation you can use either
-    <See Method=TCADPrg@StopOperation> or
+    <See Method=TFNCCADPrg@StopOperation> or
     send the <I=CADPRG_CANCEL> message.
 
     The operation doesn't require any parameter and cannot
@@ -245,7 +251,7 @@ type
   }
   TCADPrgZoomInOut = class(TCADPrgZoomState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -264,7 +270,7 @@ type
     is not used.
 
     To stop the operation you can use either
-    <See Method=TCADPrg@StopOperation> or
+    <See Method=TFNCCADPrg@StopOperation> or
     send the <I=CADPRG_CANCEL> message.
 
     The operation doesn't require any parameter and cannot be
@@ -272,7 +278,7 @@ type
   }
   TCADPrgPan = class(TCADPrgZoomState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -291,7 +297,7 @@ type
     The right mouse button is not used.
 
     To stop the operation you can use either
-    <See Method=TCADPrg@StopOperation> or
+    <See Method=TFNCCADPrg@StopOperation> or
     send the <I=CADPRG_CANCEL> message. The operation doesn't end
     by itself but you have to send a <I=CADPRG_ACCEPT> message.
 
@@ -304,7 +310,7 @@ type
     fLastPoint: TPoint2D;
     fOriginalRect: TRect2D;
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -318,7 +324,7 @@ type
     Because it is an abstract class it cannot be used as an
     operation.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCADPrgSelectionState = class(TCADState);
 
@@ -335,8 +341,8 @@ type
     function GetArea: TRect2D;
   public
     { : This constructor creates the instance of the parameter
-      to be passed to <See Method=TCADPrg@StartOperation> or
-      <See Method=TCADPrg@SuspendOperation>.
+      to be passed to <See Method=TFNCCADPrg@StartOperation> or
+      <See Method=TFNCCADPrg@SuspendOperation>.
 
       <I=AfterS> contains the starting state of the operation
       that can be started at the end of the selection. If it
@@ -377,17 +383,17 @@ type
     not used.
 
     To stop the operation you can use either
-    <See Method=TCADPrg@StopOperation> or
+    <See Method=TFNCCADPrg@StopOperation> or
     send the <I=CADPRG_CANCEL> message.
 
     The operation requires a <See Class=TCADPrgSelectAreaParam>
     parameter.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCADPrgSelectArea = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -405,7 +411,7 @@ type
     The class is used to store the 2D object that must be
     positioned on the CAD. If you assign a state to the
     <See Property=TCADPrgParam@AfterState> property, the
-    object is not added to the linked <See Class=TCADCmp>,
+    object is not added to the linked <See Class=TFNCCADCmp>,
     otherwise it will be added to it.
   }
   TCAD2DPositionObjectParam = class(TCAD2DCommonParam)
@@ -420,7 +426,7 @@ type
       reference. If it is assigned that state will be started
       at the end of the current task. That state will receive
       the current parameters. If <I=AfterS> is <B=nil>, the
-      <See Class=TCADPrg> will return to the default state.>
+      <See Class=TFNCCADPrg> will return to the default state.>
       <LI=<I=O> contains the object to be positioned with the
       <See Class=TCAD2DPositionObject> task.>
 
@@ -438,7 +444,7 @@ type
 
       If you have assigned a state to the
       <See Property=TCADPrgParam@AfterState> property, the
-      object is not added to the linked <See Class=TCADCmp>,
+      object is not added to the linked <See Class=TFNCCADCmp>,
       otherwise it will be added to it.
     }
     property Obj: TObject2D read fObject;
@@ -451,7 +457,7 @@ type
 
     If you assign a state to the
     <See Property=TCADPrgParam@AfterState> property, the
-    object is not added to the linked <See Class=TCADCmp>,
+    object is not added to the linked <See Class=TFNCCADCmp>,
     otherwise it will be added to it.
   }
   TCAD2DDrawUnSizedPrimitiveParam = class(TCAD2DCommonParam)
@@ -467,7 +473,7 @@ type
       band (xor pen mode) mode. You will see your primitive
       growing as new points are added to it.
     }
-    procedure DrawOSD(Viewport: TCADViewport2D);
+    procedure DrawOSD(Viewport: TFNCCADViewport2D);
   public
     { : This method creates a new instance of the parameter.
 
@@ -477,7 +483,7 @@ type
       reference. If it is assigned that state will be started
       at the end of the current task. That state will receive
       the current parameters. If <I=AfterS> is <B=nil>, the
-      <See Class=TCADPrg> will return to the default state.>
+      <See Class=TFNCCADPrg> will return to the default state.>
       <LI=<I=Primitive> is the 2D primitive to be constructed.>
       <LI=<I=StartPointIdx> is the first control points that
       will be added. For instance if this parameter is equal to
@@ -497,7 +503,7 @@ type
 
       If you have assigned a state to the
       <See Property=TCADPrgParam@AfterState> property, the
-      object is not added to the linked <See Class=TCADCmp>,
+      object is not added to the linked <See Class=TFNCCADCmp>,
       otherwise it will be added to it.
     }
     property Primitive: TPrimitive2D read fPrimObject;
@@ -516,7 +522,7 @@ type
 
     If you assign a state to the
     <See Property=TCADPrgParam@AfterState> property, the
-    object is not added to the linked <See Class=TCADCmp>,
+    object is not added to the linked <See Class=TFNCCADCmp>,
     otherwise it will be added to it.
   }
   TCAD2DDrawSizedPrimitiveParam = class(TCAD2DDrawUnSizedPrimitiveParam)
@@ -531,7 +537,7 @@ type
       reference. If it is assigned that state will be started
       at the end of the current task. That state will receive
       the current parameters. If <I=AfterS> is <B=nil>, the
-      <See Class=TCADPrg> will return to the default state.>
+      <See Class=TFNCCADPrg> will return to the default state.>
       <LI=<I=Primitive> is the 2D primitive to be constructed.>
       <LI=<I=StartPointIdx> is the first control points that
       will be added. For instance if this parameter is equal
@@ -571,11 +577,11 @@ type
     <See Class=TCAD2DPositionObjectParam> class. The task may
     be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DPositionObject = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -618,11 +624,11 @@ type
     <See Class=TCAD2DDrawSizedPrimitiveParam> class. The task
     can be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DDrawSizedPrimitive = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -664,11 +670,11 @@ type
     <See Class=TCAD2DDrawUnSizedPrimitiveParam> class. The task
     can be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DDrawUnSizedPrimitive = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -682,7 +688,7 @@ type
 
     If you assign a state to the
     <See Property=TCADPrgParam@AfterState> property, the
-    object is not added to the linked <See Class=TCADCmp>,
+    object is not added to the linked <See Class=TFNCCADCmp>,
     otherwise it will be added to it.
   }
   TCAD2DDrawArcPrimitiveParam = class(TCAD2DCommonParam)
@@ -755,11 +761,11 @@ type
     <See Class=TCAD2DDrawArcPrimitiveParam> class. The task can
     be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DDrawArcPrimitive = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -788,7 +794,7 @@ type
     selection task is <See Class=TCAD2DSelectObjectsInArea>.>
     <LI=<I=CtrlPt> contains the control point on which the
     mouse was picked. This is the same result of the
-    <See Method=TCADViewport2D@PickObject> method. This
+    <See Method=TFNCCADViewport2D@PickObject> method. This
     parameter will be <I=PICK_NOOBJECT> in case the selection
     task is <See Class=TCAD2DSelectObjectsInArea>.>
     <LI=<I=Added> is <B=True> if Obj is added to the selected
@@ -828,7 +834,7 @@ type
       <LI=<I=Viewport> is the viewport on which draw the frame.>
       <LI=<I=Pt> is the point at which draw the frame.>
     }
-    procedure DrawOSD(Viewport: TCADViewport2D; const Pt: TPoint2D); virtual;
+    procedure DrawOSD(Viewport: TFNCCADViewport2D; const Pt: TPoint2D); virtual;
   public
     { : This method creates a new instance of the parameter.
 
@@ -928,11 +934,11 @@ type
     <See Class=TCAD2DSelectObjectsParam> class. The task can
     be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DSelectObject = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -979,11 +985,11 @@ type
     <See Class=TCAD2DSelectObjectsParam>. The task can be
     suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DSelectObjects = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -1000,11 +1006,11 @@ type
     like the <I=TCAD2DSelectObjects> task, otherwise it
     behaves like the <I=TCAD2DSelectObject> task.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DExtendedSelectObjects = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -1069,11 +1075,11 @@ type
     <See Class=TCAD2DSelectObjectsInAreaParam> class. The task
     can be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DSelectObjectsInArea = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     procedure OnStop; override;
   end;
@@ -1114,7 +1120,7 @@ type
       <LI=<I=Viewport> is the viewport of which draw the
       information.>
     }
-    procedure DrawWithFrame(Viewport: TCADViewport2D); dynamic;
+    procedure DrawWithFrame(Viewport: TFNCCADViewport2D); dynamic;
     { : This method draws the objects to be transformed in
       rubber band mode (xor pen mode).
 
@@ -1126,7 +1132,7 @@ type
       <LI=<I=Viewport> is the viewport of which draw the
       information.>
     }
-    procedure DrawWithoutFrame(Viewport: TCADViewport2D); dynamic;
+    procedure DrawWithoutFrame(Viewport: TFNCCADViewport2D); dynamic;
     { : This is the key method of the class.
 
       It must return the matrix transform that define the
@@ -1168,7 +1174,7 @@ type
       <LI=<I=Viewport> is the viewport of which draw the
       information.>
     }
-    procedure DrawOSD(Viewport: TCADViewport2D);
+    procedure DrawOSD(Viewport: TFNCCADViewport2D);
     { : This property contains the base point for the
       transformation.
     }
@@ -1255,11 +1261,11 @@ type
     <See Class=TCAD2DTransformObjectsParam>. The task can be
     suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DTransformObjects = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -1294,11 +1300,11 @@ type
     <See Class=TCAD2DMoveObjectsParam> class.
     The task can be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DMoveSelectedObjects = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
@@ -1330,11 +1336,11 @@ type
     <See Class=TCAD2DMoveObjectsParam> class.
     The task can be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DRotateSelectedObjects = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
@@ -1348,7 +1354,7 @@ type
 
     <LI=move the mouse on one control point of the primitive.
     The primitive is showed in with the rubber pen of
-    <See Class=TCADViewport>.>
+    <See Class=TFNCCADViewport>.>
     <LI=press and hold the left mouse button to pick the
     control point.>
     <LI=move the mouse to move the control point. You will see
@@ -1370,11 +1376,11 @@ type
 
     The task can be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DEditPrimitive = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -1396,7 +1402,7 @@ type
     object.>
     <LI=move the mouse on one control point of the primitive.
     The primitive is showed in with the rubber pen of
-    <See Class=TCADViewport>.>
+    <See Class=TFNCCADViewport>.>
     <LI=press and hold the left mouse button to pick the
     control point.>
     <LI=move the mouse to move the control point. You will see
@@ -1417,11 +1423,11 @@ type
     <See Class=TCAD2DSelectObjectsParam>.
     The task can be suspended.
 
-    See also <See Class=TCADPrg>.
+    See also <See Class=TFNCCADPrg>.
   }
   TCAD2DEditSelectedPrimitive = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
@@ -1433,13 +1439,13 @@ type
   // -----===== Starting Cs4CADPrgTasks.pas =====-----
   TCADPrgEndZoomArea = class(TCADPrgZoomState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
   TCADPrgDragPan = class(TCADPrgZoomState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -1449,7 +1455,7 @@ type
 
   TCADPrgDragSelectArea = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
     function OnEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
       Shift: TShiftState; Key: Word; var NextState: TCADStateClass)
@@ -1468,14 +1474,14 @@ type
     constructor Create(Prim: TPrimitive2D; ApertureSize: Word);
     destructor Destroy; override;
 
-    procedure SetCtrlPoint(Viewport: TCADViewport2D; Pt: TPoint2D);
-    procedure AddCtrlPoint(Viewport: TCADViewport2D; Pt: TPoint2D);
+    procedure SetCtrlPoint(Viewport: TFNCCADViewport2D; Pt: TPoint2D);
+    procedure AddCtrlPoint(Viewport: TFNCCADViewport2D; Pt: TPoint2D);
     procedure UnSetCtrlPoint;
     procedure AcceptEdited;
-    procedure MoveCtrlPoint(Viewport: TCADViewport2D; Pt: TPoint2D);
-    procedure DrawOSD(Viewport: TCADViewport2D; Pt: TPoint2D;
+    procedure MoveCtrlPoint(Viewport: TFNCCADViewport2D; Pt: TPoint2D);
+    procedure DrawOSD(Viewport: TFNCCADViewport2D; Pt: TPoint2D;
       FirstTime: Boolean);
-    procedure DrawModifiedPrim(Viewport: TCADViewport2D);
+    procedure DrawModifiedPrim(Viewport: TFNCCADViewport2D);
 
     property CurrentCtrlPt: Integer read fCurrentCtrlPt;
   end;
@@ -1509,7 +1515,7 @@ end;
 
 { ------------------ Select Area --------------------- }
 
-constructor TCADPrgSelectArea.Create(const CADPrg: TCADPrg;
+constructor TCADPrgSelectArea.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -1542,8 +1548,8 @@ begin
           CurrPoint := CurrentViewportPoint;
           fFrame.Points[0] := CurrPoint;
           fFrame.Points[1] := CurrPoint;
-          if Viewport is TCADViewport2D then
-            TCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
+          if Viewport is TFNCCADViewport2D then
+            TFNCCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
           NextState := TCADPrgDragSelectArea;
           Result := True;
         end;
@@ -1556,7 +1562,7 @@ begin
   Param := nil;
 end;
 
-constructor TCADPrgDragSelectArea.Create(const CADPrg: TCADPrg;
+constructor TCADPrgDragSelectArea.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -1591,15 +1597,15 @@ begin
         end;
       ceMouseMove:
         begin
-          if Viewport is TCADViewport2D then
-            TCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
+          if Viewport is TFNCCADViewport2D then
+            TFNCCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
           fFrame.Points[1] := CurrentViewportPoint;
-          if Viewport is TCADViewport2D then
-            TCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
+          if Viewport is TFNCCADViewport2D then
+            TFNCCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
         end;
       cePaint:
-        if Viewport is TCADViewport2D then
-          TCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
+        if Viewport is TFNCCADViewport2D then
+          TFNCCADViewport2D(Viewport).DrawObject2DWithRubber(fFrame, False);
     end;
 end;
 
@@ -1611,7 +1617,7 @@ end;
 
 { ******************* Zooming states *********************** }
 
-constructor TCADPrgZoomState.Create(const CADPrg: TCADPrg;
+constructor TCADPrgZoomState.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -1621,7 +1627,7 @@ end;
 { ------------------ Zoom Area --------------------- }
 
 { No parameter. }
-constructor TCADPrgZoomArea.Create(const CADPrg: TCADPrg;
+constructor TCADPrgZoomArea.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -1629,12 +1635,12 @@ begin
   NextState := TCADPrgSelectArea;
 end;
 
-constructor TCADPrgEndZoomArea.Create(const CADPrg: TCADPrg;
+constructor TCADPrgEndZoomArea.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
   if Assigned(Param) then
-    with CADPrg as TCADPrg, Param as TCADPrgSelectAreaParam do
+    with CADPrg as TFNCCADPrg, Param as TCADPrgSelectAreaParam do
     begin
       if not IsSamePoint2D(Area.FirstEdge, Area.SecondEdge) then
         Viewport.ZoomWindow(Area);
@@ -1650,7 +1656,7 @@ end;
 
 { ------------------ ZoomInOut --------------------- }
 
-constructor TCADPrgZoomInOut.Create(const CADPrg: TCADPrg;
+constructor TCADPrgZoomInOut.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -1665,7 +1671,7 @@ var
   CurrPoint: TPoint2D;
 begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
-  with CADPrg as TCADPrg do
+  with CADPrg as TFNCCADPrg do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -1693,14 +1699,14 @@ end;
 { ------------------ Pan --------------------- }
 
 { No parameter. }
-constructor TCADPrgPan.Create(const CADPrg: TCADPrg;
+constructor TCADPrgPan.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
   { CS4-FIX (M6): the state is documented as taking no parameter, so the
     documented call StartOperation(TCADPrgPan, nil) faulted on StateParam.
     NOTE: StateParam is deliberately NOT freed here. SuspendOperation
-    (CADSys4.pas ~20705) aliases the suspended state's own param into
+    (FNCCADSys4.pas ~20705) aliases the suspended state's own param into
     StateParam when the caller supplies none, so freeing it would destroy
     the suspended task's parameter. That leak is resolved together with the
     param-ownership rework (findings M7/M8/A3). }
@@ -1720,7 +1726,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with TCADPrgParam(Param), CADPrg as TCADPrg do
+  with TCADPrgParam(Param), CADPrg as TFNCCADPrg do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -1738,8 +1744,8 @@ begin
           CurrPoint := CurrentViewportPoint;
           TLine2D(UserObject).Points[0] := CurrPoint;
           TLine2D(UserObject).Points[1] := CurrPoint;
-          if Viewport is TCADViewport2D then
-            TCADViewport2D(Viewport).DrawObject2DWithRubber
+          if Viewport is TFNCCADViewport2D then
+            TFNCCADViewport2D(Viewport).DrawObject2DWithRubber
               (TLine2D(UserObject), False);
           NextState := TCADPrgDragPan;
           Result := True;
@@ -1755,7 +1761,7 @@ begin
   Param := nil;
 end;
 
-constructor TCADPrgDragPan.Create(const CADPrg: TCADPrg;
+constructor TCADPrgDragPan.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -1771,7 +1777,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with TCADPrgParam(Param), CADPrg as TCADPrg do
+  with TCADPrgParam(Param), CADPrg as TFNCCADPrg do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -1807,18 +1813,18 @@ begin
           end;
       ceMouseMove:
         begin
-          if Viewport is TCADViewport2D then
-            TCADViewport2D(Viewport).DrawObject2DWithRubber
+          if Viewport is TFNCCADViewport2D then
+            TFNCCADViewport2D(Viewport).DrawObject2DWithRubber
               (TLine2D(UserObject), False);
           CurrPoint := CurrentViewportPoint;
           TLine2D(UserObject).Points[1] := CurrPoint;
-          if Viewport is TCADViewport2D then
-            TCADViewport2D(Viewport).DrawObject2DWithRubber
+          if Viewport is TFNCCADViewport2D then
+            TFNCCADViewport2D(Viewport).DrawObject2DWithRubber
               (TLine2D(UserObject), False);
         end;
       cePaint:
-        if Viewport is TCADViewport2D then
-          TCADViewport2D(Viewport).DrawObject2DWithRubber
+        if Viewport is TFNCCADViewport2D then
+          TFNCCADViewport2D(Viewport).DrawObject2DWithRubber
             (TLine2D(UserObject), False);
     end;
 end;
@@ -1834,7 +1840,7 @@ end;
 { ------------------ RealTimePan --------------------- }
 
 { No parameter. }
-constructor TCADPrgRealTimePan.Create(const CADPrg: TCADPrg;
+constructor TCADPrgRealTimePan.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -1851,7 +1857,7 @@ var
   TmpDist, RefDist: TRealType;
 begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
-  with CADPrg as TCADPrg do
+  with CADPrg as TFNCCADPrg do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -1931,8 +1937,9 @@ begin
   fOrtoIsUsable := OrtoIsU;
 end;
 
-procedure TCAD2DDrawUnSizedPrimitiveParam.DrawOSD(Viewport: TCADViewport2D);
+procedure TCAD2DDrawUnSizedPrimitiveParam.DrawOSD(Viewport: TFNCCADViewport2D);
 begin
+  { DrawObject2DWithRubber brackets the overlay itself. }
   Viewport.DrawObject2DWithRubber(fPrimObject, True);
 end;
 
@@ -1945,14 +1952,14 @@ end;
 
 { ------------- }
 
-constructor TCAD2DPositionObject.Create(const CADPrg: TCADPrg;
+constructor TCAD2DPositionObject.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
   if not(StateParam is TCAD2DPositionObjectParam) then
     Raise ECADSysException.Create('TCAD2DPositionObject: Invalid param');
   Description := 'Press the mouse on the desired insertion point.';
-  TCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
+  TFNCCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
 end;
 
 function TCAD2DPositionObject.OnEvent(Event: TCADPrgEvent;
@@ -1965,7 +1972,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DPositionObjectParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DPositionObjectParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -2025,14 +2032,14 @@ end;
 
 { ------------- }
 
-constructor TCAD2DDrawSizedPrimitive.Create(const CADPrg: TCADPrg;
+constructor TCAD2DDrawSizedPrimitive.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
   if not(StateParam is TCAD2DDrawSizedPrimitiveParam) then
     Raise ECADSysException.Create('TCAD2DDrawSizedPrimitive: Invalid param');
   Description := 'Press the mouse on the desired points.';
-  TCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
+  TFNCCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
 end;
 
 function TCAD2DDrawSizedPrimitive.OnEvent(Event: TCADPrgEvent;
@@ -2046,7 +2053,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DDrawSizedPrimitiveParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DDrawSizedPrimitiveParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_ACCEPT then
@@ -2146,7 +2153,7 @@ end;
 
 { ------------- }
 
-constructor TCAD2DDrawUnSizedPrimitive.Create(const CADPrg: TCADPrg;
+constructor TCAD2DDrawUnSizedPrimitive.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -2154,7 +2161,7 @@ begin
     Raise ECADSysException.Create('TCAD2DDrawUnSizedPrimitive: Invalid param');
   TCAD2DDrawUnSizedPrimitiveParam(StateParam).fPrimObject.Points.Clear;
   Description := 'Press the mouse on the desired points.';
-  TCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
+  TFNCCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
 end;
 
 function TCAD2DDrawUnSizedPrimitive.OnEvent(Event: TCADPrgEvent;
@@ -2167,7 +2174,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DDrawUnSizedPrimitiveParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DDrawUnSizedPrimitiveParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_ACCEPT then
@@ -2251,14 +2258,14 @@ begin
   fArcObject := Arc;
 end;
 
-constructor TCAD2DDrawArcPrimitive.Create(const CADPrg: TCADPrg;
+constructor TCAD2DDrawArcPrimitive.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited;
   if not(StateParam is TCAD2DDrawArcPrimitiveParam) then
     Raise ECADSysException.Create('TCAD2DDrawArcPrimitive: Invalid param');
   Description := 'Drag the ellipse which contain the arc.';
-  TCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
+  TFNCCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
 end;
 
 function TCAD2DDrawArcPrimitive.OnEvent(Event: TCADPrgEvent;
@@ -2271,7 +2278,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DDrawArcPrimitiveParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DDrawArcPrimitiveParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_ACCEPT then
@@ -2392,26 +2399,31 @@ begin
   inherited;
 end;
 
-procedure TCAD2DSelectObjectsParam.DrawOSD(Viewport: TCADViewport2D;
+procedure TCAD2DSelectObjectsParam.DrawOSD(Viewport: TFNCCADViewport2D;
   const Pt: TPoint2D);
 var
   ScrPt: TPoint;
 begin
   with Viewport do
   begin
-    ScrPt := Point2DToPoint(ViewportToScreen(Pt));
-    OnScreenCanvas.Canvas.Pen.Assign(Viewport.RubberPen);
-    OnScreenCanvas.Canvas.Pen.Style := psSolid;
-    OnScreenCanvas.Canvas.Polyline
-      ([Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize),
-      Point(ScrPt.X + fApertureSize, ScrPt.Y - fApertureSize),
-      Point(ScrPt.X + fApertureSize, ScrPt.Y + fApertureSize),
-      Point(ScrPt.X - fApertureSize, ScrPt.Y + fApertureSize),
-      Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize)]);
+    BeginOverlay;
+    try
+      ScrPt := Point2DToPoint(ViewportToScreen(Pt));
+      OnScreenCanvas.Pen.Assign(Viewport.RubberPen);
+      OnScreenCanvas.Pen.Style := cpsSolid;
+      OnScreenCanvas.Graphics.Polyline
+        ([Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize),
+        Point(ScrPt.X + fApertureSize, ScrPt.Y - fApertureSize),
+        Point(ScrPt.X + fApertureSize, ScrPt.Y + fApertureSize),
+        Point(ScrPt.X - fApertureSize, ScrPt.Y + fApertureSize),
+        Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize)]);
+    finally
+      EndOverlay;
+    end;
   end;
 end;
 
-constructor TCAD2DSelectObject.Create(const CADPrg: TCADPrg;
+constructor TCAD2DSelectObject.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited;
@@ -2419,7 +2431,7 @@ begin
     Raise ECADSysException.Create('TCAD2DSelectObject: Invalid param');
   Description := 'Use the mouse to select an object.';
   with TCAD2DSelectObjectsParam(StateParam) do
-    DrawOSD(TCADPrg2D(CADPrg).Viewport2D, fLastPt);
+    DrawOSD(TFNCCADPrg2D(CADPrg).Viewport2D, fLastPt);
 end;
 
 function TCAD2DSelectObject.OnEvent(Event: TCADPrgEvent;
@@ -2431,7 +2443,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DSelectObjectsParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DSelectObjectsParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -2517,7 +2529,7 @@ begin
   Param := nil;
 end;
 
-constructor TCAD2DSelectObjects.Create(const CADPrg: TCADPrg;
+constructor TCAD2DSelectObjects.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited;
@@ -2525,7 +2537,7 @@ begin
     Raise ECADSysException.Create('TCAD2DSelectObjects: Invalid param');
   Description := 'Use the mouse to select objects.';
   with TCAD2DSelectObjectsParam(StateParam) do
-    DrawOSD(TCADPrg2D(CADPrg).Viewport2D, fLastPt);
+    DrawOSD(TFNCCADPrg2D(CADPrg).Viewport2D, fLastPt);
 end;
 
 function TCAD2DSelectObjects.OnEvent(Event: TCADPrgEvent;
@@ -2540,7 +2552,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DSelectObjectsParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DSelectObjectsParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -2637,7 +2649,7 @@ begin
   Param := nil;
 end;
 
-constructor TCAD2DExtendedSelectObjects.Create(const CADPrg: TCADPrg;
+constructor TCAD2DExtendedSelectObjects.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited;
@@ -2646,7 +2658,7 @@ begin
   Description :=
     'Use the mouse to select one object, hold shift key pressed to select more than one object.';
   with TCAD2DSelectObjectsParam(StateParam) do
-    DrawOSD(TCADPrg2D(CADPrg).Viewport2D, fLastPt);
+    DrawOSD(TFNCCADPrg2D(CADPrg).Viewport2D, fLastPt);
 end;
 
 function TCAD2DExtendedSelectObjects.OnEvent(Event: TCADPrgEvent;
@@ -2661,7 +2673,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DSelectObjectsParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DSelectObjectsParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -2720,7 +2732,9 @@ begin
               IgnoreEvents := False;
             end;
             // Controlla se il tasto del mouse è premuto.
-            if Key <> VK_SHIFT then
+            { vkShift is the System.UITypes spelling of VK_SHIFT, and
+              it is there on every framework. }
+            if Key <> vkShift then
             begin // No allora si comporta come selezione di un solo oggetto.
               if Removed then
                 fSelectedObjs.Add(TmpObj);
@@ -2791,7 +2805,7 @@ begin
   fAreaMode := AreaMode;
 end;
 
-constructor TCAD2DSelectObjectsInArea.Create(const CADPrg: TCADPrg;
+constructor TCAD2DSelectObjectsInArea.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 var
   NewParam: TCADPrgParam;
@@ -2806,7 +2820,7 @@ begin
       TCADPrgSelectAreaParam(StateParam).Area;
     Param.Free;
     Param := NewParam; // Set the parameter back to the original.
-    with CADPrg as TCADPrg2D, Param as TCAD2DSelectObjectsInAreaParam do
+    with CADPrg as TFNCCADPrg2D, Param as TCAD2DSelectObjectsInAreaParam do
     begin
       LastFilt := Viewport2D.PickFilter;
       try
@@ -2859,19 +2873,24 @@ begin
   fCurrTransf := GetTransform(fBasePt, CurrPt);
 end;
 
-procedure TCAD2DTransformObjectsParam.DrawWithFrame(Viewport: TCADViewport2D);
+procedure TCAD2DTransformObjectsParam.DrawWithFrame(Viewport: TFNCCADViewport2D);
 begin
   with Viewport do
   begin
-    OnScreenCanvas.Canvas.Pen.Assign(RubberPen);
-    DrawBoundingBox2D(OnScreenCanvas, fBox,
-      RectToRect2D(OnScreenCanvas.Canvas.ClipRect),
-      MultiplyTransform2D(fCurrTransf, ViewportToScreenTransform));
+    BeginOverlay;
+    try
+      OnScreenCanvas.Pen.Assign(RubberPen);
+      DrawBoundingBox2D(OnScreenCanvas, fBox,
+        RectToRect2D(OnScreenCanvas.ClipRect),
+        MultiplyTransform2D(fCurrTransf, ViewportToScreenTransform));
+    finally
+      EndOverlay;
+    end;
   end;
 end;
 
 procedure TCAD2DTransformObjectsParam.DrawWithoutFrame
-  (Viewport: TCADViewport2D);
+  (Viewport: TFNCCADViewport2D);
 var
   TmpObj: TObject2D;
   TmpIter: TGraphicObjIterator;
@@ -2891,13 +2910,18 @@ begin
     end;
 end;
 
-procedure TCAD2DTransformObjectsParam.DrawOSD(Viewport: TCADViewport2D);
+procedure TCAD2DTransformObjectsParam.DrawOSD(Viewport: TFNCCADViewport2D);
 begin
-  Viewport.OnScreenCanvas.Canvas.Pen.Assign(Viewport.RubberPen);
-  if fUseFrame then
-    DrawWithFrame(Viewport)
-  else
-    DrawWithoutFrame(Viewport);
+  Viewport.BeginOverlay;
+  try
+    Viewport.OnScreenCanvas.Pen.Assign(Viewport.RubberPen);
+    if fUseFrame then
+      DrawWithFrame(Viewport)
+    else
+      DrawWithoutFrame(Viewport);
+  finally
+    Viewport.EndOverlay;
+  end;
 end;
 
 procedure TCAD2DTransformObjectsParam.ConfirmTransform;
@@ -2991,7 +3015,7 @@ begin
   Result := MultiplyTransform2D(Result, Translate2D(BasePt.X, BasePt.Y));
 end;
 
-constructor TCAD2DTransformObjects.Create(const CADPrg: TCADPrg;
+constructor TCAD2DTransformObjects.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited;
@@ -2999,7 +3023,7 @@ begin
     Raise ECADSysException.Create('TCAD2DTransformObjects: Invalid param');
   Description := 'Select the base point for the transformation.';
   with TCAD2DTransformObjectsParam(StateParam) do
-    DrawWithFrame(TCADPrg2D(CADPrg).Viewport2D);
+    DrawWithFrame(TFNCCADPrg2D(CADPrg).Viewport2D);
 end;
 
 function TCAD2DTransformObjects.OnEvent(Event: TCADPrgEvent;
@@ -3011,7 +3035,7 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DTransformObjectsParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DTransformObjectsParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -3097,7 +3121,7 @@ begin
   Param := nil;
 end;
 
-constructor TCAD2DMoveSelectedObjects.Create(const CADPrg: TCADPrg;
+constructor TCAD2DMoveSelectedObjects.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 var
   NewParam: TCAD2DTransformObjectsParam;
@@ -3121,7 +3145,7 @@ begin
   NextState := TCAD2DTransformObjects;
 end;
 
-constructor TCAD2DRotateSelectedObjects.Create(const CADPrg: TCADPrg;
+constructor TCAD2DRotateSelectedObjects.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 var
   NewParam: TCAD2DTransformObjectsParam;
@@ -3167,7 +3191,7 @@ begin
   inherited;
 end;
 
-procedure TCAD2DEditPrimitiveParam.SetCtrlPoint(Viewport: TCADViewport2D;
+procedure TCAD2DEditPrimitiveParam.SetCtrlPoint(Viewport: TFNCCADViewport2D;
   Pt: TPoint2D);
 var
   TmpDist: TRealType;
@@ -3180,7 +3204,7 @@ begin
   end;
 end;
 
-procedure TCAD2DEditPrimitiveParam.AddCtrlPoint(Viewport: TCADViewport2D;
+procedure TCAD2DEditPrimitiveParam.AddCtrlPoint(Viewport: TFNCCADViewport2D;
   Pt: TPoint2D);
 var
   TmpCPt: TPoint2D;
@@ -3206,7 +3230,7 @@ begin
   fOriginalPrimitive.Assign(fCurrentPrimitive);
 end;
 
-procedure TCAD2DEditPrimitiveParam.MoveCtrlPoint(Viewport: TCADViewport2D;
+procedure TCAD2DEditPrimitiveParam.MoveCtrlPoint(Viewport: TFNCCADViewport2D;
   Pt: TPoint2D);
 var
   TmpCPt: TPoint2D;
@@ -3222,42 +3246,40 @@ begin
   end;
 end;
 
-procedure TCAD2DEditPrimitiveParam.DrawOSD(Viewport: TCADViewport2D;
-  Pt: TPoint2D; FirstTime: Boolean);
+procedure TCAD2DEditPrimitiveParam.DrawOSD(Viewport: TFNCCADViewport2D;
+  Pt: TPoint2D; {%H-}FirstTime: Boolean);
 var
   ScrPt: TPoint;
 begin
+  { FirstTime used to say whether there was an old box to XOR away. The
+    overlay is restored from the back buffer now, so there never is, and
+    the parameter is kept only for source compatibility. }
   with Viewport do
   begin
-    OnScreenCanvas.Canvas.Pen.Assign(RubberPen);
-    if not FirstTime then
-    begin
+    BeginOverlay;
+    try
+      OnScreenCanvas.Pen.Assign(RubberPen);
+      fLastPt := Pt;
       ScrPt := Point2DToPoint(ViewportToScreen(fLastPt));
-      OnScreenCanvas.Canvas.Polyline
+      OnScreenCanvas.Graphics.Polyline
         ([Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize),
         Point(ScrPt.X + fApertureSize, ScrPt.Y - fApertureSize),
         Point(ScrPt.X + fApertureSize, ScrPt.Y + fApertureSize),
         Point(ScrPt.X - fApertureSize, ScrPt.Y + fApertureSize),
         Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize)]);
+    finally
+      EndOverlay;
     end;
-    fLastPt := Pt;
-    ScrPt := Point2DToPoint(ViewportToScreen(fLastPt));
-    OnScreenCanvas.Canvas.Polyline
-      ([Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize),
-      Point(ScrPt.X + fApertureSize, ScrPt.Y - fApertureSize),
-      Point(ScrPt.X + fApertureSize, ScrPt.Y + fApertureSize),
-      Point(ScrPt.X - fApertureSize, ScrPt.Y + fApertureSize),
-      Point(ScrPt.X - fApertureSize, ScrPt.Y - fApertureSize)]);
   end;
 end;
 
-procedure TCAD2DEditPrimitiveParam.DrawModifiedPrim(Viewport: TCADViewport2D);
+procedure TCAD2DEditPrimitiveParam.DrawModifiedPrim(Viewport: TFNCCADViewport2D);
 begin
   with Viewport do
     DrawObject2DWithRubber(fCurrentPrimitive, True);
 end;
 
-constructor TCAD2DEditPrimitive.Create(const CADPrg: TCADPrg;
+constructor TCAD2DEditPrimitive.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 var
   NewParam: TCAD2DEditPrimitiveParam;
@@ -3269,7 +3291,7 @@ begin
   Description := 'Select a Control point of the primitive';
   NewParam := TCAD2DEditPrimitiveParam.Create
     (TPrimitive2D(TCADPrgParam(StateParam).UserObject), 5);
-  with TCADPrg2D(CADPrg) do
+  with TFNCCADPrg2D(CADPrg) do
   begin
     Viewport2D.Refresh;
     NewParam.DrawOSD(Viewport2D, Point2D(0, 0), True);
@@ -3282,7 +3304,7 @@ begin
   TCADPrgParam(StateParam).UserObject := nil;
   StateParam.Free;
   Param := NewParam;
-  TCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
+  TFNCCADPrg2D(CADPrg).SnapOriginPoint := Point2D(MaxCoord, MaxCoord);
 end;
 
 function TCAD2DEditPrimitive.OnEvent(Event: TCADPrgEvent;
@@ -3294,9 +3316,9 @@ begin
   Result := inherited OnEvent(Event, MouseButton, Shift, Key, NextState);
   if not Assigned(Param) then
     Exit;
-  if not(CADPrg is TCADPrg2D) or not(Param is TCAD2DEditPrimitiveParam) then
+  if not(CADPrg is TFNCCADPrg2D) or not(Param is TCAD2DEditPrimitiveParam) then
     Exit;
-  with CADPrg as TCADPrg2D, Param as TCAD2DEditPrimitiveParam do
+  with CADPrg as TFNCCADPrg2D, Param as TCAD2DEditPrimitiveParam do
     case Event of
       ceUserDefined:
         if Key = CADPRG_CANCEL then
@@ -3365,7 +3387,7 @@ end;
 // Param := nil;
 // end;
 
-constructor TCAD2DEditSelectedPrimitive.Create(const CADPrg: TCADPrg;
+constructor TCAD2DEditSelectedPrimitive.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 var
   NewParam: TCADPrgParam;
@@ -3435,7 +3457,7 @@ begin
       TmpLine2D.ReserveStr2:= AOutline2D.ReserveStr2;
     }
     TmpLine2D.Transform(AOutline2D.ModelTransform);
-    TCADCmp2D(AOutline2D.OwnerCAD).AddObject(TmpLine2D.ID, TmpLine2D);
+    TFNCCADCmp2D(AOutline2D.OwnerCAD).AddObject(TmpLine2D.ID, TmpLine2D);
     // TmpLine2D.fReserveInt1:= AOutline2D.fReserveInt1;
     TmpLine2D.Layer := AOutline2D.Layer;
   end;
@@ -3454,7 +3476,7 @@ begin
       TmpLine2D.ReserveStr2:= AOutline2D.ReserveStr2;
     }
     TmpLine2D.Transform(AOutline2D.ModelTransform);
-    TCADCmp2D(AOutline2D.OwnerCAD).AddObject(TmpLine2D.ID, TmpLine2D);
+    TFNCCADCmp2D(AOutline2D.OwnerCAD).AddObject(TmpLine2D.ID, TmpLine2D);
     // TmpLine2D.fReserveInt1:= AOutline2D.fReserveInt1;
     TmpLine2D.Layer := AOutline2D.Layer;
 
@@ -3479,11 +3501,11 @@ begin
   for i := 0 to AOutline2D.ProfilePoints.Count - 1 do
     TmpPolyline2D.Points.Add(AOutline2D.ProfilePoints[i]);
   TmpPolyline2D.Transform(AOutline2D.ModelTransform);
-  TCADCmp2D(AOutline2D.OwnerCAD).AddObject(-1, TmpPolyline2D);
+  TFNCCADCmp2D(AOutline2D.OwnerCAD).AddObject(-1, TmpPolyline2D);
   AOutline2D.EndUseProfilePoints;
 end;
 
-procedure ExplodeContainer(AContainer2D: TContainer2D; ADestCAD: TCADCmp2D);
+procedure ExplodeContainer(AContainer2D: TContainer2D; ADestCAD: TFNCCADCmp2D);
 var
   TmpIter: TExclusiveGraphicObjIterator;
   TmpClass: TGraphicObjectClass;
@@ -3531,7 +3553,7 @@ begin
   end;
 end;
 
-procedure ExplodeBlock(ABlock: TBlock2D; ADestCAD: TCADCmp2D);
+procedure ExplodeBlock(ABlock: TBlock2D; ADestCAD: TFNCCADCmp2D);
 var
   TmpIter: TExclusiveGraphicObjIterator;
   TmpClass: TGraphicObjectClass;
@@ -3569,7 +3591,7 @@ begin
   end;
 end;
 
-procedure ExplodeFrame2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+procedure ExplodeFrame2D(AObject2D: TObject2D; ADestCAD: TFNCCADCmp2D);
 var
   TmpPolygon2D: TPolygon2D;
 begin
@@ -3580,7 +3602,7 @@ begin
   ADestCAD.AddObject(-1, TmpPolygon2D);
 end;
 
-procedure ExplodePolygon2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+procedure ExplodePolygon2D(AObject2D: TObject2D; ADestCAD: TFNCCADCmp2D);
 var
   TmpPolyline2D: TPolyline2D;
 begin
@@ -3594,7 +3616,7 @@ begin
   ADestCAD.AddObject(-1, TmpPolyline2D);
 end;
 
-// procedure ExplodeSegment2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+// procedure ExplodeSegment2D(AObject2D: TObject2D; ADestCAD: TFNCCADCmp2D);
 // var TmpCircularArc2D: TCircularArc2D;  TmpLine2D: TLine2D;
 // begin
 // with TSegment2D(AObject2D) do
@@ -3609,7 +3631,7 @@ end;
 // end;
 // end;
 //
-// procedure ExplodeSector2D(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+// procedure ExplodeSector2D(AObject2D: TObject2D; ADestCAD: TFNCCADCmp2D);
 // var TmpCircularArc2D: TCircularArc2D;  TmpLine2D: TLine2D;
 // begin
 // with TSector2D(AObject2D) do
@@ -3622,7 +3644,7 @@ end;
 // end;
 // end;
 
-procedure Explode(AObject2D: TObject2D; ADestCAD: TCADCmp2D);
+procedure Explode(AObject2D: TObject2D; ADestCAD: TFNCCADCmp2D);
 begin
   if (AObject2D is TPolygon2D) then
     ExplodePolygon2D(AObject2D, ADestCAD)
@@ -3645,7 +3667,7 @@ begin
     ExplodeBlock(TBlock2D(AObject2D), ADestCAD);
 end;
 
-constructor TCAD2DExplodeObjects.Create(const ACADPrg: TCADPrg;
+constructor TCAD2DExplodeObjects.Create(const ACADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 var
   TmpIter: TExclusiveGraphicObjIterator;
@@ -3663,14 +3685,14 @@ begin
   // begin
   // TObject2D(TmpIter.Current).Explode(true);
   // if (not (TObject2D(TmpIter.Current) is TBitmap2D)) and (not (TObject2D(TmpIter.Current) is TJustifiedVectText2D))
-  // then TCADPrg2D(CADPrg).Viewport2D.CADCmp2D.DeleteObject(TmpIter.Current.ID);
+  // then TFNCCADPrg2D(CADPrg).Viewport2D.CADCmp2D.DeleteObject(TmpIter.Current.ID);
   // end;
   // TmpIter.Next;
   // end;
   // finally
   // TmpIter.Free;
   // end;
-  // TCADPrg2D(CADPrg).Viewport2D.CADCmp2D.RepaintViewports;
+  // TFNCCADPrg2D(CADPrg).Viewport2D.CADCmp2D.RepaintViewports;
   // end;
   // Param.Free;
   // Param := nil;
@@ -3679,7 +3701,7 @@ end;
 
 { TCAD2DMakeContainer }
 
-constructor TCAD2DMakeContainer.Create(const ACADPrg: TCADPrg;
+constructor TCAD2DMakeContainer.Create(const ACADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited;

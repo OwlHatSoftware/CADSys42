@@ -1,7 +1,7 @@
 ﻿{ : This help file explain all the classes defined for DXF handling
   for the CADSys 4.0 library for both the 2D and 3D use.
 
-  These classes are defined in the CS4DXFModule unit file
+  These classes are defined in the FNCCS4DXFModule unit file
   that you must include in the <B=uses> clause in all of your units
   that access the types mentioned here.
 
@@ -12,20 +12,24 @@
   Thanks also to <Code=Giuseppe Staltieri (sgs@@elios.net)>
   for his invaluable support and beta testing.
 }
-unit CS4DXFModule;
+unit FNCCS4DXFModule;
+
+{$I CADSys.inc}
 
 Interface
 
 uses
-  WinApi.Windows,
+{$IFDEF CADSYS_LCL}
+  SysUtils,
+  Classes,
+{$ELSE}
   System.SysUtils,
   System.Classes,
-  System.UITypes,
-  Vcl.Graphics,
-  Vcl.ComCtrls,
-  CADSys4,
-  CS4BaseTypes,
-  CS4Shapes;
+{$ENDIF}
+  FNCCADSys4,
+  FNCCS4BaseTypes,
+  FNCCS4Graphics,
+  FNCCS4Shapes;
 
 type
   // -----===== Starting Cs4DXFReadWrite.pas =====-----
@@ -48,9 +52,10 @@ type
     fCurrentSection: TSections;
     fGroupCode: Word;
     fGroupValue: Variant;
-    fProgressBar: TProgressBar;
+    fOnProgress: TCADProgressEvent;
+    fGroupsRead: Int64;
 
-    procedure SetProgressBar(PB: TProgressBar);
+    procedure DoProgress;
   public
     constructor Create(FileName: String);
     destructor Destroy; override;
@@ -63,7 +68,15 @@ type
     property GroupCode: Word read fGroupCode;
     property GroupValue: Variant read fGroupValue;
     property CurrentSection: TSections read fCurrentSection;
-    property PositionBar: TProgressBar read fProgressBar write SetProgressBar;
+    { : Called every so often while the file is read, so the application
+      can show progress. It used to be a TProgressBar, which the library
+      cannot know about any more; wire this to whatever you use.
+
+      The position is a count of groups read and the maximum is 0, because
+      a DXF is a text file whose length in groups is not known until it
+      ends - which is why the old TProgressBar never had a Max either.
+    }
+    property OnProgress: TCADProgressEvent read fOnProgress write fOnProgress;
   end;
 
   TDXFWrite = class(TObject)
@@ -101,7 +114,7 @@ type
     fHasExtension, fUnableToReadAll, fVerbose: Boolean;
     fSetLayers: Boolean;
     // Se True i layers letti modificano quelli del CAD in base all'ordine di recupero.
-    fCADCmp2D: TCADCmp2D;
+    fCADCmp2D: TFNCCADCmp2D;
     fAngleDir: TArcDirection;
     fExtension: TRect2D;
     fLayerList: TStringList;
@@ -132,7 +145,7 @@ type
 
     property DXFRead: TDXFRead read fDXFRead;
   public
-    constructor Create(const FileName: String; const CAD: TCADCmp2D);
+    constructor Create(const FileName: String; const CAD: TFNCCADCmp2D);
     destructor Destroy; override;
 
     procedure SetTextFont(F: TVectFont);
@@ -162,7 +175,7 @@ type
   TDXF2DExport = class(TObject)
   private
     FDXFWrite: TDXFWrite;
-    fCADCmp2D: TCADCmp2D;
+    fCADCmp2D: TFNCCADCmp2D;
   protected
     procedure WriteLine2D(Line: TLine2D);
     procedure WriteFrame2D(Frm: TFrame2D);
@@ -173,7 +186,7 @@ type
     procedure WriteBlock(Block: TBlock2D);
     procedure WriteEntity(Obj: TObject2D);
   public
-    constructor Create(const FileName: String; const CAD: TCADCmp2D);
+    constructor Create(const FileName: String; const CAD: TFNCCADCmp2D);
     destructor Destroy; override;
 
     { Write the DXF headers. }
@@ -195,7 +208,7 @@ type
     fTextFont: TVectFont;
     fScale: TRealType;
     fDXFRead: TDXFRead;
-    FCADCmp3D: TCADCmp3D;
+    FCADCmp3D: TFNCCADCmp3D;
     fAngleDir: TArcDirection;
     fExtension: TRect3D;
     fSetLayers: Boolean;
@@ -224,7 +237,7 @@ type
     function ReadBlock(Entry: TGroupTable): TBlock3D; virtual;
     function ReadEntity(IgnoreBlock: Boolean): TObject3D; virtual;
   public
-    constructor Create(const FileName: String; const CAD: TCADCmp3D);
+    constructor Create(const FileName: String; const CAD: TFNCCADCmp3D);
     destructor Destroy; override;
 
     function GoToSection(Sect: TSections): Boolean;
@@ -256,58 +269,63 @@ type
   end;
 
 var
-  Colors: array [0 .. 255] of TColor;
+  { : The 256 AutoCAD colour indices as drawing-layer colours. }
+  Colors: array [0 .. 255] of TCADColor;
 
 Implementation
 
-uses System.Math, System.Variants, Vcl.Dialogs, Vcl.Forms;
+uses
+{$IFDEF CADSYS_LCL}
+  Math, Variants;
+{$ELSE}
+  System.Math, System.Variants;
+{$ENDIF}
 
 // function body
 
 // -----===== Starting Cs4DXFReadWrite.pas =====-----
 
-function ColorToIndex(Col: TColor; Active: Boolean): Integer;
+function ColorToIndex(Col: TCADColor; Active: Boolean): Integer;
 begin
   Result := 7;
-  case Col of
-    clBlack, clWhite:
+  { Compared opaque: DXF has no alpha, so a translucent layer exports as
+    its colour. }
+  case CADColorSetAlpha(Col, $FF) of
+    cadclBlack, cadclWhite:
       Result := 7;
-    clRed:
+    cadclRed:
       Result := 1;
-    clYellow:
+    cadclYellow:
       Result := 2;
-    clLime:
+    cadclLime:
       Result := 3;
-    clAqua:
+    cadclAqua:
       Result := 4;
-    clBlue:
+    cadclBlue:
       Result := 5;
-    clFuchsia:
+    cadclFuchsia:
       Result := 6;
-    clGray:
+    cadclGray:
       Result := 8;
-    clLtGray:
+    cadclSilver:
       Result := 9;
   end;
   if not Active then
     Result := -1 * Result;
 end;
 
-procedure TDXFRead.SetProgressBar(PB: TProgressBar);
+procedure TDXFRead.DoProgress;
 begin
-  fProgressBar := PB;
-  if Assigned(fProgressBar) then
-  begin
-    fProgressBar.Min := 0;
-    // fProgressBar.Max := FileSize(fStream);
-    // fProgressBar.Position := FilePos(fStream);
-  end;
+  { Throttled: one call per group would cost more than the parsing. }
+  if Assigned(fOnProgress) and (fGroupsRead mod 256 = 0) then
+    fOnProgress(Self, fGroupsRead, 0);
 end;
 
 constructor TDXFRead.Create(FileName: String);
 begin
   inherited Create;
-  fProgressBar := nil;
+  fOnProgress := nil;
+  fGroupsRead := 0;
   fFS := FormatSettings;
   fFS.DecimalSeparator := '.';
   fFS.ThousandSeparator := #0;
@@ -328,8 +346,9 @@ procedure TDXFRead.Rewind;
 begin
   SetTextBuf(fStream, fTextBuf);
   Reset(fStream);
-  if Assigned(fProgressBar) then
-    fProgressBar.Position := 0;
+  fGroupsRead := 0;
+  if Assigned(fOnProgress) then
+    fOnProgress(Self, 0, 0);
   ConsumeGroup;
   NextSection;
 end;
@@ -351,6 +370,8 @@ begin
     Result := False;
     Exit;
   end;
+  Inc(fGroupsRead);
+  DoProgress;
   case fGroupCode of
     0 .. 9, 999, 1000 .. 1009:
       fGroupValue := Trim(TxtLine);
@@ -375,8 +396,6 @@ begin
     fGroupValue := TxtLine;
   end;
   Result := True;
-  // if Assigned(fProgressBar) then
-  // fProgressBar.Position := FilePos(fStream);
 end;
 
 procedure TDXFRead.NextSection;
@@ -677,7 +696,7 @@ begin
       Result := nil;
       fUnableToReadAll := True;
       if fVerbose then
-        ShowMessage('Spline without spline-fitting isn''t supported.');
+        CADSysWarn('Spline without spline-fitting isn''t supported.');
     end;
   end
   else
@@ -746,7 +765,7 @@ begin
   except
     fUnableToReadAll := True;
     if fVerbose then
-      ShowMessage('Some blocks cannot be read.');
+      CADSysWarn('Some blocks cannot be read.');
     Exit;
   end;
   if TmpSource <> nil then
@@ -795,7 +814,7 @@ begin
   Container.UpdateExtension(Self);
 end;
 
-constructor TDXF2DImport.Create(const FileName: String; const CAD: TCADCmp2D);
+constructor TDXF2DImport.Create(const FileName: String; const CAD: TFNCCADCmp2D);
 begin
   inherited Create;
   fDXFRead := TDXFRead.Create(FileName);
@@ -949,7 +968,7 @@ begin
         with fCADCmp2D.Layers[fLayerList.Count] do
         begin
           Pen.Color := Colors[Abs(Round(Real(Entry[62])))];
-          Brush.Style := bsClear;
+          Brush.Style := cbsClear;
           Active := Entry[62] >= 0;
           Name := VarToStr(Entry[2]);
         end;
@@ -1046,7 +1065,7 @@ end;
 
 { --================ DXF2DExport ==================-- }
 
-constructor TDXF2DExport.Create(const FileName: String; const CAD: TCADCmp2D);
+constructor TDXF2DExport.Create(const FileName: String; const CAD: TFNCCADCmp2D);
 begin
   inherited Create;
   FDXFWrite := TDXFWrite.Create(FileName);
@@ -1459,7 +1478,7 @@ end;
 
 { --================ DXF3DImport ==================-- }
 
-constructor TDXF3DImport.Create(const FileName: String; const CAD: TCADCmp3D);
+constructor TDXF3DImport.Create(const FileName: String; const CAD: TFNCCADCmp3D);
 begin
   inherited Create;
   try
@@ -1636,7 +1655,7 @@ begin
         with FCADCmp3D.Layers[fLayerList.Count] do
         begin
           Pen.Color := Colors[Abs(Round(Double(Entry[62])))];
-          Brush.Style := bsClear;
+          Brush.Style := cbsClear;
           Active := Entry[62] >= 0;
           Name := VarToStr(Entry[2]);
         end;
@@ -1923,7 +1942,7 @@ begin
       Result.Free;
       Result := nil;
       if fVerbose then
-        ShowMessage('Spline without spline-fitting isn''t supported.');
+        CADSysWarn('Spline without spline-fitting isn''t supported.');
     end;
   end
   else if IsMesh3D then
@@ -2162,48 +2181,48 @@ initialization
 
 // Settaggio colori per DXF.
 // Colori base.
-Colors[0] := RGB(255, 255, 255);
-Colors[1] := RGB(255, 0, 0);
-Colors[2] := RGB(255, 255, 0);
-Colors[3] := RGB(0, 255, 0);
-Colors[4] := RGB(0, 255, 255);
-Colors[5] := RGB(0, 0, 255);
-Colors[6] := RGB(255, 0, 255);
-Colors[7] := RGB(0, 0, 0);
-Colors[8] := RGB(134, 134, 134);
-Colors[9] := RGB(187, 187, 187);
+Colors[0] := CADColor($FF, 255, 255, 255);
+Colors[1] := CADColor($FF, 255, 0, 0);
+Colors[2] := CADColor($FF, 255, 255, 0);
+Colors[3] := CADColor($FF, 0, 255, 0);
+Colors[4] := CADColor($FF, 0, 255, 255);
+Colors[5] := CADColor($FF, 0, 0, 255);
+Colors[6] := CADColor($FF, 255, 0, 255);
+Colors[7] := CADColor($FF, 0, 0, 0);
+Colors[8] := CADColor($FF, 134, 134, 134);
+Colors[9] := CADColor($FF, 187, 187, 187);
 // Toni di grigio.
-Colors[250] := RGB(0, 0, 0);
-Colors[251] := RGB(45, 45, 45);
-Colors[252] := RGB(91, 91, 91);
-Colors[253] := RGB(137, 137, 137);
-Colors[254] := RGB(183, 183, 183);
-Colors[255] := RGB(179, 179, 179);
+Colors[250] := CADColor($FF, 0, 0, 0);
+Colors[251] := CADColor($FF, 45, 45, 45);
+Colors[252] := CADColor($FF, 91, 91, 91);
+Colors[253] := CADColor($FF, 137, 137, 137);
+Colors[254] := CADColor($FF, 183, 183, 183);
+Colors[255] := CADColor($FF, 179, 179, 179);
 // Altre tonalità
 for Cont := 1 to 4 do
 begin
-  Colors[Cont * 10] := RGB(255, ColArray1[Cont], 0);
-  Colors[40 + Cont * 10] := RGB(ColArray1[5 - Cont], 255, 0);
-  Colors[80 + Cont * 10] := RGB(0, 255, ColArray1[Cont]);
-  Colors[120 + Cont * 10] := RGB(0, ColArray1[5 - Cont], 255);
-  Colors[160 + Cont * 10] := RGB(ColArray1[Cont], 0, 255);
+  Colors[Cont * 10] := CADColor($FF, 255, ColArray1[Cont], 0);
+  Colors[40 + Cont * 10] := CADColor($FF, ColArray1[5 - Cont], 255, 0);
+  Colors[80 + Cont * 10] := CADColor($FF, 0, 255, ColArray1[Cont]);
+  Colors[120 + Cont * 10] := CADColor($FF, 0, ColArray1[5 - Cont], 255);
+  Colors[160 + Cont * 10] := CADColor($FF, ColArray1[Cont], 0, 255);
 end;
-Colors[210] := RGB(255, 0, 255);
-Colors[220] := RGB(255, 0, 191);
-Colors[230] := RGB(255, 0, 127);
-Colors[240] := RGB(255, 0, 63);
+Colors[210] := CADColor($FF, 255, 0, 255);
+Colors[220] := CADColor($FF, 255, 0, 191);
+Colors[230] := CADColor($FF, 255, 0, 127);
+Colors[240] := CADColor($FF, 255, 0, 63);
 for Cont := 1 to 4 do
 begin
-  Colors[Cont * 10 + 1] := RGB(255, ColArray2[Cont], 127);
-  Colors[41 + Cont * 10] := RGB(ColArray2[5 - Cont], 255, 127);
-  Colors[81 + Cont * 10] := RGB(127, 255, ColArray2[Cont]);
-  Colors[121 + Cont * 10] := RGB(127, ColArray2[5 - Cont], 255);
-  Colors[161 + Cont * 10] := RGB(ColArray2[Cont], 127, 255);
+  Colors[Cont * 10 + 1] := CADColor($FF, 255, ColArray2[Cont], 127);
+  Colors[41 + Cont * 10] := CADColor($FF, ColArray2[5 - Cont], 255, 127);
+  Colors[81 + Cont * 10] := CADColor($FF, 127, 255, ColArray2[Cont]);
+  Colors[121 + Cont * 10] := CADColor($FF, 127, ColArray2[5 - Cont], 255);
+  Colors[161 + Cont * 10] := CADColor($FF, ColArray2[Cont], 127, 255);
 end;
-Colors[211] := RGB(255, 127, 255);
-Colors[221] := RGB(255, 127, 223);
-Colors[231] := RGB(255, 127, 191);
-Colors[241] := RGB(255, 127, 159);
+Colors[211] := CADColor($FF, 255, 127, 255);
+Colors[221] := CADColor($FF, 255, 127, 223);
+Colors[231] := CADColor($FF, 255, 127, 191);
+Colors[241] := CADColor($FF, 255, 127, 159);
 
 // Gli altri sono tutti zero per ora.
 end.

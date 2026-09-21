@@ -1,26 +1,35 @@
 ﻿{ : This help file explain all the entities classes defined in
   the CADSys 4.0 library for both the 2D and 3D use.
 
-  These classes are defined in the CS4Shapes unit file
+  These classes are defined in the FNCCS4Shapes unit file
   that you must include in the <B=uses> clause in all of your units
   that access the types mentioned here.
 }
-unit CS4Shapes;
+unit FNCCS4Shapes;
+
+{$I CADSys.inc}
 
 interface
 
-uses WinAPI.Windows, System.SysUtils, System.Classes, System.Types,
-  Vcl.Graphics,
-  CADSys4, CS4BaseTypes;
+uses
+{$IFDEF CADSYS_LCL}
+  SysUtils, Classes, Types, fpjson,
+{$ELSE}
+  System.SysUtils, System.Classes, System.Types, System.JSON,
+{$ENDIF}
+  FNCCADSys4, FNCCS4BaseTypes, FNCCS4Graphics, FNCCS4JSON;
 
 type
+
   { : This type defines the type used to specify the name of
     a <I=font type face> (like Times New Roman).
   }
-  TFaceName = string[LF_FACESIZE];
+  TFaceName = string;
 
-  { : This class encapsulates the interface for the GDI font of
-    Windows as defined by <Code=TLOGFONT> structure.
+  { : A font description, in the same terms as the Windows LOGFONT
+    structure that CADSys has always stored - but no handle and no
+    canvas: the drawing backend turns
+    <See Property=TExtendedFont@Spec> into whatever it needs.
 
     This font is used by the library for the <See Class=TText2D>
     shape class. The use of it is somewhat difficult in the
@@ -30,11 +39,7 @@ type
   }
   TExtendedFont = class(TObject)
   private
-    LogFont: TLOGFONT;
-    FHandle: HFONT;
-    FCanvas: TCanvas;
-    procedure SetNewValue;
-    procedure SetCanvas(Cnv: TCanvas);
+    fSpec: TCADFontSpec;
     procedure SetHeight(Value: Word);
     function GetHeight: Word;
     procedure SetWidth(Value: Word);
@@ -61,103 +66,66 @@ type
     function GetPicthAndFamily: Byte;
     procedure SetFaceName(Value: TFaceName);
     function GetFaceName: TFaceName;
+    function GetSpec: TCADFontSpec;
   public
-    { : This is the constructor that creates an instance of a
-      font.
-
-      When a new font is created it is set using the
-      <I=DEFAULT_GUI_FONT> as defined in Windows specifications.
+    {: Creates a font with the drawing layer's default description.
     }
     constructor Create;
-    { : This destructor frees the font informations.
-
-      It also detaches the font form a <I=Canvas>, if the font is
-      currently in use by it.
-    }
-    destructor Destroy; override;
-    { : This method assign the font data by using another font
-      class as a prototype.
-
-      Parameters:
-
-      <LI=<I=Obj> is the font being used as a prototype.>
+    {: Copies the description of another font.
     }
     procedure Assign(Obj: TExtendedFont);
-    { : This method saves the font informations into a stream.
-
-      Parameters:
-
-      <LI=<I=Strm> is the stream on which save the font structure.>
+    {: Writes the font description into <I=AJSON>.
     }
-    procedure SaveToStream(Strm: TStream);
-    { : This method retrieves the font informations from a stream.
-
-      Parameters:
-
-      <LI=<I=Strm> is the stream from which retrieve the font
-      structure.>
+    procedure SaveToJSON(const AJSON: TJSONObject);
+    {: Reads the font description from <I=AJSON>.
     }
-    procedure LoadFromStream(Strm: TStream);
-    { : This property attaches the font to a Canvas.
-
-      If you want to use the font on a Canvas you must use this
-      property. After you have setted this propery, to detach
-      the font from the Canvas assign <B=nil> to this property.
+    procedure LoadFromJSON(const AJSON: TJSONObject);
+    {: The font as a platform-neutral description, which is all this
+       class holds. Pass it to <See Method=TCADGraphics@SelectFont>;
+       the backend owns whatever native handle it needs.
     }
-    property Canvas: TCanvas read FCanvas write SetCanvas;
-    { : This property contains the handle for the
-      <Code=TLOGFONT> structure.
-    }
-    property Handle: HFONT read FHandle;
-    { : This property specifies the <I=lfHeight> field of <Code=TLOGFONT>.
+    property Spec: TCADFontSpec read GetSpec;
+    {: Character height in pixels. A negative value is the character
+       height rather than the cell height (the LOGFONT convention),
+       but the property is a Word for compatibility - use
+       <See Property=TExtendedFont@Spec> to read a negative height.
     }
     property Height: Word read GetHeight write SetHeight;
-    { : This property specifies the <I=lfWidth> field of <Code=TLOGFONT>.
+    {: Average character width, 0 for the font's own.
     }
     property Width: Word read GetWidth write SetWidth;
-    { : This property specifies the <I=lfEscapement> field of
-      <Code=TLOGFONT>.
+    {: Angle of the text line, in tenths of a degree counter-clockwise.
     }
     property Escapement: Word read GetEscapement write SetEscapement;
-    { : This property specifies the <I=lfWeight> field of
-      <Code=TLOGFONT>.
+    {: Weight, 0..1000; 400 is normal and 700 is bold.
     }
     property Weight: Word read GetWeight write SetWeight;
-    { : This property specifies the <I=lfItalic> field of
-      <Code=TLOGFONT>.
+    {: Non-zero for italic.
     }
     property Italic: Byte read GetItalic write SetItalic;
-    { : This property specifies the <I=lfUnderline> field of
-      <Code=TLOGFONT>.
+    {: Non-zero for underlined.
     }
     property Underline: Byte read GetUnderline write SetUnderline;
-    { : This property specifies the <I=lfStrikeOut> field of
-      <Code=TLOGFONT>.
+    {: Non-zero for struck out.
     }
     property StrikeOut: Byte read GetStrikeOut write SetStrikeOut;
-    { : This property specifies the <I=lfCharSet> field of
-      <Code=TLOGFONT>.
+    {: Character set. Only the GDI backend uses it.
     }
     property CharSet: Byte read GetCharSet write SetCharSet;
-    { : This property specifies the <I=lfOutPrecision> field of
-      <Code=TLOGFONT>.
+    {: Output precision. Only the GDI backend uses it.
     }
     property OutPrecision: Byte read GetOutPrecision write SetOutPrecision;
-    { : This property specifies the <I=lfClipPrecision> field of
-      <Code=TLOGFONT>.
+    {: Clipping precision. Only the GDI backend uses it.
     }
     property ClipPrecision: Byte read GetClipPrecision write SetClipPrecision;
-    { : This property specifies the <I=lfQuality> field of
-      <Code=TLOGFONT>.
+    {: Output quality. Only the GDI backend uses it.
     }
     property Quality: Byte read GetQuality write SetQuality;
-    { : This property specifies the <I=lfPitchAndFamily> field of
-      <Code=TLOGFONT>.
+    {: Pitch and family. Only the GDI backend uses it.
     }
     property PicthAndFamily: Byte read GetPicthAndFamily
       write SetPicthAndFamily;
-    { : This property specify the <I=lfFaceName> field of
-      <Code=TLOGFONT>.
+    {: The type face name, for example 'Arial'.
     }
     property FaceName: TFaceName read GetFaceName write SetFaceName;
   end;
@@ -261,9 +229,9 @@ type
 
       The constructor need the identifier of the new graphic object.
       This <See Property=TGraphicObject@ID> will be used to
-      identify the object in the <See Class=TCADCmp2D>.
+      identify the object in the <See Class=TFNCCADCmp2D>.
 
-      If the object is added with the method <See Method=TCADCmp@AddObject>
+      If the object is added with the method <See Method=TFNCCADCmp@AddObject>
       and with the first parameter set to a number equal or greater that
       0, the <I=ID> given here will be overriden.
 
@@ -280,10 +248,9 @@ type
     }
     constructor Create(ID: LongInt; NPts: Integer);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     { : This property contains the set of <I=control points> used
       to define the shape of the entity.
 
@@ -530,9 +497,8 @@ type
     constructor Create(ID: LongInt; NPts: Integer; CurvePrec: Word);
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas; const
 {%H-}ClipRect2D: TRect2D; const {%H-}DrawMode: Integer); override;
     function OnMe(Pt: TPoint2D; Aperture: TRealType; var Distance: TRealType)
@@ -635,9 +601,8 @@ type
     }
     constructor Create(ID: LongInt; const P1, P2: TPoint2D; SA, EA: TRealType);
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     { : This property contains the starting angle of the arc in radiants.
 
       The angle that correspond to zero radiants is along the
@@ -720,9 +685,8 @@ type
     }
     constructor Create(ID: LongInt; const Pts: array of TPoint2D);
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     { : This property contains the order of the spline.
 
       By default it is three (cubic spline).
@@ -752,7 +716,7 @@ type
     fHeight: TRealType;
     fExtFont: TExtendedFont;
     fDrawBox, fRecalcBox: Boolean;
-    fClippingFlags: Integer; // Win32s DrawText flags.
+    fClippingFlags: Integer; // CAD_DT_* text format flags.
   public
     { : Create a new text entity in the rectangle <I=Rect1>, with
       the given <I=Height> and <I=Text>.
@@ -772,11 +736,10 @@ type
     }
     constructor Create(ID: LongInt; Rect1: TRect2D; Height: TRealType;
       Txt: AnsiString);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas; const
 {%H-}ClipRect2D: TRect2D; const {%H-}DrawMode: Integer); override;
     function OnMe(Pt: TPoint2D; Aperture: TRealType; var Distance: TRealType)
@@ -813,10 +776,13 @@ type
       adding <Code=#10#13> beetwen lines.
     }
     property Text: AnsiString read fText write fText;
-    { : This property contains the <I=clipping flags> used
-      by drawing the text with the <I=DrawText> API function.
+    { : This property contains the <I=clipping flags> passed to
+      <See Method=TCADGraphics@DrawText>.
 
-      By default the are setted to <I=DT_NOCLIP>.
+      They are the <I=CAD_DT_*> constants in FNCCS4Graphics, whose values
+      equal the Windows <I=DT_*> ones, so a value stored by an older
+      version still means the same thing. By default they are 0, which is
+      <I=CAD_DT_TOP or CAD_DT_LEFT>.
     }
     property ClippingFlags: Integer read fClippingFlags write fClippingFlags;
   end;
@@ -837,18 +803,19 @@ type
   }
   TBitmap2D = class(TPrimitive2D)
   private
-    fBitmap: TBitmap;
+    fImage: TCADImage;
     fScaleFactor: TRealType;
     fAspectRatio: TRealType;
-    fCopyMode: TCopyMode;
+    fCopyMode: LongInt;
 
     procedure SetScaleFactor(SF: TRealType);
     procedure SetAspectRatio(AR: TRealType);
   public
     { : This constructor creates a new bitmap object.
 
-      <I=Bmp> is the bitmap to be drawed and it will be freed
-      by the object.
+      <I=Img> is the picture to be drawed. It is copied, so the
+      caller keeps ownership of it. Build one from a VCL bitmap
+      with <I=CADImageFromBitmap> in FNCCS4GraphicsVCL.
 
       <I=P1> and <I=P2> are the corner points of the bitmap
       in world coordinates (and the bitmap will be stretched
@@ -856,19 +823,19 @@ type
 
       <B=Note>: The bitmap cannot be rotated !
     }
-    constructor Create(ID: LongInt; const P1, P2: TPoint2D; Bmp: TBitmap);
+    constructor Create(ID: LongInt; const P1, P2: TPoint2D; Img: TCADImage);
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas; const
 {%H-}ClipRect2D: TRect2D; const {%H-}DrawMode: Integer); override;
-    { : This property contains the bitmap to be drawed.
+    { : This property contains the picture to be drawed.
 
-      It will be freed by the object.
+      It is owned and freed by the object. Change it in place
+      (<I=Image.SetData>) rather than replacing it.
     }
-    property Bitmap: TBitmap read fBitmap;
+    property Image: TCADImage read fImage;
     { : This property may contains the scale factor to be used for the
       bitmap.
 
@@ -896,10 +863,12 @@ type
       needed.
     }
     property AspectRatio: TRealType read fAspectRatio write SetAspectRatio;
-    { : This property contains the CopyMode used to copy the
-      bitmap.
+    { : This property contains the raster operation used to copy the
+      bitmap. It is a Windows ROP code, as a VCL TCanvas.CopyMode is;
+      the default is <I=CAD_SRCCOPY>. Backends that have no raster
+      operations, such as the FNC one, ignore it.
     }
-    property CopyMode: TCopyMode read fCopyMode write fCopyMode;
+    property CopyMode: LongInt read fCopyMode write fCopyMode;
   end;
 
   { : This class defines a 2D/3D vectorial char as a set of
@@ -945,8 +914,7 @@ type
       definition (previously saved with
       <See Method=TVectChar@SaveToStream>).>
     }
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion);
+    constructor CreateFromJSON(const AJSON: TJSONObject);
     { : This method saves a char definition into a stream.
 
       Parameters:
@@ -955,7 +923,7 @@ type
       definition (that can be retrived with
       <See Method=TVectCharCreateFromStream>).>
     }
-    procedure SaveToStream(const Stream: TStream);
+    procedure SaveToJSON(const AJSON: TJSONObject);
     { : This method is used computes the real dimension of the
       char.
 
@@ -1035,8 +1003,7 @@ type
       <LI=<I=Stream> is the stream from which retrieve the
       font definition.>
     }
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion);
+    constructor CreateFromJSON(const AJSON: TJSONObject);
     { : This method saves an instance of the font into a Stream.
 
       Parameters:
@@ -1044,7 +1011,7 @@ type
       <LI=<I=Stream> is the stream to which saves the font
       definition.>
     }
-    procedure SaveToStream(const Stream: TStream);
+    procedure SaveToJSON(const AJSON: TJSONObject);
     { : This method draws a char of the font on a canvas using a
       transform mapping from a 2D viewing system.
 
@@ -1063,7 +1030,7 @@ type
       20% of H.>
       <LI=<I=VT> is the mapping transform from world to screen.
       It may be obtained from the
-      <See Property=TCADViewport@ViewportToScreenTransform>
+      <See Property=TFNCCADViewport@ViewportToScreenTransform>
       property.>
       <LI=<I=Cnv> is the canvas on which draw the char.>
     }
@@ -1090,12 +1057,12 @@ type
       <LI=<I=NT> is the projection-normalizing transform from
       world to normalized view volume.
       It may be obtained from the
-      <See Property=TCADViewport3D@ViewNormalization>
+      <See Property=TFNCCADViewport3D@ViewNormalization>
       property.>
       <LI=<I=VT> is the mapping transform from the normalized
       view volume to  the screen.
       It may be obtained from the
-      <See Property=TCADViewport3D@ViewMapping>
+      <See Property=TFNCCADViewport3D@ViewMapping>
       property.>
       <LI=<I=Cnv> is the canvas on which draw the char.>
     }
@@ -1189,7 +1156,7 @@ type
       <LI=<I=ID> is identifier that univocally identify the
       object in the CAD. By means of the method used to add the
       object to the CAD, the <I=ID> of the object might be different
-      from the one supplied here. See <See Method=TCADCmp@AddObject>
+      from the one supplied here. See <See Method=TFNCCADCmp@AddObject>
       for details.>
       <LI=<I=FontVect> is the font typeface. Use
       <See Function=CADSysFindFontByIndex> and
@@ -1202,10 +1169,9 @@ type
     }
     constructor Create(ID: LongInt; FontVect: TVectFont; TextBox: TRect2D;
       Height: TRealType; Txt: AnsiString);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas; const
 {%H-}ClipRect2D: TRect2D; const DrawMode: Integer); override;
     function OnMe(Pt: TPoint2D; Aperture: TRealType; var Distance: TRealType)
@@ -1303,9 +1269,8 @@ type
     constructor Create(ID: LongInt; const PlaneRef: TPoint3D;
       const PlaneNorm, PlUp: TVector3D);
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     { : This method transforms a 3D point (expressed in world
       coordinate) into a 2D point on the plane.
 
@@ -1432,9 +1397,8 @@ type
     constructor Create(ID: LongInt; const PlaneRef: TPoint3D;
       const PlaneNorm, PlUp: TVector3D; const Obj: TObject2D);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const NormTransf: TTransf3D; const VRP: TPoint3D;
       const VT: TTransf2D; const Cnv: TDecorativeCanvas;
       const DrawMode: Integer); override;
@@ -1459,7 +1423,7 @@ type
     fDeltaX, fDeltaY: TRealType;
     fFieldExt: TRealType;
     // Indica l'estensione del campo. Non può essere infinito.
-    fColor, fXColor, fYColor: TColor;
+    fColor, fXColor, fYColor: TCADColor;
     fPlaneRef: TPoint3D;
     fPlaneUP, fPlaneNorm: TVector3D;
   protected
@@ -1480,9 +1444,8 @@ type
     }
     constructor Create(ID: LongInt; const PlaneRef: TPoint3D;
       const PlaneNorm, PlUp: TVector3D);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     procedure Draw(const NormTransf: TTransf3D; const
 {%H-}VRP: TPoint3D; const VT: TTransf2D; const Cnv: TDecorativeCanvas; const
@@ -1512,20 +1475,20 @@ type
     { : This property contains the color of the X axis mark
       on the grid.
 
-      By default it is <I=clRed>, and it will not be streamed.
+      By default it is <I=cadclRed>, and it will not be streamed.
     }
-    property XColor: TColor read fXColor write fXColor;
+    property XColor: TCADColor read fXColor write fXColor;
     { : This property contains the color of the Y axis mark
       on the grid.
 
-      By default it is <I=clBlue>, and it will not be streamed.
+      By default it is <I=cadclBlue>, and it will not be streamed.
     }
-    property YColor: TColor read fYColor write fYColor;
+    property YColor: TCADColor read fYColor write fYColor;
     { : This property contains the color of the grid.
 
-      By default it is <I=clGray>, and it will not be streamed.
+      By default it is <I=cadclSilver>, and it will not be streamed.
     }
-    property GridColor: TColor read fColor write fColor;
+    property GridColor: TCADColor read fColor write fColor;
   end;
 
   { : This handler can be used to modify a primitive by dragging its
@@ -1593,9 +1556,9 @@ type
 
       The constructor need the identifier of the new graphic object.
       This <See Property=TGraphicObject@ID> will be used to
-      identify the object in the <See Class=TCADCmp3D>.
+      identify the object in the <See Class=TFNCCADCmp3D>.
 
-      If the object is added with the method <See Method=TCADCmp@AddObject>
+      If the object is added with the method <See Method=TFNCCADCmp@AddObject>
       and with the first parameter set to a number equal or greater that
       0, the <I=ID> given here will be overriden.
 
@@ -1612,9 +1575,8 @@ type
     }
     constructor Create(ID: LongInt; NPts: Integer);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This property contains the set of <I=control points> used
       to define the shape of the entity.
@@ -1671,7 +1633,7 @@ type
     See also <See Class=TCurve3D>.
 
     <B=Note>: This shape utilizes the following flags for
-    <See Property=TCADViewport@DrawMode>:
+    <See Property=TFNCCADViewport@DrawMode>:
 
     <B=Note>: The control points are always in the object model
     coordinate system !
@@ -1754,7 +1716,7 @@ type
     <See Class=TPlanarPolyline3D> shape class.
 
     <B=Note>: This shape utilizes the following flags for
-    <See Property=TCADViewport@DrawMode>:
+    <See Property=TFNCCADViewport@DrawMode>:
   }
   TPolyline3D = class(TOutline3D)
   protected
@@ -1796,7 +1758,7 @@ type
     <See Class=TPlanarFace3D> shape class.
 
     <B=Note>: This shape utilizes the following flags for
-    <See Property=TCADViewport@DrawMode>:
+    <See Property=TFNCCADViewport@DrawMode>:
   }
   TFace3D = class(TPolyline3D)
   private
@@ -1875,9 +1837,9 @@ type
 
       The constructor need the identifier of the new graphic object.
       This <See Property=TGraphicObject@ID> will be used to
-      identify the object in the <See Class=TCADCmp3D>.
+      identify the object in the <See Class=TFNCCADCmp3D>.
 
-      If the object is added with the method <See Method=TCADCmp@AddObject>
+      If the object is added with the method <See Method=TFNCCADCmp@AddObject>
       and with the first parameter set to a number equal or greater that
       0, the <I=ID> given here will be overriden.
 
@@ -1903,9 +1865,8 @@ type
       const PlaneNorm, PlUp: TVector3D);
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure ApplyTransform; override;
     function HasTransform: Boolean; override;
     { : This method may be used to change the plane parameters of the primitive.
@@ -1967,7 +1928,7 @@ type
       <LI=<I=ID> is identifier that univocally identify the
       object in the CAD. By means of the method used to add the
       object to the CAD, the <I=ID> of the object might be different
-      from the one supplied here. See <See Method=TCADCmp@AddObject>
+      from the one supplied here. See <See Method=TFNCCADCmp@AddObject>
       for details.>
       <LI=<I=PlaneRef> is a point on the plane that defines the
       origin of the 2D coordinate system of the plane.>
@@ -1989,10 +1950,9 @@ type
     constructor Create(ID: LongInt; const PlaneRef: TPoint3D;
       const PlaneNorm, PlUp: TVector3D; const FontVect: TVectFont;
       const TextBox: TRect2D; const Height: TRealType; const Txt: AnsiString);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const NormTransf: TTransf3D; const
 {%H-}VRP: TPoint3D; const VT: TTransf2D; const Cnv: TDecorativeCanvas;
       const DrawMode: Integer); override;
@@ -2076,9 +2036,9 @@ type
 
       The constructor need the identifier of the new graphic object.
       This <See Property=TGraphicObject@ID> will be used to
-      identify the object in the <See Class=TCADCmp3D>.
+      identify the object in the <See Class=TFNCCADCmp3D>.
 
-      If the object is added with the method <See Method=TCADCmp@AddObject>
+      If the object is added with the method <See Method=TFNCCADCmp@AddObject>
       and with the first parameter set to a number equal or greater that
       0, the <I=ID> given here will be overriden.
 
@@ -2104,9 +2064,8 @@ type
       const PlaneNorm, PlUp: TVector3D);
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure ApplyTransform; override;
     function HasTransform: Boolean; override;
     { : This method may be used to change the plane parameters of the primitive.
@@ -2148,7 +2107,7 @@ type
     <See Class=TPolyline3D> shape class.
 
     <B=Note>: This shape utilizes the following flags for
-    <See Property=TCADViewport@DrawMode>:
+    <See Property=TFNCCADViewport@DrawMode>:
   }
   TPlanarPolyline3D = class(TPlanarOutline3D)
   protected
@@ -2197,7 +2156,7 @@ type
     <See Class=TFace3D> shape class.
 
     <B=Note>: This shape utilizes the following flags for
-    <See Property=TCADViewport@DrawMode>:
+    <See Property=TFNCCADViewport@DrawMode>:
   }
   TPlanarFace3D = class(TPlanarPolyline3D)
   protected
@@ -2283,9 +2242,8 @@ type
     constructor Create(ID: LongInt; NPts: Integer; CurvePrec: Word);
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const NormTransf: TTransf3D; const VRP: TPoint3D;
       const VT: TTransf2D; const Cnv: TDecorativeCanvas;
       const DrawMode: Integer); override;
@@ -2368,9 +2326,9 @@ type
 
       The constructor need the identifier of the new graphic object.
       This <See Property=TGraphicObject@ID> will be used to
-      identify the object in the <See Class=TCADCmp3D>.
+      identify the object in the <See Class=TFNCCADCmp3D>.
 
-      If the object is added with the method <See Method=TCADCmp@AddObject>
+      If the object is added with the method <See Method=TFNCCADCmp@AddObject>
       and with the first parameter set to a number equal or greater that
       0, the <I=ID> given here will be overriden.
 
@@ -2396,9 +2354,8 @@ type
       const PlaneRef: TPoint3D; const PlaneNorm, PlUp: TVector3D);
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure ApplyTransform; override;
     function HasTransform: Boolean; override;
     function IsVisible(const NormTransf: TTransf3D; const VRP: TPoint3D;
@@ -2520,9 +2477,8 @@ type
     constructor Create(ID: LongInt; const PlaneRef: TPoint3D;
       const XDir, YDir: TVector3D; const P1, P2: TPoint3D; SA, EA: TRealType);
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     { : This property contains the starting angle of the arc in radiants.
 
       The angle that correspond to zero radiants is along the
@@ -2616,9 +2572,8 @@ type
     constructor Create(ID: LongInt; const PlaneRef: TPoint3D;
       const XDir, YDir: TVector3D; const Pts: array of TPoint3D);
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     { : This property contains the order of the spline.
 
       By default it is three (cubic spline).
@@ -2660,9 +2615,8 @@ type
     }
     constructor Create(ID: LongInt; M, N: Integer;
       const Pts: array of TPoint3D);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     procedure Draw(const NormTransf: TTransf3D; const VRP: TPoint3D;
       const VT: TTransf2D; const Cnv: TDecorativeCanvas;
@@ -2695,8 +2649,8 @@ type
     fV1, fV2, fV3, fV4: SmallInt;
     fFullQuad, fFullTri: Boolean;
     fPtsList: TPointsSet3D;
-    procedure SaveToStream(const Stream: TStream);
-    procedure LoadFromStream(const Stream: TStream);
+    procedure SaveToJSON(const AJSON: TJSONObject);
+    procedure LoadFromJSON(const AJSON: TJSONObject);
     procedure SetFace(const P1, P2, P3, P4: SmallInt);
     procedure DrawFace(const DrawMode: Integer; const NormTransf: TTransf3D;
       const VRP: TPoint3D; const VT: TTransf2D; const Cnv: TDecorativeCanvas);
@@ -2747,9 +2701,8 @@ type
     constructor Create(ID: LongInt; NPts, NFaces: Integer;
       const Pts: array of TPoint3D);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This method adds a face to the polyface.
 
@@ -2867,9 +2820,8 @@ type
     constructor Create(ID: LongInt; const BaseProfile: TOutline3D);
     destructor Destroy; override;
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     function HasTransform: Boolean; override;
     procedure ApplyTransform; override;
     procedure BeginUseProfilePoints; override;
@@ -2925,9 +2877,8 @@ type
     }
     constructor Create(ID: LongInt; const Outline: TOutline3D; Len: TRealType;
       const ExtDir: TVector3D);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This property contains the extrusion direction of the
       solid.
@@ -2974,9 +2925,8 @@ type
     constructor Create(ID: LongInt; const Outline: TOutline3D;
       StartA, EndA, DA: TRealType; const RotAx: TVector3D;
       const RotC: TPoint3D);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This property contains the center of rotation of the solid.
 
@@ -3007,7 +2957,7 @@ type
   private
     fCameraPosition, fCameraViewPoint: TPoint3D;
     fCameraUP: TVector3D;
-    fViewport: TCADViewport3D;
+    fViewport: TFNCCADViewport3D;
     fP1, fP2, fP3, fP4: TPoint3D;
     fAperture, fPlaneDistance, fAspect: TRealType;
     fUpdating: Boolean;
@@ -3018,7 +2968,7 @@ type
     function GetAperture: TRealType;
     procedure SetAspect(A: TRealType);
     procedure SetPlaneDistance(D: TRealType);
-    procedure SetViewport(V: TCADViewport3D);
+    procedure SetViewport(V: TFNCCADViewport3D);
     function GetCameraPlanePosition: TPoint3D;
     function UpdateViewFrustum: TRect3D;
   protected
@@ -3027,9 +2977,8 @@ type
     constructor Create(ID: LongInt; const CamPos, CamView: TPoint3D;
       const CamUP: TVector3D; const Ap, PDist: TRealType);
     procedure Assign(const Obj: TGraphicObject); override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Draw(const NormTransf: TTransf3D; const
 {%H-}VRP: TPoint3D; const VT: TTransf2D; const Cnv: TDecorativeCanvas; const
 {%H-}DrawMode: Integer); override;
@@ -3047,10 +2996,10 @@ type
     property AspectRatio: TRealType read fAspect write SetAspect;
     property PlaneDistance: TRealType read fPlaneDistance
       write SetPlaneDistance;
-    property LinkedViewport: TCADViewport3D read fViewport write SetViewport;
+    property LinkedViewport: TFNCCADViewport3D read fViewport write SetViewport;
   end;
 
-procedure SetCamerasViewport(V: TCADPerspectiveViewport3D);
+procedure SetCamerasViewport(V: TFNCCADPerspectiveViewport3D);
 
 { : This procedure sets the default font.
 }
@@ -3101,6 +3050,9 @@ function CADSysFindFontByIndex(Index: Word): TVectFont;
   registration list.
 }
 procedure CADSysRegisterFontFromFile(Index: Word; const FileName: String);
+{ : This procedure saves a vectorial font as a JSON font file.
+}
+procedure CADSysSaveFontToFile(const Font: TVectFont; const FileName: String);
 { : This function register a font.
 
   If the index of registration is already in use an
@@ -3131,11 +3083,51 @@ const
 
 implementation
 
-uses Math, Dialogs, CADSysRegister;
+uses
+{$IFDEF CADSYS_LCL}
+  { base64 is FPC's answer to System.NetEncoding; only TBitmap2D needs it,
+    to put its PNG bytes in a JSON string. }
+  Math, base64, FNCCadSysRegister;
+{$ELSE}
+  Math, System.NetEncoding, FNCCadSysRegister;
+{$ENDIF}
 
 var
   VectFonts2DRegistered: array [0 .. MAX_REGISTERED_FONTS] of TVectFont;
-  fCamerasViewports: TCADViewport3D;
+  fCamerasViewports: TFNCCADViewport3D;
+
+const
+  { Names used for the shape enumerations in JSON. }
+  CADSavingTypeNames: array [0 .. 1] of String = ('space', 'time');
+  CADArcDirectionNames: array [0 .. 1] of String = ('clockwise',
+    'counterClockwise');
+  CADHJustificationNames: array [0 .. 2] of String = ('left', 'right',
+    'center');
+  CADVJustificationNames: array [0 .. 2] of String = ('top', 'bottom',
+    'center');
+
+{ : Encodes an image as base64, so that a drawing carries its pictures. }
+function CADImageToBase64(const Image: TCADImage): String;
+begin
+  Result := '';
+  if (Image = nil) or Image.IsEmpty then
+    Exit;
+  Result := TNetEncoding.Base64.EncodeBytesToString(Image.Data);
+end;
+
+{ : Decodes what CADImageToBase64 wrote into Image. An empty string leaves
+  the image untouched. }
+procedure Base64ToCADImage(const AText: String; const Image: TCADImage);
+var
+  TmpBytes: TBytes;
+begin
+  if (Image = nil) or (Length(AText) = 0) then
+    Exit;
+  TmpBytes := TNetEncoding.Base64.DecodeStringToBytes(AText);
+  if Length(TmpBytes) = 0 then
+    Exit;
+  Image.SetData(TmpBytes);
+end;
 
   // =====================================================================
   // TExtendedFont
@@ -3143,213 +3135,190 @@ var
 
 procedure TExtendedFont.SetHeight(Value: Word);
 begin
-  { CS4-FIX (P4): TText2D.Draw assigns Height on every repaint. Without this
-    guard SetNewValue rebuilt the HFONT (CreateFontIndirect + DeleteObject)
-    once per text shape per frame, even at a constant zoom. }
-  if LogFont.lfHeight = Integer(Value) then
-    Exit;
-  LogFont.lfHeight := Value;
-  SetNewValue;
+  fSpec.Height := Value;
 end;
 
 function TExtendedFont.GetHeight: Word;
 begin
-  Result := LogFont.lfHeight;
+  Result := Word(fSpec.Height);
 end;
 
 procedure TExtendedFont.SetWidth(Value: Word);
 begin
-  LogFont.lfWidth := Value;
-  SetNewValue;
+  fSpec.Width := Value;
 end;
 
 function TExtendedFont.GetWidth: Word;
 begin
-  Result := LogFont.lfWidth;
+  Result := Word(fSpec.Width);
 end;
 
 procedure TExtendedFont.SetEscapement(Value: Word);
 begin
-  LogFont.lfEscapement := Value;
-  SetNewValue;
+  fSpec.Escapement := Value;
 end;
 
 function TExtendedFont.GetEscapement: Word;
 begin
-  Result := LogFont.lfEscapement;
+  Result := Word(fSpec.Escapement);
 end;
 
 procedure TExtendedFont.SetWeight(Value: Word);
 begin
-  LogFont.lfWeight := Value;
-  SetNewValue;
+  fSpec.Weight := Value;
 end;
 
 function TExtendedFont.GetWeight: Word;
 begin
-  Result := LogFont.lfWeight;
+  Result := Word(fSpec.Weight);
 end;
 
 procedure TExtendedFont.SetItalic(Value: Byte);
 begin
-  LogFont.lfItalic := Value;
-  SetNewValue;
+  fSpec.Italic := Value <> 0;
 end;
 
 function TExtendedFont.GetItalic: Byte;
 begin
-  Result := LogFont.lfItalic;
+  Result := Byte(Ord(fSpec.Italic));
 end;
 
 procedure TExtendedFont.SetUnderline(Value: Byte);
 begin
-  LogFont.lfUnderline := Value;
-  SetNewValue;
+  fSpec.Underline := Value <> 0;
 end;
 
 function TExtendedFont.GetUnderline: Byte;
 begin
-  Result := LogFont.lfUnderline;
+  Result := Byte(Ord(fSpec.Underline));
 end;
 
 procedure TExtendedFont.SetStrikeOut(Value: Byte);
 begin
-  LogFont.lfStrikeOut := Value;
-  SetNewValue;
+  fSpec.StrikeOut := Value <> 0;
 end;
 
 function TExtendedFont.GetStrikeOut: Byte;
 begin
-  Result := LogFont.lfStrikeOut;
+  Result := Byte(Ord(fSpec.StrikeOut));
 end;
 
 procedure TExtendedFont.SetCharSet(Value: Byte);
 begin
-  LogFont.lfCharSet := Value;
-  SetNewValue;
+  fSpec.CharSet := Value;
 end;
 
 function TExtendedFont.GetCharSet: Byte;
 begin
-  Result := LogFont.lfCharSet;
+  Result := fSpec.CharSet;
 end;
 
 procedure TExtendedFont.SetOutPrecision(Value: Byte);
 begin
-  LogFont.lfOutPrecision := Value;
-  SetNewValue;
+  fSpec.OutPrecision := Value;
 end;
 
 function TExtendedFont.GetOutPrecision: Byte;
 begin
-  Result := LogFont.lfOutPrecision;
+  Result := fSpec.OutPrecision;
 end;
 
 procedure TExtendedFont.SetClipPrecision(Value: Byte);
 begin
-  LogFont.lfClipPrecision := Value;
-  SetNewValue;
+  fSpec.ClipPrecision := Value;
 end;
 
 function TExtendedFont.GetClipPrecision: Byte;
 begin
-  Result := LogFont.lfClipPrecision;
+  Result := fSpec.ClipPrecision;
 end;
 
 procedure TExtendedFont.SetQuality(Value: Byte);
 begin
-  LogFont.lfQuality := Value;
-  SetNewValue;
+  fSpec.Quality := Value;
 end;
 
 function TExtendedFont.GetQuality: Byte;
 begin
-  Result := LogFont.lfQuality;
+  Result := fSpec.Quality;
 end;
 
 procedure TExtendedFont.SetPicthAndFamily(Value: Byte);
 begin
-  LogFont.lfPitchAndFamily := Value;
-  SetNewValue;
+  fSpec.PitchAndFamily := Value;
 end;
 
 function TExtendedFont.GetPicthAndFamily: Byte;
 begin
-  Result := LogFont.lfPitchAndFamily;
+  Result := fSpec.PitchAndFamily;
 end;
 
 procedure TExtendedFont.SetFaceName(Value: TFaceName);
-var
-  Cont: Byte;
 begin
-  for Cont := 1 to Length(Value) do
-    LogFont.lfFaceName[Cont - 1] := Char(Value[Cont]);
-  LogFont.lfFaceName[Length(Value)] := #0;
-  SetNewValue;
+  fSpec.FaceName := Value;
 end;
 
 function TExtendedFont.GetFaceName: TFaceName;
 begin
-  Result := String(LogFont.lfFaceName);
+  Result := fSpec.FaceName;
 end;
 
-procedure TExtendedFont.SetNewValue;
-var
-  TmpHandle: HFONT;
+function TExtendedFont.GetSpec: TCADFontSpec;
 begin
-  TmpHandle := CreateFontIndirect(LogFont);
-  if Assigned(FCanvas) then
-    SelectObject(FCanvas.Handle, TmpHandle);
-  DeleteObject(FHandle);
-  FHandle := TmpHandle;
-end;
-
-procedure TExtendedFont.SetCanvas(Cnv: TCanvas);
-begin
-  if Assigned(FCanvas) then
-    SelectObject(FCanvas.Handle, FCanvas.Font.Handle);
-  FCanvas := Cnv;
-  if Assigned(FCanvas) then
-    SelectObject(FCanvas.Handle, FHandle);
+  Result := fSpec;
 end;
 
 constructor TExtendedFont.Create;
 begin
   inherited Create;
-  GetObject(GetStockObject(DEFAULT_GUI_FONT), SizeOf(LogFont), @LogFont);
-  LogFont.lfFaceName := 'Small Font';
-  FHandle := CreateFontIndirect(LogFont);
+  fSpec := TCADFontSpec.Default;
+  { CADSys has always started from the bitmap 'Small Font'; backends that
+    have no such face fall back to their own. }
+  fSpec.FaceName := 'Small Font';
 end;
 
 procedure TExtendedFont.Assign(Obj: TExtendedFont);
 begin
-  if Obj = Self then
+  if (Obj = nil) or (Obj = Self) then
     Exit;
-  LogFont := TExtendedFont(Obj).LogFont;
-  SetNewValue;
+  fSpec := Obj.fSpec;
 end;
 
-destructor TExtendedFont.Destroy;
+procedure TExtendedFont.SaveToJSON(const AJSON: TJSONObject);
 begin
-  if Assigned(FCanvas) then
-    SelectObject(FCanvas.Handle, FCanvas.Font.Handle);
-  DeleteObject(FHandle);
-  inherited Destroy;
+  JSetStr(AJSON, 'faceName', fSpec.FaceName);
+  JSetInt(AJSON, 'height', fSpec.Height);
+  JSetInt(AJSON, 'width', fSpec.Width);
+  JSetInt(AJSON, 'escapement', fSpec.Escapement);
+  JSetInt(AJSON, 'orientation', fSpec.Orientation);
+  JSetInt(AJSON, 'weight', fSpec.Weight);
+  JSetBoolDef(AJSON, 'italic', fSpec.Italic, False);
+  JSetBoolDef(AJSON, 'underline', fSpec.Underline, False);
+  JSetBoolDef(AJSON, 'strikeOut', fSpec.StrikeOut, False);
+  JSetInt(AJSON, 'charSet', fSpec.CharSet);
+  JSetInt(AJSON, 'outPrecision', fSpec.OutPrecision);
+  JSetInt(AJSON, 'clipPrecision', fSpec.ClipPrecision);
+  JSetInt(AJSON, 'quality', fSpec.Quality);
+  JSetInt(AJSON, 'pitchAndFamily', fSpec.PitchAndFamily);
 end;
 
-procedure TExtendedFont.SaveToStream(Strm: TStream);
+procedure TExtendedFont.LoadFromJSON(const AJSON: TJSONObject);
 begin
-  with Strm do
-    Write(LogFont, SizeOf(LogFont));
-end;
-
-procedure TExtendedFont.LoadFromStream(Strm: TStream);
-begin
-  with Strm do
-  begin
-    Read(LogFont, SizeOf(LogFont));
-    SetNewValue;
-  end;
+  fSpec.FaceName := JGetStr(AJSON, 'faceName', fSpec.FaceName);
+  fSpec.Height := JGetInt(AJSON, 'height', fSpec.Height);
+  fSpec.Width := JGetInt(AJSON, 'width', fSpec.Width);
+  fSpec.Escapement := JGetInt(AJSON, 'escapement', fSpec.Escapement);
+  fSpec.Orientation := JGetInt(AJSON, 'orientation', fSpec.Orientation);
+  fSpec.Weight := JGetInt(AJSON, 'weight', fSpec.Weight);
+  fSpec.Italic := JGetBool(AJSON, 'italic', fSpec.Italic);
+  fSpec.Underline := JGetBool(AJSON, 'underline', fSpec.Underline);
+  fSpec.StrikeOut := JGetBool(AJSON, 'strikeOut', fSpec.StrikeOut);
+  fSpec.CharSet := JGetInt(AJSON, 'charSet', fSpec.CharSet);
+  fSpec.OutPrecision := JGetInt(AJSON, 'outPrecision', fSpec.OutPrecision);
+  fSpec.ClipPrecision := JGetInt(AJSON, 'clipPrecision', fSpec.ClipPrecision);
+  fSpec.Quality := JGetInt(AJSON, 'quality', fSpec.Quality);
+  fSpec.PitchAndFamily := JGetInt(AJSON, 'pitchAndFamily',
+    fSpec.PitchAndFamily);
 end;
 
 // =====================================================================
@@ -3454,68 +3423,38 @@ begin
   end;
 end;
 
-constructor TPrimitive2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPrimitive2D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpWord: Word;
-  Cont: Integer;
-  TmpPt: TPoint2D;
-  TmpBoolean: Boolean;
-  TmpPtSingle: TPoint2DSingle;
+  TmpArray: TJSONArray;
+  Cont, TmpCount: Integer;
 begin
   { Load the standard properties }
   inherited;
-  with Stream do
-  begin
-    TmpWord := 0;
-    Read(TmpWord, SizeOf(TmpWord));
-    fPoints := CreateVect(TmpWord);
-    { Read all the points. }
-    for Cont := 0 to TmpWord - 1 do
-    begin
-      TmpPt.X := 0;
-      TmpPt.Y := 0;
-      if (Version >= 'CAD423') then
-        Read(TmpPt, SizeOf(TmpPt))
-      else
-      begin
-        Read(TmpPtSingle, SizeOf(TmpPtSingle));
-        TmpPt.X := TmpPtSingle.X;
-        TmpPt.Y := TmpPtSingle.Y;
-        TmpPt.W := TmpPtSingle.W;
-      end;
-      fPoints.Points[Cont] := TmpPt;
-    end;
-    TmpBoolean := False;
-    Read(TmpBoolean, SizeOf(TmpBoolean));
-    fPoints.GrowingEnabled := TmpBoolean;
-  end;
+  TmpArray := JGetArray(AJSON, 'points');
+  if TmpArray <> nil then
+    TmpCount := TmpArray.Count
+  else
+    TmpCount := 0;
+  fPoints := CreateVect(TmpCount);
+  for Cont := 0 to TmpCount - 1 do
+    fPoints.Points[Cont] := JSONToPoint2D(JItemArray(TmpArray, Cont));
+  fPoints.GrowingEnabled := JGetBool(AJSON, 'growing', False);
   fPoints.OnChange := UpdateExtension;
   SetSharedHandler(_DefaultHandler2D);
 end;
 
-procedure TPrimitive2D.SaveToStream(const Stream: TStream);
+procedure TPrimitive2D.SaveToJSON(const AJSON: TJSONObject);
 var
-  TmpWord: Word;
+  TmpArray: TJSONArray;
   Cont: Integer;
-  TmpPt: TPoint2D;
-  TmpBoolean: Boolean;
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-  begin
-    TmpWord := fPoints.Count;
-    Write(TmpWord, SizeOf(TmpWord));
-    { Write all points. }
-    for Cont := 0 to TmpWord - 1 do
-    begin
-      TmpPt := fPoints.Points[Cont];
-      Write(TmpPt, SizeOf(TmpPt));
-    end;
-    TmpBoolean := fPoints.GrowingEnabled;
-    Write(TmpBoolean, SizeOf(TmpBoolean));
-  end;
+  inherited SaveToJSON(AJSON);
+  TmpArray := TJSONArray.Create;
+  JSetValue(AJSON, 'points', TmpArray);
+  for Cont := 0 to fPoints.Count - 1 do
+    JAddItem(TmpArray, Point2DToJSON(fPoints.Points[Cont]));
+  JSetBoolDef(AJSON, 'growing', fPoints.GrowingEnabled, False);
 end;
 
 destructor TPrimitive2D.Destroy;
@@ -3634,9 +3573,9 @@ procedure TPolyline2D.Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas;
   const ClipRect2D: TRect2D; const DrawMode: Integer);
 begin
   if not HasTransform then
-    Points.DrawAsPolyline(Cnv, RectToRect2D(Cnv.Canvas.ClipRect), Box, VT)
+    Points.DrawAsPolyline(Cnv, RectToRect2D(Cnv.ClipRect), Box, VT)
   else
-    Points.DrawAsPolyline(Cnv, RectToRect2D(Cnv.Canvas.ClipRect), Box,
+    Points.DrawAsPolyline(Cnv, RectToRect2D(Cnv.ClipRect), Box,
       MultiplyTransform2D(ModelTransform, VT));
 end;
 
@@ -3679,9 +3618,9 @@ procedure TPolygon2D.Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas;
 begin
   { Draw the polygon. }
   if not HasTransform then
-    Points.DrawAsPolygon(Cnv, RectToRect2D(Cnv.Canvas.ClipRect), Box, VT)
+    Points.DrawAsPolygon(Cnv, RectToRect2D(Cnv.ClipRect), Box, VT)
   else
-    Points.DrawAsPolygon(Cnv, RectToRect2D(Cnv.Canvas.ClipRect), Box,
+    Points.DrawAsPolygon(Cnv, RectToRect2D(Cnv.ClipRect), Box,
       MultiplyTransform2D(ModelTransform, VT))
 end;
 
@@ -3708,6 +3647,12 @@ procedure TCurve2D.SetPrimitiveSavingType(S: TPrimitiveSavingType);
 begin
   if S <> fSavingType then
   begin
+    { stTime keeps one reference on the flattened profile for the life of
+      the object - that reference is the cache. Give it back before
+      switching, or stSpace can never get the count to zero and the
+      profile stays alive, which is exactly what stSpace exists to avoid. }
+    if (fSavingType = stTime) and Assigned(fCurvePoints) then
+      FreeCurvePoints;
     fSavingType := S;
     UpdateExtension(Self);
   end;
@@ -3776,26 +3721,20 @@ begin
   end;
 end;
 
-constructor TCurve2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TCurve2D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Read(fCurvePrecision, SizeOf(fCurvePrecision));
-    Read(fSavingType, SizeOf(fSavingType));
-    fCountReference := 0;
-  end;
+  fCurvePrecision := JGetInt(AJSON, 'curvePrecision', 0);
+  fSavingType := TPrimitiveSavingType(JGetEnum(AJSON, 'savingType',
+    Ord(stSpace), CADSavingTypeNames));
+  fCountReference := 0;
 end;
 
-procedure TCurve2D.SaveToStream(const Stream: TStream);
+procedure TCurve2D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fCurvePrecision, SizeOf(fCurvePrecision));
-    Write(fSavingType, SizeOf(fSavingType));
-  end;
+  JSetInt(AJSON, 'curvePrecision', fCurvePrecision);
+  JSetEnum(AJSON, 'savingType', Ord(fSavingType), CADSavingTypeNames);
 end;
 
 procedure TCurve2D._UpdateExtension;
@@ -3825,9 +3764,9 @@ begin
     begin
       if not HasTransform then
         fCurvePoints.DrawAsPolyline(Cnv,
-          RectToRect2D(Cnv.Canvas.ClipRect), Box, VT)
+          RectToRect2D(Cnv.ClipRect), Box, VT)
       else
-        fCurvePoints.DrawAsPolyline(Cnv, RectToRect2D(Cnv.Canvas.ClipRect), Box,
+        fCurvePoints.DrawAsPolyline(Cnv, RectToRect2D(Cnv.ClipRect), Box,
           MultiplyTransform2D(ModelTransform, VT));
     end;
   finally
@@ -4066,26 +4005,24 @@ begin
   end;
 end;
 
-constructor TArc2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TArc2D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   { Load the standard properties }
   inherited;
   Points.DisableEvents := True;
-  with Stream do
-    try
-      Read(FDirection, SizeOf(FDirection));
-    finally
-      Points.DisableEvents := False;
-    end;
+  try
+    FDirection := TArcDirection(JGetEnum(AJSON, 'direction', Ord(adClockwise),
+      CADArcDirectionNames));
+  finally
+    Points.DisableEvents := False;
+  end;
 end;
 
-procedure TArc2D.SaveToStream(const Stream: TStream);
+procedure TArc2D.SaveToJSON(const AJSON: TJSONObject);
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-    Write(FDirection, SizeOf(FDirection));
+  inherited SaveToJSON(AJSON);
+  JSetEnum(AJSON, 'direction', Ord(FDirection), CADArcDirectionNames);
 end;
 
 // =====================================================================
@@ -4147,9 +4084,9 @@ begin
   try
     if not HasTransform then
       ProfilePoints.DrawAsPolygon(Cnv,
-        RectToRect2D(Cnv.Canvas.ClipRect), Box, VT)
+        RectToRect2D(Cnv.ClipRect), Box, VT)
     else
-      ProfilePoints.DrawAsPolygon(Cnv, RectToRect2D(Cnv.Canvas.ClipRect), Box,
+      ProfilePoints.DrawAsPolygon(Cnv, RectToRect2D(Cnv.ClipRect), Box,
         MultiplyTransform2D(ModelTransform, VT));
   finally
     EndUseProfilePoints;
@@ -4262,9 +4199,9 @@ begin
   try
     if not HasTransform then
       ProfilePoints.DrawAsPolygon(Cnv,
-        RectToRect2D(Cnv.Canvas.ClipRect), Box, VT)
+        RectToRect2D(Cnv.ClipRect), Box, VT)
     else
-      ProfilePoints.DrawAsPolygon(Cnv, RectToRect2D(Cnv.Canvas.ClipRect), Box,
+      ProfilePoints.DrawAsPolygon(Cnv, RectToRect2D(Cnv.ClipRect), Box,
         MultiplyTransform2D(ModelTransform, VT));
   finally
     EndUseProfilePoints;
@@ -4382,22 +4319,18 @@ begin
   Points.GrowingEnabled := True;
 end;
 
-constructor TBSpline2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TBSpline2D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   { Load the standard properties }
   inherited;
-  with Stream do
-    { Load the particular properties. }
-    Read(fOrder, SizeOf(fOrder));
+  fOrder := JGetInt(AJSON, 'order', 2);
 end;
 
-procedure TBSpline2D.SaveToStream(const Stream: TStream);
+procedure TBSpline2D.SaveToJSON(const AJSON: TJSONObject);
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-    Write(fOrder, SizeOf(fOrder));
+  inherited SaveToJSON(AJSON);
+  JSetInt(AJSON, 'order', fOrder);
 end;
 
 procedure TBSpline2D.Assign(const Obj: TGraphicObject);
@@ -4463,13 +4396,12 @@ begin
     Exit;
   { Build up the DrawText rect. }
   TmpRect := Rect2DToRect(TransformRect2D(Box, VT));
-  fExtFont.Canvas := Cnv.Canvas;
+  fExtFont.Height := TmpHeight;
+  Cnv.Graphics.SelectFont(fExtFont.Spec);
   try
-    fExtFont.Height := TmpHeight;
     if fRecalcBox then
     begin
-      WinAPI.Windows.DrawText(Cnv.Canvas.Handle, PChar(fText), Length(fText),
-        TmpRect, DT_CALCRECT);
+      Cnv.Graphics.DrawText(string(fText), TmpRect, CAD_DT_CALCRECT);
       if not HasTransform then
         TmpTransf := VT
       else
@@ -4485,14 +4417,13 @@ begin
         UpdateExtension(Self);
       end;
     end;
-    if (Cnv.Canvas.Pen.Mode <> pmXor) then
-      WinAPI.Windows.DrawText(Cnv.Canvas.Handle, PChar(fText), Length(fText),
-        TmpRect, fClippingFlags);
-    if fDrawBox or (Cnv.Canvas.Pen.Mode = pmXor) then
-      DrawRect2DAsPolyline(Cnv, Box, RectToRect2D(Cnv.Canvas.ClipRect),
+    if not Cnv.Rubber then
+      Cnv.Graphics.DrawText(string(fText), TmpRect, Cardinal(fClippingFlags));
+    if fDrawBox or Cnv.Rubber then
+      DrawRect2DAsPolyline(Cnv, Box, RectToRect2D(Cnv.ClipRect),
         IdentityTransf2D, VT);
   finally
-    fExtFont.Canvas := nil;
+    Cnv.Graphics.ResetFont;
   end;
 end;
 
@@ -4504,57 +4435,35 @@ begin
     Result := PICK_INOBJECT;
 end;
 
-constructor TText2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TText2D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpInt: Integer;
-  TmpS: TRealTypeSingle;
+  TmpFont: TJSONObject;
 begin
   { Load the standard properties }
   inherited;
-  with Stream do
-  begin
-    TmpInt := 0;
-    Read(TmpInt, SizeOf(TmpInt));
-    // SetString(fText, nil, TmpInt);
-    // Read(Pointer(fText)^, TmpInt);
-    { set string to get memory }
-    SetLength(fText, TmpInt);
-    { read characters }
-    Read(Pointer(fText)^, TmpInt * SizeOf(Char));
-    fExtFont := TExtendedFont.Create;
-    fExtFont.LoadFromStream(Stream);
-    Read(fClippingFlags, SizeOf(fClippingFlags));
-    Read(fDrawBox, SizeOf(fDrawBox));
-    if (Version >= 'CAD423') then
-    begin
-      Read(fHeight, SizeOf(fHeight));
-    end
-    else
-    begin
-      Read({%H-}TmpS, SizeOf(TmpS));
-      fHeight := TmpS;
-    end;
-  end;
+  fText := AnsiString(JGetStr(AJSON, 'text'));
+  fExtFont := TExtendedFont.Create;
+  TmpFont := JGetObject(AJSON, 'font');
+  if TmpFont <> nil then
+    fExtFont.LoadFromJSON(TmpFont);
+  fClippingFlags := JGetInt(AJSON, 'clippingFlags', 0);
+  fDrawBox := JGetBool(AJSON, 'drawBox', False);
+  fHeight := JGetReal(AJSON, 'height', 0.0);
 end;
 
-procedure TText2D.SaveToStream(const Stream: TStream);
+procedure TText2D.SaveToJSON(const AJSON: TJSONObject);
 var
-  TmpInt: Integer;
+  TmpFont: TJSONObject;
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-  begin
-    TmpInt := Length(fText);
-    Write(TmpInt, SizeOf(TmpInt));
-    // Write(Pointer(fText)^, TmpInt);
-    Write(Pointer(fText)^, TmpInt * SizeOf(Char));
-    fExtFont.SaveToStream(Stream);
-    Write(fClippingFlags, SizeOf(fClippingFlags));
-    Write(fDrawBox, SizeOf(fDrawBox));
-    Write(fHeight, SizeOf(fHeight));
-  end;
+  inherited SaveToJSON(AJSON);
+  JSetStr(AJSON, 'text', String(fText));
+  TmpFont := TJSONObject.Create;
+  JSetValue(AJSON, 'font', TmpFont);
+  fExtFont.SaveToJSON(TmpFont);
+  JSetInt(AJSON, 'clippingFlags', fClippingFlags);
+  JSetBoolDef(AJSON, 'drawBox', fDrawBox, False);
+  JSetReal(AJSON, 'height', fHeight);
 end;
 
 procedure TText2D.Assign(const Obj: TGraphicObject);
@@ -4594,10 +4503,10 @@ begin
     if (fScaleFactor <> 0.0) then
     begin
       if (fAspectRatio <> 0.0) then
-        TmpPt.X := Points[0].X + fBitmap.Height * fScaleFactor / fAspectRatio
+        TmpPt.X := Points[0].X + fImage.Height * fScaleFactor / fAspectRatio
       else
-        TmpPt.X := Points[0].X + fBitmap.Width * fScaleFactor;
-      TmpPt.Y := Points[0].Y + fBitmap.Height * fScaleFactor;
+        TmpPt.X := Points[0].X + fImage.Width * fScaleFactor;
+      TmpPt.Y := Points[0].Y + fImage.Height * fScaleFactor;
       TmpPt.W := 1.0;
       Points[1] := TmpPt;
     end;
@@ -4614,26 +4523,27 @@ begin
     if (fScaleFactor <> 0.0) then
     begin
       if (fAspectRatio <> 0.0) then
-        TmpPt.X := Points[0].X + fBitmap.Height * fScaleFactor / fAspectRatio
+        TmpPt.X := Points[0].X + fImage.Height * fScaleFactor / fAspectRatio
       else
-        TmpPt.X := Points[0].X + fBitmap.Width * fScaleFactor;
-      TmpPt.Y := Points[0].Y + fBitmap.Height * fScaleFactor;
+        TmpPt.X := Points[0].X + fImage.Width * fScaleFactor;
+      TmpPt.Y := Points[0].Y + fImage.Height * fScaleFactor;
       TmpPt.W := 1.0;
       Points[1] := TmpPt;
     end;
   end;
 end;
 
-constructor TBitmap2D.Create(ID: LongInt; const P1, P2: TPoint2D; Bmp: TBitmap);
+constructor TBitmap2D.Create(ID: LongInt; const P1, P2: TPoint2D;
+  Img: TCADImage);
 begin
   inherited Create(ID, 2);
   fScaleFactor := 0.0;
   fAspectRatio := 0.0;
-  fCopyMode := cmSrcCopy;
+  fCopyMode := CAD_SRCCOPY;
   Points.DisableEvents := True;
   try
-    fBitmap := TBitmap.Create;
-    fBitmap.Assign(Bmp);
+    fImage := TCADImage.Create;
+    fImage.Assign(Img);
     Points.Add(P1);
     Points.Add(P2);
     Points.GrowingEnabled := False;
@@ -4654,7 +4564,7 @@ begin
     fAspectRatio := TBitmap2D(Obj).AspectRatio;
     fCopyMode := TBitmap2D(Obj).CopyMode;
     if Obj is TBitmap2D then
-      fBitmap.Assign(TBitmap2D(Obj).fBitmap);
+      fImage.Assign(TBitmap2D(Obj).fImage);
     Points.Copy(TPrimitive2D(Obj).Points, 0, 1);
     Points.GrowingEnabled := True;
   end;
@@ -4662,43 +4572,30 @@ end;
 
 destructor TBitmap2D.Destroy;
 begin
-  fBitmap.Free;
+  fImage.Free;
   inherited Destroy;
 end;
 
-constructor TBitmap2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  tmpSingle: TRealTypeSingle;
+constructor TBitmap2D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   { Load the standard properties }
   inherited;
-  fBitmap := TBitmap.Create;
-  fBitmap.LoadFromStream(Stream);
-  if (Version >= 'CAD423') then
-  begin
-    Stream.Read(fScaleFactor, SizeOf(fScaleFactor));
-    Stream.Read(fAspectRatio, SizeOf(fAspectRatio));
-    Stream.Read(fCopyMode, SizeOf(fCopyMode));
-  end
-  else if (Version >= 'CAD421') then
-  begin
-    Stream.Read({%H-}tmpSingle, SizeOf(tmpSingle));
-    fScaleFactor := tmpSingle;
-    Stream.Read(tmpSingle, SizeOf(tmpSingle));
-    fAspectRatio := tmpSingle;
-    Stream.Read(fCopyMode, SizeOf(fCopyMode));
-  end;
+  fImage := TCADImage.Create;
+  Base64ToCADImage(JGetStr(AJSON, 'bitmap'), fImage);
+  fScaleFactor := JGetReal(AJSON, 'scaleFactor', 1.0);
+  fAspectRatio := JGetReal(AJSON, 'aspectRatio', 1.0);
+  fCopyMode := JGetInt(AJSON, 'copyMode', CAD_SRCCOPY);
 end;
 
-procedure TBitmap2D.SaveToStream(const Stream: TStream);
+procedure TBitmap2D.SaveToJSON(const AJSON: TJSONObject);
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  fBitmap.SaveToStream(Stream);
-  Stream.Write(fScaleFactor, SizeOf(fScaleFactor));
-  Stream.Write(fAspectRatio, SizeOf(fAspectRatio));
-  Stream.Write(fCopyMode, SizeOf(fCopyMode));
+  inherited SaveToJSON(AJSON);
+  { The image travels with the drawing, as a base64 PNG. }
+  JSetStr(AJSON, 'bitmap', CADImageToBase64(fImage));
+  JSetReal(AJSON, 'scaleFactor', fScaleFactor);
+  JSetReal(AJSON, 'aspectRatio', fAspectRatio);
+  JSetInt(AJSON, 'copyMode', fCopyMode);
 end;
 
 procedure TBitmap2D.Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas;
@@ -4707,7 +4604,6 @@ var
   TmpPt1, TmpPt2: TPoint2D;
   TmpTransf: TTransf2D;
   TmpRect: TRect;
-  OldMode: TCopyMode;
 begin
   if not HasTransform then
     TmpTransf := VT
@@ -4716,10 +4612,7 @@ begin
   TmpPt1 := TransformPoint2D(Points[0], TmpTransf);
   TmpPt2 := TransformPoint2D(Points[1], TmpTransf);
   TmpRect := Rect2DToRect(Rect2D(TmpPt1.X, TmpPt1.Y, TmpPt2.X, TmpPt2.Y));
-  OldMode := Cnv.Canvas.CopyMode;
-  Cnv.Canvas.CopyMode := fCopyMode;
-  Cnv.Canvas.StretchDraw(TmpRect, fBitmap);
-  Cnv.Canvas.CopyMode := OldMode;
+  Cnv.Graphics.DrawImage(TmpRect, fImage, fCopyMode);
 end;
 
 // =====================================================================
@@ -4765,74 +4658,44 @@ begin
       .Extension);
 end;
 
-constructor TVectChar.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TVectChar.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpInt, Cont: Integer;
-  TmpWord: Word;
-  TmpPt: TPoint2D;
-  TmpPtS: TPoint2DSingle;
+  TmpVects, TmpPts: TJSONArray;
+  Cont, PtCont: Integer;
 begin
   inherited Create;
-  if (Version >= 'CAD4  ') then
-    with Stream do
+  TmpVects := JGetArray(AJSON, 'vectors');
+  if TmpVects = nil then
+    fSubVects := TIndexedObjectList.Create(0)
+  else
+  begin
+    fSubVects := TIndexedObjectList.Create(TmpVects.Count);
+    for Cont := 0 to TmpVects.Count - 1 do
     begin
-      TmpInt := 0;
-      Read(TmpInt, SizeOf(TmpInt));
-      fSubVects := TIndexedObjectList.Create(TmpInt);
-      // Lettura vettori.
-      for Cont := 0 to fSubVects.NumberOfObjects - 1 do
-      begin
-        TmpWord := 0;
-        Read(TmpWord, SizeOf(TmpWord));
-        fSubVects.Objects[Cont] := TPointsSet2D.Create(TmpWord);
-        while TmpWord > 0 do
-        begin
-          if (Version >= 'CAD423') then
-          begin
-            TmpPt.X := 0;
-            TmpPt.Y := 0;
-            Read(TmpPt, SizeOf(TmpPt));
-          end
-          else
-          begin
-            TmpPtS.X := 0;
-            TmpPtS.Y := 0;
-            Read(TmpPtS, SizeOf(TmpPtS));
-            TmpPt.X := TmpPtS.X;
-            TmpPt.Y := TmpPtS.Y;
-            TmpPt.W := TmpPtS.W;
-          end;
-          TPointsSet2D(fSubVects.Objects[Cont]).Add(TmpPt);
-          Dec(TmpWord);
-        end;
-      end;
-      UpdateExtension(Self);
+      TmpPts := JItemArray(TmpVects, Cont);
+      fSubVects.Objects[Cont] := TPointsSet2D.Create(TmpPts.Count);
+      for PtCont := 0 to TmpPts.Count - 1 do
+        TPointsSet2D(fSubVects.Objects[Cont])
+          .Add(JSONToPoint2D(JItemArray(TmpPts, PtCont)));
     end;
+  end;
+  UpdateExtension(Self);
 end;
 
-procedure TVectChar.SaveToStream(const Stream: TStream);
+procedure TVectChar.SaveToJSON(const AJSON: TJSONObject);
 var
-  TmpInt, Cont: Integer;
-  TmpWord: Word;
-  TmpPt: TPoint2D;
+  TmpVects, TmpPts: TJSONArray;
+  Cont, PtCont: Integer;
 begin
-  with Stream do
+  TmpVects := TJSONArray.Create;
+  JSetValue(AJSON, 'vectors', TmpVects);
+  for Cont := 0 to fSubVects.NumberOfObjects - 1 do
   begin
-    TmpInt := fSubVects.NumberOfObjects;
-    Write(TmpInt, SizeOf(TmpInt));
-    // Scrittura vettori.
-    for Cont := 0 to fSubVects.NumberOfObjects - 1 do
-    begin
-      TmpWord := TPointsSet2D(fSubVects.Objects[Cont]).Count;
-      Write(TmpWord, SizeOf(TmpWord));
-      while TmpWord > 0 do
-      begin
-        TmpPt := TPointsSet2D(fSubVects.Objects[Cont]).Points[TmpWord - 1];
-        Write(TmpPt, SizeOf(TmpPt));
-        Dec(TmpWord);
-      end;
-    end;
+    TmpPts := TJSONArray.Create;
+    JAddItem(TmpVects, TmpPts);
+    for PtCont := 0 to TPointsSet2D(fSubVects.Objects[Cont]).Count - 1 do
+      JAddItem(TmpPts, Point2DToJSON(TPointsSet2D(fSubVects.Objects[Cont])
+        .Points[PtCont]));
   end;
 end;
 
@@ -4867,46 +4730,46 @@ begin
   inherited;
 end;
 
-constructor TVectFont.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TVectFont.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpInt: Integer;
+  TmpChars: TJSONArray;
+  TmpChar: TJSONObject;
+  Cont, TmpCode: Integer;
 begin
   inherited Create;
-  with Stream do
+  fVects := TIndexedObjectList.Create(256);
+  TmpChars := JGetArray(AJSON, 'chars');
+  if TmpChars = nil then
+    Exit;
+  for Cont := 0 to TmpChars.Count - 1 do
   begin
-    fVects := TIndexedObjectList.Create(256);
-    // Lettura caratteri.
-    while True do
-    begin
-      // Lettura numero carattere.
-      TmpInt := 0;
-      Read(TmpInt, SizeOf(TmpInt));
-      if TmpInt = -1 then
-        Break; // Fine.
-      fVects[TmpInt] := TVectChar.CreateFromStream(Stream, Version);
-    end;
+    TmpChar := JItemObject(TmpChars, Cont);
+    TmpCode := JGetInt(TmpChar, 'code', -1);
+    if (TmpCode < 0) or (TmpCode > 255) then
+      Raise ECADJSONError.Create('TVectFont.CreateFromJSON: invalid char code');
+    fVects[TmpCode] := TVectChar.CreateFromJSON(TmpChar);
   end;
 end;
 
-procedure TVectFont.SaveToStream(const Stream: TStream);
+procedure TVectFont.SaveToJSON(const AJSON: TJSONObject);
 var
-  TmpInt: Integer;
+  TmpChars: TJSONArray;
+  TmpChar: TJSONObject;
+  Cont: Integer;
 begin
-  with Stream do
-  begin
-    // Scrittura caratteri.
-    for TmpInt := 0 to fVects.NumberOfObjects - 1 do
-      if fVects[TmpInt] <> nil then
-      begin
-        // Scrittura numero carattere.
-        Write(TmpInt, SizeOf(TmpInt));
-        TVectChar(fVects[TmpInt]).SaveToStream(Stream);
-      end;
-    // Fine
-    TmpInt := -1;
-    Write(TmpInt, SizeOf(TmpInt));
-  end;
+  JSetStr(AJSON, 'format', CADSysJSONFormat);
+  JSetStr(AJSON, 'version', CADSysJSONVersion);
+  JSetStr(AJSON, 'kind', 'font');
+  TmpChars := TJSONArray.Create;
+  JSetValue(AJSON, 'chars', TmpChars);
+  for Cont := 0 to fVects.NumberOfObjects - 1 do
+    if fVects[Cont] <> nil then
+    begin
+      TmpChar := TJSONObject.Create;
+      JAddItem(TmpChars, TmpChar);
+      JSetInt(TmpChar, 'code', Cont);
+      TVectChar(fVects[Cont]).SaveToJSON(TmpChar);
+    end;
 end;
 
 function TVectFont.CreateChar(Ch: Char; N: Integer): TVectChar;
@@ -4952,7 +4815,7 @@ begin
     begin
       TmpExt := Extension;
       for Cont := 0 to VectorCount - 1 do
-        Vectors[Cont].DrawAsPolyline(Cnv, RectToRect2D(Cnv.Canvas.ClipRect),
+        Vectors[Cont].DrawAsPolyline(Cnv, RectToRect2D(Cnv.ClipRect),
           TmpExt, MultiplyTransform2D(TmpTransf, VT));
       DrawPoint.X := DrawPoint.X + (TmpExt.Right + ICS) * H;
     end;
@@ -5111,7 +4974,7 @@ end;
 
 procedure CADSysRegisterFontFromFile(Index: Word; const FileName: String);
 var
-  TmpStream: TFileStream;
+  TmpDoc: TJSONObject;
 begin
   if Index > MAX_REGISTERED_FONTS then
     Raise ECADOutOfBound.Create
@@ -5121,13 +4984,28 @@ begin
       ('CADSysRegisterFontFromFile: Font index already allocated');
   if not FileExists(FileName) then
     Raise ECADObjClassNotFound.Create
-      ('CADSysRegisterFontFromFile: File not found');
-  TmpStream := TFileStream.Create(FileName, fmOpenRead);
+      ('CADSysRegisterFontFromFile: file not found: ' + FileName);
+  TmpDoc := JSONFromFile(FileName);
   try
-    VectFonts2DRegistered[Index] := TVectFont.CreateFromStream(TmpStream,
-      'CAD422'); // Uso sempre la versione CAD422
+    VectFonts2DRegistered[Index] := TVectFont.CreateFromJSON(TmpDoc);
   finally
-    TmpStream.Free;
+    TmpDoc.Free;
+  end;
+end;
+
+procedure CADSysSaveFontToFile(const Font: TVectFont; const FileName: String);
+var
+  TmpDoc: TJSONObject;
+begin
+  if Font = nil then
+    Raise ECADObjClassNotFound.Create('CADSysSaveFontToFile: no font');
+  TmpDoc := TJSONObject.Create;
+  try
+    Font.SaveToJSON(TmpDoc);
+    { Fonts hold thousands of points; compact text keeps them small. }
+    JSONToFile(TmpDoc, FileName, False);
+  finally
+    TmpDoc.Free;
   end;
 end;
 
@@ -5255,7 +5133,7 @@ begin
   try
     TmpTExt := GetTextExtension;
     if fDrawBox then
-      DrawRect2DAsPolyline(Cnv, TmpTExt, RectToRect2D(Cnv.Canvas.ClipRect),
+      DrawRect2DAsPolyline(Cnv, TmpTExt, RectToRect2D(Cnv.ClipRect),
         ModelTransform, VT);
     if DrawMode and DRAWMODE_VECTTEXTONLYBOX = DRAWMODE_VECTTEXTONLYBOX then
       Exit;
@@ -5310,54 +5188,31 @@ begin
   UpdateExtension(Self);
 end;
 
-constructor TJustifiedVectText2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TJustifiedVectText2D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpInt: Integer;
-  TmpS: TRealTypeSingle;
+  TmpIdx: Integer;
 begin
   { Load the standard properties }
   inherited;
-  with Stream do
-  begin
-    TmpInt := 0;
-    Read(TmpInt, SizeOf(TmpInt));
-    // SetString(fText, nil, TmpInt);
-    // Read(Pointer(fText)^, TmpInt);
-    { set string to get memory }
-    SetLength(fText, TmpInt);
-    { read characters }
-    Read(Pointer(fText)^, TmpInt * SizeOf(Char));
-    // Lettura indice font.
-    Read(TmpInt, SizeOf(TmpInt));
-    try
-      fVectFont := CADSysFindFontByIndex(TmpInt);
-    except
-      on ECADObjClassNotFound do
-      begin
-        ShowMessage('Font class not found. Font not assigned');
-        fVectFont := nil;
-      end;
-    end;
-    Read(fHJustification, SizeOf(fHJustification));
-    Read(fVJustification, SizeOf(fVJustification));
-    Read(fDrawBox, SizeOf(fDrawBox));
-    if (Version >= 'CAD423') then
+  fText := JGetStr(AJSON, 'text');
+  TmpIdx := JGetInt(AJSON, 'fontIndex', 0);
+  try
+    fVectFont := CADSysFindFontByIndex(TmpIdx);
+  except
+    on ECADObjClassNotFound do
     begin
-      Read(fHeight, SizeOf(fHeight));
-      Read(fInterLine, SizeOf(fInterLine));
-      Read(fCharSpace, SizeOf(fCharSpace));
-    end
-    else
-    begin
-      Read({%H-}TmpS, SizeOf(TmpS));
-      fHeight := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fInterLine := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fCharSpace := TmpS;
+      CADSysWarn('Font class not found. Font not assigned');
+      fVectFont := nil;
     end;
   end;
+  fHJustification := THJustification(JGetEnum(AJSON, 'hJustification',
+    Ord(jhLeft), CADHJustificationNames));
+  fVJustification := TVJustification(JGetEnum(AJSON, 'vJustification',
+    Ord(jvTop), CADVJustificationNames));
+  fDrawBox := JGetBool(AJSON, 'drawBox', False);
+  fHeight := JGetReal(AJSON, 'height', 0.0);
+  fInterLine := JGetReal(AJSON, 'interLine', 0.0);
+  fCharSpace := JGetReal(AJSON, 'charSpace', 0.0);
 end;
 
 procedure TJustifiedVectText2D.Assign(const Obj: TGraphicObject);
@@ -5395,28 +5250,20 @@ begin
   end;
 end;
 
-procedure TJustifiedVectText2D.SaveToStream(const Stream: TStream);
-var
-  TmpInt: Integer;
+procedure TJustifiedVectText2D.SaveToJSON(const AJSON: TJSONObject);
 begin
   { Save the standard properties }
   inherited;
-  with Stream do
-  begin
-    TmpInt := Length(fText);
-    Write(TmpInt, SizeOf(TmpInt));
-    // Write(Pointer(fText)^, TmpInt);
-    Write(Pointer(fText)^, TmpInt * SizeOf(Char));
-    // Scrittura indice font.
-    TmpInt := CADSysFindFontIndex(fVectFont);
-    Write(TmpInt, SizeOf(TmpInt));
-    Write(fHJustification, SizeOf(fHJustification));
-    Write(fVJustification, SizeOf(fVJustification));
-    Write(fDrawBox, SizeOf(fDrawBox));
-    Write(fHeight, SizeOf(fHeight));
-    Write(fInterLine, SizeOf(fInterLine));
-    Write(fCharSpace, SizeOf(fCharSpace));
-  end;
+  JSetStr(AJSON, 'text', fText);
+  JSetInt(AJSON, 'fontIndex', CADSysFindFontIndex(fVectFont));
+  JSetEnum(AJSON, 'hJustification', Ord(fHJustification),
+    CADHJustificationNames);
+  JSetEnum(AJSON, 'vJustification', Ord(fVJustification),
+    CADVJustificationNames);
+  JSetBoolDef(AJSON, 'drawBox', fDrawBox, False);
+  JSetReal(AJSON, 'height', fHeight);
+  JSetReal(AJSON, 'interLine', fInterLine);
+  JSetReal(AJSON, 'charSpace', fCharSpace);
 end;
 
 procedure TJustifiedVectText2D.Draw(const VT: TTransf2D;
@@ -5577,50 +5424,21 @@ begin
   end;
 end;
 
-constructor TPlanarObject3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpPtS: TPoint3DSingle;
-  tmpVS: TVector3DSingle;
+constructor TPlanarObject3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    if (Version >= 'CAD423') then
-    begin
-      Read(fPlaneReference, SizeOf(fPlaneReference));
-      Read(fPlaneNormal, SizeOf(fPlaneNormal));
-      Read(fPlaneUP, SizeOf(fPlaneUP));
-    end
-    else
-    begin
-      Read({%H-}TmpPtS, SizeOf(TmpPtS));
-      fPlaneReference.X := TmpPtS.X;
-      fPlaneReference.Y := TmpPtS.Y;
-      fPlaneReference.Z := TmpPtS.Z;
-      fPlaneReference.W := TmpPtS.W;
-      Read(tmpVS, SizeOf(tmpVS));
-      fPlaneNormal.X := tmpVS.X;
-      fPlaneNormal.Y := tmpVS.Y;
-      fPlaneNormal.Z := tmpVS.Z;
-      Read(tmpVS, SizeOf(tmpVS));
-      fPlaneUP.X := tmpVS.X;
-      fPlaneUP.Y := tmpVS.Y;
-      fPlaneUP.Z := tmpVS.Z;
-    end;
-    UpdateTransforms;
-  end;
+  fPlaneReference := JGetPoint3D(AJSON, 'planeReference');
+  fPlaneNormal := JGetVector3D(AJSON, 'planeNormal');
+  fPlaneUP := JGetVector3D(AJSON, 'planeUp');
+  UpdateTransforms;
 end;
 
-procedure TPlanarObject3D.SaveToStream(const Stream: TStream);
+procedure TPlanarObject3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fPlaneReference, SizeOf(fPlaneReference));
-    Write(fPlaneNormal, SizeOf(fPlaneNormal));
-    Write(fPlaneUP, SizeOf(fPlaneUP));
-  end;
+  JSetPoint3D(AJSON, 'planeReference', fPlaneReference);
+  JSetVector3D(AJSON, 'planeNormal', fPlaneNormal);
+  JSetVector3D(AJSON, 'planeUp', fPlaneUP);
 end;
 
 procedure TPlanarObject3D._UpdateExtension;
@@ -5694,7 +5512,7 @@ begin
   TmpProject[3, 3] := TmpTransf[4, 4];
 
   TmpProject := MultiplyTransform2D(TmpProject, VT);
-  fObject.Draw(TmpProject, Cnv, RectToRect2D(Cnv.Canvas.ClipRect), DrawMode);
+  fObject.Draw(TmpProject, Cnv, RectToRect2D(Cnv.ClipRect), DrawMode);
 end;
 
 function TPlanar2DObject3D.OnMe(P: TPoint3D; const N: TTransf3D;
@@ -5755,52 +5573,27 @@ begin
     PlaneToWorldTransform);
 end;
 
-constructor TPlanar2DObject3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPlanar2DObject3D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpWord: Word;
-  TmpClass: TGraphicObjectClass;
+  TmpObj: TJSONObject;
 begin
   inherited;
-  with Stream do
+  TmpObj := JGetObject(AJSON, 'object');
+  if TmpObj <> nil then
   begin
-    { Read the type of object. }
-    TmpWord := 0;
-    Read(TmpWord, SizeOf(TmpWord));
-    if TmpWord <= MAX_REGISTERED_CLASSES then
-    begin
-      { Retrive the class type from the registered classes. }
-      TmpClass := CADSysFindClassByIndex(TmpWord);
-      fObject := (TmpClass.CreateFromStream(Stream, Version)) as TObject2D;
-      fObject.UpdateExtension(Self);
-    end
-    else
-      fObject := nil;
-  end;
+    fObject := CADSysObjectFromJSON(TmpObj) as TObject2D;
+    fObject.UpdateExtension(Self);
+  end
+  else
+    fObject := nil;
 end;
 
-procedure TPlanar2DObject3D.SaveToStream(const Stream: TStream);
-var
-  TmpWord: Word;
+procedure TPlanar2DObject3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    { Now write the contained object. }
-    if Assigned(fObject) then
-    begin
-      TmpWord := CADSysFindClassIndex(fObject.ClassName);
-      { Save the class index. }
-      Write(TmpWord, SizeOf(TmpWord));
-      fObject.SaveToStream(Stream);
-    end
-    else
-    begin
-      TmpWord := MAX_REGISTERED_CLASSES + 1;
-      { Save the class index. }
-      Write(TmpWord, SizeOf(TmpWord));
-    end;
-  end;
+  { The contained 2D object, if any. }
+  if Assigned(fObject) then
+    JSetValue(AJSON, 'object', CADSysObjectToJSON(fObject));
 end;
 
 procedure TPlanar2DObject3D.ApplyTransform;
@@ -5832,9 +5625,9 @@ begin
   fDeltaX := 50.0;
   fDeltaY := 50.0;
   fFieldExt := 1E4;
-  fXColor := clRed;
-  fYColor := clBlue;
-  fColor := clSilver;
+  fXColor := cadclRed;
+  fYColor := cadclBlue;
+  fColor := cadclSilver;
   fPlaneRef := PlaneRef;
   fPlaneUP := PlUp;
   fPlaneNorm := PlaneNorm;
@@ -5859,7 +5652,7 @@ begin
   if DotProduct3D(fPlaneNorm, PlaneNormal) <> 0 then
   begin
     // Verso le Y negative.
-    Cnv.Canvas.Pen.Color := fColor;
+    Cnv.Pen.Color := fColor;
     TmpPt1 := Point3D(-fFieldExt, fPlaneRef.Y, 0);
     TmpPt2 := Point3D(fFieldExt, fPlaneRef.Y, 0);
     while (TmpPt1.Y >= -fFieldExt) do
@@ -5869,7 +5662,7 @@ begin
       TmpPt2.Y := TmpPt2.Y - fDeltaY;
     end;
     // Verso le Y positive.
-    Cnv.Canvas.Pen.Color := fXColor;
+    Cnv.Pen.Color := fXColor;
     TmpPt1 := Point3D(-fFieldExt, fPlaneRef.Y, 0);
     TmpPt2 := Point3D(fFieldExt, fPlaneRef.Y, 0);
     while (TmpPt1.Y <= fFieldExt) do
@@ -5877,14 +5670,14 @@ begin
       DrawLine3D(Cnv, TmpPt1, TmpPt2, TmpTransf, VT);
       TmpPt1.Y := TmpPt1.Y + fDeltaY;
       TmpPt2.Y := TmpPt2.Y + fDeltaY;
-      Cnv.Canvas.Pen.Color := fColor;
+      Cnv.Pen.Color := fColor;
     end;
   end;
   // Linee verticali (divisioni lungo X).
   // Se la normale è parallela al piano non itero mai.
   if DotProduct3D(fPlaneNorm, PlaneNormal) <> 0 then
   begin
-    Cnv.Canvas.Pen.Color := fColor;
+    Cnv.Pen.Color := fColor;
     // Verso le X negative.
     TmpPt1 := Point3D(fPlaneRef.X, -fFieldExt, 0);
     TmpPt2 := Point3D(fPlaneRef.X, fFieldExt, 0);
@@ -5895,7 +5688,7 @@ begin
       TmpPt2.X := TmpPt2.X - fDeltaX;
     end;
     // Verso le X positive.
-    Cnv.Canvas.Pen.Color := fYColor;
+    Cnv.Pen.Color := fYColor;
     TmpPt1 := Point3D(fPlaneRef.X, -fFieldExt, 0);
     TmpPt2 := Point3D(fPlaneRef.X, fFieldExt, 0);
     while (TmpPt1.X <= fFieldExt) do
@@ -5903,7 +5696,7 @@ begin
       DrawLine3D(Cnv, TmpPt1, TmpPt2, TmpTransf, VT);
       TmpPt1.X := TmpPt1.X + fDeltaX;
       TmpPt2.X := TmpPt2.X + fDeltaX;
-      Cnv.Canvas.Pen.Color := fColor;
+      Cnv.Pen.Color := fColor;
     end;
   end;
 end;
@@ -5929,41 +5722,20 @@ begin
   end;
 end;
 
-constructor TPlanarFieldGrid3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpS: TRealTypeSingle;
+constructor TPlanarFieldGrid3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    if (Version >= 'CAD423') then
-    begin
-      Read(fDeltaX, SizeOf(fDeltaX));
-      Read(fDeltaY, SizeOf(fDeltaY));
-      Read(fFieldExt, SizeOf(fFieldExt));
-    end
-    else
-    begin
-      Read({%H-}TmpS, SizeOf(TmpS));
-      fDeltaX := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fDeltaY := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fFieldExt := TmpS;
-    end;
-  end;
+  fDeltaX := JGetReal(AJSON, 'deltaX', 0.0);
+  fDeltaY := JGetReal(AJSON, 'deltaY', 0.0);
+  fFieldExt := JGetReal(AJSON, 'fieldExt', 0.0);
 end;
 
-procedure TPlanarFieldGrid3D.SaveToStream(const Stream: TStream);
+procedure TPlanarFieldGrid3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fDeltaX, SizeOf(fDeltaX));
-    Write(fDeltaY, SizeOf(fDeltaY));
-    Write(fFieldExt, SizeOf(fFieldExt));
-  end;
+  JSetReal(AJSON, 'deltaX', fDeltaX);
+  JSetReal(AJSON, 'deltaY', fDeltaY);
+  JSetReal(AJSON, 'fieldExt', fFieldExt);
 end;
 
 // =====================================================================
@@ -6068,68 +5840,37 @@ begin
   end;
 end;
 
-constructor TPrimitive3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPrimitive3D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpWord: Word;
-  Cont: Integer;
-  TmpPt: TPoint3D;
-  TmpBoolean: Boolean;
-  TmpPtS: TPoint3DSingle;
+  TmpArray: TJSONArray;
+  Cont, TmpCount: Integer;
 begin
   { Load the standard properties }
-  inherited CreateFromStream(Stream, Version);
-  with Stream do
-  begin
-    TmpWord := 0;
-    Read(TmpWord, SizeOf(TmpWord));
-    fPoints := CreateVect(TmpWord);
-    { Read all the points. }
-    for Cont := 0 to TmpWord - 1 do
-    begin
-      if (Version >= 'CAD423') then
-      begin
-        Read({%H-}TmpPt, SizeOf(TmpPt));
-      end
-      else
-      begin
-        Read({%H-}TmpPtS, SizeOf(TmpPtS));
-        TmpPt.X := TmpPtS.X;
-        TmpPt.Y := TmpPtS.Y;
-        TmpPt.Z := TmpPtS.Z;
-        TmpPt.W := TmpPtS.W;
-      end;
-      fPoints.Points[Cont] := TmpPt;
-    end;
-    TmpBoolean := False;
-    Read(TmpBoolean, SizeOf(TmpBoolean));
-    fPoints.GrowingEnabled := TmpBoolean;
-  end;
+  inherited CreateFromJSON(AJSON);
+  TmpArray := JGetArray(AJSON, 'points');
+  if TmpArray <> nil then
+    TmpCount := TmpArray.Count
+  else
+    TmpCount := 0;
+  fPoints := CreateVect(TmpCount);
+  for Cont := 0 to TmpCount - 1 do
+    fPoints.Points[Cont] := JSONToPoint3D(JItemArray(TmpArray, Cont));
+  fPoints.GrowingEnabled := JGetBool(AJSON, 'growing', False);
   fPoints.OnChange := UpdateExtension;
 end;
 
-procedure TPrimitive3D.SaveToStream(const Stream: TStream);
+procedure TPrimitive3D.SaveToJSON(const AJSON: TJSONObject);
 var
-  TmpWord: Word;
+  TmpArray: TJSONArray;
   Cont: Integer;
-  TmpPt: TPoint3D;
-  TmpBoolean: Boolean;
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-  begin
-    TmpWord := fPoints.Count;
-    Write(TmpWord, SizeOf(TmpWord));
-    { Write all points. }
-    for Cont := 0 to TmpWord - 1 do
-    begin
-      TmpPt := fPoints.Points[Cont];
-      Write(TmpPt, SizeOf(TmpPt));
-    end;
-    TmpBoolean := fPoints.GrowingEnabled;
-    Write(TmpBoolean, SizeOf(TmpBoolean));
-  end;
+  inherited SaveToJSON(AJSON);
+  TmpArray := TJSONArray.Create;
+  JSetValue(AJSON, 'points', TmpArray);
+  for Cont := 0 to fPoints.Count - 1 do
+    JAddItem(TmpArray, Point3DToJSON(fPoints.Points[Cont]));
+  JSetBoolDef(AJSON, 'growing', fPoints.GrowingEnabled, False);
 end;
 
 destructor TPrimitive3D.Destroy;
@@ -6193,18 +5934,21 @@ begin
   end;
 end;
 
-constructor TPlanarPrimitive3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPlanarPrimitive3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
-  fPlanarObj := TPlanarObject3D.CreateFromStream(Stream, Version);
+  fPlanarObj := TPlanarObject3D.CreateFromJSON(JRequireObject(AJSON, 'plane'));
   fPlanarObj.UpdateExtension(Self);
   inherited;
 end;
 {$WARNINGS ON}
 
-procedure TPlanarPrimitive3D.SaveToStream(const Stream: TStream);
+procedure TPlanarPrimitive3D.SaveToJSON(const AJSON: TJSONObject);
+var
+  TmpPlane: TJSONObject;
 begin
-  fPlanarObj.SaveToStream(Stream);
+  TmpPlane := TJSONObject.Create;
+  JSetValue(AJSON, 'plane', TmpPlane);
+  fPlanarObj.SaveToJSON(TmpPlane);
   inherited;
 end;
 
@@ -6400,54 +6144,31 @@ begin
   UpdateExtension(Self);
 end;
 
-constructor TJustifiedVectText3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TJustifiedVectText3D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpInt: Integer;
-  TmpS: TRealTypeSingle;
+  TmpIdx: Integer;
 begin
   { Load the standard properties }
   inherited;
-  with Stream do
-  begin
-    TmpInt := 0;
-    Read(TmpInt, SizeOf(TmpInt));
-    // SetString(fText, nil, TmpInt);
-    // Read(Pointer(fText)^, TmpInt);
-    { set string to get memory }
-    SetLength(fText, TmpInt);
-    { read characters }
-    Read(Pointer(fText)^, TmpInt * SizeOf(Char));
-    // Lettura indice font.
-    Read(TmpInt, SizeOf(TmpInt));
-    try
-      fVectFont := CADSysFindFontByIndex(TmpInt);
-    except
-      on ECADObjClassNotFound do
-      begin
-        ShowMessage('Font class not found. Font not assigned');
-        fVectFont := nil;
-      end;
-    end;
-    Read(fHJustification, SizeOf(fHJustification));
-    Read(fVJustification, SizeOf(fVJustification));
-    Read(fDrawBox, SizeOf(fDrawBox));
-    if (Version >= 'CAD423') then
+  fText := JGetStr(AJSON, 'text');
+  TmpIdx := JGetInt(AJSON, 'fontIndex', 0);
+  try
+    fVectFont := CADSysFindFontByIndex(TmpIdx);
+  except
+    on ECADObjClassNotFound do
     begin
-      Read(fHeight, SizeOf(fHeight));
-      Read(fInterLine, SizeOf(fInterLine));
-      Read(fCharSpace, SizeOf(fCharSpace));
-    end
-    else
-    begin
-      Read({%H-}TmpS, SizeOf(TmpS));
-      fHeight := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fInterLine := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fCharSpace := TmpS;
+      CADSysWarn('Font class not found. Font not assigned');
+      fVectFont := nil;
     end;
   end;
+  fHJustification := THJustification(JGetEnum(AJSON, 'hJustification',
+    Ord(jhLeft), CADHJustificationNames));
+  fVJustification := TVJustification(JGetEnum(AJSON, 'vJustification',
+    Ord(jvTop), CADVJustificationNames));
+  fDrawBox := JGetBool(AJSON, 'drawBox', False);
+  fHeight := JGetReal(AJSON, 'height', 0.0);
+  fInterLine := JGetReal(AJSON, 'interLine', 0.0);
+  fCharSpace := JGetReal(AJSON, 'charSpace', 0.0);
 end;
 
 procedure TJustifiedVectText3D.Assign(const Obj: TGraphicObject);
@@ -6476,29 +6197,20 @@ begin
   end;
 end;
 
-procedure TJustifiedVectText3D.SaveToStream(const Stream: TStream);
-var
-  TmpInt: Integer;
+procedure TJustifiedVectText3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   { Save the standard properties }
   inherited;
-  with Stream do
-  begin
-    TmpInt := Length(fText);
-    TmpInt := Length(fText);
-    Write(TmpInt, SizeOf(TmpInt));
-    // Write(Pointer(fText)^, TmpInt);
-    Write(Pointer(fText)^, TmpInt * SizeOf(Char));
-    // Scrittura indice font.
-    TmpInt := CADSysFindFontIndex(fVectFont);
-    Write(TmpInt, SizeOf(TmpInt));
-    Write(fHJustification, SizeOf(fHJustification));
-    Write(fVJustification, SizeOf(fVJustification));
-    Write(fDrawBox, SizeOf(fDrawBox));
-    Write(fHeight, SizeOf(fHeight));
-    Write(fInterLine, SizeOf(fInterLine));
-    Write(fCharSpace, SizeOf(fCharSpace));
-  end;
+  JSetStr(AJSON, 'text', fText);
+  JSetInt(AJSON, 'fontIndex', CADSysFindFontIndex(fVectFont));
+  JSetEnum(AJSON, 'hJustification', Ord(fHJustification),
+    CADHJustificationNames);
+  JSetEnum(AJSON, 'vJustification', Ord(fVJustification),
+    CADVJustificationNames);
+  JSetBoolDef(AJSON, 'drawBox', fDrawBox, False);
+  JSetReal(AJSON, 'height', fHeight);
+  JSetReal(AJSON, 'interLine', fInterLine);
+  JSetReal(AJSON, 'charSpace', fCharSpace);
 end;
 
 procedure TJustifiedVectText3D.Draw(const NormTransf: TTransf3D;
@@ -6710,9 +6422,9 @@ begin
   then
   begin
     if DotProduct3D(fNormal, Vector3D(VRP, Points[0])) < 0.0 then
-      Cnv.Canvas.Pen.Color := clGreen
+      Cnv.Pen.Color := cadclGreen
     else
-      Cnv.Canvas.Pen.Color := clRed;
+      Cnv.Pen.Color := cadclRed;
   end;
   if HasTransform then
     TmpTransf := MultiplyTransform3D(ModelTransform, NormTransf)
@@ -6814,18 +6526,21 @@ begin
   end;
 end;
 
-constructor TPlanarOutline3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPlanarOutline3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
-  fPlanarObj := TPlanarObject3D.CreateFromStream(Stream, Version);
+  fPlanarObj := TPlanarObject3D.CreateFromJSON(JRequireObject(AJSON, 'plane'));
   fPlanarObj.UpdateExtension(Self);
   inherited;
 end;
 {$WARNINGS ON}
 
-procedure TPlanarOutline3D.SaveToStream(const Stream: TStream);
+procedure TPlanarOutline3D.SaveToJSON(const AJSON: TJSONObject);
+var
+  TmpPlane: TJSONObject;
 begin
-  fPlanarObj.SaveToStream(Stream);
+  TmpPlane := TJSONObject.Create;
+  JSetValue(AJSON, 'plane', TmpPlane);
+  fPlanarObj.SaveToJSON(TmpPlane);
   inherited;
 end;
 
@@ -6957,9 +6672,9 @@ begin
   begin
     if DotProduct3D(fPlanarObj.fWorldPlaneNormal, Direction3D(VRP, Points[0])) < 0.0
     then
-      Cnv.Canvas.Pen.Color := clGreen
+      Cnv.Pen.Color := cadclGreen
     else
-      Cnv.Canvas.Pen.Color := clRed;
+      Cnv.Pen.Color := cadclRed;
   end;
   if HasTransform then
     Points.DrawAsPolyline(Cnv, Box, MultiplyTransform3D(ModelTransform,
@@ -7021,9 +6736,9 @@ begin
   begin
     if DotProduct3D(fPlanarObj.fWorldPlaneNormal, Direction3D(VRP, Points[0])) < 0.0
     then
-      Cnv.Canvas.Pen.Color := clGreen
+      Cnv.Pen.Color := cadclGreen
     else
-      Cnv.Canvas.Pen.Color := clRed;
+      Cnv.Pen.Color := cadclRed;
   end;
   if HasTransform then
     TmpTransf := MultiplyTransform3D(ModelTransform, NormTransf)
@@ -7061,6 +6776,12 @@ procedure TCurve3D.SetPrimitiveSavingType(S: TPrimitiveSavingType);
 begin
   if S <> fSavingType then
   begin
+    { stTime keeps one reference on the flattened profile for the life of
+      the object - that reference is the cache. Give it back before
+      switching, or stSpace can never get the count to zero and the
+      profile stays alive, which is exactly what stSpace exists to avoid. }
+    if (fSavingType = stTime) and Assigned(fCurvePoints) then
+      FreeCurvePoints;
     fSavingType := S;
     UpdateExtension(Self);
   end;
@@ -7129,26 +6850,20 @@ begin
   end;
 end;
 
-constructor TCurve3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TCurve3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Read(fCurvePrecision, SizeOf(fCurvePrecision));
-    Read(fSavingType, SizeOf(fSavingType));
-    fCountReference := 0;
-  end;
+  fCurvePrecision := JGetInt(AJSON, 'curvePrecision', 0);
+  fSavingType := TPrimitiveSavingType(JGetEnum(AJSON, 'savingType',
+    Ord(stSpace), CADSavingTypeNames));
+  fCountReference := 0;
 end;
 
-procedure TCurve3D.SaveToStream(const Stream: TStream);
+procedure TCurve3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fCurvePrecision, SizeOf(fCurvePrecision));
-    Write(fSavingType, SizeOf(fSavingType));
-  end;
+  JSetInt(AJSON, 'curvePrecision', fCurvePrecision);
+  JSetEnum(AJSON, 'savingType', Ord(fSavingType), CADSavingTypeNames);
 end;
 
 procedure TCurve3D._UpdateExtension;
@@ -7304,18 +7019,21 @@ begin
   end;
 end;
 
-constructor TPlanarCurve3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPlanarCurve3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
-  fPlanarObj := TPlanarObject3D.CreateFromStream(Stream, Version);
+  fPlanarObj := TPlanarObject3D.CreateFromJSON(JRequireObject(AJSON, 'plane'));
   fPlanarObj.UpdateExtension(Self);
   inherited;
 end;
 {$WARNINGS ON}
 
-procedure TPlanarCurve3D.SaveToStream(const Stream: TStream);
+procedure TPlanarCurve3D.SaveToJSON(const AJSON: TJSONObject);
+var
+  TmpPlane: TJSONObject;
 begin
-  fPlanarObj.SaveToStream(Stream);
+  TmpPlane := TJSONObject.Create;
+  JSetValue(AJSON, 'plane', TmpPlane);
+  fPlanarObj.SaveToJSON(TmpPlane);
   inherited;
 end;
 
@@ -7370,9 +7088,9 @@ begin
   begin
     if DotProduct3D(fPlanarObj.fWorldPlaneNormal, Direction3D(VRP, Points[0])) < 0.0
     then
-      Cnv.Canvas.Pen.Color := clGreen
+      Cnv.Pen.Color := cadclGreen
     else
-      Cnv.Canvas.Pen.Color := clRed;
+      Cnv.Pen.Color := cadclRed;
   end;
   inherited;
 end;
@@ -7649,21 +7367,19 @@ begin
   end;
 end;
 
-constructor TArc3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TArc3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   { Load the standard properties }
-  inherited CreateFromStream(Stream, Version);
-  with Stream do
-    Read(FDirection, SizeOf(FDirection));
+  inherited CreateFromJSON(AJSON);
+  FDirection := TArcDirection(JGetEnum(AJSON, 'direction', Ord(adClockwise),
+    CADArcDirectionNames));
 end;
 
-procedure TArc3D.SaveToStream(const Stream: TStream);
+procedure TArc3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-    Write(FDirection, SizeOf(FDirection));
+  inherited SaveToJSON(AJSON);
+  JSetEnum(AJSON, 'direction', Ord(FDirection), CADArcDirectionNames);
 end;
 
 // =====================================================================
@@ -7833,22 +7549,18 @@ begin
   Points.GrowingEnabled := True;
 end;
 
-constructor TPlanarSpline3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPlanarSpline3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   { Load the standard properties }
-  inherited CreateFromStream(Stream, Version);
-  with Stream do
-    { Load the particular properties. }
-    Read(fOrder, SizeOf(fOrder));
+  inherited CreateFromJSON(AJSON);
+  fOrder := JGetInt(AJSON, 'order', 2);
 end;
 
-procedure TPlanarSpline3D.SaveToStream(const Stream: TStream);
+procedure TPlanarSpline3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-    Write(fOrder, SizeOf(fOrder));
+  inherited SaveToJSON(AJSON);
+  JSetInt(AJSON, 'order', fOrder);
 end;
 
 procedure TPlanarSpline3D.Assign(const Obj: TGraphicObject);
@@ -7899,25 +7611,18 @@ begin
   end;
 end;
 
-constructor TMesh3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TMesh3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Read(fM, SizeOf(fM));
-    Read(fN, SizeOf(fN));
-  end;
+  fM := JGetInt(AJSON, 'm', 0);
+  fN := JGetInt(AJSON, 'n', 0);
 end;
 
-procedure TMesh3D.SaveToStream(const Stream: TStream);
+procedure TMesh3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fM, SizeOf(fM));
-    Write(fN, SizeOf(fN));
-  end;
+  JSetInt(AJSON, 'm', fM);
+  JSetInt(AJSON, 'n', fN);
 end;
 
 procedure TMesh3D.Assign(const Obj: TGraphicObject);
@@ -8098,9 +7803,9 @@ begin
       fPtsList[Abs(fV2) - 1]), Direction3D(fPtsList[Abs(fV2) - 1],
       fPtsList[Abs(fV3) - 1])), Direction3D(VRP, fPtsList[Abs(fV1) - 1])) < 0.0
     then
-      Cnv.Canvas.Pen.Color := clGreen
+      Cnv.Pen.Color := cadclGreen
     else
-      Cnv.Canvas.Pen.Color := clRed;
+      Cnv.Pen.Color := cadclRed;
   end
   else if (DrawMode and DRAWMODE_BACKFACECULLING = DRAWMODE_BACKFACECULLING) and
     (fFullQuad or fFullTri) then
@@ -8167,26 +7872,20 @@ begin
   Distance := {%H-}MinValue([Aperture, TmpDist]);
 end;
 
-procedure TQuadEdge3D.SaveToStream(const Stream: TStream);
+procedure TQuadEdge3D.SaveToJSON(const AJSON: TJSONObject);
 begin
-  with Stream do
-  begin
-    Write(fV1, SizeOf(fV1));
-    Write(fV2, SizeOf(fV2));
-    Write(fV3, SizeOf(fV3));
-    Write(fV4, SizeOf(fV4));
-  end;
+  JSetInt(AJSON, 'v1', fV1);
+  JSetInt(AJSON, 'v2', fV2);
+  JSetInt(AJSON, 'v3', fV3);
+  JSetInt(AJSON, 'v4', fV4);
 end;
 
-procedure TQuadEdge3D.LoadFromStream(const Stream: TStream);
+procedure TQuadEdge3D.LoadFromJSON(const AJSON: TJSONObject);
 begin
-  with Stream do
-  begin
-    Read(fV1, SizeOf(fV1));
-    Read(fV2, SizeOf(fV2));
-    Read(fV3, SizeOf(fV3));
-    Read(fV4, SizeOf(fV4));
-  end;
+  fV1 := JGetInt(AJSON, 'v1', 0);
+  fV2 := JGetInt(AJSON, 'v2', 0);
+  fV3 := JGetInt(AJSON, 'v3', 0);
+  fV4 := JGetInt(AJSON, 'v4', 0);
 end;
 
 function TPolyface3D.GetNFaces: Integer;
@@ -8226,37 +7925,39 @@ begin
   inherited;
 end;
 
-constructor TPolyface3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TPolyface3D.CreateFromJSON(const AJSON: TJSONObject);
 var
+  TmpArray: TJSONArray;
   Cont: Integer;
 begin
   inherited;
-  with Stream do
+  TmpArray := JGetArray(AJSON, 'faces');
+  if TmpArray <> nil then
+    fFaces := TIndexedObjectList.Create(TmpArray.Count)
+  else
+    fFaces := TIndexedObjectList.Create(0);
+  fFaces.FreeOnClear := True;
+  for Cont := 0 to fFaces.NumberOfObjects - 1 do
   begin
-    Cont := 0;
-    Read(Cont, SizeOf(Cont));
-    fFaces := TIndexedObjectList.Create(Cont);
-    fFaces.FreeOnClear := True;
-    for Cont := 0 to fFaces.NumberOfObjects - 1 do
-    begin
-      fFaces[Cont] := TQuadEdge3D.Create(Points, 0, 0, 0, 0);
-      TQuadEdge3D(fFaces[Cont]).LoadFromStream(Stream);
-    end;
+    fFaces[Cont] := TQuadEdge3D.Create(Points, 0, 0, 0, 0);
+    TQuadEdge3D(fFaces[Cont]).LoadFromJSON(JItemObject(TmpArray, Cont));
   end;
 end;
 
-procedure TPolyface3D.SaveToStream(const Stream: TStream);
+procedure TPolyface3D.SaveToJSON(const AJSON: TJSONObject);
 var
+  TmpArray: TJSONArray;
+  TmpFace: TJSONObject;
   Cont: Integer;
 begin
   inherited;
-  with Stream do
+  TmpArray := TJSONArray.Create;
+  JSetValue(AJSON, 'faces', TmpArray);
+  for Cont := 0 to fFaces.NumberOfObjects - 1 do
   begin
-    Cont := fFaces.NumberOfObjects;
-    Write(Cont, SizeOf(Cont));
-    for Cont := 0 to fFaces.NumberOfObjects - 1 do
-      TQuadEdge3D(fFaces[Cont]).SaveToStream(Stream);
+    TmpFace := TJSONObject.Create;
+    JAddItem(TmpArray, TmpFace);
+    TQuadEdge3D(fFaces[Cont]).SaveToJSON(TmpFace);
   end;
 end;
 
@@ -8629,37 +8330,20 @@ begin
   fBaseOutline.OnChange := BaseOutlineChanged;
 end;
 
-constructor TSweepedOutline3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  OutlineBaseClass: TGraphicObjectClass;
-  TmpWord: Word;
+constructor TSweepedOutline3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    TmpWord := 0;
-    Read(TmpWord, SizeOf(TmpWord));
-    OutlineBaseClass := CADSysFindClassByIndex(TmpWord);
-    fBaseOutline := OutlineBaseClass.CreateFromStream(Stream, Version)
-      as TOutline3D;
-    fPoints := fBaseOutline.Points;
-    fBaseOutline.UpdateExtension(Self);
-    fBaseOutline.OnChange := BaseOutlineChanged;
-  end;
+  fBaseOutline := CADSysObjectFromJSON(JRequireObject(AJSON, 'baseOutline'))
+    as TOutline3D;
+  fPoints := fBaseOutline.Points;
+  fBaseOutline.UpdateExtension(Self);
+  fBaseOutline.OnChange := BaseOutlineChanged;
 end;
 
-procedure TSweepedOutline3D.SaveToStream(const Stream: TStream);
-var
-  TmpWord: Word;
+procedure TSweepedOutline3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    TmpWord := CADSysFindClassIndex(fBaseOutline.ClassName);
-    Write(TmpWord, SizeOf(TmpWord));
-    fBaseOutline.SaveToStream(Stream);
-  end;
+  JSetValue(AJSON, 'baseOutline', CADSysObjectToJSON(fBaseOutline));
 end;
 
 procedure TSweepedOutline3D.Draw(const NormTransf: TTransf3D;
@@ -8674,7 +8358,7 @@ begin
   if Assigned(fPolyface) then
     fPolyface.Draw(MultiplyTransform3D(ModelTransform, NormTransf), VRP, VT,
       Cnv, DrawMode);
-  if Cnv.Canvas.Pen.Mode = pmXor then
+  if Cnv.Rubber then
     Exit;
   // La baseOutline ha già la trasformazione modello
   if (DrawMode and DRAWMODE_BACKFACECULLING) = DRAWMODE_BACKFACECULLING then
@@ -8824,41 +8508,19 @@ begin
   UpdateSolid;
 end;
 
-constructor TExtrudedOutline3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  tmpVS: TVector3DSingle;
-  TmpS: TRealTypeSingle;
+constructor TExtrudedOutline3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    if (Version >= 'CAD423') then
-    begin
-      Read(fExtrudeDir, SizeOf(fExtrudeDir));
-      Read(fExtrudeLen, SizeOf(fExtrudeLen));
-    end
-    else
-    begin
-      Read({%H-}tmpVS, SizeOf(tmpVS));
-      fExtrudeDir.X := tmpVS.X;
-      fExtrudeDir.Y := tmpVS.Y;
-      fExtrudeDir.Z := tmpVS.Z;
-      Read({%H-}TmpS, SizeOf(TmpS));
-      fExtrudeLen := TmpS;
-    end;
-    UpdateSolid;
-  end;
+  fExtrudeDir := JGetVector3D(AJSON, 'extrudeDir');
+  fExtrudeLen := JGetReal(AJSON, 'extrudeLen', 0.0);
+  UpdateSolid;
 end;
 
-procedure TExtrudedOutline3D.SaveToStream(const Stream: TStream);
+procedure TExtrudedOutline3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fExtrudeDir, SizeOf(fExtrudeDir));
-    Write(fExtrudeLen, SizeOf(fExtrudeLen));
-  end;
+  JSetVector3D(AJSON, 'extrudeDir', fExtrudeDir);
+  JSetReal(AJSON, 'extrudeLen', fExtrudeLen);
 end;
 
 procedure TExtrudedOutline3D.Assign(const Obj: TGraphicObject);
@@ -8908,57 +8570,25 @@ begin
   UpdateSolid;
 end;
 
-constructor TRotationalOutline3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpPtS: TPoint3DSingle;
-  tmpVS: TVector3DSingle;
-  TmpS: TRealTypeSingle;
+constructor TRotationalOutline3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    if (Version >= 'CAD423') then
-    begin
-      Read(fRotationCenter, SizeOf(fRotationCenter));
-      Read(fRotationAx, SizeOf(fRotationAx));
-      Read(FStartAngle, SizeOf(FStartAngle));
-      Read(FEndAngle, SizeOf(FEndAngle));
-      Read(fDeltaAngle, SizeOf(fDeltaAngle));
-    end
-    else
-    begin
-      Read({%H-}TmpPtS, SizeOf(TmpPtS));
-      fRotationCenter.X := TmpPtS.X;
-      fRotationCenter.Y := TmpPtS.Y;
-      fRotationCenter.Z := TmpPtS.Z;
-      fRotationCenter.W := TmpPtS.W;
-      Read({%H-}tmpVS, SizeOf(tmpVS));
-      fRotationAx.X := tmpVS.X;
-      fRotationAx.Y := tmpVS.Y;
-      fRotationAx.Z := tmpVS.Z;
-      Read({%H-}TmpS, SizeOf(TmpS));
-      FStartAngle := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      FEndAngle := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fDeltaAngle := TmpS;
-    end;
-    UpdateSolid;
-  end;
+  fRotationCenter := JGetPoint3D(AJSON, 'rotationCenter');
+  fRotationAx := JGetVector3D(AJSON, 'rotationAx');
+  FStartAngle := JGetReal(AJSON, 'startAngle', 0.0);
+  FEndAngle := JGetReal(AJSON, 'endAngle', 0.0);
+  fDeltaAngle := JGetReal(AJSON, 'deltaAngle', 0.0);
+  UpdateSolid;
 end;
 
-procedure TRotationalOutline3D.SaveToStream(const Stream: TStream);
+procedure TRotationalOutline3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fRotationCenter, SizeOf(fRotationCenter));
-    Write(fRotationAx, SizeOf(fRotationAx));
-    Write(FStartAngle, SizeOf(FStartAngle));
-    Write(FEndAngle, SizeOf(FEndAngle));
-    Write(fDeltaAngle, SizeOf(fDeltaAngle));
-  end;
+  JSetPoint3D(AJSON, 'rotationCenter', fRotationCenter);
+  JSetVector3D(AJSON, 'rotationAx', fRotationAx);
+  JSetReal(AJSON, 'startAngle', FStartAngle);
+  JSetReal(AJSON, 'endAngle', FEndAngle);
+  JSetReal(AJSON, 'deltaAngle', fDeltaAngle);
 end;
 
 procedure TRotationalOutline3D.Assign(const Obj: TGraphicObject);
@@ -8981,7 +8611,7 @@ end;
 // TCameraObject3D
 // =====================================================================
 
-procedure SetCamerasViewport(V: TCADPerspectiveViewport3D);
+procedure SetCamerasViewport(V: TFNCCADPerspectiveViewport3D);
 begin
   fCamerasViewports := V;
 end;
@@ -9035,9 +8665,9 @@ begin
   Result := ExtrudePoint3D(fCameraPosition, BaseNorm, fPlaneDistance);
 end;
 
-procedure TCameraObject3D.SetViewport(V: TCADViewport3D);
+procedure TCameraObject3D.SetViewport(V: TFNCCADViewport3D);
 begin
-  if V is TCADOrtogonalViewport3D then
+  if V is TFNCCADOrtogonalViewport3D then
     Raise ECADSysException.Create
       ('TCameraObject3D: Ivalid viewport to link to a camera.');
   fViewport := V;
@@ -9071,14 +8701,14 @@ begin
   begin
     fViewport.BeginUpdate;
     try
-      if fViewport is TCADPerspectiveViewport3D then
-        TCADPerspectiveViewport3D(fViewport).PlaneDistance := fPlaneDistance;
+      if fViewport is TFNCCADPerspectiveViewport3D then
+        TFNCCADPerspectiveViewport3D(fViewport).PlaneDistance := fPlaneDistance;
       // Leggermente dietro in modo da non vederlo nella vista prospettica.
       BasePt := ExtrudePoint3D(fCameraPosition, BaseNorm,
         fPlaneDistance * 1.01);
       fViewport.SetCamera(BasePt, fCameraViewPoint, fCameraUP);
-      if fViewport is TCADPerspectiveViewport3D then
-        TCADPerspectiveViewport3D(fViewport).SetFieldOfView(fAperture, 1);
+      if fViewport is TFNCCADPerspectiveViewport3D then
+        TFNCCADPerspectiveViewport3D(fViewport).SetFieldOfView(fAperture, 1);
     finally
       fViewport.EndUpdate;
     end;
@@ -9120,64 +8750,27 @@ begin
   UpdateExtension(Self);
 end;
 
-constructor TCameraObject3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpPtS: TPoint3DSingle;
-  tmpVS: TVector3DSingle;
-  TmpS: TRealTypeSingle;
+constructor TCameraObject3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    if (Version >= 'CAD423') then
-    begin
-      Read(fCameraPosition, SizeOf(fCameraPosition));
-      Read(fCameraViewPoint, SizeOf(fCameraViewPoint));
-      Read(fCameraUP, SizeOf(fCameraUP));
-      Read(fAperture, SizeOf(fAperture));
-      Read(fPlaneDistance, SizeOf(fPlaneDistance));
-      Read(fAspect, SizeOf(fAspect));
-    end
-    else
-    begin
-      Read({%H-}TmpPtS, SizeOf(TmpPtS));
-      fCameraPosition.X := TmpPtS.X;
-      fCameraPosition.Y := TmpPtS.Y;
-      fCameraPosition.Z := TmpPtS.Z;
-      fCameraPosition.W := TmpPtS.W;
-      Read(TmpPtS, SizeOf(TmpPtS));
-      fCameraViewPoint.X := TmpPtS.X;
-      fCameraViewPoint.Y := TmpPtS.Y;
-      fCameraViewPoint.Z := TmpPtS.Z;
-      fCameraViewPoint.W := TmpPtS.W;
-      Read({%H-}tmpVS, SizeOf(tmpVS));
-      fCameraUP.X := tmpVS.X;
-      fCameraUP.Y := tmpVS.Y;
-      fCameraUP.Z := tmpVS.Z;
-      Read({%H-}TmpS, SizeOf(TmpS));
-      fAperture := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fPlaneDistance := TmpS;
-      Read(TmpS, SizeOf(TmpS));
-      fAspect := TmpS;
-    end;
-  end;
+  fCameraPosition := JGetPoint3D(AJSON, 'cameraPosition');
+  fCameraViewPoint := JGetPoint3D(AJSON, 'cameraViewPoint');
+  fCameraUP := JGetVector3D(AJSON, 'cameraUp');
+  fAperture := JGetReal(AJSON, 'aperture', 0.0);
+  fPlaneDistance := JGetReal(AJSON, 'planeDistance', 0.0);
+  fAspect := JGetReal(AJSON, 'aspect', 1.0);
   fViewport := fCamerasViewports;
 end;
 
-procedure TCameraObject3D.SaveToStream(const Stream: TStream);
+procedure TCameraObject3D.SaveToJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    Write(fCameraPosition, SizeOf(fCameraPosition));
-    Write(fCameraViewPoint, SizeOf(fCameraViewPoint));
-    Write(fCameraUP, SizeOf(fCameraUP));
-    Write(fAperture, SizeOf(fAperture));
-    Write(fPlaneDistance, SizeOf(fPlaneDistance));
-    Write(fAspect, SizeOf(fAspect));
-  end;
+  JSetPoint3D(AJSON, 'cameraPosition', fCameraPosition);
+  JSetPoint3D(AJSON, 'cameraViewPoint', fCameraViewPoint);
+  JSetVector3D(AJSON, 'cameraUp', fCameraUP);
+  JSetReal(AJSON, 'aperture', fAperture);
+  JSetReal(AJSON, 'planeDistance', fPlaneDistance);
+  JSetReal(AJSON, 'aspect', fAspect);
 end;
 
 procedure TCameraObject3D.Assign(const Obj: TGraphicObject);
@@ -9217,8 +8810,8 @@ begin
   DrawLine3D(Cnv, fCameraPosition, fP2, NormTransf, VT);
   DrawLine3D(Cnv, fCameraPosition, fP3, NormTransf, VT);
   DrawLine3D(Cnv, fCameraPosition, fP4, NormTransf, VT);
-  Cnv.Canvas.Pen.Style := psDot;
-  SetBkMode(Cnv.Canvas.Handle, TRANSPARENT);
+  Cnv.Pen.Style := cpsDot;
+  Cnv.Graphics.Transparent := True;
   ViewCPt := ExtrudePoint3D(fCameraPosition, Direction3D(fCameraPosition,
     fCameraViewPoint), fPlaneDistance * 2);
   DrawLine3D(Cnv, fCameraPosition, ViewCPt, NormTransf, VT);

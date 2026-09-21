@@ -1,15 +1,43 @@
 {: This help file explain all the base types defined in
    the CADSys 4.0 library for both the 2D and 3D use.
 
-   These types are defined in the CS4BaseTypes unit file
+   These types are defined in the FNCCS4BaseTypes unit file
    that you must include in the <B=uses> clause in all of your units
    that use CADSys.
 }
-unit CS4BaseTypes;
+unit FNCCS4BaseTypes;
+
+{$I CADSys.inc}
 
 interface
 
-uses WinAPI.Windows, System.Classes, System.Types, Vcl.Graphics;
+uses
+{$IFDEF CADSYS_LCL}
+  Classes, Types,
+{$ELSE}
+  System.Classes, System.Types,
+{$ENDIF}
+{$IFDEF CADSYS_VCL}
+  { TCanvas, and nothing else. It is here only for the GDI-backend
+    constructor of TDecorativeCanvas; on FMX and LCL this unit mentions
+    no framework type at all, which is the point of the whole seam. }
+  Vcl.Graphics,
+{$ENDIF}
+  FNCCS4Graphics;
+
+type
+  { : Signature of <See Var=CADSysOnWarning>. }
+  TCADWarningEvent = procedure(const AMessage: String);
+
+  { : Reports how far a long operation has got, so the application can
+    show it however it likes.
+
+    <I=APosition> counts units of work done. <I=AMax> is the total when it
+    is known and <B=0> when it is not - a DXF is read as a text file, whose
+    length in groups cannot be known before the end.
+  }
+  TCADProgressEvent = procedure(Sender: TObject;
+    const APosition, AMax: Int64) of object;
 
 type
 {: To let the library to use any floating point precision value
@@ -216,7 +244,7 @@ type
   TDecorativePen = class(TObject)
   private
     fPStyle: TBits;
-    fCnv: TCanvas;
+    fCnv: TCADGraphics;
     fCurBit: Word;
     fStartPt, fEndPt, fLastPt: TPoint;
 
@@ -235,19 +263,19 @@ type
     procedure Assign(Source: TObject);
     {: Move the pen for the canvas <I=Cnv> to the position <I=X,Y>.
     }
-    procedure MoveTo(Cnv: TCanvas; X, Y: Integer);
+    procedure MoveTo(Cnv: TCADGraphics; X, Y: Integer);
     {: Move the pen for the canvas <I=Cnv> to the position <I=X,Y>.
        This will not reset the current pattern bit. It is useful
        when you are drawing a shapes made by segment.
     }
-    procedure MoveToNotReset(Cnv: TCanvas; X, Y: Integer);
+    procedure MoveToNotReset(Cnv: TCADGraphics; X, Y: Integer);
     {: Draw a line using the current pattern and color to the position <I=X,Y>.
     }
-    procedure LineTo(Cnv: TCanvas; X, Y: Integer);
+    procedure LineTo(Cnv: TCADGraphics; X, Y: Integer);
     {: Draw a polyline using the current pattern and color.
        <I=Pts> are the points of the polyline and <I=NPts> is the number of points.
     }
-    procedure Polyline(Cnv: TCanvas; Pts: Pointer; NPts: Integer);
+    procedure Polyline(Cnv: TCADGraphics; Pts: Pointer; NPts: Integer);
     {: Specify the pattern for lines.
        The pattern is defined by a string of bits like
        '1110001100', in which a one rapresent a colored pixel and a zero
@@ -279,9 +307,28 @@ type
   TDecorativeCanvas = class(TObject)
   private
     fDecorativePen: TDecorativePen;
-    fCanvas: TCanvas;
+    fGraphics: TCADGraphics;
+    fOwnsGraphics: Boolean;
+    fRubber: Boolean;
+{$IFDEF CADSYS_VCL}
+    function GetCanvas: TCanvas;
+{$ENDIF}
+    function GetPen: TCADPen;
+    function GetBrush: TCADBrush;
+    function GetClipRect: TRect;
   public
-    constructor Create(ACanvas: TCanvas);
+{$IFDEF CADSYS_VCL}
+    {: Wraps a VCL canvas (GDI backend). The canvas is not owned.
+
+       VCL only: the GDI backend is the one place in the library that
+       talks to a framework canvas directly, and there is no FMX or LCL
+       equivalent. On those targets everything draws through FNC, so use
+       the TCADGraphics overload. }
+    constructor Create(ACanvas: TCanvas); overload;
+{$ENDIF}
+    {: Wraps any drawing backend. If AOwnsGraphics is True the backend is
+       freed with this object. }
+    constructor Create(AGraphics: TCADGraphics; AOwnsGraphics: Boolean); overload;
     destructor Destroy; override;
 
     {: This method is a shortcut to the MoveTo method of the
@@ -299,12 +346,34 @@ type
        shapes to draw polylines.
     }
     procedure Polyline(Points: Pointer; NPts: Integer);
+    {: Draws a closed polygon, filled with the brush. <I=Points> points to
+       <I=NPts> TPoint values. }
+    procedure Polygon(Points: Pointer; NPts: Integer);
     {: Contains the decorative pen.
     }
     property DecorativePen: TDecorativePen read fDecorativePen;
-    {: Contains the underling convas used to draw.
-    }
-    property Canvas: TCanvas read fCanvas write fCanvas;
+    {: The drawing backend. Use it (or the Pen, Brush and ClipRect
+       shortcuts) for everything that is not a patterned line. }
+    property Graphics: TCADGraphics read fGraphics;
+    property Pen: TCADPen read GetPen;
+    property Brush: TCADBrush read GetBrush;
+    property ClipRect: TRect read GetClipRect;
+    {: True while this canvas is being used for transient rubber-band
+       drawing - a shape being dragged, a selection frame, the cursor
+       cross. A shape may then draw a cheap outline instead of its
+       full appearance.
+
+       This replaces the old <I=Pen.Mode = pmXOr> test. The library no
+       longer rubber-bands by XOR-ing: the viewport restores the area
+       from its back buffer and draws the overlay again, which is what
+       every backend can do. }
+    property Rubber: Boolean read fRubber write fRubber;
+{$IFDEF CADSYS_VCL}
+    {: The underlying VCL canvas, or nil when the backend is not VCL.
+       Transitional: new code should not use it, and nothing in the
+       library does - which is why it can be VCL-only. }
+    property Canvas: TCanvas read GetCanvas;
+{$ENDIF}
   end;
 
   // For stream operation backward compatibility
@@ -327,26 +396,26 @@ const
 
   {: Constant used with the picking functions.
 
-     See also <See Method=TCADViewport2D@PickObject> and
-     <See Method=TCADViewport3D@PickObject>.
+     See also <See Method=TFNCCADViewport2D@PickObject> and
+     <See Method=TFNCCADViewport3D@PickObject>.
   }
   PICK_NOOBJECT = -200;
   {: Constant used with the picking functions.
 
-     See also <See Method=TCADViewport2D@PickObject> and
-     <See Method=TCADViewport3D@PickObject>.
+     See also <See Method=TFNCCADViewport2D@PickObject> and
+     <See Method=TFNCCADViewport3D@PickObject>.
   }
   PICK_INBBOX = -100;
   {: Constant used with the picking functions.
 
-     See also <See Method=TCADViewport2D@PickObject> and
-     <See Method=TCADViewport3D@PickObject>.
+     See also <See Method=TFNCCADViewport2D@PickObject> and
+     <See Method=TFNCCADViewport3D@PickObject>.
   }
   PICK_ONOBJECT = -1;
   {: Constant used with the picking functions.
 
-     See also <See Method=TCADViewport2D@PickObject> and
-     <See Method=TCADViewport3D@PickObject>.
+     See also <See Method=TFNCCADViewport2D@PickObject> and
+     <See Method=TFNCCADViewport3D@PickObject>.
   }
   PICK_INOBJECT = -2;
   {: This is the identity matrix for 2D transformation.
@@ -368,36 +437,101 @@ const
   }
   MaxCoord = 1.0E8;
 
+var
+  { : Hook for <See Function=CADSysWarn>. Point it at whatever the
+    application uses to tell the user something - a status bar, a log,
+    ShowMessage. Nil, the default, swallows the warning.
+  }
+  CADSysOnWarning: TCADWarningEvent = nil;
+
+{ : Reports something the library noticed but could recover from: a
+  drawing that refers to a vector font nobody registered, a DXF entity it
+  cannot represent, a source block that is missing.
+
+  It calls <See Var=CADSysOnWarning> when the application has set one, and
+  does nothing otherwise. The library must not open a dialog of its own -
+  it has to build on VCL, FMX and LCL alike.
+}
+procedure CADSysWarn(const AMessage: String);
+
 implementation
+
+{$IFDEF CADSYS_VCL}
+uses FNCCS4GraphicsVCL;
+{$ENDIF}
+
+procedure CADSysWarn(const AMessage: String);
+begin
+  if Assigned(CADSysOnWarning) then
+    CADSysOnWarning(AMessage);
+end;
 
 { TDecorativeCanvas }
 
+{$IFDEF CADSYS_VCL}
 constructor TDecorativeCanvas.Create(ACanvas: TCanvas);
 begin
+  Create(TCADVCLGraphics.Create(ACanvas), True);
+end;
+{$ENDIF}
+
+constructor TDecorativeCanvas.Create(AGraphics: TCADGraphics;
+  AOwnsGraphics: Boolean);
+begin
   inherited Create;
-  fCanvas := ACanvas;
+  fGraphics := AGraphics;
+  fOwnsGraphics := AOwnsGraphics;
   fDecorativePen := TDecorativePen.Create;
 end;
 
 destructor TDecorativeCanvas.Destroy;
 begin
   fDecorativePen.Free;
+  if fOwnsGraphics then
+    fGraphics.Free;
   inherited Destroy;
+end;
+
+{$IFDEF CADSYS_VCL}
+function TDecorativeCanvas.GetCanvas: TCanvas;
+begin
+  Result := VCLCanvasOf(fGraphics);
+end;
+{$ENDIF}
+
+function TDecorativeCanvas.GetPen: TCADPen;
+begin
+  Result := fGraphics.Pen;
+end;
+
+function TDecorativeCanvas.GetBrush: TCADBrush;
+begin
+  Result := fGraphics.Brush;
+end;
+
+function TDecorativeCanvas.GetClipRect: TRect;
+begin
+  Result := fGraphics.ClipRect;
 end;
 
 procedure TDecorativeCanvas.MoveTo(X, Y: Integer);
 begin
-  fDecorativePen.MoveTo(fCanvas, X, Y);
+  fDecorativePen.MoveTo(fGraphics, X, Y);
 end;
 
 procedure TDecorativeCanvas.LineTo(X, Y: Integer);
 begin
-  fDecorativePen.LineTo(fCanvas, X, Y);
+  fDecorativePen.LineTo(fGraphics, X, Y);
 end;
 
 procedure TDecorativeCanvas.Polyline(Points: Pointer; NPts: Integer);
 begin
-  fDecorativePen.Polyline(fCanvas, Points, NPts);
+  fDecorativePen.Polyline(fGraphics, Points, NPts);
+end;
+
+procedure TDecorativeCanvas.Polygon(Points: Pointer; NPts: Integer);
+begin
+  fGraphics.Polygon(Points, NPts);
 end;
 
 { TDecorativePen }
@@ -493,7 +627,7 @@ begin
    end;
 end;
 
-procedure TDecorativePen.MoveTo(Cnv: TCanvas; X, Y: Integer);
+procedure TDecorativePen.MoveTo(Cnv: TCADGraphics; X, Y: Integer);
 begin
   if( fPStyle.Size > 0 ) then
    begin
@@ -506,7 +640,7 @@ begin
    Cnv.MoveTo(X, Y);
 end;
 
-procedure TDecorativePen.MoveToNotReset(Cnv: TCanvas; X, Y: Integer);
+procedure TDecorativePen.MoveToNotReset(Cnv: TCADGraphics; X, Y: Integer);
 begin
   if( fPStyle.Size > 0 ) then
    begin
@@ -518,7 +652,7 @@ begin
    Cnv.MoveTo(X, Y);
 end;
 
-procedure TDecorativePen.LineTo(Cnv: TCanvas; X, Y: Integer);
+procedure TDecorativePen.LineTo(Cnv: TCADGraphics; X, Y: Integer);
 begin
   if( fPStyle.Size > 0 ) then
    begin
@@ -532,22 +666,17 @@ begin
    Cnv.LineTo(X, Y);
 end;
 
-procedure TDecorativePen.Polyline(Cnv: TCanvas; Pts: Pointer; NPts: Integer);
-type
-  TPoints = array[0..0] of TPoint;
-var
-  TmpPts: ^TPoints;
+procedure TDecorativePen.Polyline(Cnv: TCADGraphics; Pts: Pointer; NPts: Integer);
 begin
   if NPts <= 1 then
    Exit;
-  TmpPts := Pts;
   { CS4-FIX (S5): the patterned branch looped MoveTo/LineTo per segment through
     CallLineDDA - whose LineDDA calls are themselves commented out - so it drew
     exactly the same solid pixels as a single WinAPI.Windows.Polyline, at N
     times the GDI cost, for a decorative pattern that no longer works.
     LineDDAMethod1/2 stay unreachable; restoring them needs the Integer(Self)
     cast replaced with an LPARAM/NativeInt one for 64-bit first. }
-  WinAPI.Windows.Polyline(Cnv.Handle, TmpPts^, NPts);
+  Cnv.Polyline(Pts, NPts);
 end;
 
 procedure TDecorativePen.SetPenStyle(const SString: String);

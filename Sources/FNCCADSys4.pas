@@ -1,10 +1,10 @@
 ﻿{ : This help file explain all the classes and functions defined in
   the CADSys 4.0 library for both the 2D and 3D use.
 
-  These classes and functions are defined in the CADSys4 unit file
+  These classes and functions are defined in the FNCCADSys4 unit file
   that you must include in the <B=uses> clause in all of your units
   that access the types and functions of the library.
-  For the forms there is no need to manually add CADSys4 if you
+  For the forms there is no need to manually add FNCCADSys4 if you
   place the controls of the library on them.
 
   <See=Classes@CS4_CLASSLIST><BR>
@@ -20,10 +20,10 @@
   using an automatic in-source documentation extractor for Delphi.>
 
   <B=Units><BR>
-  <See Unit=CadSys4><BR>
-  <See Unit=CS4BaseTypes><BR>
-  <See Unit=CS4Shapes><BR>
-  <See Unit=CS4Tasks><BR>
+  <See Unit=FNCCADSys4><BR>
+  <See Unit=FNCCS4BaseTypes><BR>
+  <See Unit=FNCCS4Shapes><BR>
+  <See Unit=FNCCS4Tasks><BR>
 
   This is the help file for the CADSys 4.0 library, a complete
   2D/3D vectorial graphic library in floating point precision.
@@ -38,7 +38,7 @@
   create a new library from scratch).
 
   The library cames with all the sources of the controls, components,
-  graphical objects and tasks, and only need a separate DLL (CADSys4.dll)
+  graphical objects and tasks, and only need a separate DLL (FNCCADSys4.dll)
   to work.
   This is not a library that do all the things for you, you have
   to write simple Object Pascal code in order to create the
@@ -54,7 +54,7 @@
 
 }
 { :<New topic=CS4_CLASSLIST@List of classes>
-  These are the classes defined in the CADSys4 unit:
+  These are the classes defined in the FNCCADSys4 unit:
 
   <See Class=ECADSysException><BR>
   <See Class=ECADOutOfBound><BR>
@@ -75,9 +75,9 @@
   <See Class=TIndexedObjectList><BR>
   <See Class=TLayer><BR>
   <See Class=TLayers><BR>
-  <See Class=TCADCmp><BR>
-  <See Class=TCADViewport><BR>
-  <See Class=TRuler><BR>
+  <See Class=TFNCCADCmp><BR>
+  <See Class=TFNCCADViewport><BR>
+  <See Class=TFNCRuler><BR>
   <See Class=TObject2DHandler><BR>
   <See Class=TObject2DHandlerClass class of TObject2DHandler><BR>
   <See Class=TObject2D><BR>
@@ -85,8 +85,8 @@
   <See Class=TContainer2D><BR>
   <See Class=TSourceBlock2D><BR>
   <See Class=TBlock2D><BR>
-  <See Class=TCADCmp2D><BR>
-  <See Class=TCADViewport2D><BR>
+  <See Class=TFNCCADCmp2D><BR>
+  <See Class=TFNCCADViewport2D><BR>
   <See Class=IRenderObject3D><BR>
   <See Class=TObject3DHandler><BR>
   <See Class=TObject3DHandlerClass class of TObject3DHandler><BR>
@@ -95,30 +95,30 @@
   <See Class=TContainer3D><BR>
   <See Class=TSourceBlock3D><BR>
   <See Class=TBlock3D><BR>
-  <See Class=TCADCmp3D><BR>
+  <See Class=TFNCCADCmp3D><BR>
   <See Class=TCAD3DAxis><BR>
-  <See Class=TCADViewport3D><BR>
-  <See Class=TCADParallelViewport3D><BR>
-  <See Class=TCADOrtogonalViewport3D><BR>
-  <See Class=TCADPerspectiveViewport3D><BR>
+  <See Class=TFNCCADViewport3D><BR>
+  <See Class=TFNCCADParallelViewport3D><BR>
+  <See Class=TFNCCADOrtogonalViewport3D><BR>
+  <See Class=TFNCCADPerspectiveViewport3D><BR>
   <See Class=TCADStateClass class of TCADState><BR>
   <See Class=TCADPrgParam><BR>
   <See Class=TCADState><BR>
   <See Class=TCADIdleState><BR>
-  <See Class=TCADPrg><BR>
+  <See Class=TFNCCADPrg><BR>
   <See Class=TCADStateClass2D class of TCADState2D><BR>
   <See Class=TCADState2D><BR>
-  <See Class=TCADPrg2D><BR>
+  <See Class=TFNCCADPrg2D><BR>
   <See Class=TCADStateClass3D class of TCADState3D><BR>
   <See Class=TCADState3D><BR>
-  <See Class=TCADPrg3D><BR>
+  <See Class=TFNCCADPrg3D><BR>
 
-  These are the classes defined in the CS4BaseTypes unit:
+  These are the classes defined in the FNCCS4BaseTypes unit:
 
   <See Class=TDecorativePen><BR>
   <See Class=TDecorativeCanvas><BR>
 
-  These are the classes defined in the CS4Shapes unit:
+  These are the classes defined in the FNCCS4Shapes unit:
 
   <See Class=TExtendedFont><BR>
   <See Class=TPrimitive2DClass class of TPrimitive2D><BR>
@@ -169,7 +169,7 @@
   <See Class=TRotationalOutline3D><BR>
   <See Class=TCameraObject3D><BR>
 
-  These are the classes defined in the CS4Tasks unit:
+  These are the classes defined in the FNCCS4Tasks unit:
 
   <See Class=TCADPrgZoomParam><BR>
   <See Class=TCADPrgZoomState><BR>
@@ -245,7 +245,7 @@
   <See Class=TCAD3DEditPrimitive><BR>
   <See Class=TCAD3DEditSelectedObject><BR>
 
-  These are the classes defined in the CS4DXFModule unit:
+  These are the classes defined in the FNCCS4DXFModule unit:
 
   <See Class=TDXFRead><BR>
   <See Class=TDXFWrite><BR>
@@ -255,7 +255,7 @@
 
 }
 { :<New topic=CS4_TYPELIST@List of types>
-  These are the types defined in the CADSys4 unit:
+  These are the types defined in the FNCCADSys4 unit:
 
   <See Type=TCADVersion><BR>
   <See Type=TSourceBlockName><BR>
@@ -289,7 +289,7 @@
   <See Type=TMouse3DMoveFilter><BR>
   <See Type=TCADPrg3DSnapFilter><BR>
 
-  These are the types defined in the CS4BaseTypes unit:
+  These are the types defined in the FNCCS4BaseTypes unit:
 
   <See Type=TRealType><BR>
   <See Type=TClipCode><BR>
@@ -310,7 +310,7 @@
   <See Type=TVectPoints3D><BR>
   <See Type=PVectPoints3D><BR>
 
-  These are the types defined in the CS4Shapes unit:
+  These are the types defined in the FNCCS4Shapes unit:
 
   <See Type=TFaceName><BR>
   <See Type=TPrimitiveSavingType><BR>
@@ -318,13 +318,13 @@
   <See Type=THJustification><BR>
   <See Type=TVJustification><BR>
 
-  These are the types defined in the CS4Tasks unit:
+  These are the types defined in the FNCCS4Tasks unit:
 
   <See Type=TSelection2DEvent><BR>
   <See Type=TSelection3DEvent><BR>
   <See Type=TCAD3DEditPrimMode><BR>
 
-  These are the types defined in the CS4DXFModule unit:
+  These are the types defined in the FNCCS4DXFModule unit:
 
   <See Type=TSections><BR>
   <See Type=TGroupTable><BR>
@@ -334,7 +334,7 @@
 
 }
 { :<New topic=CS4_FUNCTIONLIST@List of functions/procedures>
-  These are the functions defined in the CADSys4 unit:
+  These are the functions defined in the FNCCADSys4 unit:
 
   <See Procedure=MakeOrto2D><BR>
   <See Procedure=MakeOrto3D><BR>
@@ -482,7 +482,7 @@
   <See Function=CADSysFindClassByIndex><BR>
   <See Function=StringToBlockName><BR>
 
-  These are the functions defined in the CS4Shapes unit:
+  These are the functions defined in the FNCCS4Shapes unit:
 
   <See Procedure=SetCamerasViewport><BR>
   <See Procedure=CADSysSetDefaultFont><BR>
@@ -496,24 +496,60 @@
   <See Function=CADSysFindFontByIndex><BR>
 
 }
-Unit CADSys4;
+Unit FNCCADSys4;
+
+{$I CADSys.inc}
+
+{ : Range checking is off for this unit, deliberately and necessarily.
+
+  Point vectors are passed around as a pointer to an
+  'array [0..0] of TPoint2D' and indexed past that single element - the
+  standard Delphi idiom for a variable-length array, and the way this
+  library has represented polylines since 2001. Twenty-odd routines here
+  rely on it, from IsPointOnPolyLine2D to TPointsSet2D.TransformPoints.
+
+  Until now the unit inherited whatever the project happened to set, so
+  it worked in every project that had range checking off and raised
+  ERangeError in any that did not - which is exactly what happened the
+  first time it was built from a freshly created project. That is a
+  property of the code, not of the project, so the code says it. }
+{$RANGECHECKS OFF}
 
 Interface
 
 uses
-  WinAPI.Windows,
-  WinAPI.Messages,
-  System.Math,
-  System.SysUtils,
-  System.Classes,
-  System.Types,
-  System.UITypes,
-  System.JSON,
+{$IFDEF CADSYS_LCL}
+  Math, SysUtils, Classes, SyncObjs, Types, UITypes, fpjson,
+{$ELSE}
+  System.Math, System.SysUtils, System.Classes, System.SyncObjs,
+  System.Types, System.UITypes, System.JSON,
+{$ENDIF}
+{$IFDEF CADSYS_FMX}
+  FMX.TMSFNCTypes, FMX.TMSFNCGraphicsTypes, FMX.TMSFNCGraphics,
+  FMX.TMSFNCCustomControl,
+{$ENDIF}
+{$IFDEF CADSYS_LCL}
+  { pf24bit for the back buffer; the rest of the framework arrives
+    through LCLTMSFNCCustomControl. }
+  Graphics,
+  LCLTMSFNCTypes, LCLTMSFNCGraphicsTypes, LCLTMSFNCGraphics,
+  LCLTMSFNCCustomControl,
+{$ENDIF}
+{$IFDEF CADSYS_VCL}
+  { Vcl.Graphics is down to pf24bit and the back buffer's TCanvas, which
+    only the GDI backend wants.
+
+    FNCCS4GraphicsVCL is here for its side effect, not for any identifier
+    - this unit names none of them. Linking it in is what installs
+    CADResolveSystemColor, without which every clBtnFace and clWindow in
+    a drawing would come out opaque black. Do not "tidy" it away. }
   Vcl.Graphics,
-  Vcl.Controls,
-  Vcl.ClipBrd,
-  Vcl.ComCtrls,
-  CS4BaseTypes;
+  VCL.TMSFNCTypes, VCL.TMSFNCGraphicsTypes, VCL.TMSFNCGraphics,
+  VCL.TMSFNCCustomControl,
+  FNCCS4GraphicsVCL,
+{$ENDIF}
+  FNCCS4BaseTypes, FNCCS4Graphics, FNCCS4GraphicsFNC,
+  FNCCS4JSON;
 
 type
   { : This type is used by the library for versioning control.
@@ -527,10 +563,10 @@ type
   { : This type define the general type for source block names.
   }
   TSourceBlockName = array [0 .. 12] of Char;
-  { : This type defines the two modality used by <See Class=TCADViewport> to
+  { : This type defines the two modality used by <See Class=TFNCCADViewport> to
     copy the viewport drawing area to another canvas with the
-    <See Method=TCADViewport@CopyToCanvas> and
-    <See Method=TCADViewport@CopyRectToCanvas>.
+    <See Method=TFNCCADViewport@CopyToCanvas> and
+    <See Method=TFNCCADViewport@CopyRectToCanvas>.
 
     These are the modes avaiable:
 
@@ -541,10 +577,10 @@ type
     old library>.
   }
   TCanvasCopyMode = (cmNone, cmAspect);
-  { : This type defines the modes that can be used by <See Class=TCADViewport> to
+  { : This type defines the modes that can be used by <See Class=TFNCCADViewport> to
     copy the viewport drawing area to another canvas with the
-    <See Method=TCADViewport@CopyToCanvas> and
-    <See Method=TCADViewport@CopyRectToCanvas>.
+    <See Method=TFNCCADViewport@CopyToCanvas> and
+    <See Method=TFNCCADViewport@CopyRectToCanvas>.
 
     These are the modes avaiable:
 
@@ -557,8 +593,8 @@ type
   }
   TCanvasCopyView = (cvActual, cvExtension, cvScale);
   { : This type defines the modes used to collect a set of objects using the
-    <See Method=TCADViewport2D@GroupObjects> and
-    <See Method=TCADViewport3D@GroupObjects> methods.
+    <See Method=TFNCCADViewport2D@GroupObjects> and
+    <See Method=TFNCCADViewport3D@GroupObjects> methods.
 
     These are the modes avaiable:
 
@@ -569,7 +605,7 @@ type
   { : This type defines the string used to name a layer.
   }
   TLayerName = String[31];
-  { : This type defines the possible orientations for a <See Class=TRuler>
+  { : This type defines the possible orientations for a <See Class=TFNCRuler>
     control.
 
     There are two types of orientations:
@@ -583,35 +619,35 @@ type
   }
   TRulerOrientationType = (otOrizontal, otVertical);
   { : This type defines which principal axis is used in a
-    <See Class=TCADOrtogonalViewport3D> control.
+    <See Class=TFNCCADOrtogonalViewport3D> control.
 
     The possible combinations are:
 
     <LI=<I=vtFront> for a view plane with normal along the
-    positive (if <See Property=TCADOrtogonalViewport3D@Direction>
+    positive (if <See Property=TFNCCADOrtogonalViewport3D@Direction>
     is <I=dtAhead>) or negative Y axis>
     <LI=<I=vtSide> for a view plane with normal along the
-    positive (if <See Property=TCADOrtogonalViewport3D@Direction>
+    positive (if <See Property=TFNCCADOrtogonalViewport3D@Direction>
     is <I=dtAhead>) or negative X axis>
     <LI=<I=vtFront> for a view plane with normal along the
-    positive (if <See Property=TCADOrtogonalViewport3D@Direction>
+    positive (if <See Property=TFNCCADOrtogonalViewport3D@Direction>
     is <I=dtAhead>) or negative Z axis>
   }
   TOrtoViewType = (vtFront, vtSide, vtTop);
   { : This type defines the direction of axis that is used in a
-    <See Class=TCADOrtogonalViewport3D> control as the view plane
+    <See Class=TFNCCADOrtogonalViewport3D> control as the view plane
     normal.
 
     The possible combinations are:
 
     <LI=<I=vtFront> for a view plane with normal along the
-    positive (if <See Property=TCADOrtogonalViewport3D@Direction>
+    positive (if <See Property=TFNCCADOrtogonalViewport3D@Direction>
     is <I=dtAhead>) or negative Y axis>
     <LI=<I=vtSide> for a view plane with normal along the
-    positive (if <See Property=TCADOrtogonalViewport3D@Direction>
+    positive (if <See Property=TFNCCADOrtogonalViewport3D@Direction>
     is <I=dtAhead>) or negative X axis>
     <LI=<I=vtFront> for a view plane with normal along the
-    positive (if <See Property=TCADOrtogonalViewport3D@Direction>
+    positive (if <See Property=TFNCCADOrtogonalViewport3D@Direction>
     is <I=dtAhead>) or negative Z axis>
   }
   TOrtoDirectionType = (dtAhead, dtBehind);
@@ -655,7 +691,7 @@ type
   }
   ECADSourceBlockIsReferenced = class(ECADSysException);
   { : This exception is raised when you try to load an invalid drawing
-    in a <See Class=TCADCmp> instance.
+    in a <See Class=TFNCCADCmp> instance.
 
     <B=Note> that this exception is not raised when an old drawing
     file is loaded, in which case a <See Class=TBadVersionEvent> and <See Class=TBadVersionExEvent> is fired.
@@ -679,13 +715,13 @@ type
   }
   ECADListBlocked = class(ECADSysException);
 
-  TCADCmp = class;
-  TCADCmp2D = class;
-  TCADViewport = class;
-  TCADViewport2D = class;
+  TFNCCADCmp = class;
+  TFNCCADCmp2D = class;
+  TFNCCADViewport = class;
+  TFNCCADViewport2D = class;
   TObject2D = class;
-  TCADCmp3D = class;
-  TCADViewport3D = class;
+  TFNCCADCmp3D = class;
+  TFNCCADViewport3D = class;
   TObject3D = class;
   TGraphicObjList = class;
   TGraphicObject = class;
@@ -697,7 +733,7 @@ type
   }
   TOnChangePointsSet = procedure(Sender: TObject) of Object;
   { : This type defines the event that is fired when an object is added to
-    a <See Class=TCADCmp> control.
+    a <See Class=TFNCCADCmp> control.
 
     <I=Sender> is the control in which the object is added;
     <I=Obj> is the object being added.
@@ -720,14 +756,11 @@ type
     the call of the procedure it is set to False.
 
     If you set an handler for this event (see
-    <See Property=TCADCmp@OnInvalidFileVersion>) you have to do all the
+    <See Property=TFNCCADCmp@OnInvalidFileVersion>) you have to do all the
     necessary operation to handle the file.
   }
   TBadVersionEvent = procedure(Sender: TObject; const StreamType: TStreamType;
-    const Stream: TStream; var Resume: Boolean) of object;
-  TBadVersionExEvent = procedure(Sender: TObject; const StreamType: TStreamType;
-    const Stream: TStream; var Version: TCADVersion; var Resume: Boolean)
-    of object;
+    const FileVersion: String; var Resume: Boolean) of object;
   { : This type defines the event that is fired when an object is loaded from
     a drawing.
 
@@ -735,7 +768,7 @@ type
     <I=ReadPercent> is percentual of the drawing loaded so far.
 
     This event is useful when you want to inform the user of the progress
-    of the loading (see <See Property=TCADCmp@OnLoadProgress>).
+    of the loading (see <See Property=TFNCCADCmp@OnLoadProgress>).
   }
   TOnLoadProgress = procedure(Sender: TObject; ReadPercent: Byte) of object;
   { : This type defines the event that is fired when an object is saved to
@@ -745,7 +778,7 @@ type
     <I=SavePercent> is percentual of the drawing saved so far.
 
     This event is useful when you want to inform the user of the progress
-    of the saving (see <See Property=TCADCmp@OnSaveProgress>).
+    of the saving (see <See Property=TFNCCADCmp@OnSaveProgress>).
   }
   TOnSaveProgress = procedure(Sender: TObject; SavedPercent: Byte) of object;
   { : This is the type of an event handler for the mouse button event.
@@ -1003,7 +1036,7 @@ type
       coordinates used to clip the output; <I=Extent> is the
       extension of the set as returned from <See Property=TPointsSet2D@Extension>;
       <I=S> is the viewport transformation as returned from
-      <See Property=TCADViewport@ViewportToScreenTransform>.
+      <See Property=TFNCCADViewport@ViewportToScreenTransform>.
 
       The set will be drawed as a closed polyline (it will be
       closed automatically by the method) with the outline drawed
@@ -1029,7 +1062,7 @@ type
       coordinates used to clip the output; <I=Extent> is the
       extension of the set as returned from <See Property=TPointsSet2D@Extension>;
       <I=S> is the viewport transformation as returned from
-      <See Property=TCADViewport@ViewportToScreenTransform>.
+      <See Property=TFNCCADViewport@ViewportToScreenTransform>.
 
       The set will be drawed as a polyline (not closed by the
       method) with the outline drawed with the current pen of
@@ -1054,7 +1087,7 @@ type
       coordinates used to clip the output; <I=Extent> is the
       extension of the set as returned from <See Property=TPointsSet2D@Extension>;
       <I=S> is the viewport transformation as returned from
-      <See Property=TCADViewport@ViewportToScreenTransform>.
+      <See Property=TFNCCADViewport@ViewportToScreenTransform>.
       <I=StartIdx> is the index of first point of the set to be
       drawed; <I=EndIdx> is the index of last point of the
       set to be drawed. <I=EndIdx> must be greater than
@@ -1085,7 +1118,7 @@ type
       coordinates used to clip the output; <I=Extent> is the
       extension of the set as returned from <See Property=TPointsSet2D@Extension>;
       <I=S> is the viewport transformation as returned from
-      <See Property=TCADViewport@ViewportToScreenTransform>.
+      <See Property=TFNCCADViewport@ViewportToScreenTransform>.
       <I=StartIdx> is the index of first point of the set to be
       drawed; <I=EndIdx> is the index of last point of the
       set to be drawed. <I=EndIdx> must be greater than
@@ -1401,13 +1434,13 @@ type
       be drawed <See Class=TDecorativeCanvas@TDecorativeCanvas>; <I=Extent> is the extension of the set as
       returned from <See Property=TPointsSet3D@Extension>;
       <I=NT> is the normalizing transform of the view as
-      returned by <See Property=TCADViewport3D@ViewNormalization> or
+      returned by <See Property=TFNCCADViewport3D@ViewNormalization> or
       by the functions <See Function=ParallelViewNormalization3D>,
       <See Function=PerspectiveViewNormalization3D> and must include
       the orientation trasform and the normalization transform.
       <I=VT> is the mapping transform from the normalized view rect
       to the Canvas rect as returned by
-      <See Property=TCADViewport3D@ViewMapping>.
+      <See Property=TFNCCADViewport3D@ViewMapping>.
 
       The set will be drawed as a polyline (not closed by the
       method) with the outline drawed with the current pen of
@@ -1424,13 +1457,13 @@ type
       be drawed <See Class=TDecorativeCanvas@TDecorativeCanvas>; <I=Extent> is the extension of the set as
       returned from <See Property=TPointsSet3D@Extension>;
       <I=NT> is the normalizing transform of the view as
-      returned by <See Property=TCADViewport3D@ViewNormalization> or
+      returned by <See Property=TFNCCADViewport3D@ViewNormalization> or
       by the functions <See Function=ParallelViewNormalization3D>,
       <See Function=PerspectiveViewNormalization3D> and must include
       the orientation trasform and the normalization transform.
       <I=VT> is the mapping transform from the normalized view rect
       to the Canvas rect as returned by
-      <See Property=TCADViewport3D@ViewMapping>.
+      <See Property=TFNCCADViewport3D@ViewMapping>.
       <I=StartIdx> is the index of first point of the set to be
       drawed; <I=EndIdx> is the index of last point of the
       set to be drawed. <I=EndIdx> must be greater than
@@ -1540,7 +1573,7 @@ type
     property OnChange: TOnChangePointsSet read fOnChange write fOnChange;
   end;
 
-  { : This type defines the procedure used by a <See Class=TCADViewport>
+  { : This type defines the procedure used by a <See Class=TFNCCADViewport>
     controll to clear the canvas before drawing on it.
 
     <I=Sender> is the viewport, <I=Cnv> canvas to be cleared,
@@ -1552,7 +1585,8 @@ type
     procedure is useful to draw a raster image onto which you want to
     do readlining.
   }
-  TClearCanvas = procedure(Sender: TObject; Cnv: TCanvas; const ARect: TRect2D;
+  TClearCanvas = procedure(Sender: TObject; Cnv: TDecorativeCanvas;
+    const ARect: TRect2D;
     const BackCol: TColor) of Object;
 
   { : This is the base class for all kinds of graphical objects.
@@ -1570,7 +1604,7 @@ type
 
     This class cannot be instantiated directly (and even derived from) but
     you must use instead the classes <See Class=TObject2D>, <See Class=TObject3D>
-    and the classes derived from them. See the unit <See unit=CS4Shapes>.
+    and the classes derived from them. See the unit <See unit=FNCCS4Shapes>.
   }
   TGraphicObject = class(TInterfacedObject)
   private
@@ -1578,7 +1612,7 @@ type
     fLayer: Byte;
     fVisible, fEnabled, fToBeSaved: Boolean;
     fOnChange: TNotifyEvent;
-    fOwnerCAD: TCADCmp;
+    fOwnerCAD: TFNCCADCmp;
   protected
     { : This method is called when the extensions and shape of the object must
       be updated after some change to the object state was done.
@@ -1639,7 +1673,7 @@ type
     }
     { : <New topic=PERSISTANCE@CADSys 4 - Drawing persistance>
       The library is able to save and retrive the current drawing in a
-      <See Class=TCADCmp> control into a stream or file.
+      <See Class=TFNCCADCmp> control into a stream or file.
 
       In order to keep the library customizable and easy to extend, this
       streaming facility is able to save user defined object as well as
@@ -1666,8 +1700,7 @@ type
       Also you don't need to know if your drawing is to be saved in a
       file, in a memory stream or also into a database record.
     }
-    constructor CreateFromStream(const Stream: TStream; const
-{%H-}Version: TCADVersion); virtual;
+    constructor CreateFromJSON(const AJSON: TJSONObject); virtual;
     { : This method save an image of the current state of the object to a stream.
 
       <I=Stream> is the stream on which save the image.
@@ -1682,7 +1715,7 @@ type
       See <See=Object's Persistance@PERSISTANCE> for details about the PERSISTANCE mecanism of
       the library.
     }
-    procedure SaveToStream(const Stream: TStream); virtual;
+    procedure SaveToJSON(const AJSON: TJSONObject); virtual;
     { : This method is used to make deep copy of the object by obtaining state
       informations from another.
 
@@ -1744,7 +1777,7 @@ type
 
       If it is <B=True> then the object is drawed on the viewport otherwise
       it will not be drawed (the viewport on which it will be drawed depend
-      on the <See Class=TCADCmp> control into which the object is stored).
+      on the <See Class=TFNCCADCmp> control into which the object is stored).
 
       The <See Property=TLayer@Visible> setting of the layer on which the
       object lies has the priority on this property.
@@ -1780,7 +1813,7 @@ type
       the object) it isn't a good practice and it is discouraged because this
       property will not still have any meaning.
     }
-    property OwnerCAD: TCADCmp read fOwnerCAD;
+    property OwnerCAD: TFNCCADCmp read fOwnerCAD;
     { : This property may be used to store some user's defined data
       like object references.
       It is not used by the library.
@@ -1845,7 +1878,9 @@ type
   }
   TCADSysCriticalSection = class(TCADSysSynchroObject)
   private
-    FSection: TRTLCriticalSection;
+    { System.SyncObjs rather than the Windows API: the RTL has the same
+      thing on every platform. }
+    FSection: TCriticalSection;
   public
     constructor Create;
     destructor Destroy; override;
@@ -2118,7 +2153,7 @@ type
       <See Class=ECADListBlocked> exception will be raised.
 
       <B=Note>: This method is useful if you want to change the
-      drawing order in the list of object of a <See Class=TCADCmp>
+      drawing order in the list of object of a <See Class=TFNCCADCmp>
       control.
     }
     procedure Move(const IDToMove, IDInsertPoint: LongInt);
@@ -2314,8 +2349,8 @@ type
   }
   TLayer = class(TObject)
   private
-    fPen: TPen;
-    fBrush: TBrush;
+    fPen: TCADSimplePen;
+    fBrush: TCADSimpleBrush;
     fDecorativePen: TDecorativePen;
     fName: TLayerName;
     fActive: Boolean;
@@ -2327,8 +2362,8 @@ type
     fTag: LongInt;
 
     procedure SetName(Nm: TLayerName);
-    procedure SetPen(Pn: TPen);
-    procedure SetBrush(Br: TBrush);
+    procedure SetPen(Pn: TCADSimplePen);
+    procedure SetBrush(Br: TCADSimpleBrush);
     procedure Changed({%H-}Sender: TObject);
   public
     { : This is the constructor of the layer.
@@ -2339,8 +2374,8 @@ type
       The constructor sets:
 
       <LI=<See Property=TLayer@Name> to <I=Layer<<Idx>> > >
-      <LI=<See Property=TLayer@Pen> to the pen <B=clBlack> and <B=psSolid> >.
-      <LI=<See Property=TLayer@Brush> to the brush <B=clWhite> and <B=psSolid> >
+      <LI=<See Property=TLayer@Pen> to the pen <B=cadtcBlack> and <B=psSolid> >.
+      <LI=<See Property=TLayer@Brush> to the brush <B=cadtcWhite> and <B=psSolid> >
       <LI=<See Property=TLayer@Active> to <B=True> >
       <LI=<See Property=TLayer@Visible> to <B=True> >
       <LI=<See Property=TLayer@Opaque> to <B=False> >
@@ -2356,15 +2391,14 @@ type
 
       <I=Stream> is the stream onto which save the settings.
     }
-    procedure SaveToStream(const Stream: TStream); virtual;
+    procedure SaveToJSON(const AJSON: TJSONObject); virtual;
     { : This method retrieves the layer settings from a stream.
 
       <I=Cont> is the index of the layer, <I=Stream> is the stream that
       contains the settings and <I=Version> is the version of the library that
       has saved the layer.
     }
-    procedure LoadFromStream(const Stream: TStream;
-      const Version: TCADVersion); virtual;
+    procedure LoadFromJSON(const AJSON: TJSONObject); virtual;
     { : This method set the canvas pen and brush values to the one defined by
       the layer.
 
@@ -2385,19 +2419,19 @@ type
     { : This property contains the pen object used to draw the objects on the
       layer.
     }
-    property Pen: TPen read fPen write SetPen;
+    property Pen: TCADSimplePen read fPen write SetPen;
     { : This property contains the brush object used to draw the objects on the
       layer.
 
       If you want to change the default pen of the layers use the
-      <See Method=TCADCmp@SetDefaultPen>.
+      <See Method=TFNCCADCmp@SetDefaultPen>.
     }
-    property Brush: TBrush read fBrush write SetBrush;
+    property Brush: TCADSimpleBrush read fBrush write SetBrush;
     { : This property tells if the objects on the layer are considered for the
       picking operations.
 
       If you want to change the default brush of the layers use the
-      <See Method=TCADCmp@SetDefaultBrush>.
+      <See Method=TFNCCADCmp@SetDefaultBrush>.
     }
     property Active: Boolean read fActive write fActive;
     { : This property tells if the objects on the layer are drawed or not.
@@ -2433,7 +2467,7 @@ type
   end;
 
   { : This class defines a set of 256 layers (from 0 to 255).
-    Every <See Class=TCADCmp> control has an instance of this class.
+    Every <See Class=TFNCCADCmp> control has an instance of this class.
 
     This class manage all the layers and stream them on a file.
   }
@@ -2452,12 +2486,13 @@ type
       contained layers.
     }
     destructor Destroy; override;
-    { : This method saves only the modified layers into a drawing stream.
+    { : This method saves the modified layers as a JSON array. The
+      caller owns the result.
     }
-    procedure SaveToStream(const Stream: TStream);
-    { : This method retrieve the layers from a drawing stream.
+    function SaveToJSON: TJSONArray;
+    { : This method retrieves the layers from a JSON array.
     }
-    procedure LoadFromStream(const Stream: TStream; const Version: TCADVersion);
+    procedure LoadFromJSON(const AJSON: TJSONArray);
     { : This method set the canvas pen and brush values to the one defined by
       a layer.
 
@@ -2475,14 +2510,14 @@ type
     procedure RestoreLayers;
     { : This property contains the set of 256 layers.
 
-      Use this property to change the setting of a layer for a <See Class=TCADCmp>.
+      Use this property to change the setting of a layer for a <See Class=TFNCCADCmp>.
     }
     property Layers[Index: Byte]: TLayer read GetLayer; default;
     { : This property contains the set of 256 layers that can be accessed through
       their names.
 
       If <I=Nm> doesn't correspond to any of the layers it returns <B=nil>.
-      Use this property to change the setting of a layer for a <See Class=TCADCmp>.
+      Use this property to change the setting of a layer for a <See Class=TFNCCADCmp>.
     }
     property LayerByName[const Nm: TLayerName]: TLayer read GetLayerByName;
   end;
@@ -2490,7 +2525,7 @@ type
   { : This is a non visual control that is used to store and manage the list
     of graphic objects that defines a draw.
 
-    TCADCmp is an asbtract class use to define a common interface for
+    TFNCCADCmp is an asbtract class use to define a common interface for
     drawing management. In fact the control is not useble by itself
     because it doesn't specify the kind of objects that can be stored,
     but only assest what kind of operation are necessary for storing
@@ -2500,16 +2535,16 @@ type
     be drawed. Until you define a viewport from which see the objects
     these objects are only stored in a list that will be traversed to
     produce a draw as soon as you have defined such a viewport (see
-    <See Class=TCADViewport>) by linking a viewport control to the
-    TCADCmp (see <See Property=TCADViewport@CADCmp>).
+    <See Class=TFNCCADViewport>) by linking a viewport control to the
+    TFNCCADCmp (see <See Property=TFNCCADViewport@CADCmp>).
 
     The first thing you must define is the kind of objects you want to
     use:
 
     <LI=If you want to create 2D drawings use the control
-    <See Class=TCADCmp2D> >
+    <See Class=TFNCCADCmp2D> >
     <LI=If you want to create 3D drawings use the control
-    <See Class=TCADCmp3D> >
+    <See Class=TFNCCADCmp3D> >
 
     these specific controls are derived from this one implementing
     the abstract method to handle 2D or 3D objects.
@@ -2529,7 +2564,7 @@ type
     special 3D operation (like implementing spatial partitioning
     with BSP).
   }
-  TCADCmp = class(TComponent)
+  TFNCCADCmp = class(TComponent)
   private
     fVersion: TCADVersion; { The version info is used in file I/O. }
     fListOfObjects, fListOfBlocks: TGraphicObjList;
@@ -2546,9 +2581,11 @@ type
     { event handlers. }
     fOnAddObject: TAddObjectEvent;
     fOnVerError: TBadVersionEvent;
-    fOnVerErrorEx: TBadVersionExEvent;
     fOnLoadProgress: TOnLoadProgress;
     fOnSaveProgress: TOnSaveProgress;
+    { Checks the document header and fires OnInvalidFileVersion. }
+    procedure CheckJSONDocument(const AJSON: TJSONObject; const Kind: String;
+      const AStreamType: TStreamType);
 
     function GetListOfObjects: TGraphicObjIterator;
     function GetListOfBlocks: TGraphicObjIterator;
@@ -2565,11 +2602,11 @@ type
     function GetDefaultLayersColor: TColor;
     { Add the indicated Viewport. This function is automatically called by
       a Viewport so the user have no need to call it directly. }
-    procedure AddViewports(const VP: TCADViewport);
+    procedure AddViewports(const VP: TFNCCADViewport);
     { Delete the indicated Viewport. This function is automatically called
       by a Viewport so the user have no need to call it directly. }
-    procedure DelViewports(const VP: TCADViewport);
-    function GetViewport(Idx: Integer): TCADViewport;
+    procedure DelViewports(const VP: TFNCCADViewport);
+    function GetViewport(Idx: Integer): TFNCCADViewport;
     function GetViewportsCount: Integer;
   protected
     { : This method loads the blocks definitions (see <See Class=TSourceBlock2D> and
@@ -2599,8 +2636,7 @@ type
 
       See also <See=Object's Persistance@PERSISTANCE>.
     }
-    procedure LoadBlocksFromStream(const Stream: TStream;
-      const Version: TCADVersion); virtual; abstract;
+    procedure LoadBlocksFromJSON(const AJSON: TJSONArray); virtual; abstract;
     { : This method saves the blocks definitions (see <See Class=TSourceBlock2D> and
       <See Class=TSourceBlock3D>) to a drawing.
       This is an abstract method that must be implemented in a concrete control.
@@ -2616,7 +2652,7 @@ type
 
       See also <See=Object's Persistance@PERSISTANCE>.
     }
-    procedure SaveBlocksToStream(const Stream: TStream;
+    procedure SaveBlocksToJSON(const AJSON: TJSONArray;
       const AsLibrary: Boolean); virtual; abstract;
     { : This method loads the objects saved in a drawing stream.
 
@@ -2636,8 +2672,7 @@ type
 
       See also <See=Object's Persistance@PERSISTANCE>.
     }
-    procedure LoadObjectsFromStream(const Stream: TStream;
-      const Version: TCADVersion); virtual; abstract;
+    procedure LoadObjectsFromJSON(const AJSON: TJSONArray); virtual; abstract;
     { : This method saves the objects in the display list to a drawing stream.
       This is an abstract method that must be implemented in a concrete control.
 
@@ -2645,12 +2680,7 @@ type
 
       See also <See=Object's Persistance@PERSISTANCE>.
     }
-    procedure SaveObjectsToStream(const Stream: TStream); virtual; abstract;
-
-    procedure LoadObjectsFromJSON(const AJSONObject: TJSONObject;
-      const Version: TCADVersion); virtual; abstract;
-    procedure SaveObjectsToJSON(const AJSONObject: TJSONObject);
-      virtual; abstract;
+    procedure SaveObjectsToJSON(const AJSON: TJSONArray); virtual; abstract;
     { : This method adds a new source block.
 
       <I=ID> is the identifier number of the source block and Obj is the
@@ -2680,7 +2710,7 @@ type
       The returned reference is of type <See Class=TGraphicObject>, you must
       up-cast it to the appropriate class.
 
-      See also <See Method=TCADCmp@GetSourceBlock>.
+      See also <See Method=TFNCCADCmp@GetSourceBlock>.
     }
     function FindSourceBlock(const
 {%H-}SrcName: TSourceBlockName): TGraphicObject;
@@ -2690,7 +2720,7 @@ type
       The returned reference is of type <See Class=TGraphicObject>, you must
       up-cast it to the appropriate class.
 
-      See also <See Method=TCADCmp@FindSourceBlock>.
+      See also <See Method=TFNCCADCmp@FindSourceBlock>.
     }
     function GetSourceBlock(ID: LongInt): TGraphicObject;
     { : This method adds a new object.
@@ -2698,12 +2728,12 @@ type
       <I=ID> is the identifier number of the object to add and Obj is the
       object to add. The library doesn't check for uniqueness of
       object's ID. The given ID substitute the ID of Obj. The object
-      will be placed on the current layer (see <See Property=TCADCmp@CurrentLayer>).
+      will be placed on the current layer (see <See Property=TFNCCADCmp@CurrentLayer>).
 
       The object is added after all the objects in the control, and will be
       drawed in front of them. Use <See Method=TGraphicObjList@Move> method
-      on <See Property=TCADCmp@ObjectList> to change the this order; or use
-      <See Method=TCADCmp@InsertObject> to add the object in a specified
+      on <See Property=TFNCCADCmp@ObjectList> to change the this order; or use
+      <See Method=TFNCCADCmp@InsertObject> to add the object in a specified
       position in the list.
 
       The method returns the added object.
@@ -2714,7 +2744,7 @@ type
       <I=ID> is the identifier number of the object to insert and Obj is the
       object to insert. The library doesn't check for uniqueness of
       object's ID. The given ID substitute the ID of Obj. The object
-      will be placed on the current layer (see <See Property=TCADCmp@CurrentLayer>).
+      will be placed on the current layer (see <See Property=TFNCCADCmp@CurrentLayer>).
       <I=IDInsertPoint> is the object's ID of the object in front of which <I=Obj>
       will be inserted. So <I=Obj> is drawed before this object and appear under it.
       The objects are drawed in the order in which they appear in the list.
@@ -2737,10 +2767,10 @@ type
 
       <I=Obj> is the object to be drawed. This object will be drawed with
       the appropriate colour on all the viewports linked to the control
-      (see <See Property=TCADCmp@Viewports>).
+      (see <See Property=TFNCCADCmp@Viewports>).
 
       The viewports will also be refreshed after the drawing
-      (see <See Method=TCADViewport@Refresh>).
+      (see <See Method=TFNCCADViewport@Refresh>).
     }
     procedure RedrawObject(const Obj: TGraphicObject);
     { : This property contains the list of objects of the control.
@@ -2749,8 +2779,8 @@ type
       the methods of the list of graphic objects (see <See Class=TGraphicObjList>).
 
       If you want to traverse the list of object use the methods
-      <See Method=TCADCmp@ObjectsIterator>,
-      <See Method=TCADCmp@ObjectsExclusiveIterator> to obtain iterators on the
+      <See Method=TFNCCADCmp@ObjectsIterator>,
+      <See Method=TFNCCADCmp@ObjectsExclusiveIterator> to obtain iterators on the
       display list.
 
       This property is useful if you want to use an optimized list instead of the
@@ -2766,8 +2796,8 @@ type
       the methods of the list of graphic objects (see <See Class=TGraphicObjList>).
 
       If you want to traverse the list of source blocks use the methods
-      <See Method=TCADCmp@SourceBlocksIterator>,
-      <See Method=TCADCmp@SourceBlocksExclusiveIterator> to obtain iterators on the
+      <See Method=TFNCCADCmp@SourceBlocksIterator>,
+      <See Method=TFNCCADCmp@SourceBlocksExclusiveIterator> to obtain iterators on the
       source block list.
 
       This property is useful if you want to use an optimized list instead of the
@@ -2782,10 +2812,10 @@ type
 
       It sets the control in the following state:
 
-      <LI=<See property=TCADCmp@CurrentLayer> set to 0>
-      <LI=<See property=TCADCmp@DrawOnAdd> set to <B=False> >
-      <LI=<See property=TCADCmp@RepaintAfterTransform> set to <B=True> >
-      <LI=<See property=TCADCmp@DefaultLayersColor> set to <B=clBlack> >
+      <LI=<See property=TFNCCADCmp@CurrentLayer> set to 0>
+      <LI=<See property=TFNCCADCmp@DrawOnAdd> set to <B=False> >
+      <LI=<See property=TFNCCADCmp@RepaintAfterTransform> set to <B=True> >
+      <LI=<See property=TFNCCADCmp@DefaultLayersColor> set to <B=cadtcBlack> >
     }
     constructor Create(AOwner: TComponent); override;
     { : This is the destructor of the control.
@@ -2803,11 +2833,11 @@ type
       doesn't contains a valid drawing then a <See Class=ECADFileNotValid>
       exception will be raised. If the drawing was created with a
       different version that the current one the drawing will be converted or
-      the event <See Property=TCADCmp@OnInvalidFileVersion> will be fired.
+      the event <See Property=TFNCCADCmp@OnInvalidFileVersion> will be fired.
 
       Use this method to mix one or more drawing in one.
 
-      See also <See Method=TCADCmp@MergeFromFile>.
+      See also <See Method=TFNCCADCmp@MergeFromFile>.
 
       <B=Note>: If the two drawings have different layer tables, then
       the one in the draw to merge will be used.
@@ -2820,12 +2850,12 @@ type
       <See Class=ECADFileNotValid>
       exception will be raised. If the drawing was created with a
       different version that the current one the drawing will be converted or
-      the event <See Property=TCADCmp@OnInvalidFileVersion> will be fired.
+      the event <See Property=TFNCCADCmp@OnInvalidFileVersion> will be fired.
 
       The current drawing is abbandoned when this method is called. The
       source blocks that are not library block will be also abbandoned.
 
-      See also <See Method=TCADCmp@LoadFromFile>.
+      See also <See Method=TFNCCADCmp@LoadFromFile>.
     }
     procedure LoadFromStream(const Stream: TStream);
     { : This method saves a drawing into a stream.
@@ -2834,7 +2864,7 @@ type
       are no library blocks are saved with the drawing. Only the layers
       modified will be saved with the drawing.
 
-      See also <See Method=TCADCmp@SaveToFile>.
+      See also <See Method=TFNCCADCmp@SaveToFile>.
     }
     procedure SaveToStream(const Stream: TStream);
     { : This method loads the source blocks saved to a librarian stream.
@@ -2844,7 +2874,7 @@ type
       <See Class=ECADFileNotValid>
       exception will be raised. If the library file was created with a
       different version that the current one the library will be converted or
-      the event <See Property=TCADCmp@OnInvalidFileVersion> will be fired.
+      the event <See Property=TFNCCADCmp@OnInvalidFileVersion> will be fired.
 
       The source blocks will be added to the current ones.
     }
@@ -2854,7 +2884,7 @@ type
       <I=Stream> is the destination stream. Only the source blocks that
       are library blocks are saved.
 
-      See also <See Method=TCADCmp@SaveToFile>.
+      See also <See Method=TFNCCADCmp@SaveToFile>.
     }
     procedure SaveLibrary(const Stream: TStream);
     { : This method loads a drawing in the current one.
@@ -2865,11 +2895,11 @@ type
       doesn't contains a valid drawing then a <See Class=ECADFileNotValid>
       exception will be raised. If the drawing was created with a
       different version that the current one the drawing will be converted or
-      the event <See Property=TCADCmp@OnInvalidFileVersion> will be fired.
+      the event <See Property=TFNCCADCmp@OnInvalidFileVersion> will be fired.
 
       Use this method to mix one or more drawing in one.
 
-      See also <See Method=TCADCmp@MergeFromStream>.
+      See also <See Method=TFNCCADCmp@MergeFromStream>.
 
       <B=Note>: If the two drawings have different layer tables, then
       the one in the draw to merge will be used.
@@ -2882,12 +2912,12 @@ type
       <See Class=ECADFileNotValid>
       exception will be raised. If the drawing was created with a
       different version that the current one the drawing will be converted or
-      the event <See Property=TCADCmp@OnInvalidFileVersion> will be fired.
+      the event <See Property=TFNCCADCmp@OnInvalidFileVersion> will be fired.
 
       The current drawing is abbandoned when this method is called. The
       source blocks that are not library block will be also abbandoned.
 
-      See also <See Method=TCADCmp@LoadFromStream>.
+      See also <See Method=TFNCCADCmp@LoadFromStream>.
     }
     procedure LoadFromFile(const FileName: String);
     { : This method saves a drawing into a file.
@@ -2896,9 +2926,33 @@ type
       blocks that are no library blocks are saved with the drawing. Only
       the layers modified will be saved with the drawing.
 
-      See also <See Method=TCADCmp@SaveToStream>.
+      See also <See Method=TFNCCADCmp@SaveToStream>.
     }
     procedure SaveToFile(const FileName: String);
+    { : This method saves the whole drawing as a JSON document. The caller
+      owns the returned object.
+    }
+    function SaveToJSON: TJSONObject;
+    { : This method loads a drawing from a JSON document, discarding the
+      current one.
+    }
+    procedure LoadFromJSON(const AJSON: TJSONObject);
+    { : This method merges a JSON drawing document into the current drawing.
+    }
+    procedure MergeFromJSON(const AJSON: TJSONObject);
+    { : This method saves the library blocks as a JSON document. The caller
+      owns the returned object.
+    }
+    function SaveLibraryToJSON: TJSONObject;
+    { : This method loads source blocks from a JSON library document.
+    }
+    procedure LoadLibraryFromJSON(const AJSON: TJSONObject);
+    { : This method returns the drawing as JSON text.
+    }
+    function SaveToJSONString(const Pretty: Boolean = True): String;
+    { : This method loads a drawing from JSON text.
+    }
+    procedure LoadFromJSONString(const AText: String);
     { : This method deletes the source block with the specified ID.
 
       <I=ID> is the identification number of the source block. If no such
@@ -2997,14 +3051,14 @@ type
     }
     procedure DeleteAllObjects;
     { : This method repaint all the linked viewports
-      (see <See Property=TCADCmp@Viewports>).
+      (see <See Property=TFNCCADCmp@Viewports>).
 
       This method is useful to regenerate all the viewports that display the
       objects.
     }
     procedure RepaintViewports; virtual;
     { : This method refresh all the linked viewports
-      (see <See Property=TCADCmp@Viewports>).
+      (see <See Property=TFNCCADCmp@Viewports>).
 
       This method is useful to update the viewports' images without
       redraw all the objects, but simply by copying the off-screen
@@ -3018,9 +3072,9 @@ type
       not simply stored in the CADCmp, so you have to delete it by yourself.
 
       This method is useful when you change the background color of the viewports
-      and the default color (clWhite) will be difficul to see.
+      and the default color (cadtcWhite) will be difficul to see.
     }
-    procedure SetDefaultBrush(const Brush: TBrush);
+    procedure SetDefaultBrush(const Brush: TCADBrush);
     { : This method sets the default pen of the unmodified layers.
 
       <I=Pen> is the pen that will be assigned to the pen of the
@@ -3028,9 +3082,9 @@ type
       not simply stored in the CADCmp, so you have to delete it by yourself.
 
       This method is useful when you change the background color of the viewports
-      and the default color (clBlack) will be difficul to see.
+      and the default color (cadtcBlack) will be difficul to see.
     }
-    procedure SetDefaultPen(const Pen: TPen);
+    procedure SetDefaultPen(const Pen: TCADPen);
     { : This property must be used to obtain an iterator on the display list
       of the objects.
 
@@ -3116,19 +3170,19 @@ type
 
       A viewport is a visual components that display the world defined
       by the CADCmp control. <I=Idx> is the index of the viewport from
-      0 to <See Property=TCADCmp@ViewportsCount> - 1.
+      0 to <See Property=TFNCCADCmp@ViewportsCount> - 1.
 
       Use this property if you want to change some of the properties of
       the viewports that use the CADCmp control or if you want to apply
       to all of them an operation.
 
-      See also <See Class=TCADViewport>.
+      See also <See Class=TFNCCADViewport>.
     }
-    property Viewports[Idx: Integer]: TCADViewport read GetViewport;
+    property Viewports[Idx: Integer]: TFNCCADViewport read GetViewport;
     { : This property contains the number of viewport that are linked
       to the control.
 
-      See also <See Class=TCADCmp@Viewports>.
+      See also <See Class=TFNCCADCmp@Viewports>.
     }
     property ViewportsCount: Integer read GetViewportsCount;
   published
@@ -3151,7 +3205,7 @@ type
       Modified layers are unchanged.
     }
     property DefaultLayersColor: TColor read GetDefaultLayersColor
-      write SetDefaultLayersColor default clBlack;
+      write SetDefaultLayersColor default cadtcBlack;
     { : EVENTS }
     { : This property may contain an event handler that is
       called when an object is loaded into the control.
@@ -3181,15 +3235,13 @@ type
     }
     property OnInvalidFileVersion: TBadVersionEvent read fOnVerError
       write fOnVerError;
-    property OnInvalidFileVersionEx: TBadVersionExEvent read fOnVerErrorEx
-      write fOnVerErrorEx;
   end;
 
   { : This class defines a viewport with which it is possible to render
     the contents of a CAD control. This is a visual component.
 
     The viewport is a 2D windows through which you can see a virtual world.
-    The world is stored in a <See Class=TCADCmp> control as a list (display list)
+    The world is stored in a <See Class=TFNCCADCmp> control as a list (display list)
     of graphic objects. The world used here is dimension less, so this component
     is not directly usable but it defines only an abstract interface.
 
@@ -3203,55 +3255,88 @@ type
     of the control (Mapping).>
 
     This control defines and uses only the second component of the transformation
-    (see <See Method=TCADViewport@BuildViewportTransform>). The other one is
+    (see <See Method=TFNCCADViewport@BuildViewportTransform>). The other one is
     dimension dependent and so must be defined in derived classes.
 
     You manage the window position and size (that is modify the second component
     of the above transformations) using the property
-    <See Property=TCADViewport@VisualRect>, that is the portion of the
+    <See Property=TFNCCADViewport@VisualRect>, that is the portion of the
     window plane that you see on the canvas of the control.
     You change the VisualRect using the zooming methods (see
-    <See Method=TCADViewport@ZoomIn>, <See Method=TCADViewport@ZoomOut>,
-    <See Method=TCADViewport@ZoomWindow>, <See Method=TCADViewport@ZoomToExtension>
-    <See Method=TCADViewport@PanWindow> and <See Method=TCADViewport@MoveWindow>).
+    <See Method=TFNCCADViewport@ZoomIn>, <See Method=TFNCCADViewport@ZoomOut>,
+    <See Method=TFNCCADViewport@ZoomWindow>, <See Method=TFNCCADViewport@ZoomToExtension>
+    <See Method=TFNCCADViewport@PanWindow> and <See Method=TFNCCADViewport@MoveWindow>).
     All of these changes the mapping transformation (the second component explained
     above).
 
     A viewport use a back buffer to store the current rapresentation of the
-    CADCmp display list. When you start a <See Method=TCADViewport@Repaint>,
+    CADCmp display list. When you start a <See Method=TFNCCADViewport@Repaint>,
     this buffer is created and copied on the canvas of the control.
     The repaint can use a thread (painting thread) to allow the user to stop
     the operation at any time. However using a thread require some additional
     steps that require a bit of time, so it is advisable to use the thread
-    (see <See Property=TCADViewport@UsePaintingThread>) only when you have
+    (see <See Property=TFNCCADViewport@UsePaintingThread>) only when you have
     a complex draw made up of thousand of objects.
     During the repaint process you can also copy the buffer content on the
     on screen canvas when a prestabilited number of objects (see
-    <See Property=TCADViewport@CopingFrequency> property) is drawed. This
+    <See Property=TFNCCADViewport@CopingFrequency> property) is drawed. This
     gives a useful feedback to the user.
 
-    See also <See Class=TCADViewport2D> and <See Class=TCADViewport3D>.
+    See also <See Class=TFNCCADViewport2D> and <See Class=TFNCCADViewport3D>.
   }
 
-  { TCADViewport }
+  { TFNCCADViewport }
 
-  TCADViewport = class(TCustomControl)
+  { : Signatures the CAD program hooks onto a viewport to receive input.
+
+    They replace the window subclassing the program used to do: there is
+    no window handle to subclass on FMX or LCL. Returning <B=False> means
+    the CAD program consumed the event and the control should not run its
+    own handling for it.
+  }
+  TCADViewportMouseHook = function(Sender: TObject; Button: TMouseButton;
+    Shift: TShiftState; var X, Y: SmallInt): Boolean of object;
+  TCADViewportMouseMoveHook = function(Sender: TObject; Shift: TShiftState;
+    var X, Y: SmallInt): Boolean of object;
+  TCADViewportKeyHook = function(Sender: TObject; var Key: Word;
+    Shift: TShiftState): Boolean of object;
+  TCADViewportSimpleHook = function(Sender: TObject): Boolean of object;
+
+  TFNCCADViewport = class(TTMSFNCCustomControl)
   private
     fViewGuard: TCADSysCriticalSection;
-    fCADCmp: TCADCmp;
+    fCADCmp: TFNCCADCmp;
     fDrawMode: Cardinal;
     fVisualWindow: TRect2D; { The current viewport on the view plane. }
     fViewportToScreen, fScreenToViewport: TTransf2D;
     { To speed the inversion of the matrix I keep either. }
     fAspectRatio: TRealType;
     fRubberPenColor, fBackGroundColor, fGridColor, fControlPointsColor: TColor;
-    fRubberPen: TPen;
+    fRubberPen: TCADSimplePen;
     { FOffScreenBitmap contain the off-screen bitmap used by the Viewport. The
       Viewport use FOffScreenBitmap to store the actual view of the draw. When
       the draw change the FOffScreenBitmap is redrawed. During a repaint the
       FOffScreenBitmap is put on the canvas. }
-    fOffScreenBitmap: TBitmap;
+    fOffScreenBitmap: TTMSFNCBitmap;
     fOffScreenCanvas: TDecorativeCanvas;
+{$IFNDEF CADSYS_VCL}
+    { FMX and LCL have no GDI backend, so the back buffer is drawn
+      through FNC like everything else. This is the TTMSFNCGraphics that
+      sits on the bitmap's canvas; the TCADFNCGraphics inside
+      fOffScreenCanvas owns it, and this field is kept only so the
+      repaint can open and close its scene. fOffScreenCAD is the backend
+      on top of it, kept for the same reason - its clip can only be
+      applied once that scene is open. }
+    fOffScreenFNC: TTMSFNCGraphics;
+    fOffScreenCAD: TCADFNCGraphics;
+    { Scenes nest: a full repaint opens one, and an incremental draw
+      inside it must not close it early. }
+    fOffScreenSceneDepth: Integer;
+{$ENDIF}
+    { The on-screen canvas draws through the FNC graphics the control is
+      given in Draw. Outside a paint nothing is attached and every call
+      through it is a no-op - see TCADFNCGraphics.Attach. }
+    fOnScreenGraphics: TCADFNCGraphics;
     fOnScreenCanvas: TDecorativeCanvas;
     fCopingFrequency: Integer;
     { Indica ogni quanto copiare il buffbitmap sul canvas quando si usa il threading. }
@@ -3270,9 +3355,21 @@ type
     fOnViewMappingChanged: TNotifyEvent;
     fOnMouseEnter, fOnMouseLeave: TNotifyEvent;
 
-    { Multithread support. }
-    fPaintingThread: TObject;
+    { Kept so that a .dfm written before the painting thread was removed
+      still loads. See UsePaintingThread. }
     fUseThread: Boolean;
+    { True while UpdateViewport is traversing the display list. }
+    fInRepainting: Boolean;
+    { True while Draw is running, when the overlay may really paint. }
+    fInDraw: Boolean;
+    { Nesting depth of BeginOverlay / EndOverlay. }
+    fOverlayDepth: Integer;
+    fOnPaintOverlay: TNotifyEvent;
+    { Input hooks owned by the linked TFNCCADPrg, not published. }
+    fCADMouseDown, fCADMouseUp: TCADViewportMouseHook;
+    fCADMouseMove: TCADViewportMouseMoveHook;
+    fCADKeyDown, fCADKeyUp: TCADViewportKeyHook;
+    fCADDblClick: TCADViewportSimpleHook;
 
     { Set method for the property. }
     procedure SetRubberColor(const Cl: TColor);
@@ -3281,66 +3378,99 @@ type
     procedure SetGridColor(const Cl: TColor);
     procedure SetShowGrid(const B: Boolean);
     procedure SetOnClearCanvas(const H: TClearCanvas);
-    procedure ClearCanvas({%H-}Sender: TObject; Cnv: TCanvas;
+    procedure ClearCanvas({%H-}Sender: TObject; Cnv: TDecorativeCanvas;
       const ARect: TRect2D; const BackCol: TColor);
     procedure DoCopyCanvas(const GenEvent: Boolean);
-    procedure DoCopyCanvasThreadSafe;
-    procedure CalibrateCnv(const Cnv: TCanvas; XScale, YScale: TRealType);
     { NEW. Cambia il mapping chiamando BuildViewportTransform. }
     procedure ChangeViewportTransform(ViewWin: TRect2D);
 
-    { Per il thread }
-    procedure StopPaintingThread;
     { Se sono in repainting lo blocco e ricomincio. }
     procedure UpdateViewport(const ARect: TRect2D);
+    { : The body of UpdateViewport. Split out only so that UpdateViewport
+      itself is nothing but the scene bracket around it, which is easier
+      to see is balanced than a try..finally wrapped round eighty lines. }
+    procedure DoUpdateViewport(const ARect: TRect2D);
     { repaint all the objects contained in ARect. }
     function GetInRepaint: Boolean;
     procedure DoResize;
-    procedure CopyBitmapOnCanvas(const DestCnv: TCanvas; const Bmp: TBitmap;
-      IRect: TRect; IsTransparent: Boolean; TransparentColor: TColor);
+    procedure CopyBitmapOnCanvas(const AGraphics: TTMSFNCGraphics;
+      const Bmp: TTMSFNCBitmap; IRect: TRect; {%H-}IsTransparent: Boolean;
+      {%H-}TransparentColor: TColor); dynamic;
     procedure SetDeltaX(const V: TRealType);
     procedure SetDeltaY(const V: TRealType);
     procedure SetSubX(const V: TRealType);
     procedure SetSubY(const V: TRealType);
   protected
     { Protected declarations }
-    procedure CreateParams(var Params: TCreateParams); override;
     { : This method is called at the creation of the control to
       create the decorative canvas for it. You can override it
       to use your specialized decorative canvas.
 
       Note that only the off screen canvas can be personalized.
-    }
-    function CreateOffScreenCanvas(const Cnv: TCanvas)
-      : TDecorativeCanvas; dynamic;
-    { : This method is called when a painting thread (if used) is terminated.
 
-      It sets the thread instance reference to nil (the thread is freed by
-      itself). It also copy the backbuffer on the canvas of the control.
-
-      See also <See Property=TCADViewport@UsePaintingThread>.
+      It used to take the back buffer's TCanvas. It does not any more:
+      there is no TCanvas to pass on FMX, and which backend belongs on
+      the buffer is a decision only this class can make. A descendant
+      reads <See Property=TFNCCADViewport@OffScreenBitmap> instead.
     }
-    procedure OnThreadEnded({%H-}Sender: TObject); dynamic;
+    function CreateOffScreenCanvas: TDecorativeCanvas; dynamic;
+    { : Resizes the back buffer to the control and, where the framework
+      needs it, rebuilds the drawing stack that sits on it. }
+    procedure ResizeOffScreen;
+    { : Opens and closes a drawing scene on the back buffer. On the VCL
+      these do nothing - GDI has no such notion - and on FMX and LCL
+      they are what makes drawing into the bitmap legal. }
+    procedure BeginOffScreenScene;
+    procedure EndOffScreenScene;
+  public
+    { : Sets the view so that one drawing unit is XScale by YScale
+      millimetres on a device with the given millimetres per pixel.
+
+      Public, and it has to be: the calibration that used to live on
+      this class moved to FNCCS4ExportVCL in step 5b, because asking a
+      device for its physical size is a GDI question and has no FMX
+      answer. That companion is a separate unit, so this cannot stay
+      private - and it was, which is why FNCCS4ExportVCL had never
+      actually compiled. The geometry stays here; only the question
+      "how big is a pixel on this device" moved out. }
+    procedure CalibrateMM(const AMMPerPixelX, AMMPerPixelY: TRealType;
+      XScale, YScale: TRealType);
+    { : The control's own area, as a TRect with the origin at its top
+      left corner.
+
+      This is what ClientRect used to be. FMX has no ClientRect on a
+      control - it has LocalRect, and that is a TRectF - so the one
+      spelling that works everywhere is to build it from Width and
+      Height, which is also exactly how the back buffer is sized. }
+    function ControlRect: TRect;
+    { : True when the control is far enough along to be painted.
+
+      On VCL and LCL that is HandleAllocated: before the window exists
+      there is nothing to paint on, and asking would create one. An FMX
+      control has no handle of its own, so the question does not arise
+      and all that is left to check is that it is not being destroyed. }
+    function IsRealized: Boolean;
+  protected
     { : This method copies the backbuffer image on the canvas of the control.
 
       <I=Rect> is the rectangle of the backbuffer to be copied on the same
       rectangle on the canvas of the control (remember that the two canvases
       have the same size); if <I=GenEvent> is <B=True> the an
-      <See Property=TCADViewport@OnPaint> event will be fired after the copy.
+      <See Property=TFNCCADViewport@OnPaint> event will be fired after the copy.
     }
     procedure CopyBackBufferRectOnCanvas(const Rect: TRect;
       const GenEvent: Boolean); dynamic;
-    { : This method sets the <See Class=TCADCmp> control that contains the display list
+    { : This method sets the <See Class=TFNCCADCmp> control that contains the display list
       to be drawed.
 
       <I=Cad> is the control reference to which the viewport will be linked.
       If it is <B=nil> the viewport will be removed from the current CAD
       to which it is linked.
 
-      See also <See Property=TCADCmp@Viewports> property.
+      See also <See Property=TFNCCADCmp@Viewports> property.
     }
-    procedure SetCADCmp(Cad: TCADCmp); virtual;
-    { : This method handles the WM_PAINT message of Windows.
+    procedure SetCADCmp(Cad: TFNCCADCmp); virtual;
+    { : This method paints the control.
 
       It firstly check to see if the dimension of the component are
       different with the ones of the back buffer canvas. In this case
@@ -3348,22 +3478,61 @@ type
       display list is rendered on it.
 
       After that the back buffer image is simply copied on the control
-      canvas and an <See Property=TCADViewport@OnPaint> event is fired.
+      canvas and an <See Property=TFNCCADViewport@OnPaint> event is fired.
     }
-    procedure Paint; override; { Repaint all the objects. }
-    procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
+    { : Paints the control: the off-screen buffer, then the transient
+      overlay on top of it.
+
+      An FNC control may only draw here, which is why the overlay is
+      painted from this method rather than whenever the mouse moves.
+      See <See Method=TFNCCADViewport@BeginOverlay>.
+    }
+    { : Raise the framework-neutral mouse events of the descendants -
+      <See Property=TFNCCADViewport2D@OnMouseDown2D> and its siblings.
+
+      They are called from the Handle* methods, after the CAD program has
+      had the event and only if it did not consume it. That is the order
+      the window subclassing used to produce, and the reason these are not
+      raised from the VCL MouseDown / MouseMove / MouseUp any more: those
+      run before FNC routes anything, and do not exist on FMX at all.
+    }
+    procedure DoCADMouseDown({%H-}Button: TMouseButton;
+      {%H-}Shift: TShiftState; {%H-}X, {%H-}Y: Integer); dynamic;
+    procedure DoCADMouseMove({%H-}Shift: TShiftState;
+      {%H-}X, {%H-}Y: Integer); dynamic;
+    procedure DoCADMouseUp({%H-}Button: TMouseButton;
+      {%H-}Shift: TShiftState; {%H-}X, {%H-}Y: Integer); dynamic;
+    procedure HandleMouseDown(Button: TTMSFNCMouseButton; Shift: TShiftState;
+      X, Y: Single); override;
+    procedure HandleMouseMove(Shift: TShiftState; X, Y: Single); override;
+    procedure HandleMouseUp(Button: TTMSFNCMouseButton; Shift: TShiftState;
+      X, Y: Single); override;
+    procedure HandleDblClick(X, Y: Single); override;
+    procedure HandleKeyDown(var Key: Word; Shift: TShiftState); override;
+    procedure HandleKeyUp(var Key: Word; Shift: TShiftState); override;
+    procedure Draw(AGraphics: TTMSFNCGraphics; ARect: TRectF); override;
+    { : Paints everything that lives on top of the drawing. Override it to
+      add your own decorations; call inherited to keep the
+      <See Property=TFNCCADViewport@OnPaintOverlay> handlers.
+    }
+    procedure DrawOverlay; dynamic;
     // procedure WMSize(var Message: TLMSize); message LM_SIZE;
   public
-    procedure SetBounds(ALeft, ATop, AWidth, AHeight: Integer); override;
+    { : Was an override of SetBounds. FMX declares that one with Single
+      coordinates, so the signature cannot be shared. Resize is the hook
+      all three frameworks agree on - TTMSFNCCustomControl overrides it
+      on every flavour - and it has the small advantage of firing only
+      when the size really changed, not on a move. }
+    procedure Resize; override;
   protected
-    procedure CMMouseEnter(var Message: TMessage); message CM_MOUSEENTER;
-    procedure CMMouseLeave(var Message: TMessage); message CM_MOUSELEAVE;
+    procedure HandleMouseEnter; override;
+    procedure HandleMouseLeave; override;
     { : This method is called by the viewport whenever a changing in the
       mapping transform from window plane (view plane) and canvas
       rectangle is required.
 
       It must returns a 2d transform matrix that transforms the 2d points
-      in the visual rect (see <See Property=TCADViewport@VisualRect>)
+      in the visual rect (see <See Property=TFNCCADViewport@VisualRect>)
       in the 2d points in the client rectangle of the control Canvas.
 
       <I=ViewWin> is the visual rect (that is the portion of
@@ -3373,7 +3542,7 @@ type
 
       If AspectRatio is zero then no aspect ratio is specified, otherwise the
       aspect ratio must modify the <I=ViewWin> dimensions so that they preserve
-      this aspect ratio. The new ViewWin will became the <See Property=TCADViewport@VisualRect>
+      this aspect ratio. The new ViewWin will became the <See Property=TFNCCADViewport@VisualRect>
       of the viewport.
 
       You must redefine this method if you want to create a new viewport,
@@ -3392,10 +3561,11 @@ type
       the control; <I=Cnv> is the canvas on which draw the grid.
 
       By default it draws a grid that originates in (0, 0) and has an X step
-      and Y step specified by the <See Property=TCADViewport@GridDeltaX>,
-      <See Property=TCADViewport@GridDeltaY> properties.
+      and Y step specified by the <See Property=TFNCCADViewport@GridDeltaX>,
+      <See Property=TFNCCADViewport@GridDeltaY> properties.
     }
-    procedure DrawGrid(const ARect: TRect2D; const Cnv: TCanvas); virtual;
+    procedure DrawGrid(const ARect: TRect2D;
+      const Cnv: TDecorativeCanvas); virtual;
     { : This method draws an object on a canvas, by transforming it with the
       view transform.
 
@@ -3422,11 +3592,11 @@ type
       method of the specialized object. You have also to check for
       visibility in this method, to reduce the time of drawing.
 
-      The object is drawed with the <See Property=TCADViewport@RubberPen>
+      The object is drawed with the <See Property=TFNCCADViewport@RubberPen>
       pen. This is useful when you want to simulate the rubber band method
       , so when the same object is drawed twice the second time remove the
       object from the canvas leaving it as it was before any draw taken place.
-      This is the default beaviour. See the <See Property=TCADViewport@RubberPenColor>
+      This is the default beaviour. See the <See Property=TFNCCADViewport@RubberPenColor>
       property for a way to change the color of the rubber pen.
 
       The method draws also the control points of the object if any control
@@ -3447,10 +3617,15 @@ type
       portion and <I=Cnv> is the destination canvas. <I=CopyMode> specify the
       type of the copy (see <See Type=TCanvasCopyMode>).
     }
+    { : Declared public for the same reason as CalibrateMM: printing and
+      clipboard export live in a companion unit now. }
+  public
     procedure CopyRectToCanvas(CADRect: TRect2D; const CanvasRect: TRect;
-      const Cnv: TCanvas; const Mode: TCanvasCopyMode); virtual; abstract;
+      const Cnv: TDecorativeCanvas; const Mode: TCanvasCopyMode);
+      virtual; abstract;
+  protected
     { : This method returns the mapping transform matrix that is used by the
-      <See Method=TCADViewport@CopyRectToCanvas> method to copy a portion of
+      <See Method=TFNCCADViewport@CopyRectToCanvas> method to copy a portion of
       the back buffer canvas on another canvas.
 
       <I=CADRect> is the portion (in view plane coordinates) of the view plane
@@ -3489,7 +3664,7 @@ type
     function GetScreenToViewport: TTransf2D; virtual;
     { : This method returns the width of a pixel in world coordinates.
       This method is used
-      by the <See Method=TCADViewport2D@PickObject> (<See Method=TCADViewport3D@PickObject>)
+      by the <See Method=TFNCCADViewport2D@PickObject> (<See Method=TFNCCADViewport3D@PickObject>)
       method.
 
       The point returned must be interpreted as:
@@ -3503,29 +3678,31 @@ type
     procedure Notification(AComponent: TComponent;
       Operation: TOperation); override;
 
-    { : The back-buffer bitmap. }
-    property OffScreenBitmap: TBitmap read fOffScreenBitmap;
   public
     { Public declarations }
+    { : The back-buffer bitmap. Public because CADCopyToClipboard hands
+      it to the clipboard, and because a descendant overriding
+      CreateOffScreenCanvas needs to see it. }
+    property OffScreenBitmap: TTMSFNCBitmap read fOffScreenBitmap;
     { : This is the constructor of the control.
 
       It creates a new viewport with the following properties:
 
-      <LI=<See Property=TCADViewport@VisualRect> is set to (0, 0)-(100, 100)>
-      <LI=<See Property=TCADViewport@DisableMouseEvents> is set to <B=False> >
-      <LI=<See Property=TCADViewport@DisableRepaintEvents> is set to <B=False> >
-      <LI=<See Property=TCADViewport@AspectRatio> is set to 0.0>
-      <LI=<See Property=TCADViewport@RubberPenColor> is set to clRed>
-      <LI=<See Property=TCADViewport@BackGroundColor> is set to clSilver>
-      <LI=<See Property=TCADViewport@GridColor> is set to clGray>
-      <LI=<See Property=TCADViewport@GridDeltaX> is set to 10>
-      <LI=<See Property=TCADViewport@GridDeltaY> is set to 10>
-      <LI=<See Property=TCADViewport@ControlPointsWidth> is set to 4>
-      <LI=<See Property=TCADViewport@ControlPointsColor> is set to <B=clRed> >
-      <LI=<See Property=TCADViewport@ShowControlPoints> is set to <B=True> >
-      <LI=<See Property=TCADViewport@ShowGrid> is set to <B=True> >
-      <LI=<See Property=TCADViewport@UsePaintingThread> is set to <B=False> >
-      <LI=<See Property=TCADViewport@CopingFrequency> is set to 100>
+      <LI=<See Property=TFNCCADViewport@VisualRect> is set to (0, 0)-(100, 100)>
+      <LI=<See Property=TFNCCADViewport@DisableMouseEvents> is set to <B=False> >
+      <LI=<See Property=TFNCCADViewport@DisableRepaintEvents> is set to <B=False> >
+      <LI=<See Property=TFNCCADViewport@AspectRatio> is set to 0.0>
+      <LI=<See Property=TFNCCADViewport@RubberPenColor> is set to cadtcRed>
+      <LI=<See Property=TFNCCADViewport@BackGroundColor> is set to cadtcSilver>
+      <LI=<See Property=TFNCCADViewport@GridColor> is set to cadtcGray>
+      <LI=<See Property=TFNCCADViewport@GridDeltaX> is set to 10>
+      <LI=<See Property=TFNCCADViewport@GridDeltaY> is set to 10>
+      <LI=<See Property=TFNCCADViewport@ControlPointsWidth> is set to 4>
+      <LI=<See Property=TFNCCADViewport@ControlPointsColor> is set to <B=cadtcRed> >
+      <LI=<See Property=TFNCCADViewport@ShowControlPoints> is set to <B=True> >
+      <LI=<See Property=TFNCCADViewport@ShowGrid> is set to <B=True> >
+      <LI=<See Property=TFNCCADViewport@UsePaintingThread> is set to <B=False> >
+      <LI=<See Property=TFNCCADViewport@CopingFrequency> is set to 100>
     }
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -3552,7 +3729,6 @@ type
       correctly set and so the resulting drawing might have
       an incorrect dimension.
     }
-    procedure Calibrate(const XScale, YScale: TRealType);
     { : This method set the visual rect to a specified rectangle.
 
       <I=NewWindow> is the new visual rect. This correspond to
@@ -3607,7 +3783,7 @@ type
       be copied (see <See Type=TCanvasCopyView>); <I=XScale> and
       <I=YScale> are used only if <I=View> is <I=cvScale> and have
       the same meaning of <I=XScale> and <I=YScale> of the
-      <See Method=TCADViewport@Calibrate> method.
+      <See Method=TFNCCADViewport@Calibrate> method.
 
       The diplay list is traversed and the objects are drawed onto
       the destination canvas. This method is useful to copy the
@@ -3616,17 +3792,18 @@ type
       It is also useful in printing the drawing on the printer, when
       the destination canvas is the canvas of the printer.
 
-      See also <See Method=TCADViewport@CopyToClipboard>.
+      See also <See Method=TFNCCADViewport@CopyToClipboard>.
     }
-    procedure CopyToCanvas(const Cnv: TCanvas; const Mode: TCanvasCopyMode;
-      const View: TCanvasCopyView; const XScale, YScale: TRealType); virtual;
+    procedure CopyToCanvas(const Cnv: TDecorativeCanvas;
+      const Mode: TCanvasCopyMode; const View: TCanvasCopyView;
+      const AMMPerPixelX, AMMPerPixelY: TRealType;
+      const XScale, YScale: TRealType); virtual;
     { : This method copy the current viewport contents to the clipboard.
 
       The backbuffer is copied into the clipboard as a bitmap data.
 
-      See also <See Method=TCADViewport@CopyToCanvas>.
+      See also <See Method=TFNCCADViewport@CopyToCanvas>.
     }
-    procedure CopyToClipboard(const Clp: TClipboard);
     { : This method start a group of updates so that only one repainting
       of the viewport take place at the end of the group.
 
@@ -3636,10 +3813,10 @@ type
       reducing the performance of your application (specially if the
       drawing is complex). To resolve this problem you may want to call
       this method just before starting to changes to the visual rect, and
-      then calling <See Method=TCADViewport@EndUpdate> to end the group.
-      When you call <See Method=TCADViewport@EndUpdate> the visual rect is
+      then calling <See Method=TFNCCADViewport@EndUpdate> to end the group.
+      When you call <See Method=TFNCCADViewport@EndUpdate> the visual rect is
       changed and the viewport is repainted. Only one
-      <See Property=TCADViewport@OnPaint> event is fired.
+      <See Property=TFNCCADViewport@OnPaint> event is fired.
     }
     procedure BeginUpdate;
     { : This method end a group of updates so that only one repainting
@@ -3650,29 +3827,42 @@ type
       a special visual rect, the viewport is repainted a lot of times,
       reducing the performance of your application (specially if the
       drawing is complex). To resolve this problem you may want to call
-      <See Method=TCADViewport@BeginUpdate> just before starting to changes to
+      <See Method=TFNCCADViewport@BeginUpdate> just before starting to changes to
       the visual rect, and then calling this method to end the group.
       When you call this method the visual rect is
       changed and the viewport is repainted. Only one
-      <See Property=TCADViewport@OnPaint> event is fired.
+      <See Property=TFNCCADViewport@OnPaint> event is fired.
     }
     procedure EndUpdate;
     { : This method repaints the viewport contents.
 
-      When you call this method the display list, of the <See Class=TCADCmp>
+      When you call this method the display list, of the <See Class=TFNCCADCmp>
       control associated to the viewport, is traversed and the objects contained
       in it are drawed on the viewport's off-screen buffer.
 
-      At the end of the traversion a <See Property=TCADViewport@OnPaint> event
+      At the end of the traversion a <See Property=TFNCCADViewport@OnPaint> event
       is fired.
 
       The redrawing process cannot be interrupted if you don't use a
       painting thread. If you use it then you can interrupt the process
-      by calling <See Method=TCADViewport@StopRepaint>. However if you
+      by calling <See Method=TFNCCADViewport@StopRepaint>. However if you
       use a painting thread the process takes a longer time.
     }
+{$IFDEF CADSYS_FMX}
+    { FMX's TControl.Repaint is not virtual, so this one hides it rather
+      than overriding it. That is on purpose and is not a problem here:
+      nothing in the framework calls Repaint on us, and everything in the
+      library that does holds a TFNCCADViewport, so it reaches this one.
+
+      It also keeps FNC Core out of a loop. Its FMX Invalidate is
+      implemented as 'Repaint', and that call is bound inside FNC's own
+      unit to the framework method - not to this one. Were this an
+      override, our Repaint would redraw the buffer, ask for a paint via
+      Invalidate, and be called straight back. }
+    procedure Repaint; reintroduce;
+{$ELSE}
     procedure Repaint; override;
-    procedure Invalidate; override;
+{$ENDIF}
     { : This method refreshes the viewport contents.
 
       The refresh consist of a copy of the off screen buffer on the
@@ -3687,17 +3877,17 @@ type
     { : This method repaints a partion of the visual rect.
 
       <I=ARect> is the portion of the visual rect to be repainted.
-      When you call this method the display list, of the <See Class=TCADCmp>
+      When you call this method the display list, of the <See Class=TFNCCADCmp>
       control associated to the viewport, is traversed and the objects contained
       , also partially, in the <I=ARect> portion of the visual rect
       are drawed on the viewport's off-screen buffer.
 
-      At the end of the traversion a <See Property=TCADViewport@OnPaint> event
+      At the end of the traversion a <See Property=TFNCCADViewport@OnPaint> event
       is fired.
 
       The redrawing process cannot be interrupted if you don't use a
       painting thread. If you use it then you can interrupt the process
-      by calling <See Method=TCADViewport@StopRepaint>. However if you
+      by calling <See Method=TFNCCADViewport@StopRepaint>. However if you
       use a painting thread the process takes a longer time.
     }
     procedure RepaintRect(const ARect: TRect2D);
@@ -3713,22 +3903,49 @@ type
       don't reflect changing in the objects already drawed by a repaint.
     }
     procedure RefreshRect(const ARect: TRect);
-    { : This method interrupts a repaint process.
+    { : <B=Obsolete>. Repainting is synchronous, so there is nothing to
+      interrupt and this method does nothing.
 
-      Only if you are using the painting threads this method is
-      able to interrupt a repaint process. Otherwise it does nothing.
+      It is still here because the library and application code calls it
+      in a great many places before touching the view.
     }
     procedure StopRepaint;
-    { : Wait for the painting thread to be finished.
-
-      When you use the painting thread to repaint the viewport, you
-      may want to wait for it to be finished. This method returns
-      only when the active painting thread (if any) is finished.
-
-      If you don't use the painting threads to repaint the viewport
-      this method does nothing.
+    { : <B=Obsolete>. Repainting is synchronous, so by the time you can
+      call this it has finished. Does nothing.
     }
     procedure WaitForRepaintEnd;
+    { : Starts painting the transient overlay - a rubber band, a drag
+      frame, the cursor cross - on the canvas of the control.
+
+      It restores the area from the off-screen buffer first, which is how
+      whatever the overlay drew last time disappears. The library used to
+      erase by drawing the same thing again with an XOR pen; no backend
+      other than GDI can do that, so the overlay is redrawn instead.
+
+      Calls nest: only the outermost pair restores and repaints.
+
+      Always pair it with <See Method=TFNCCADViewport@EndOverlay> in a
+      try..finally.
+    }
+    procedure BeginOverlay;
+    { : Ends an overlay paint started by
+      <See Method=TFNCCADViewport@BeginOverlay>.
+
+      When the outermost pair closes it fires
+      <See Property=TFNCCADViewport@OnPaintOverlay>, so that anything else
+      that owns a piece of the overlay - the CAD program's cursor cross -
+      can put itself back.
+    }
+    procedure EndOverlay;
+    { : Restores the drawing under the overlay and asks every overlay
+      owner to paint again. Shorthand for an empty
+      BeginOverlay / EndOverlay pair.
+    }
+    procedure RefreshOverlay;
+    { : True between <See Method=TFNCCADViewport@BeginOverlay> and
+      <See Method=TFNCCADViewport@EndOverlay>.
+    }
+    function InOverlay: Boolean;
     { : This method returns the 2D point in view plane coordinates that
       correspond to the specified point in Windows screen coordinates.
 
@@ -3751,7 +3968,7 @@ type
     function ViewportToScreen(const WPt: TPoint2D): TPoint2D; virtual;
     { : This method returns the width of a square in pixel in view plane coordinates.
       This method is used
-      by the <See Method=TCADViewport2D@PickObject> (<See Method=TCADViewport3D@PickObject>)
+      by the <See Method=TFNCCADViewport2D@PickObject> (<See Method=TFNCCADViewport3D@PickObject>)
       method.
 
       <I=L> is the width of the square in pixel that must be trasformed in
@@ -3764,7 +3981,7 @@ type
       The method returns <B=True> if the layer is visible.
     }
     function SetLayer(const L: TLayer): Boolean;
-    { : This property contains the <See Class=TCADCmp> control that
+    { : This property contains the <See Class=TFNCCADCmp> control that
       acts as the source for the drawing to be painted in the
       viewport.
 
@@ -3773,7 +3990,7 @@ type
 
       You must assign it before using the viewport.
     }
-    property CADCmp: TCADCmp read fCADCmp write SetCADCmp;
+    property CADCmp: TFNCCADCmp read fCADCmp write SetCADCmp;
     { : This property contains the off screen canvas used to
       store the drawing before copying it to the canvas of the
       control.
@@ -3795,7 +4012,7 @@ type
       system.
 
       This transform matrix is computed in the
-      <See Method=TCADViewport@BuildViewportTransform> method.
+      <See Method=TFNCCADViewport@BuildViewportTransform> method.
     }
     property ViewportToScreenTransform: TTransf2D read GetViewportToScreen;
     { : This property contains the mapping transform from the
@@ -3803,7 +4020,7 @@ type
 
       This transform matrix is computed as the inverse of the
       transform returned by the
-      <See Method=TCADViewport@BuildViewportTransform> method.
+      <See Method=TFNCCADViewport@BuildViewportTransform> method.
     }
     property ScreenToViewportTransform: TTransf2D read GetScreenToViewport;
     { : This property contains the portion of the view plane that is
@@ -3814,29 +4031,56 @@ type
     }
     property VisualRect: TRect2D read fVisualWindow write ZoomWindow;
     { : This property may contains a <See Class=TGraphicObjList> instance
-      to be used instead of the display list of the associated TCADCmp
+      to be used instead of the display list of the associated TFNCCADCmp
       control.
 
       If this property references an instance then it will be used
-      in the <See Method=TCADViewport@Repaint> method. Otherwise the
-      object's list of the associated TCADCmp is used.
+      in the <See Method=TFNCCADViewport@Repaint> method. Otherwise the
+      object's list of the associated TFNCCADCmp is used.
     }
     property ViewportObjects: TGraphicObjList read fViewportObjects
       write fViewportObjects;
     { : This property is <B=True> when the viewport is inside an
       update block.
 
-      See also <See Method=TCADViewport@BeginUpdate> and
-      <See Method=TCADViewport@EndUpdate>.
+      See also <See Method=TFNCCADViewport@BeginUpdate> and
+      <See Method=TFNCCADViewport@EndUpdate>.
     }
     property InUpdating: Boolean read fInUpdate;
     { : This property is <B=True> when the viewport is traversing the
       diplay list.
 
-      When you call the <See Method=TCADViewport@Repaint> method this
+      When you call the <See Method=TFNCCADViewport@Repaint> method this
       property becames <B=True>.
     }
     property InRepainting: Boolean read GetInRepaint;
+    { : Fired when the transient overlay has to be painted again, because
+      the viewport has just restored the area under it.
+
+      The CAD program hooks this to redraw its cursor cross. Anything else
+      that draws directly on the canvas of the control - and therefore
+      gets wiped by a repaint - belongs here too.
+
+      See also <See Method=TFNCCADViewport@BeginOverlay>.
+    }
+    property OnPaintOverlay: TNotifyEvent read fOnPaintOverlay
+      write fOnPaintOverlay;
+    { : Input hooks. A <See Class=TFNCCADPrg> attaches itself here when
+      you set its Viewport; an application normally uses the ordinary
+      OnMouseDown and friends instead.
+    }
+    property OnCADMouseDown: TCADViewportMouseHook read fCADMouseDown
+      write fCADMouseDown;
+    property OnCADMouseMove: TCADViewportMouseMoveHook read fCADMouseMove
+      write fCADMouseMove;
+    property OnCADMouseUp: TCADViewportMouseHook read fCADMouseUp
+      write fCADMouseUp;
+    property OnCADDblClick: TCADViewportSimpleHook read fCADDblClick
+      write fCADDblClick;
+    property OnCADKeyDown: TCADViewportKeyHook read fCADKeyDown
+      write fCADKeyDown;
+    property OnCADKeyUp: TCADViewportKeyHook read fCADKeyUp
+      write fCADKeyUp;
     { : This property is used to inhibit the mouse events fired by the
       viewport.
 
@@ -3848,7 +4092,7 @@ type
     { : This property is used to inhibit the repaint event fired by the
       viewport when it has repainted.
 
-      If it is <B=False> (the default) the <See Property=TCADViewport@OnPaint>
+      If it is <B=False> (the default) the <See Property=TFNCCADViewport@OnPaint>
       event is fired when the repaint process is finished, otherwise it is not.
     }
     property DisableRepaintEvents: Boolean read fDisablePaintEvent
@@ -3867,23 +4111,21 @@ type
     { : This property contains the pen istance used in the rubber
       pen method.
 
-      When the <See Method=TCADViewport@DrawObjectWithRubber> method
+      When the <See Method=TFNCCADViewport@DrawObjectWithRubber> method
       is called the canvas on which draw the object is set with
       this pen. By default this method contains a pen with the
-      style property equal to <B=psXOr> and color <B=clRed>.
+      style property equal to <B=psXOr> and color <B=cadtcRed>.
 
-      See also <See Property=TCADViewport@RubberPenColor> to change the
+      See also <See Property=TFNCCADViewport@RubberPenColor> to change the
       color of the pen.
     }
-    property RubberPen: TPen read fRubberPen;
+    property RubberPen: TCADSimplePen read fRubberPen;
   published
     { Published declarations }
-    property Align;
-    property Enabled;
-    property Visible;
-    property PopupMenu;
-    property Height default 50;
-    property Width default 50;
+    { Align, Enabled, Visible, PopupMenu, Height and Width are published
+      by TTMSFNCCustomControl, so they are not redeclared here. The
+      properties still exist, and a .dfm written before the change still
+      loads. }
     { : This property contains the aspect ratio of the viewport.
 
       The aspect ratio is the ratio Width/Heigth of the visual rect
@@ -3897,35 +4139,35 @@ type
       into account automatically.
     }
     property AspectRatio: TRealType read fAspectRatio write fAspectRatio;
-    { : This property contains the color of the <See Property=TCADViewport@RubberPen>
+    { : This property contains the color of the <See Property=TFNCCADViewport@RubberPen>
       pen.
 
       This color take into account the fact that the rubber pen is in
       XOr style.
 
-      By default it is <B=clRed>.
+      By default it is <B=cadtcRed>.
     }
     property RubberPenColor: TColor read fRubberPenColor write SetRubberColor
-      default clRed;
+      default cadtcRed;
     { : This property contains the filling color of the control
       points.
 
-      By default it is <B=clRed>.
+      By default it is <B=cadtcRed>.
     }
     property ControlPointsColor: TColor read fControlPointsColor
-      write fControlPointsColor default clRed;
+      write fControlPointsColor default cadtcRed;
     { : This property contains the color of the background of the viewport.
 
-      By default it is <B=clSilver>.
+      By default it is <B=cadtcSilver>.
     }
     property BackGroundColor: TColor read fBackGroundColor write SetBackColor
-      default clSilver;
+      default cadtcSilver;
     { : This property contains the color of reference grid of the viewport.
 
-      By default it is <B=clGray>.
+      By default it is <B=cadtcGray>.
     }
     property GridColor: TColor read fGridColor write SetGridColor
-      default clGray;
+      default cadtcGray;
     { : This property specify the Z-order of the grid respect to
       the drawing. If it is false (the default) the grid will be
       drawed before any other shape and so will be covered by
@@ -3999,26 +4241,19 @@ type
       will be drawed.
     }
     property ShowGrid: Boolean read fShowGrid write SetShowGrid default False;
-    { : If this property is <B=True> a painting thread is used for
-      the repaint process.
+    { : <B=Obsolete>. The painting thread is gone and this property does
+      nothing.
 
-      The library can use a thread for the traversing of display list.
-      Such a painting thread is a specilized process that runs parallel to
-      the main thread of the application. A viewport can have only one
-      running thread that can be interrupted at any moment by calling the
-      <See Method=TCADViewport@StopRepaint>.
+      The viewport used to traverse the display list on a background
+      thread, painting into the off-screen bitmap while the main thread
+      answered messages. That only ever worked because a VCL TCanvas
+      could be locked around GDI calls; no other drawing backend allows
+      it, and the thread also fought with the XOR rubber banding.
 
-      Different viewports can have their own threads running
-      concurrently, fasting the repainting process. They are also useful
-      to allow the user to change the view parameters dinamically in
-      real time.
-
-      However when a painting thread is used, the repaint process take
-      more time than if the thread use is disabled. For this the use
-      of a painting thread is advisable only when there are more than
-      an hundred of object to be drawed.
-
-      By default it is <B=False>.
+      It is still here, and still published, so that a form saved when
+      the property existed keeps loading. Use
+      <See Property=TFNCCADViewport@CopingFrequency> if you want the
+      viewport to show its progress while it draws.
     }
     property UsePaintingThread: Boolean read fUseThread write fUseThread
       default False;
@@ -4049,13 +4284,13 @@ type
       called after a repaint is finished (after the coping of the back buffer
       onto the on screen canvas).
 
-      This event is fired before the <See Property=TCADViewport@OnPaint> event.
+      This event is fired before the <See Property=TFNCCADViewport@OnPaint> event.
     }
     property OnEndRedraw: TNotifyEvent read fOnEndRedraw write fOnEndRedraw;
     { : This property may contain an event handler that is called
       after the back buffer is copied onto the on screen canvas.
 
-      This event is fired after the <See Property=TCADViewport@OnEndRedraw>
+      This event is fired after the <See Property=TFNCCADViewport@OnEndRedraw>
       event.
     }
     property OnPaint: TNotifyEvent read fOnPaint write fOnPaint;
@@ -4066,15 +4301,15 @@ type
       The event is fired after the dimensions and the mapping
       trasforms are updated but before the repaint process take
       in place (and so before the
-      <See Property=TCADViewport@OnPaint> event).
+      <See Property=TFNCCADViewport@OnPaint> event).
     }
     property OnResize: TNotifyEvent read fOnResize write fOnResize;
     { : This property may contains an event handler that is called when
       the view mapping transform is changed.
 
-      This event is fired before the <See Property=TCADViewport@OnPaint> event.
+      This event is fired before the <See Property=TFNCCADViewport@OnPaint> event.
 
-      See also <See Method=TCADViewport@BuildViewportTransform>.
+      See also <See Method=TFNCCADViewport@BuildViewportTransform>.
     }
     property OnViewMappingChanged: TNotifyEvent read fOnViewMappingChanged
       write fOnViewMappingChanged;
@@ -4085,12 +4320,17 @@ type
     property OnDblClick;
     property OnKeyDown;
     property OnKeyUp;
+{$IFNDEF CADSYS_FMX}
+    { FMX has no OnKeyPress. Its TControl reports the character in
+      OnKeyDown's KeyChar parameter instead, so there is nothing to
+      republish here. }
     property OnKeyPress;
+{$ENDIF}
     { : This property may contains an event handler that is called when
       the off screen buffer must be cleared before the drawing process.
 
       By default the off screen buffer is cleared with an uniform
-      filling with the <See Property=TCADViewport@BackgroundColor> color.
+      filling with the <See Property=TFNCCADViewport@BackgroundColor> color.
 
       See also <See Type=TClearCanvas>.
     }
@@ -4098,7 +4338,7 @@ type
   end;
 
   { : This class defines a ruler that can be linked to a Viewport to
-    show the extension of its <See Property=TCADViewport@VisualRect>.
+    show the extension of its <See Property=TFNCCADViewport@VisualRect>.
 
     The components isn't updated automatically, instead it defines
     methods that must be called from the application to keep it
@@ -4109,25 +4349,59 @@ type
     <LI=<I=OnEndRepaint> is used to redraw the ruler and to update
     its dimensions.>
     <LI=<I=OnMouseMove> is used to update the mark position on the
-    ruler <See Method=TRuler@SetMark>.>
+    ruler <See Method=TFNCRuler@SetMark>.>
   }
-  TRuler = class(TCustomControl)
+  TFNCRuler = class(TTMSFNCCustomControl)
   private
-    fOwnerView: TCADViewport;
+    fOwnerView: TFNCCADViewport;
     fStepSize: TRealType;
     fFontSize, fSize, fStepDivisions: Integer;
     fOrientation: TRulerOrientationType;
     fTicksColor: TColor;
+    fMark: TRealType;
+    fHasMark: Boolean;
+    fCanvas: TDecorativeCanvas;
+    fGraphics: TCADFNCGraphics;
+    { : The DPI scale the ruler paints with, or 0 to use FNC's own.
+
+      See <See Method=TFNCRuler@RulerScale> for why this control keeps
+      its own. }
+    fScaleOverride: Single;
+    { : Thickness in device pixels.
+
+      Thickness and FontSize are logical values, as every size a user
+      sets should be. This turns one into what the control actually
+      paints. }
+    function ScaledThickness: Integer;
+    { : <I=Value>, a logical size, in device pixels. }
+    function ScaleRuler(const Value: Integer): Integer;
+    { : Sizes the control from Thickness and the orientation. }
+    procedure ApplyThickness;
+    { : Called when the control moves to a display with a different DPI.
+
+      Takes the new scale from M and D - see
+      <See Method=TFNCRuler@RulerScale> - and resizes. Without this the
+      ruler keeps the size it had on the monitor it was created on
+      while every other control on the form rescales around it. }
+    procedure ChangeDPIScale(M, D: Integer); override;
+    procedure SelectRulerFont;
+    function RulerTextWidth(const S: String): Integer;
+    procedure RulerTextOut(const X, Y: Integer; const S: String);
 
     procedure SetTicksColor(C: TColor);
-    procedure SetOwnerView(V: TCADViewport);
+    procedure SetOwnerView(V: TFNCCADViewport);
     procedure SetOrientation(O: TRulerOrientationType);
-    procedure SetSize(S: Integer);
+    procedure SetThickness(S: Integer);
     procedure SetFontSize(S: Integer);
     procedure SetStepSize(S: TRealType);
     procedure SetStepDivisions(D: Integer);
   protected
-    procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
+    procedure Draw(AGraphics: TTMSFNCGraphics; ARect: TRectF); override;
+    { : The ruler's own area, for the same reason as
+      <See Method=TFNCCADViewport@ControlRect>: FMX controls have no
+      ClientRect, and their Width and Height are Single. }
+    function ControlRect: TRect;
+    procedure DrawMark;
   public
     { : This is the constructor of the control.
 
@@ -4135,7 +4409,7 @@ type
       a step division of 5.
     }
     constructor Create(AOwner: TComponent); override;
-    procedure Paint; override;
+    destructor Destroy; override;
     { : This method is used to move the position marker of the ruler.
 
       A ruler may have a position marker that is used to show the
@@ -4148,28 +4422,49 @@ type
       position on the view plane.
     }
     procedure SetMark(Value: TRealType);
+    { : The label height the ruler will actually paint with, as a
+      LOGFONT pixel height. Public so a caller can see what it resolved
+      to rather than having to infer it from a screenshot. }
+    function RulerFontHeight: Integer;
+    { : The DPI scale every size this control paints is multiplied by.
+
+      Not PaintScaleFactor, which cannot be trusted here. FNC derives
+      it in CalcFactor as Form.Monitor.PixelsPerInch / 96, and on VCL
+      CalcFactor runs from one place only: ChangeScale. Windows sends
+      WM_DPICHANGED while the window is still on the display it is
+      being dragged off, so Form.Monitor at that instant is the old
+      monitor and the factor FNC computes is the old factor - and
+      nothing recomputes it until the next DPI change, so it stays
+      wrong for as long as the window sits on the new display.
+
+      M and D, on the other hand, are the new and the old PPI, and
+      the VCL is passing them precisely because they are the truth at
+      that moment. So the ruler seeds itself from PaintScaleFactor
+      (correct at startup, before any of this happens) and from then
+      on carries it forward itself.
+
+      Public for the same reason as RulerFontHeight. }
+    function RulerScale: Single;
   published
-    property Align;
     { : This property contains the linked viewport used for the alignment
       of the ruler
 
-      The ruler adjust its range by using the <See Property=TCADViewport@VisualRect>
+      The ruler adjust its range by using the <See Property=TFNCCADViewport@VisualRect>
       property.
     }
-    property LinkedViewport: TCADViewport read fOwnerView write SetOwnerView;
+    property LinkedViewport: TFNCCADViewport read fOwnerView write SetOwnerView;
     { : This property contains the background color used to paint the
       ruler background.
 
-      By default its value is clWhite.
+      By default its value is cadtcWhite.
     }
-    property Color default clWhite;
     { : This property contains the color of the thick mark used to
       show the step division of the ruler.
 
-      By default it is clBlack.
+      By default it is cadtcBlack.
     }
     property TicksColor: TColor read fTicksColor write SetTicksColor
-      default clBlack;
+      default cadtcBlack;
     { : This property contains the orientation of the ruler.
 
       See <See Type=TRulerOrientationType> for details.
@@ -4193,7 +4488,12 @@ type
     }
     property StepDivisions: Integer read fStepDivisions write SetStepDivisions
       default 5;
-    { : This property contains the width (height) of the vertical
+    { : <B=Renamed>. This was called <I=Size> until the ruler became a
+      TMS FNC control, which publishes a <I=Size> of its own. A form that
+      stored <I=Size> on a ruler needs that line renamed to
+      <I=Thickness>.
+
+      This property contains the width (height) of the vertical
       (horizontal) ruler.
 
       If the value is small it will be difficulty to read the values
@@ -4201,13 +4501,16 @@ type
 
       By default it is 20.
     }
-    property Size: Integer read fSize write SetSize default 20;
+    property Thickness: Integer read fSize write SetThickness default 20;
     { : This property contains the size of the font used to show
       the values of the divisions.
 
       By default it is 6.
     }
-    property FontSize: Integer read fFontSize write SetFontSize default 6;
+    { : Label size in points, or 0 - the default - to use the control's
+      own Font. Zero is recommended: it needs no DPI arithmetic and
+      matches the rest of the window automatically. }
+    property FontSize: Integer read fFontSize write SetFontSize default 0;
   end;
 
   { : This class defines an object that can be used to extend the handling function
@@ -4258,7 +4561,7 @@ type
       a baricentric handler used to move the object.
 
       <I=VT> is the the mapping transform that can be obtained
-      with the <See Property=TCADViewport@ViewportToScreenTransform> property.
+      with the <See Property=TFNCCADViewport@ViewportToScreenTransform> property.
       <I=Cnv> is the canvas on which draw the control points, and
       <I=Width> is the width in pixel of the control points (that are
       drawed as a square).
@@ -4397,9 +4700,8 @@ type
   public
     constructor Create(ID: LongInt);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This method transform the object with a give transformation matrix.
 
@@ -4462,11 +4764,11 @@ type
       appropriately.
 
       <I=VT> is the the mapping transform that can be obtained
-      with the <See Property=TCADViewport@ViewportToScreenTransform> property.
+      with the <See Property=TFNCCADViewport@ViewportToScreenTransform> property.
       <I=Cnv> is the canvas on which draw the control points
       <See Class=TDecorativeCanvas@TDecorativeCanvas>, and
       <I=DrawMode> is a constant that correspond to the value
-      of the <See Property=TCADViewport@DrawMode> property of
+      of the <See Property=TFNCCADViewport@DrawMode> property of
       the CADViewport that calls this method. It may be used to
       change the behaviour of the drawing method.
       <I=ClipRect> is the 2D pixel drawing area in 2D coordinates, you
@@ -4476,7 +4778,7 @@ type
       const ClipRect2D: TRect2D; const DrawMode: Integer); virtual; abstract;
     { : This method returns <B=True> if the object is visible in the
       portion of the view plane given by the
-      <See Property=TCADViewport@VisualRect> property of the viewport that
+      <See Property=TFNCCADViewport@VisualRect> property of the viewport that
       called the method.
 
       This method is used to prune the object that must not be
@@ -4484,7 +4786,7 @@ type
 
       <I=Clip> is the portion of the view plane that must be rendered, and
       <I=DrawMode> is a constant that correspond to the value
-      of the <See Property=TCADViewport@DrawMode> property of
+      of the <See Property=TFNCCADViewport@DrawMode> property of
       the CADViewport that calls this method. It may be used to
       change the behaviour of the drawing method.
 
@@ -4503,7 +4805,7 @@ type
       specify the radious of it.
 
       <I=VT> is the the mapping transform that can be obtained
-      with the <See Property=TCADViewport@ViewportToScreenTransform> property.
+      with the <See Property=TFNCCADViewport@ViewportToScreenTransform> property.
       <I=Cnv> is the canvas on which draw the control points
       <See Class=TDecorativeCanvas@TDecorativeCanvas>, and
       <I=Width> is the width in pixel of the control points (that are
@@ -4626,7 +4928,7 @@ type
       It creates an instance of the container. This constructor needs:
 
       <LI=the ID of the container. This identifier univocally identifies
-      the object in the CAD. See also <See Method=TCADCmp@AddObject>.>
+      the object in the CAD. See also <See Method=TFNCCADCmp@AddObject>.>
       <LI=the array of objects that must be added to the set. After
       you have created the container it is possible to add and
       remove objects throught the <See Property=TContainer2D@Objects> property.>
@@ -4640,9 +4942,8 @@ type
     }
     constructor Create(ID: LongInt; const Objs: array of TObject2D);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This method updates the references of the source blocks
       that are used in the container.
@@ -4656,7 +4957,7 @@ type
 
       The method needs the iterator of source blocks list in order
       to relink the blocks. This iterator can be obtained from
-      <See Property=TCADCmp@SourceBlocksIterator>.
+      <See Property=TFNCCADCmp@SourceBlocksIterator>.
 
       The method call the <See Method=TGraphicObject@UpdateExtension>.
     }
@@ -4686,8 +4987,8 @@ type
     template are obtained with <See Class=TBlock2D> class.
 
     This kind of object must be added to the CAD using the
-    <See Method=TCADCmp2D@AddSourceBlock> and
-    <See Class=TCADCmp2D@BlockObjects> methods.
+    <See Method=TFNCCADCmp2D@AddSourceBlock> and
+    <See Class=TFNCCADCmp2D@BlockObjects> methods.
   }
   TSourceBlock2D = class(TContainer2D)
   private
@@ -4718,10 +5019,9 @@ type
     }
     constructor Create(ID: LongInt; const Name: TSourceBlockName;
       const Objs: array of TObject2D);
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
     destructor Destroy; override;
-    procedure SaveToStream(const Stream: TStream); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This property contains the name of the source block.
 
@@ -4747,8 +5047,8 @@ type
 
       When this property is <B=True>, the source block will not be
       saved in a drawing file, but can be stored in a library file
-      by using the methods <See Method=TCADCmp@SaveLibrary>
-      and <See Method=TCADCmp@LoadLibrary>.
+      by using the methods <See Method=TFNCCADCmp@SaveLibrary>
+      and <See Method=TFNCCADCmp@LoadLibrary>.
 
       If this property is <B=False>, the source block will be
       saved in the drawing file.
@@ -4789,9 +5089,8 @@ type
     }
     constructor Create(ID: LongInt; const Source: TSourceBlock2D);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This method updates the references of the block.
 
@@ -4803,7 +5102,7 @@ type
 
       The method needs the iterator of the source blocks of a CAD in
       order to relink the block's source block. This iterator can be
-      obtained by <See Property=TCADCmp@SourceBlocksIterator>
+      obtained by <See Property=TFNCCADCmp@SourceBlocksIterator>
     }
     procedure UpdateReference(const BlockList: TGraphicObjIterator);
     procedure DrawControlPoints(const VT: TTransf2D;
@@ -4837,22 +5136,18 @@ type
     property SourceName: TSourceBlockName read fSourceName;
   end;
 
-  { : This class defines a specialization of a <See Class=TCADCmp>
+  { : This class defines a specialization of a <See Class=TFNCCADCmp>
     control (see it for details).
 
     This CADCmp handles 2D objects and source blocks.
     This component must be used when you need to store 2D drawing.
   }
-  TCADCmp2D = class(TCADCmp)
+  TFNCCADCmp2D = class(TFNCCADCmp)
   private
     function GetExtension: TRect2D;
   protected
-    procedure LoadObjectsFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure LoadObjectsFromJSON(const AJSONObject: TJSONObject;
-      const Version: TCADVersion); override;
-    procedure SaveObjectsToStream(const Stream: TStream); override;
-    procedure SaveObjectsToJSON(const AJSONObject: TJSONObject); override;
+    procedure LoadObjectsFromJSON(const AJSON: TJSONArray); override;
+    procedure SaveObjectsToJSON(const AJSON: TJSONArray); override;
   public
     { : This method loads the blocks definitions (see <See Class=TSourceBlock2D>) from a drawing.
       This is an abstract method that must be implemented in a concrete control.
@@ -4879,8 +5174,7 @@ type
 
       See also <See=oObject's Persistance@PERSISTANCE>.
     }
-    procedure LoadBlocksFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
+    procedure LoadBlocksFromJSON(const AJSON: TJSONArray); override;
     { : This method saves the blocks definitions (see <See Class=TSourceBlock2D>) to a drawing.
       This is an abstract method that must be implemented in a concrete control.
 
@@ -4894,7 +5188,7 @@ type
 
       See also <See=Object's Persistance@PERSISTANCE>.
     }
-    procedure SaveBlocksToStream(const Stream: TStream;
+    procedure SaveBlocksToJSON(const AJSON: TJSONArray;
       const AsLibrary: Boolean); override;
     { : This method adds a new source block.
 
@@ -4994,26 +5288,26 @@ type
     property DrawingExtension: TRect2D read GetExtension;
   end;
 
-  { : This component derives from <See Class=TCADViewport> and
+  { : This component derives from <See Class=TFNCCADViewport> and
     specialize it to handle 2D objects.
 
-    In this case the world is the view plane of TCADViewport
+    In this case the world is the view plane of TFNCCADViewport
     and so the projection transform is simply an indentity tranform matrix.
 
-    See <See Class=TCADViewport> for details.
+    See <See Class=TFNCCADViewport> for details.
   }
-  TCADViewport2D = class(TCADViewport)
+  TFNCCADViewport2D = class(TFNCCADViewport)
   private
     fPickFilter: TObject2DClass;
     { consider only the objects with this type during the picking. }
-    fCADCmp2D: TCADCmp2D;
+    fCADCmp2D: TFNCCADCmp2D;
     { Event handlers }
     fOnMouseDown2D, fOnMouseUp2D: TMouseEvent2D;
     fOnMouseMove2D: TMouseMoveEvent2D;
 
-    procedure SetCADCmp2D(CAD2D: TCADCmp2D);
+    procedure SetCADCmp2D(CAD2D: TFNCCADCmp2D);
   protected
-    procedure SetCADCmp(Cad: TCADCmp); override;
+    procedure SetCADCmp(Cad: TFNCCADCmp); override;
     procedure DrawObject(const Obj: TGraphicObject;
       const Cnv: TDecorativeCanvas; const ClipRect2D: TRect2D); override;
     procedure DrawObjectWithRubber(const Obj: TGraphicObject;
@@ -5021,10 +5315,10 @@ type
     function BuildViewportTransform(var ViewWin: TRect2D;
       const ScreenWin: TRect; const AspectRatio: TRealType): TTransf2D;
       override;
-    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure DoCADMouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure DoCADMouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
-    procedure MouseUp(Button: TMouseButton; Shift: TShiftState;
+    procedure DoCADMouseUp(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
   public
     constructor Create(AOwner: TComponent); override;
@@ -5035,7 +5329,7 @@ type
 
       The object is drawed by calling its <See Method=TObject2D@Draw>
       method if it is visible (that is it is contained in the
-      <See Property=TCADViewport@VisualRect>)).
+      <See Property=TFNCCADViewport@VisualRect>)).
     }
     procedure DrawObject2D(const Obj: TObject2D; const CtrlPts: Boolean);
     { : This method draws a 2D object on the viewport.
@@ -5045,17 +5339,17 @@ type
 
       The object is drawed by calling its <See Method=TObject2D@Draw>
       method if it is visible (that is it is contained in the
-      <See Property=TCADViewport@VisualRect>)).
+      <See Property=TFNCCADViewport@VisualRect>)).
 
       This method draws the object only on the canvas of the control
       and not in the off-screen buffer. So if you call the
-      <See Method=TCADViewport@Refresh> method the effect of this
+      <See Method=TFNCCADViewport@Refresh> method the effect of this
       method are removed without the need to a complete Repaint.
     }
     procedure DrawObject2DWithRubber(const Obj: TObject2D;
       const CtrlPts: Boolean);
     procedure CopyRectToCanvas(CADRect: TRect2D; const CanvasRect: TRect;
-      const Cnv: TCanvas; const Mode: TCanvasCopyMode); override;
+      const Cnv: TDecorativeCanvas; const Mode: TCanvasCopyMode); override;
     function GetCopyRectViewportToScreen(CADRect: TRect2D;
       const CanvasRect: TRect; const Mode: TCanvasCopyMode): TTransf2D;
       override;
@@ -5127,7 +5421,7 @@ type
     { : This method fills a list with the object that are at a distance
       from <I=Pt> less than <I=Aperture>.
 
-      The method perform the same operation of <See Method=TCADViewport2D@PickObject>
+      The method perform the same operation of <See Method=TFNCCADViewport2D@PickObject>
       method but the objects that are picked by the point <I=Pt> are all
       added to the list <I=PickedObjects> in the same order as they
       are encountered.
@@ -5151,13 +5445,13 @@ type
     { : This property may contains a class variable that is used to limit
       the picking to only the objects of that class.
 
-      This property is used in <See Method=TCADViewport2D@PickObject>,
-      <See Method=TCADViewport2D@PickListOfObjects> and
-      <See Method=TCADViewport2D@GroupObjects>.
+      This property is used in <See Method=TFNCCADViewport2D@PickObject>,
+      <See Method=TFNCCADViewport2D@PickListOfObjects> and
+      <See Method=TFNCCADViewport2D@GroupObjects>.
     }
     property PickFilter: TObject2DClass read fPickFilter write fPickFilter;
   published
-    { : This property contains the <See Class=TCADCmp2D> control that
+    { : This property contains the <See Class=TFNCCADCmp2D> control that
       acts as the source for the drawing to be painted in the
       viewport.
 
@@ -5166,7 +5460,7 @@ type
 
       You must assign it before using the viewport.
     }
-    property CADCmp2D: TCADCmp2D read fCADCmp2D write SetCADCmp2D;
+    property CADCmp2D: TFNCCADCmp2D read fCADCmp2D write SetCADCmp2D;
     { : EVENTS }
     { : This property may contain an event-handler that will be
       called when the mouse in moved on the control.
@@ -5237,7 +5531,7 @@ type
     So when an object is drawed, for example, its points are first
     transformed from model system to world system by using this matrix,
     then the points are projected on the view plane and normalized
-    (see <See Class=TCADViewport3D> for details),
+    (see <See Class=TFNCCADViewport3D> for details),
     and finally they are mapped to the screen system and displayed
     (by using clipping in homogeneous coordinates).
 
@@ -5318,9 +5612,8 @@ type
   public
     constructor Create(ID: LongInt);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     { Ritorna la descrizione a faccie dell'oggetto. FacePts deve essere già creato e viene cancellato dalla funzione.
       I indica l'indice della faccia. Ritorna False se non ci sono più faccie. }
     function GetObjectFaces(var {%H-}I: Integer; {%H-}FacePts: TPointsSet3D; var
@@ -5368,18 +5661,18 @@ type
       appropriately.
 
       <I=NormTransf> is the <I=normalization transform>
-      (see <See Class=TCADViewport3D> for details>) that can be
-      obtained with the <See Property=TCADViewport3D@ViewNormalization>
+      (see <See Class=TFNCCADViewport3D> for details>) that can be
+      obtained with the <See Property=TFNCCADViewport3D@ViewNormalization>
       property;
       <I=VT> is the the mapping transform that can be obtained
-      with the <See Property=TCADViewport@ViewportToScreenTransform> property.
+      with the <See Property=TFNCCADViewport@ViewportToScreenTransform> property.
       <I=Cnv> is the canvas on which draw the control points, and
       <I=VRP> is the view reference point that is a point centered on the
       view plane and that may be useful to implement operations such
       as back face culling.
 
       <I=DrawMode> is a constant that correspond to the value
-      of the <See Property=TCADViewport@DrawMode> property of
+      of the <See Property=TFNCCADViewport@DrawMode> property of
       the CADViewport that calls this method. It may be used to
       change the behaviour of the drawing method.
     }
@@ -5387,19 +5680,19 @@ type
       const VT: TTransf2D; const Cnv: TDecorativeCanvas;
       const DrawMode: Integer); virtual; abstract;
     { : This method returns <B=True> if the object is contained
-      in the normalized view volume (see <See Class=TCADViewport3D>).
+      in the normalized view volume (see <See Class=TFNCCADViewport3D>).
 
       This method is used to prune the object that must not be
       drawed to save time in the drawing process.
 
       <I=NormalTransf> is the projection-normalization matrix
-      as given by <See Property=TCADViewport3D@ViewNormalization>.
+      as given by <See Property=TFNCCADViewport3D@ViewNormalization>.
       <I=VRP> is the view reference point that is a point centered on the
       view plane and that may be useful to implement operations such
       as back face culling.
 
       <I=DrawMode> is a constant that correspond to the value
-      of the <See Property=TCADViewport@DrawMode> property of
+      of the <See Property=TFNCCADViewport@DrawMode> property of
       the CADViewport that calls this method. It may be used to
       change the behaviour of the drawing method.
 
@@ -5448,11 +5741,11 @@ type
       that specify the radious of it.
 
       <I=NormTransf> is the <I=normalization transform>
-      (see <See Class=TCADViewport3D> for details>) that can be
-      obtained with the <See Property=TCADViewport3D@ViewNormalization>
+      (see <See Class=TFNCCADViewport3D> for details>) that can be
+      obtained with the <See Property=TFNCCADViewport3D@ViewNormalization>
       property;
       <I=VT> is the the mapping transform that can be obtained
-      with the <See Property=TCADViewport@ViewportToScreenTransform> property.
+      with the <See Property=TFNCCADViewport@ViewportToScreenTransform> property.
       <I=Cnv> is the canvas on which draw the control points, and
       <I=Width> is the width in pixel of the control points (that are
       drawed as a square).
@@ -5570,7 +5863,7 @@ type
       It creates an instance of the container. This constructor needs:
 
       <LI=the ID of the container. This identifier univocally identifies
-      the object in the CAD. See also <See Method=TCADCmp@AddObject>.>
+      the object in the CAD. See also <See Method=TFNCCADCmp@AddObject>.>
       <LI=the array of objects that must be added to the set. After
       you have created the container it is possible to add and
       remove objects throught the <See Property=TContainer3D@Objects> property.>
@@ -5584,9 +5877,8 @@ type
     }
     constructor Create(ID: LongInt; const Objs: array of TObject3D);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This method updates the references of the source blocks
       that are used in the container.
@@ -5600,7 +5892,7 @@ type
 
       The method needs the iterator of source blocks list in order
       to relink the blocks. This iterator can be obtained from
-      <See Property=TCADCmp@SourceBlocksIterator>.
+      <See Property=TFNCCADCmp@SourceBlocksIterator>.
 
       The method call the <See Method=TGraphicObject@UpdateExtension>.
     }
@@ -5632,8 +5924,8 @@ type
     template are obtained with <See Class=TBlock3D> class.
 
     This kind of object must be added to the CAD using the
-    <See Method=TCADCmp3D@AddSourceBlock> and
-    <See Class=TCADCmp3D@BlockObjects> methods.
+    <See Method=TFNCCADCmp3D@AddSourceBlock> and
+    <See Class=TFNCCADCmp3D@BlockObjects> methods.
   }
   TSourceBlock3D = class(TContainer3D)
   private
@@ -5665,9 +5957,8 @@ type
     constructor Create(ID: LongInt; const Name: TSourceBlockName;
       const Objs: array of TObject3D);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
 
     { : This property contains the name of the source block.
@@ -5694,8 +5985,8 @@ type
 
       When this property is <B=True>, the source block will not be
       saved in a drawing file, but can be stored in a library file
-      by using the methods <See Method=TCADCmp@SaveLibrary>
-      and <See Method=TCADCmp@LoadLibrary>.
+      by using the methods <See Method=TFNCCADCmp@SaveLibrary>
+      and <See Method=TFNCCADCmp@LoadLibrary>.
 
       If this property is <B=False>, the source block will be
       saved in the drawing file.
@@ -5735,9 +6026,8 @@ type
     }
     constructor Create(ID: LongInt; Source: TSourceBlock3D);
     destructor Destroy; override;
-    constructor CreateFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveToStream(const Stream: TStream); override;
+    constructor CreateFromJSON(const AJSON: TJSONObject); override;
+    procedure SaveToJSON(const AJSON: TJSONObject); override;
     procedure Assign(const Obj: TGraphicObject); override;
     { : This method updates the references of the block.
 
@@ -5749,7 +6039,7 @@ type
 
       The method needs the iterator of the source blocks of a CAD in
       order to relink the block's source block. This iterator can be
-      obtained by <See Property=TCADCmp@SourceBlocksIterator>
+      obtained by <See Property=TFNCCADCmp@SourceBlocksIterator>
     }
     procedure UpdateReference(const BlockList: TGraphicObjIterator);
     procedure DrawControlPoints(const NormTransf: TTransf3D;
@@ -5785,19 +6075,18 @@ type
     property SourceName: TSourceBlockName read fSourceName;
   end;
 
-  { : This class defines a specialization of a <See Class=TCADCmp>
+  { : This class defines a specialization of a <See Class=TFNCCADCmp>
     control (see it for details).
 
     This CADCmp handles 3D objects and source blocks.
     This component must be used when you need to store 3D drawing.
   }
-  TCADCmp3D = class(TCADCmp)
+  TFNCCADCmp3D = class(TFNCCADCmp)
   private
     function GetExtension: TRect3D;
   protected
-    procedure LoadObjectsFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
-    procedure SaveObjectsToStream(const Stream: TStream); override;
+    procedure LoadObjectsFromJSON(const AJSON: TJSONArray); override;
+    procedure SaveObjectsToJSON(const AJSON: TJSONArray); override;
   public
     { : This method loads the blocks definitions (see <See Class=TSourceBlock3D>) from a drawing.
       This is an abstract method that must be implemented in a concrete control.
@@ -5805,7 +6094,7 @@ type
       <I=Stream> is the stream that contains the blocks (and it must be
       positioned on the first block present). The stream must be
       created with the current version of the library (see also
-      <See Method=TCADCmp@LoadObjectsFromOldStream>).
+      <See Method=TFNCCADCmp@LoadObjectsFromOldStream>).
       The blocks are created by reading the shape class registration index
       and creating the correct shape instance with the state present in the
       stream. Then this instance is saved in the list of objects of the
@@ -5825,8 +6114,7 @@ type
 
       See also <See=Object's Persistance@PERSISTANCE>.
     }
-    procedure LoadBlocksFromStream(const Stream: TStream;
-      const Version: TCADVersion); override;
+    procedure LoadBlocksFromJSON(const AJSON: TJSONArray); override;
     { : This method saves the blocks definitions (see <See Class=TSourceBlock3D>) to a drawing.
       This is an abstract method that must be implemented in a concrete control.
 
@@ -5840,7 +6128,7 @@ type
 
       See also <See=Object's Persistance@PERSISTANCE>.
     }
-    procedure SaveBlocksToStream(const Stream: TStream;
+    procedure SaveBlocksToJSON(const AJSON: TJSONArray;
       const AsLibrary: Boolean); override;
     { : This method adds a new source block.
 
@@ -5959,7 +6247,7 @@ type
     fXColor, fYColor, fZColor: TColor;
     fVisible: Boolean;
     fSize: Integer;
-    fOwnerView: TCADViewport3D;
+    fOwnerView: TFNCCADViewport3D;
 
     procedure SetXColor(Cl: TColor);
     procedure SetYColor(Cl: TColor);
@@ -5967,27 +6255,27 @@ type
     procedure SetSize(Sz: Integer);
     procedure SetVisible(V: Boolean);
   public
-    constructor Create(Owner: TCADViewport3D);
+    constructor Create(Owner: TFNCCADViewport3D);
     { : This method draws the axis indicator on the <I=Cnv> canvas at
       the point <I=Pt>.
     }
-    procedure PaintAxes(const P: TPoint; Cnv: TCanvas);
+    procedure PaintAxes(const P: TPoint; Cnv: TDecorativeCanvas);
   published
     { : This property defines the color for the X axis.
 
       By default it is blue.
     }
-    property XColor: TColor read fXColor write SetXColor default clRed;
+    property XColor: TColor read fXColor write SetXColor default cadtcRed;
     { : This property defines the color for the Y axis.
 
       By default it is red.
     }
-    property YColor: TColor read fYColor write SetYColor default clBlue;
+    property YColor: TColor read fYColor write SetYColor default cadtcBlue;
     { : This property defines the color for the Z axis.
 
       By default it is green.
     }
-    property ZColor: TColor read fZColor write SetZColor default clGreen;
+    property ZColor: TColor read fZColor write SetZColor default cadtcGreen;
     { : This property defines the size of the indicator in pixels.
     }
     property Size: Integer read fSize write SetSize default 30;
@@ -5998,7 +6286,7 @@ type
   end;
 
   { : This component implements a 3D viewport that is control that
-    display the contents of a <See Class=TCADCmp3D> component.
+    display the contents of a <See Class=TFNCCADCmp3D> component.
 
     A 3D viewport acts as a <I=camera> that can be positioned and
     aimed in the world, and when it is positioned you can shoot
@@ -6027,18 +6315,18 @@ type
     side of the postcard obtained through the camera.>
 
     The dimension of the postcard are specified by the
-    <See Property=TCADViewport@VisualRect> property.
+    <See Property=TFNCCADViewport@VisualRect> property.
 
     The other way to setup the camera is by means of the
-    <See Method=TCADViewport3D@SetCamera> method and
-    <See Method=TCADPerspectiveViewport3D@SetFieldOfView> method.
+    <See Method=TFNCCADViewport3D@SetCamera> method and
+    <See Method=TFNCCADPerspectiveViewport3D@SetFieldOfView> method.
 
     In addition to the above parameters the following parameters
     are also needed:
-    <LI=<See Property=TCADViewport3D@FrontClip>. It defines
+    <LI=<See Property=TFNCCADViewport3D@FrontClip>. It defines
     the fartest distance besides which the objects are no
     drawed. If an object crosses this plane it will be clipped.>
-    <LI=<See Property=TCADViewport3D@BackClip>. It defines
+    <LI=<See Property=TFNCCADViewport3D@BackClip>. It defines
     the nearest distance in front of which the objects are
     no drawed. If an object crosses this plane it will be clipped.>
 
@@ -6050,20 +6338,20 @@ type
     <LI=The object is transformed by a roto-translation
     (<I=Orientation transform matrix>) that
     position it with respect to the view plane coordinate
-    system (<See Property=TCADViewport3D@ViewOrientation>) transform.
+    system (<See Property=TFNCCADViewport3D@ViewOrientation>) transform.
     This transform the world coordinate system into the
     view plane coordinate system.>
     <LI=The object is projected and normalized using the
-    <See Property=TCADViewport3D@ViewNormalization> transform. This
+    <See Property=TFNCCADViewport3D@ViewNormalization> transform. This
     transform the view plane coordinate system into the
     normalized view volume.>
     <LI=The homogeneous clipping is applied to the object.>
     <LI=The clipped object is mapped on the control canvas
-    using the <See Property=TCADViewport3D@ViewMapping> transform.>
+    using the <See Property=TFNCCADViewport3D@ViewMapping> transform.>
 
-    See also <See Class=TCADViewport>.
+    See also <See Class=TFNCCADViewport>.
   }
-  TCADViewport3D = class(TCADViewport)
+  TFNCCADViewport3D = class(TFNCCADViewport)
   private
     fPickFilter: TObject3DClass;
     { ViewOrientation è uguale per tutti.
@@ -6076,7 +6364,7 @@ type
     fViewOrientation, fViewNormalization: TTransf3D;
     { ViewMapping porta da NRC a schermo. }
     fViewMapping: TTransf2D;
-    fCADCmp3D: TCADCmp3D;
+    fCADCmp3D: TFNCCADCmp3D;
     fAxis: TCAD3DAxis;
 
     fBackPlane, fFrontPlane: TRealType;
@@ -6090,7 +6378,7 @@ type
     FOnMouseMove3D: TMouseMoveEvent3D;
     fOnViewProjectionChanged: TNotifyEvent;
 
-    procedure SetCADCmp3D(Cad: TCADCmp3D);
+    procedure SetCADCmp3D(Cad: TFNCCADCmp3D);
     procedure SetVPN(V: TVector3D);
     procedure SetVRP(P: TPoint3D);
     procedure SetVUP(V: TVector3D);
@@ -6104,9 +6392,8 @@ type
     procedure _DrawObjectWithRubber2D(const Obj: TGraphicObject;
       const Cnv: TDecorativeCanvas);
   protected
-    procedure SetCADCmp(Cad: TCADCmp); override;
-    procedure CopyBackBufferRectOnCanvas(const Rect: TRect;
-      const GenEvent: Boolean); override;
+    procedure SetCADCmp(Cad: TFNCCADCmp); override;
+    procedure DrawOverlay; override;
     procedure DrawObject(const Obj: TGraphicObject;
       const Cnv: TDecorativeCanvas; const {%H-}ClipRect2D: TRect2D); override;
     procedure DrawObjectWithRubber(const Obj: TGraphicObject;
@@ -6120,7 +6407,7 @@ type
       <I=LVUP> is the up versor of the <I=view plane> and
       <I=LVPN> is the normal versor of the <I=view plane>.
 
-      See <See Class=TCADViewport3D> for details.
+      See <See Class=TFNCCADViewport3D> for details.
     }
     function BuildViewOrientationTransform(const LVRP: TPoint3D;
       const LVUP, LVPN: TVector3D): TTransf3D; virtual;
@@ -6129,7 +6416,7 @@ type
       rectangle is required.
 
       It must returns a 2d transform matrix that transforms the 2d points
-      in the visual rect (see <See Property=TCADViewport@VisualRect>)
+      in the visual rect (see <See Property=TFNCCADViewport@VisualRect>)
       in the 2d points in the client rectangle of the control Canvas.
 
       <I=ViewWin> is the visual rect (that is the portion of
@@ -6139,16 +6426,16 @@ type
 
       If AspectRatio is zero then no aspect ratio is specified, otherwise the
       aspect ratio must modify the <I=ViewWin> dimensions so that they preserve
-      this aspect ratio. The new ViewWin will became the <See Property=TCADViewport@VisualRect>
+      this aspect ratio. The new ViewWin will became the <See Property=TFNCCADViewport@VisualRect>
       of the viewport.
 
       You must redefine this method if you want to create a new viewport,
       for example you can also change any other projection transform when
       this method is called; by default it returns <See const=IdentityTransf2D>.
 
-      <B=Note>: For a TCADViewport3D this method updates also the
+      <B=Note>: For a TFNCCADViewport3D this method updates also the
       projection-normalization matrix by calling the
-      <See Method=TCADViewport3D@BuildViewNormalizationTransform> method.
+      <See Method=TFNCCADViewport3D@BuildViewNormalizationTransform> method.
     }
     function BuildViewportTransform(var ViewWin: TRect2D;
       const ScreenWin: TRect; const AspectRatio: TRealType): TTransf2D;
@@ -6160,7 +6447,7 @@ type
       The returned transformation includes the projection matrix
       and the normalization matrix. This matrix
       translates the <I=view plane coordinate system> into the
-      <I=normalized view volume>. See <See Class=TCADViewport3D>
+      <I=normalized view volume>. See <See Class=TFNCCADViewport3D>
       for details.
 
       <I=View> is the visual rect (that is the portion of
@@ -6176,16 +6463,16 @@ type
     function BuildViewNormalizationTransform(View: TRect2D; FP, BP: TRealType)
       : TTransf3D; virtual; abstract;
     function GetPixelAperture: TPoint2D; override;
-    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+    procedure DoCADMouseMove(Shift: TShiftState; X, Y: Integer); override;
+    procedure DoCADMouseDown(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
-    procedure MouseUp(Button: TMouseButton; Shift: TShiftState;
+    procedure DoCADMouseUp(Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     { : This method updates the <I=orientation matrix> by calling
-      the <SeeMethod=TCADViewport3D@BuildViewOrientationTransform> method.
+      the <SeeMethod=TFNCCADViewport3D@BuildViewOrientationTransform> method.
 
       You may want to use this method to force the updates of the
       orientation transform when the camera is moved
@@ -6203,10 +6490,10 @@ type
 
       The object is drawed by calling its <See Method=TObject2D@Draw>
       method if it is visible (that is it is contained in the
-      <See Property=TCADViewport@VisualRect>)).
+      <See Property=TFNCCADViewport@VisualRect>)).
 
       The object is drawed using the
-      <See Property=TCADViewport@ViewportToScreenTransform> transform
+      <See Property=TFNCCADViewport@ViewportToScreenTransform> transform
       matrix.
 
       <B=Note>: The method use the 3D viewport as it is a 2D viewport.
@@ -6219,11 +6506,11 @@ type
 
       The object is drawed by calling its <See Method=TObject2D@Draw>
       method if it is visible (that is it is contained in the
-      <See Property=TCADViewport@VisualRect>)).
+      <See Property=TFNCCADViewport@VisualRect>)).
 
       This method draws the object only on the canvas of the control
       and not in the off-screen buffer. So if you call the
-      <See Method=TCADViewport@Refresh> method the effect of this
+      <See Method=TFNCCADViewport@Refresh> method the effect of this
       method are removed without the need to a complete Repaint.
 
       <B=Note>: The method use the 3D viewport as it is a 2D viewport.
@@ -6241,7 +6528,7 @@ type
       normalized view volume after the projection-normalization
       matrix if applied to it).
 
-      See <See Class=TCADViewport3D> for details.
+      See <See Class=TFNCCADViewport3D> for details.
     }
     procedure DrawObject3D(const Obj: TObject3D; const CtrlPts: Boolean);
     { : This method draws a 3D object on the viewport.
@@ -6256,13 +6543,13 @@ type
 
       This method draws the object only on the canvas of the control
       and not in the off-screen buffer. So if you call the
-      <See Method=TCADViewport@Refresh> method the effect of this
+      <See Method=TFNCCADViewport@Refresh> method the effect of this
       method are removed without the need to a complete Repaint.
     }
     procedure DrawObject3DWithRubber(const Obj: TObject3D;
       const CtrlPts: Boolean);
     procedure CopyRectToCanvas({%H-}CADRect: TRect2D; const CanvasRect: TRect;
-      const Cnv: TCanvas; const Mode: TCanvasCopyMode); override;
+      const Cnv: TDecorativeCanvas; const Mode: TCanvasCopyMode); override;
     procedure ZoomToExtension; override;
     { : This method changes the camera properties and the visual rect
       dimension to see the <I=Box> from its upper-left-front
@@ -6283,7 +6570,7 @@ type
 
       This method repaint the viewport.
 
-      See also <See Method=TCADPerspectiveViewport3D@SetFieldOfView>.
+      See also <See Method=TFNCCADPerspectiveViewport3D@SetFieldOfView>.
     }
     procedure SetCamera(const ProjectionPlaneP, ViewP: TPoint3D;
       const Up: TVector3D);
@@ -6366,7 +6653,7 @@ type
     { : This method fills a list with the object that are at a distance
       from <I=Pt> less than <I=Aperture>.
 
-      The method perform the same operation of <See Method=TCADViewport3D@PickObject>
+      The method perform the same operation of <See Method=TFNCCADViewport3D@PickObject>
       method but the objects that are picked by the point <I=Pt> are all
       added to the list <I=PickedObjects> in the same order as they
       are encountered.
@@ -6429,9 +6716,9 @@ type
     { : This property may contains a class variable that is used to limit
       the picking to only the objects of that class.
 
-      This property is used in <See Method=TCADViewport3D@PickObject>,
-      <See Method=TCADViewport3D@PickListOfObjects> and
-      <See Method=TCADViewport3D@GroupObjects>.
+      This property is used in <See Method=TFNCCADViewport3D@PickObject>,
+      <See Method=TFNCCADViewport3D@PickListOfObjects> and
+      <See Method=TFNCCADViewport3D@GroupObjects>.
     }
     property PickFilter: TObject3DClass read fPickFilter write fPickFilter;
     { : This property contains the view plane normal versor.
@@ -6486,13 +6773,13 @@ type
     property BackClip: TRealType read fBackPlane write SetBClip;
     { : This property contains the view orientation transform matrix.
 
-      See <See Class=TCADViewport3D> for details.
+      See <See Class=TFNCCADViewport3D> for details.
     }
     property ViewOrientation: TTransf3D read fViewOrientation;
     { : This property contains the view projection-normalization
       transform matrix.
 
-      See <See Class=TCADViewport3D> for details.
+      See <See Class=TFNCCADViewport3D> for details.
     }
     property ViewNormalization: TTransf3D read fViewNormalization;
     { : This property contains the normalized view volume mapping
@@ -6504,7 +6791,7 @@ type
       the point in the world to which the camera is looking.
 
       This value is correct only if you have called
-      <See Method=TCADViewport3D@SetCamera> to position and aim the camera.
+      <See Method=TFNCCADViewport3D@SetCamera> to position and aim the camera.
     }
     property CameraViewPoint: TPoint3D read GetViewPoint;
     { : This property contains the camera view plane (or projection plane)
@@ -6512,7 +6799,7 @@ type
       positioned.
 
       This value is correct only if you have called
-      <See Method=TCADViewport3D@SetCamera> to position and aim the camera.
+      <See Method=TFNCCADViewport3D@SetCamera> to position and aim the camera.
     }
     property CameraProjectionPlanePosition: TPoint3D read GetPRPlanePosition;
     { : This property contains the camera view plane (or projection plane)
@@ -6520,14 +6807,14 @@ type
       the vertical side of the imaginari postcard made by the camera.
 
       This value is correct only if you have called
-      <See Method=TCADViewport3D@SetCamera> to position and aim the camera.
+      <See Method=TFNCCADViewport3D@SetCamera> to position and aim the camera.
     }
     property CameraUP: TVector3D read GetCameraUP;
   published
     { : This property contains an instance of the <See Class=TCAD3DAxis> class.
     }
     property Axis: TCAD3DAxis read fAxis write fAxis;
-    { : This property contains the <See Class=TCADCmp3D> control that
+    { : This property contains the <See Class=TFNCCADCmp3D> control that
       acts as the source for the drawing to be painted in the
       viewport.
 
@@ -6536,7 +6823,7 @@ type
 
       You must assign it before using the viewport.
     }
-    property CADCmp3D: TCADCmp3D read fCADCmp3D write SetCADCmp3D;
+    property CADCmp3D: TFNCCADCmp3D read fCADCmp3D write SetCADCmp3D;
     { : EVENTS }
     { : This property may contain an event-handler that will be
       called when the mouse in moved on the control.
@@ -6579,7 +6866,7 @@ type
     This control is well suited when you don't need the
     <I=perspective foreshortening> effect.
   }
-  TCADParallelViewport3D = class(TCADViewport3D)
+  TFNCCADParallelViewport3D = class(TFNCCADViewport3D)
   protected
     function BuildViewNormalizationTransform(View: TRect2D; FP, BP: TRealType)
       : TTransf3D; override;
@@ -6594,7 +6881,7 @@ type
     This control is well suited when you need to see the
     side, front and top view of the world.
   }
-  TCADOrtogonalViewport3D = class(TCADParallelViewport3D)
+  TFNCCADOrtogonalViewport3D = class(TFNCCADParallelViewport3D)
   private
     fView: TOrtoViewType;
     fDirection: TOrtoDirectionType;
@@ -6634,7 +6921,7 @@ type
     Use this control when you want the
     <I=perspective foreshortening> effect.
   }
-  TCADPerspectiveViewport3D = class(TCADViewport3D)
+  TFNCCADPerspectiveViewport3D = class(TFNCCADViewport3D)
   private
     fPlaneDistance: TRealType;
 
@@ -6677,7 +6964,7 @@ type
   end;
 
   { -----===== Starting Cs4CADPrgClass.pas =====----- }
-  { : This type defines the events that a <See Class=TCADPrg> manages.
+  { : This type defines the events that a <See Class=TFNCCADPrg> manages.
 
     These events are to be considered in the implementation of the
     <See Method=TCADState@OnEvent> method. See it for details.
@@ -6695,7 +6982,7 @@ type
   TCADPrgEvent = (ceMouseMove, ceMouseDown, ceMouseUp, ceMouseDblClick,
     ceKeyDown, ceKeyUp, cePaint, ceUserDefined);
 
-  TCADPrg = class;
+  TFNCCADPrg = class;
 
   { : This type define the class type used to specify a <See Class=TCADState> class.
   }
@@ -6760,7 +7047,7 @@ type
 
   { : This class defines a state of a interaction task.
 
-    <See Class=TCADPrg> is based on a <I=FSM model> (finite state
+    <See Class=TFNCCADPrg> is based on a <I=FSM model> (finite state
     machine) in which an interaction task is is a set of states,
     each of them execute some part of the whole task.
     The interaction task (from now on simply a task) evolves through
@@ -6781,8 +7068,8 @@ type
     interaction task.
 
     An interaction task is started by using the
-    <See Method=TCADPrg@StartOperation>,
-    <See Method=TCADPrg@SuspendOperation> and passing it the first
+    <See Method=TFNCCADPrg@StartOperation>,
+    <See Method=TFNCCADPrg@SuspendOperation> and passing it the first
     state of it.
 
     To define a state you may want to implement the following
@@ -6797,12 +7084,12 @@ type
     is called when an interaction task is stopped, no when
     the state instace is destroyed.>
 
-    <B=Note>: The instance of a state is created by the <See Class=TCADPrg>
+    <B=Note>: The instance of a state is created by the <See Class=TFNCCADPrg>
     control.
   }
   TCADState = class(TObject)
   private
-    fCAD: TCADPrg; { Used to store the CAD that is using the state. }
+    fCAD: TFNCCADPrg; { Used to store the CAD that is using the state. }
     fParam: TCADPrgParam; { A state as a parameter when it is created. }
     fCanBeSuspended: Boolean;
     { default True. If false the state cannot be suspended. }
@@ -6810,12 +7097,12 @@ type
 
     procedure SetDescription(D: String);
   protected
-    property CADPrg: TCADPrg read fCAD;
+    property CADPrg: TFNCCADPrg read fCAD;
   public
     { : This is the contructor of the state in which you may place
       the code for the initialization of the state.
 
-      <I=CADPrg> is the <See Class=TCADPrg> control that has called
+      <I=CADPrg> is the <See Class=TFNCCADPrg> control that has called
       the constructor; <I=StateParam> is an optional parameter
       passed to the state (it may be <B=nil>), see <See Class=TCADPrgParam>.
 
@@ -6825,7 +7112,7 @@ type
       parameter and leave the actual task implementation to other
       states.
     }
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); virtual;
     { : This method is called by the CADPrg when an event is pending for
       the state. See <See Class=TCADState> for details.
@@ -6850,14 +7137,14 @@ type
 {%H-}Shift: TShiftState; {%H-}Key: Word; var
 {%H-}NextState: TCADStateClass): Boolean; dynamic;
     { : This method is called when the current interactive task is
-      stopped by calling the <See Method=TCADPrg@StopOperation> method.
+      stopped by calling the <See Method=TFNCCADPrg@StopOperation> method.
 
       Use it to free any resource in the interactive task and
       in the parameter of the state.
     }
     procedure OnStop; dynamic;
     { : This method is called when the current interactive task is
-      suspended by calling the <See Method=TCADPrg@SuspendOperation>
+      suspended by calling the <See Method=TFNCCADPrg@SuspendOperation>
       method.
 
       <I=State> is the suspended state and <I=SusParam> is the
@@ -6870,17 +7157,17 @@ type
 
       It is useful to inform the user to which operations are
       needed to complete the interaction task. When this
-      property is changed an <See Property=TCADPrg@OnDescriptionChanged>
+      property is changed an <See Property=TFNCCADPrg@OnDescriptionChanged>
       event is fired.
     }
     property Description: String read fDescription write SetDescription;
     { : If this property is <B=True> then the iteraction task to which
       the state belonging can be interrupted with the
-      <See Method=TCADPrg@StopOperation>.
+      <See Method=TFNCCADPrg@StopOperation>.
     }
     property CanBeSuspended: Boolean read fCanBeSuspended write fCanBeSuspended;
     { : This property contains the parameter of the state. It is
-      set by the TCADPrg when the state is activated but you
+      set by the TFNCCADPrg when the state is activated but you
       may (and sometimes is very useful) be changed through this
       property.
     }
@@ -6893,26 +7180,26 @@ type
   }
   TCADIdleState = class(TCADState)
   public
-    constructor Create(const CADPrg: TCADPrg; const StateParam: TCADPrgParam;
+    constructor Create(const CADPrg: TFNCCADPrg; const StateParam: TCADPrgParam;
       var NextState: TCADStateClass); override;
   end;
 
   { : This type defines an event-handler for the event fired when
     the active state is changed.
 
-    <I=Sender> is the TCADPrg that create the instance of the state;
+    <I=Sender> is the TFNCCADPrg that create the instance of the state;
     <I=Sender> is the changed state (if the event is a
-    <See Property=TCADPrg@OnEnterState> this is the entering state,
-    if the event is a <See Property=TCADPrg@OnExitState> this is
+    <See Property=TFNCCADPrg@OnEnterState> this is the entering state,
+    if the event is a <See Property=TFNCCADPrg@OnExitState> this is
     the leaving state).
   }
   TCADPrgOnChangeState = procedure(Sender: TObject; const State: TCADState)
     of object;
   { : This type defines an event-handler for the event fired when
-    the current interaction task of a TCADPrg is aborted, ended
+    the current interaction task of a TFNCCADPrg is aborted, ended
     or started.
 
-    <I=Sender> is the TCADPrg instance that has started the
+    <I=Sender> is the TFNCCADPrg instance that has started the
     interaction task. <I=Operation> is the initial state
     of the interaction task and <I=Param> is the parameter of
     the interaction task.
@@ -6929,9 +7216,9 @@ type
 
     See also <See Class=TCADState> class for details.
   }
-  TCADPrg = class(TComponent)
+  TFNCCADPrg = class(TComponent)
   private
-    fLinkedViewport: TCADViewport;
+    fLinkedViewport: TFNCCADViewport;
     fIsBusy, fIsSuspended: Boolean;
     fUseSnap, fUseOrto: Boolean;
     fSnapX, fSnapY: TRealType;
@@ -6950,19 +7237,32 @@ type
     fShowCursorCross: Boolean;
     fCurrentMousePoint: TPoint;
     // maurog
-{$IFDEF windows}
-    fNewWndProc, fOldWndProc: Pointer;
-{$ELSE}
-    fNewWndProc, fOldWndProc: TWndMethod;
-{$ENDIF}
+    fOldOnPaintOverlay: TNotifyEvent;
     procedure SetShowCursorCross(B: Boolean);
     procedure SetCursorColor(C: TColor);
     procedure SetDefaultState(DefState: TCADStateClass);
-    procedure SetLinkedViewport(V: TCADViewport);
+    procedure SetLinkedViewport(V: TFNCCADViewport);
     procedure GoToDefaultState(const LastState: TClass;
       const LastParam: TCADPrgParam);
   protected
-    procedure SubclassedWinProc(var Msg: TMessage); virtual;
+    { : Records where the cursor cross is, from the program's current
+      snapped point. 2D and 3D snap differently.
+    }
+    procedure UpdateCursorCrossPos; virtual; abstract;
+    { : Draws the cursor cross at the recorded position, on the viewport's
+      on-screen canvas.
+
+      It is called from the overlay repaint, which has just restored the
+      area from the off-screen buffer, so it only draws - there is nothing
+      to erase and it must not try.
+    }
+    procedure PaintCursorCross; virtual; abstract;
+    { : Repaints everything that lives on top of the drawing: the current
+      state's on-screen decorations and the cursor cross.
+
+      It is hooked to <See Property=TFNCCADViewport@OnPaintOverlay>.
+    }
+    procedure PaintOverlay({%H-}Sender: TObject); virtual;
     procedure Notification(AComponent: TComponent;
       Operation: TOperation); override;
     { : This property must returns the current viewport point at which
@@ -6970,7 +7270,7 @@ type
 
       The control doesn't send the mouse coordinates with the events,
       but the user must use the <I=Current*Point> properties defined
-      for <See Class=TCADPrg2D> and <See Class=TCADPrg3D>.
+      for <See Class=TFNCCADPrg2D> and <See Class=TFNCCADPrg3D>.
     }
     function GetVPPoint: TPoint2D; virtual; abstract;
     { : This property is called whenever the mouse is moved and the
@@ -6980,7 +7280,7 @@ type
 
       The control doesn't send the mouse coordinates with the events,
       but the user must use the <I=Current*Point> properties defined
-      for <See Class=TCADPrg2D> and <See Class=TCADPrg3D>.
+      for <See Class=TFNCCADPrg2D> and <See Class=TFNCCADPrg3D>.
     }
     procedure SetVPPoint(const Pt: TPoint2D); virtual; abstract;
     { : Use this method to draw the cursor at the mouse position.
@@ -6988,13 +7288,13 @@ type
       You have to implement this property also if you don't want
       a cursor (in this case simple do nothing).
     }
-    procedure DrawCursorCross; virtual; abstract;
+    procedure DrawCursorCross;
     { : Use this method to hide the cursor at the mouse position.
 
       You have to implement this property also if you don't want
       a cursor (in this case simple do nothing).
     }
-    procedure HideCursorCross; virtual; abstract;
+    procedure HideCursorCross;
     { : This method is called whenever a point event is received.
 
       You don't need to use it.
@@ -7048,7 +7348,7 @@ type
     { : This property contains the linked viewport that is used to
       interact with the user.
     }
-    property LinkedViewport: TCADViewport read fLinkedViewport
+    property LinkedViewport: TFNCCADViewport read fLinkedViewport
       write SetLinkedViewport;
   public
     constructor Create(AOwner: TComponent); override;
@@ -7105,7 +7405,7 @@ type
 
       It may be used to simulate mouse movements and operation
       (for instance to set a point with a value, you can set the
-      <See Property=TCADPrg@CurrentViewportPoint> property to the
+      <See Property=TFNCCADPrg@CurrentViewportPoint> property to the
       point and send the <I=ceMouseDown> event).
 
       See <See Class=TCADState> for details.
@@ -7128,7 +7428,7 @@ type
       By default when the current interaction task finishes only
       a refresh of the linked viewport is performed.
 
-      See also <See Method=TCADPrg@RepaintAfterOperation>.
+      See also <See Method=TFNCCADPrg@RepaintAfterOperation>.
     }
     procedure RepaintRectAfterOperation(const ARect: TRect2D);
     { : If this method is called, the linked viewport will be
@@ -7137,7 +7437,7 @@ type
       By default when the current interaction task finishes only
       a refresh of the linked viewport is performed.
 
-      See also <See Method=TCADPrg@RepaintRectAfterOperation>.
+      See also <See Method=TFNCCADPrg@RepaintRectAfterOperation>.
     }
     procedure RepaintAfterOperation;
     { : This property contains the current mouse position.
@@ -7148,8 +7448,8 @@ type
       position or set it to simulate mouse event by code.
 
       Other mouse position are defined depending on the type of
-      the <I=CADPrg> (see also <See Class=TCADPrg2D> and
-      <See Class=TCADPrg3D>).
+      the <I=CADPrg> (see also <See Class=TFNCCADPrg2D> and
+      <See Class=TFNCCADPrg3D>).
     }
     property CurrentViewportPoint: TPoint2D read GetVPPoint write SetVPPoint;
     { : This property contains the current mouse position in screen coordinates.
@@ -7179,8 +7479,8 @@ type
     property CurrentState: TCADState read fCurrentState;
     { : This propery contains the class reference type of the
       first state (that is the state passed to the
-      <See Method=TCADPrg@StartOperation> or
-      <See Method=TCADPrg@SuspendOperation> methods) for the
+      <See Method=TFNCCADPrg@StartOperation> or
+      <See Method=TFNCCADPrg@SuspendOperation> methods) for the
       current interaction task.
     }
     property CurrentOperation: TCADStateClass read fCurrentOperation
@@ -7200,18 +7500,18 @@ type
     { : This is the linked viewport of the control.
 
       The linked viewport is the one that is able to send mouse
-      and keyboard event to the <I=TCadPrg>. This control is used
+      and keyboard event to the <I=TFNCCADPrg>. This control is used
       also as the output of the interaction task feedback and for
       the cursor visualization.
     }
-    property Viewport: TCADViewport read fLinkedViewport;
+    property Viewport: TFNCCADViewport read fLinkedViewport;
   published
     { : If this property is <B=True> then the snapping constraint is
       enabled.
 
-      The snapping used by the <I=TCADPrg> control is a 2D snapping
+      The snapping used by the <I=TFNCCADPrg> control is a 2D snapping
       on a plane. The plane on which it works depends on the kind
-      of the control (see <See Class=TCADPrg2D> and <See Class=TCADPrg3D>).
+      of the control (see <See Class=TFNCCADPrg2D> and <See Class=TFNCCADPrg3D>).
     }
     property UseSnap: Boolean read fUseSnap write fUseSnap default False;
     { : If this property is <B=True> that the ortogonal constraint is
@@ -7222,35 +7522,35 @@ type
       interaction tasks uses this contraint that is any interaction
       tasks must implement its ortogonal contraint.
       The plane on which it works depends on the kind
-      of the control (see <See Class=TCADPrg2D> and <See Class=TCADPrg3D>).
+      of the control (see <See Class=TFNCCADPrg2D> and <See Class=TFNCCADPrg3D>).
     }
     property UseOrto: Boolean read fUseOrto write fUseOrto default False;
     { : This property specifies the snapping step on the X axis of the
       interaction plane.
 
-      See also <See Property=TCADPrg@UseSnap>.
+      See also <See Property=TFNCCADPrg@UseSnap>.
     }
     property XSnap: TRealType read fSnapX write fSnapX;
     { : This property specifies the snapping step on the Y axis of the
       interaction plane.
 
-      See also <See Property=TCADPrg@UseSnap>.
+      See also <See Property=TFNCCADPrg@UseSnap>.
     }
     property YSnap: TRealType read fSnapY write fSnapY;
     { : This property contains the color of the cursor.
 
       The cursor is a visual feedback of the mouse position and
-      must be implemented in specific <I=TCADPrg> controls
-      (see <See Class=TCADPrg2D> and <See Class=TCADPrg3D>).
+      must be implemented in specific <I=TFNCCADPrg> controls
+      (see <See Class=TFNCCADPrg2D> and <See Class=TFNCCADPrg3D>).
     }
     property CursorColor: TColor read fCursorColor write SetCursorColor
-      default clGray;
+      default cadtcGray;
     { : If this property is <B=True> then the cursor will be
       showed.
 
       The cursor is a visual feedback of the mouse position and
-      must be implemented in specific <I=TCADPrg> controls
-      (see <See Class=TCADPrg2D> and <See Class=TCADPrg3D>).
+      must be implemented in specific <I=TFNCCADPrg> controls
+      (see <See Class=TFNCCADPrg2D> and <See Class=TFNCCADPrg3D>).
     }
     property ShowCursorCross: Boolean read fShowCursorCross
       write SetShowCursorCross default False;
@@ -7310,13 +7610,13 @@ type
       write fOnDescriptionChanged;
   end;
 
-  TCADPrg2D = class;
+  TFNCCADPrg2D = class;
   { : This type defines the type of a <I=2D mouse button filter>.
 
-    A filter is a procedure that is called by a <I=TCADPrg> control
+    A filter is a procedure that is called by a <I=TFNCCADPrg> control
     to update the current mouse position of the control.
 
-    <I=Sender> is the TCADPrg instance that has called the
+    <I=Sender> is the TFNCCADPrg instance that has called the
     filter; <I=CurrentState> is the current state of the control;
     <I=Button> is the mouse button's state at the moment of the
     event; <I=WPt> must be set to new world point of the mouse
@@ -7333,14 +7633,14 @@ type
     mouse position at the moment of the activation of the filter.
     So if you don't need to change it simply left it unchanged.
   }
-  TMouse2DButtonFilter = procedure(Sender: TCADPrg2D; CurrentState: TCADState;
+  TMouse2DButtonFilter = procedure(Sender: TFNCCADPrg2D; CurrentState: TCADState;
     Button: TMouseButton; var WPt: TPoint2D; X, Y: Integer) of Object;
   { : This type defines the type of a <I=2D mouse move filter>.
 
-    A filter is a procedure that is called by a <I=TCADPrg> control
+    A filter is a procedure that is called by a <I=TFNCCADPrg> control
     to update the current mouse position of the control.
 
-    <I=Sender> is the TCADPrg instance that has called the
+    <I=Sender> is the TFNCCADPrg instance that has called the
     filter; <I=CurrentState> is the current state of the control;
     <I=Button> is the mouse button's state at the moment of the
     event; <I=WPt> must be set to new world point of the mouse
@@ -7357,14 +7657,14 @@ type
     mouse position at the moment of the activation of the filter.
     So if you don't need to change it simply left it unchanged.
   }
-  TMouse2DMoveFilter = procedure(Sender: TCADPrg2D; CurrentState: TCADState;
+  TMouse2DMoveFilter = procedure(Sender: TFNCCADPrg2D; CurrentState: TCADState;
     var WPt: TPoint2D; X, Y: Integer) of Object;
   { : This type defines the type of a <I=2D snap filter>.
 
-    A filter is a procedure that is called by a <I=TCADPrg> control
+    A filter is a procedure that is called by a <I=TFNCCADPrg> control
     to update the current mouse position of the control.
 
-    <I=Sender> is the TCADPrg instance that has called the
+    <I=Sender> is the TFNCCADPrg instance that has called the
     filter; <I=CurrentState> is the current state of the control;
     <I=LastPt> contains the snap origin for the snapping;
     <I=CurrSnappedPt> must be set to the new snapped point.
@@ -7375,7 +7675,7 @@ type
     current angle and then forces it to the nearest allowed angle.
 
     When the filter is activated <I=LastPt> contains the snap origin,
-    that is the value assigned to the <See Property=TCADPrg2D@SnapOriginPoint>
+    that is the value assigned to the <See Property=TFNCCADPrg2D@SnapOriginPoint>
     property. If there is no valid snap origin then
     it will be (<I=MaxCoord>, <I=MaxCoord>). You must check for this
     value when implement a snap filter.
@@ -7384,7 +7684,7 @@ type
     point that is the point with the X and Y coordinates at integer
     multiplies of <I=XSnap> and <I=YSnap>.
   }
-  TCADPrg2DSnapFilter = procedure(Sender: TCADPrg2D; CurrentState: TCADState;
+  TCADPrg2DSnapFilter = procedure(Sender: TFNCCADPrg2D; CurrentState: TCADState;
     const LastPt: TPoint2D; var CurrSnappedPt: TPoint2D) of Object;
 
   { : This type define the class type used to specify a <See Class=TCADState2D> class.
@@ -7393,7 +7693,7 @@ type
 
   { : This class defines a state of a interaction task.
 
-    <See Class=TCADPrg> is based on a <I=FSM model> (finite state
+    <See Class=TFNCCADPrg> is based on a <I=FSM model> (finite state
     machine) in which an interaction task is is a set of states,
     each of them execute some part of the whole task.
     The interaction task (from now on simply a task) evolves through
@@ -7414,8 +7714,8 @@ type
     interaction task.
 
     An interaction task is started by using the
-    <See Method=TCADPrg@StartOperation>,
-    <See Method=TCADPrg@SuspendOperation> and passing it the first
+    <See Method=TFNCCADPrg@StartOperation>,
+    <See Method=TFNCCADPrg@SuspendOperation> and passing it the first
     state of it.
 
     To define a state you may want to implement the following
@@ -7430,7 +7730,7 @@ type
     is called when an interaction task is stopped, no when
     the state instace is destroyed.>
 
-    <B=Note>: The instance of a state is created by the <See Class=TCADPrg>
+    <B=Note>: The instance of a state is created by the <See Class=TFNCCADPrg>
     control.
   }
   TCADState2D = class(TCADState);
@@ -7442,12 +7742,12 @@ type
     The control implement a FSM (Finite state machine) model
     that receives events from the user and the Viewport.
 
-    The <I=TCADPrg2D> control use points on the view plane of
+    The <I=TFNCCADPrg2D> control use points on the view plane of
     the linked viewport.
 
     See also <See Class=TCADState2D> class for details.
   }
-  TCADPrg2D = class(TCADPrg)
+  TFNCCADPrg2D = class(TFNCCADPrg)
   private
     fCurrentViewportPoint: TPoint2D;
     fLastCursorPos, fSnapOriginPoint: TPoint2D;
@@ -7455,8 +7755,8 @@ type
     fMouseMoveFilter: TMouse2DMoveFilter;
     fSnapFilter: TCADPrg2DSnapFilter;
 
-    procedure SetViewport2D(View2D: TCADViewport2D);
-    function GetViewport2D: TCADViewport2D;
+    procedure SetViewport2D(View2D: TFNCCADViewport2D);
+    function GetViewport2D: TFNCCADViewport2D;
   protected
     function ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
       var X, Y: SmallInt): Boolean; override;
@@ -7464,14 +7764,12 @@ type
       Shift: TShiftState; var X, Y: SmallInt): Boolean; override;
     function ViewOnMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; var X, Y: SmallInt): Boolean; override;
-    { : This method draws an hair crossed 2D cursor on the view plane
-      in xor mode.
+    { : Records where the 2D hair cross is, snapped.
     }
-    procedure DrawCursorCross; override;
-    { : This method hides an hair crossed 2D cursor on the view plane
-      in xor mode.
+    procedure UpdateCursorCrossPos; override;
+    { : Draws the 2D hair cross at the recorded position.
     }
-    procedure HideCursorCross; override;
+    procedure PaintCursorCross; override;
     function GetVPPoint: TPoint2D; override;
     procedure SetVPPoint(const Pt: TPoint2D); override;
     function GetVPSnappedPoint: TPoint2D;
@@ -7485,7 +7783,7 @@ type
       plane of the last mouse event.
 
       <B=Note>: It is better to use this property in your interaction
-      tasks instead of the <See Property=TCADPrg@CurrentViewportPoint>
+      tasks instead of the <See Property=TFNCCADPrg@CurrentViewportPoint>
       property because by using this property you automatically apply
       the snapping if enabled.
     }
@@ -7501,9 +7799,9 @@ type
   published
     { : This property contains the linked viewport.
 
-      See also <See Property=TCADPrg@Viewport>.
+      See also <See Property=TFNCCADPrg@Viewport>.
     }
-    property Viewport2D: TCADViewport2D read GetViewport2D write SetViewport2D;
+    property Viewport2D: TFNCCADViewport2D read GetViewport2D write SetViewport2D;
     { : This property may contains a filter that will be called
       when a mouse button event is fired.
 
@@ -7527,14 +7825,14 @@ type
     property SnapFilter: TCADPrg2DSnapFilter read fSnapFilter write fSnapFilter;
   end;
 
-  TCADPrg3D = class;
+  TFNCCADPrg3D = class;
 
   { : This type defines the type of a <I=3D mouse button filter>.
 
-    A filter is a procedure that is called by a <I=TCADPrg> control
+    A filter is a procedure that is called by a <I=TFNCCADPrg> control
     to update the current mouse position of the control.
 
-    <I=Sender> is the TCADPrg instance that has called the
+    <I=Sender> is the TFNCCADPrg instance that has called the
     filter; <I=CurrentState> is the current state of the control;
     <I=Button> is the mouse button's state at the moment of the
     event; <I=WPt> must be set to new world point of the mouse
@@ -7551,14 +7849,14 @@ type
     mouse position at the moment of the activation of the filter.
     So if you don't need to change it simply left it unchanged.
   }
-  TMouse3DButtonFilter = procedure(Sender: TCADPrg3D; CurrentState: TCADState;
+  TMouse3DButtonFilter = procedure(Sender: TFNCCADPrg3D; CurrentState: TCADState;
     Button: TMouseButton; var WPt: TPoint3D; X, Y: Integer) of Object;
   { : This type defines the type of a <I=3D mouse move filter>.
 
-    A filter is a procedure that is called by a <I=TCADPrg> control
+    A filter is a procedure that is called by a <I=TFNCCADPrg> control
     to update the current mouse position of the control.
 
-    <I=Sender> is the TCADPrg instance that has called the
+    <I=Sender> is the TFNCCADPrg instance that has called the
     filter; <I=CurrentState> is the current state of the control;
     <I=Button> is the mouse button's state at the moment of the
     event; <I=WPt> must be set to new world point of the mouse
@@ -7575,14 +7873,14 @@ type
     mouse position at the moment of the activation of the filter.
     So if you don't need to change it simply left it unchanged.
   }
-  TMouse3DMoveFilter = procedure(Sender: TCADPrg3D; CurrentState: TCADState;
+  TMouse3DMoveFilter = procedure(Sender: TFNCCADPrg3D; CurrentState: TCADState;
     var WPt: TPoint3D; X, Y: Integer) of Object;
   { : This type defines the type of a <I=3D snap filter>.
 
-    A filter is a procedure that is called by a <I=TCADPrg> control
+    A filter is a procedure that is called by a <I=TFNCCADPrg> control
     to update the current mouse position of the control.
 
-    <I=Sender> is the TCADPrg instance that has called the
+    <I=Sender> is the TFNCCADPrg instance that has called the
     filter; <I=CurrentState> is the current state of the control;
     <I=LastPt> contains the snap origin for the snapping;
     <I=CurrSnappedPt> must be set to the new snapped point.
@@ -7593,7 +7891,7 @@ type
     current angle and then forces it to the nearest allowed angle.
 
     When the filter is activated <I=LastPt> contains the snap origin,
-    that is the value assigned to the <See Property=TCADPrg2D@SnapOriginPoint>
+    that is the value assigned to the <See Property=TFNCCADPrg2D@SnapOriginPoint>
     property. If there is no valid snap origin then
     it will be (<I=MaxCoord>, <I=MaxCoord>). You must check for this
     value when implement a snap filter.
@@ -7603,16 +7901,16 @@ type
     multiplies of <I=XSnap> and <I=YSnap>.
 
     <B=Note>: The snapping is always on 2D points on the current working
-    plane (see <See Class=TCADPrg3D>).
+    plane (see <See Class=TFNCCADPrg3D>).
   }
-  TCADPrg3DSnapFilter = procedure(Sender: TCADPrg3D; CurrentState: TCADState;
+  TCADPrg3DSnapFilter = procedure(Sender: TFNCCADPrg3D; CurrentState: TCADState;
     const LastPt: TPoint2D; var CurrSnappedPt: TPoint2D) of Object;
 
   TCADStateClass3D = class of TCADState3D;
 
   { : This class defines a state of a interaction task.
 
-    <See Class=TCADPrg> is based on a <I=FSM model> (finite state
+    <See Class=TFNCCADPrg> is based on a <I=FSM model> (finite state
     machine) in which an interaction task is is a set of states,
     each of them execute some part of the whole task.
     The interaction task (from now on simply a task) evolves through
@@ -7633,8 +7931,8 @@ type
     interaction task.
 
     An interaction task is started by using the
-    <See Method=TCADPrg@StartOperation>,
-    <See Method=TCADPrg@SuspendOperation> and passing it the first
+    <See Method=TFNCCADPrg@StartOperation>,
+    <See Method=TFNCCADPrg@SuspendOperation> and passing it the first
     state of it.
 
     To define a state you may want to implement the following
@@ -7649,7 +7947,7 @@ type
     is called when an interaction task is stopped, no when
     the state instace is destroyed.>
 
-    <B=Note>: The instance of a state is created by the <See Class=TCADPrg>
+    <B=Note>: The instance of a state is created by the <See Class=TFNCCADPrg>
     control.
   }
   TCADState3D = class(TCADState);
@@ -7670,7 +7968,7 @@ type
   }
   { : <New topic=WORKPLANE@The working plane>
     To make easy drawing in 3D using only a 2D projection,
-    the <See Class=TCADPrg3D> constrains the mouse on a 2D plane
+    the <See Class=TFNCCADPrg3D> constrains the mouse on a 2D plane
     that doesn't need to be the pojection plane. This plane
     is called <I=the Working Plane>.
 
@@ -7692,7 +7990,7 @@ type
     the X-Y plane and you are looking from the X axis, unexpected
     results may be possible.
   }
-  TCADPrg3D = class(TCADPrg)
+  TFNCCADPrg3D = class(TFNCCADPrg)
   private
     fCurrentWorldPoint: TPoint3D;
     fCurrentViewportPoint: TPoint2D;
@@ -7708,8 +8006,8 @@ type
     function GetCurrentWorkPlanePoint: TPoint3D;
     function GetWPSnappedPoint: TPoint3D;
     procedure SetWorldPoint(Pt: TPoint3D);
-    procedure SetViewport3D(View3D: TCADViewport3D);
-    function GetViewport3D: TCADViewport3D;
+    procedure SetViewport3D(View3D: TFNCCADViewport3D);
+    function GetViewport3D: TFNCCADViewport3D;
     function GetWorkingPlaneXDir: TVector3D;
   protected
     function ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
@@ -7722,8 +8020,8 @@ type
     function GetVPPoint: TPoint2D; override;
     procedure SetVPPoint(const Pt: TPoint2D); override;
 
-    procedure DrawCursorCross; override;
-    procedure HideCursorCross; override;
+    procedure UpdateCursorCrossPos; override;
+    procedure PaintCursorCross; override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -7756,7 +8054,7 @@ type
       the <See=Working plane@WORKPLANE>.
 
       The point is snapped using the current snap setting if
-      <See Property=TCADPrg@UseSnap> is <B=True>.
+      <See Property=TFNCCADPrg@UseSnap> is <B=True>.
     }
     property CurrentWorkingPlaneSnappedPoint: TPoint3D read GetWPSnappedPoint;
     { : This property contains the normal to the
@@ -7797,9 +8095,9 @@ type
   published
     { : This property contains the linked viewport.
 
-      See also <See Property=TCADPrg@Viewport>.
+      See also <See Property=TFNCCADPrg@Viewport>.
     }
-    property Viewport3D: TCADViewport3D read GetViewport3D write SetViewport3D;
+    property Viewport3D: TFNCCADViewport3D read GetViewport3D write SetViewport3D;
     { : This property contains the dimension in drawing units of
       the mouse cursor.
 
@@ -9584,7 +9882,7 @@ procedure Draw3DSubSetAsPolyline(const Vect: Pointer; Count: Integer;
   <LI=<I=P2> is the second point of the line.>
   <LI=<I=NT> is the normalization matrix used to project and
   normalize the line to the screen. (See
-  <See Method=TCADViewport3D@ViewNormalization>.
+  <See Method=TFNCCADViewport3D@ViewNormalization>.
   <LI=<I=VT> is the mapping matrix used to map the clipped line to the screen.>
 }
 function DrawLine3D(const Cnv: TDecorativeCanvas; P1, P2: TPoint3D;
@@ -9612,7 +9910,7 @@ function DrawLine3D(const Cnv: TDecorativeCanvas; P1, P2: TPoint3D;
   <LI=<I=Box> is the rectangle to be drawed.>
   <LI=<I=NT> is the normalization matrix used
   to project and normalize the line to the screen.
-  (See <See Method=TCADViewport3D@ViewNormalization>).>
+  (See <See Method=TFNCCADViewport3D@ViewNormalization>).>
   <LI=<I=VT> is the mapping matrix used to map the clipped line
   to the screen.>
 }
@@ -9644,6 +9942,21 @@ function CADSysFindClassByName(const Name: String): TGraphicObjectClass;
   See also <See=Object's Persistance@PERSISTANCE>.
 }
 function CADSysFindClassByIndex(Index: Word): TGraphicObjectClass;
+{ : This function creates a JSON object for a graphic object. The class
+  name is stored in the "type" member, which is what
+  <See Function=CADSysObjectFromJSON> uses to recreate it.
+
+  See also <See=Object's Persistance@PERSISTANCE>.
+}
+function CADSysObjectToJSON(const Obj: TGraphicObject): TJSONObject;
+{ : This function recreates a graphic object from a JSON object, using
+  its "type" member to find the registered class. A
+  <See Class=ECADObjClassNotFound> exception is raised when the class is
+  not registered.
+
+  See also <See=Object's Persistance@PERSISTANCE>.
+}
+function CADSysObjectFromJSON(const AJSON: TJSONObject): TGraphicObject;
 { : This procedure registers a new graphic object class in the
   library PERSISTANCE system.
 
@@ -9683,12 +9996,20 @@ const
     used as drawing file's header.
   }
   CADSysVersion: TCADVersion = 'CAD423';
+  { : This constant is the value of the "format" member of every CADSys
+    JSON document.
+  }
+  CADSysJSONFormat = 'cadsys-json';
+  { : This constant is the version of the JSON document format written by
+    this version of the library.
+  }
+  CADSysJSONVersion = '5.0';
   { : This constant is used as <I=drawing mode> value for
-    the <See Property=TCADViewport@DrawMode>.
+    the <See Property=TFNCCADViewport@DrawMode>.
   }
   DRAWMODE_NORMAL = 0;
   { : This constant is used as <I=drawing mode> value for
-    the <See Property=TCADViewport@DrawMode>.
+    the <See Property=TFNCCADViewport@DrawMode>.
 
     The <I=draw mode> values used as toogle flags. If this
     value is present in the DrawMode property no drawing
@@ -9696,7 +10017,7 @@ const
   }
   DRAWMODE_NODRAW = 1;
   { : This constant is used as <I=drawing mode> value for
-    the <See Property=TCADViewport@DrawMode>.
+    the <See Property=TFNCCADViewport@DrawMode>.
 
     The <I=draw mode> values used as toogle flags. If this
     value is present in the DrawMode property the object
@@ -9707,7 +10028,7 @@ const
   }
   DRAWMODE_SHOWCTRLPOINTS = 2;
   { : This constant is used as <I=drawing mode> value for
-    the <See Property=TCADViewport@DrawMode>.
+    the <See Property=TFNCCADViewport@DrawMode>.
 
     The <I=draw mode> values used as toogle flags. If this
     value is present in the DrawMode property only front
@@ -9723,7 +10044,7 @@ const
 
   DRAWMODE_BACKFACECULLING = 4;
   { : This constant is used as <I=drawing mode> value for
-    the <See Property=TCADViewport@DrawMode>.
+    the <See Property=TFNCCADViewport@DrawMode>.
 
     The <I=draw mode> values used as toogle flags. If this
     value is present in the DrawMode property the front
@@ -9739,7 +10060,7 @@ const
   }
   DRAWMODE_SHOWORIENTATION = 8;
   { : This constant is used as <I=drawing mode> value for
-    the <See Property=TCADViewport@DrawMode>.
+    the <See Property=TFNCCADViewport@DrawMode>.
 
     The <I=draw mode> values used as toogle flags. If this
     value is present in the DrawMode property only the
@@ -9751,7 +10072,7 @@ const
   DRAWMODE_ONLYBOUNDINGBOX = 16;
 
   { : This constant is used as <I=drawing mode> value for
-    the <See Property=TCADViewport@DrawMode>.
+    the <See Property=TFNCCADViewport@DrawMode>.
 
     The <I=draw mode> values used as toogle flags. If this
     value is present in the DrawMode property the vectorial
@@ -9769,33 +10090,20 @@ const
 
   { : This commands stops the current task with success.
 
-    See also <See Method=TCADPrg@SendUserEvent>.
+    See also <See Method=TFNCCADPrg@SendUserEvent>.
   }
   CADPRG_ACCEPT = 1;
   { : This commands aborts the current task.
 
-    See also <See Method=TCADPrg@SendUserEvent>.
+    See also <See Method=TFNCCADPrg@SendUserEvent>.
   }
   CADPRG_CANCEL = 2;
 
 Implementation
 
-uses Dialogs, Forms, CS4Shapes;
+uses FNCCS4Shapes;
 
 type
-  TPaintingThread = class(TThread)
-  private
-    { Private declarations }
-    fOwner: TCADViewport;
-    fRect: TRect2D;
-  public
-    // Assign also the OnTerminate event.
-    constructor Create(const Owner: TCADViewport; const ARect: TRect2D);
-    destructor Destroy; override;
-
-    procedure Execute; override;
-  end;
-
   // TGraphicClassRegistered = ;
 
   PObjBlock = ^TObjBlock;
@@ -9804,6 +10112,18 @@ type
     Obj: TGraphicObject; { Graphic object. }
     Next, Prev: PObjBlock; { Linked list pointer. }
   end;
+
+const
+  { Names used for the pen, brush and mode enumerations in JSON. The order
+    follows TCADPenStyle / TCADPenMode / TCADBrushStyle, which in turn
+    follow the VCL declarations. }
+  CADPenStyleNames: array [0 .. 8] of String = ('solid', 'dash', 'dot',
+    'dashDot', 'dashDotDot', 'clear', 'insideFrame', 'userStyle', 'alternate');
+  CADPenModeNames: array [0 .. 15] of String = ('black', 'white', 'nop', 'not',
+    'copy', 'notCopy', 'mergePenNot', 'maskPenNot', 'mergeNotPen',
+    'maskNotPen', 'merge', 'notMerge', 'mask', 'notMask', 'xor', 'notXor');
+  CADBrushStyleNames: array [0 .. 7] of String = ('solid', 'clear',
+    'horizontal', 'vertical', 'fDiagonal', 'bDiagonal', 'cross', 'diagCross');
 
 var
   GraphicObjectsRegistered: array [0 .. 512] of TGraphicObjectClass;
@@ -10041,7 +10361,11 @@ begin
         B := Trunc(q * 255);
       end;
   end;
-  Result := RGB(R, G, B);
+  { Composed by hand rather than with the Windows RGB macro: that macro
+    was this unit's last reason to use WinAPI.Windows, and a TColor is
+    $00BBGGRR on every framework the port targets. }
+  Result := TColor(Cardinal(Byte(R)) or (Cardinal(Byte(G)) shl 8) or
+    (Cardinal(Byte(B)) shl 16));
 end;
 
 { 2D functions }
@@ -12240,7 +12564,13 @@ begin
   Result := VectorLength3D(Vector3D(P1, P2));
 end;
 
-{$R+}
+{ A local R-plus directive used to sit here, turning range checking back
+  on for the two functions below, with a matching R-minus after them.
+  Both are gone: they contradict the unit-level setting at the top,
+  neither function indexes anything, and an island where the rule is
+  reversed is precisely what makes a range-check problem hard to find.
+  (Written out in words rather than as directives - a directive quoted
+  inside a brace comment ends the comment at its own closing brace.) }
 
 function DotProduct3D(const V1, V2: TVector3D): TRealType;
 var
@@ -12261,7 +12591,6 @@ begin
   Result.Y := ResY;
   Result.Z := ResZ;
 end;
-{$R-}
 
 function PointOutBox3D(Pt: TPoint3D; Box: TRect3D): TRect3D;
 begin
@@ -12410,9 +12739,7 @@ end;
   scratch buffer on every call - once per shape per repaint, so a
   5000-primitive drawing did 5000 heap round-trips per frame (the polygon
   helper did two). Almost every primitive fits in a stack buffer of this
-  size, so the heap is now touched only by unusually large ones. A stack
-  buffer is also inherently per-thread, which matters because the library
-  can paint from TPaintingThread as well as the main thread. }
+  size, so the heap is now touched only by unusually large ones. }
 const
   CS4_SCRATCH_POINTS = 512;
 
@@ -12624,7 +12951,7 @@ begin
       end;
     end;
     if (VisPoints > 0) then
-      Polygon(Cnv.Canvas.Handle, TmpPts^, VisPoints { ,False } );
+      Cnv.Polygon(TmpPts, VisPoints);
   finally
     if HeapPts <> nil then
       FreeMem(HeapPts, NeededPts * SizeOf(TPoint));
@@ -12638,15 +12965,11 @@ procedure DrawPlaceHolder(const Cnv: TDecorativeCanvas;
 var
   TmpWdt: Integer;
 begin
-  with Cnv.Canvas do
-  begin
-    Brush.Style := bsSolid;
-    Brush.Color := clSilver;
-    Pen.Style := psSolid;
-    TmpWdt := Wdt div 2;
-    WinAPI.Windows.Rectangle(Handle, X - TmpWdt, Y - TmpWdt, X + TmpWdt,
-      Y + TmpWdt);
-  end;
+  Cnv.Brush.Style := cbsSolid;
+  Cnv.Brush.Color := cadclSilver;
+  Cnv.Pen.Style := cpsSolid;
+  TmpWdt := Wdt div 2;
+  Cnv.Graphics.Rectangle(X - TmpWdt, Y - TmpWdt, X + TmpWdt, Y + TmpWdt);
 end;
 
 procedure DrawRoundPlaceHolder(const Cnv: TDecorativeCanvas;
@@ -12654,15 +12977,11 @@ procedure DrawRoundPlaceHolder(const Cnv: TDecorativeCanvas;
 var
   TmpWdt: Integer;
 begin
-  with Cnv.Canvas do
-  begin
-    Brush.Style := bsSolid;
-    Brush.Color := clSilver;
-    Pen.Style := psSolid;
-    TmpWdt := Wdt div 2;
-    WinAPI.Windows.Ellipse(Handle, X - TmpWdt, Y - TmpWdt, X + TmpWdt,
-      Y + TmpWdt);
-  end;
+  Cnv.Brush.Style := cbsSolid;
+  Cnv.Brush.Color := cadclSilver;
+  Cnv.Pen.Style := cpsSolid;
+  TmpWdt := Wdt div 2;
+  Cnv.Graphics.Ellipse(X - TmpWdt, Y - TmpWdt, X + TmpWdt, Y + TmpWdt);
 end;
 
 procedure DrawRect2DAsPolyline(const Cnv: TDecorativeCanvas;
@@ -12805,7 +13124,7 @@ begin
       end;
     end;
     if (VisPoints > 0) then
-      Polygon(Cnv.Canvas.Handle, TmpPts^, VisPoints);
+      Cnv.Polygon(TmpPts, VisPoints);
   finally
     FreeMem(BoxPts, 5 * SizeOf(TPoint2D));
     FreeMem(TmpPts, 15 * SizeOf(TPoint));
@@ -13028,7 +13347,7 @@ begin
     BoxSegments[8][2] := BoxSegments[12][2];
   end;
 
-  if Cnv.Canvas.Pen.Mode = pmXOr then
+  if Cnv.Rubber then
   begin
     for Cont := 1 to 12 do
       ViewedSegs[Cont] := False;
@@ -13647,44 +13966,28 @@ begin
   fOnChange := nil;
 end;
 
-constructor TGraphicObject.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  BitMask: Byte;
+constructor TGraphicObject.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited Create;
-  with Stream do
-  begin
-    Read(fID, SizeOf(fID));
-    Read(fLayer, SizeOf(fLayer));
-    BitMask := 0;
-    Read(BitMask, SizeOf(BitMask))
-  end;
-  fVisible := (BitMask and 1) = 1;
-  fEnabled := (BitMask and 2) = 2;
-  fToBeSaved := not((BitMask and 4) = 4);
+  fID := JGetInt(AJSON, 'id', 0);
+  fLayer := JGetInt(AJSON, 'layer', 0);
+  fVisible := JGetBool(AJSON, 'visible', True);
+  fEnabled := JGetBool(AJSON, 'enabled', True);
+  fToBeSaved := JGetBool(AJSON, 'toBeSaved', True);
   fTag := 0;
   fOnChange := nil;
 end;
 
-procedure TGraphicObject.SaveToStream(const Stream: TStream);
-var
-  BitMask: Byte;
+procedure TGraphicObject.SaveToJSON(const AJSON: TJSONObject);
 begin
-  BitMask := 0;
-  if fVisible then
-    BitMask := BitMask or 1;
-  if fEnabled then
-    BitMask := BitMask or 2;
-  if not fToBeSaved then
-    BitMask := BitMask or 4;
-  // Uso il not per compatibilità con le versioni precedenti.
-  with Stream do
-  begin
-    Write(fID, SizeOf(fID));
-    Write(fLayer, SizeOf(fLayer));
-    Write(BitMask, SizeOf(BitMask));
-  end;
+  { The class name is what CADSysObjectFromJSON uses to recreate the
+    object, so every object carries it. }
+  JSetStr(AJSON, 'type', ClassName);
+  JSetInt(AJSON, 'id', fID);
+  JSetInt(AJSON, 'layer', fLayer);
+  JSetBoolDef(AJSON, 'visible', fVisible, True);
+  JSetBoolDef(AJSON, 'enabled', fEnabled, True);
+  JSetBoolDef(AJSON, 'toBeSaved', fToBeSaved, True);
 end;
 
 procedure TGraphicObject.Assign(const Obj: TGraphicObject);
@@ -13725,6 +14028,80 @@ end;
 function CADSysFindClassByName(const Name: String): TGraphicObjectClass;
 begin
   Result := GraphicObjectsRegistered[CADSysFindClassIndex(Name)];
+end;
+
+function CADSysObjectToJSON(const Obj: TGraphicObject): TJSONObject;
+begin
+  Result := TJSONObject.Create;
+  try
+    Obj.SaveToJSON(Result);
+  except
+    Result.Free;
+    Raise;
+  end;
+end;
+
+function CADSysObjectFromJSON(const AJSON: TJSONObject): TGraphicObject;
+var
+  TmpName: String;
+begin
+  TmpName := JGetStr(AJSON, 'type');
+  if TmpName = '' then
+    Raise ECADObjClassNotFound.Create
+      ('CADSysObjectFromJSON: the object has no "type" member');
+  Result := CADSysFindClassByName(TmpName).CreateFromJSON(AJSON);
+  { The constructors read the geometry and the model transform, but none
+    of them can compute the bounding box on the way past: _UpdateExtension
+    is virtual, so calling it from a base constructor would reach a
+    descendant whose own fields are not initialised yet. Here the object
+    is complete. Without this a shape loaded on its own keeps an empty
+    Box until something else happens to edit it. }
+  Result.UpdateExtension(Result);
+end;
+
+{ Colours are written as #RRGGBB, system colours as their $AARRGGBB code. }
+function ColorToJSONStr(const C: TCADColor): String;
+begin
+  { #RRGGBB while the colour is opaque, #AARRGGBB once it is not. }
+  if CADColorIsOpaque(C) then
+    Result := Format('#%.6x', [Cardinal(C) and $00FFFFFF])
+  else
+    Result := Format('#%.8x', [Cardinal(C)]);
+end;
+
+function JSONStrToColor(const S: String; const Default: TCADColor): TCADColor;
+var
+  TmpVal: Int64;
+begin
+  Result := Default;
+  if Length(S) = 0 then
+    Exit;
+  if S[1] = '#' then
+  begin
+    if not TryStrToInt64('$' + Copy(S, 2, MaxInt), TmpVal) then
+      Exit;
+    if Length(S) <= 7 then
+      { #RRGGBB is opaque. }
+      Result := TCADColor(Cardinal(TmpVal) or $FF000000)
+    else
+      Result := TCADColor(Cardinal(TmpVal));
+  end
+  else if TryStrToInt64(S, TmpVal) then
+    { A bare number is a legacy TColor, always opaque. }
+    Result := TColorToCADColor(TColor(TmpVal));
+end;
+
+function BlockNameToStr(const N: TSourceBlockName): String;
+var
+  Cont: Integer;
+begin
+  Result := '';
+  for Cont := 0 to High(N) do
+  begin
+    if N[Cont] = #0 then
+      Break;
+    Result := Result + N[Cont];
+  end;
 end;
 
 function CADSysFindClassByIndex(Index: Word): TGraphicObjectClass;
@@ -14386,90 +14763,6 @@ begin
 end;
 
 // =====================================================================
-// TPaintingThread
-// =====================================================================
-
-constructor TPaintingThread.Create(const Owner: TCADViewport;
-  const ARect: TRect2D);
-begin
-  inherited Create(True); // Sempre disattivo alla partenza.
-
-  FreeOnTerminate := True;
-  fOwner := Owner;
-  fRect := ARect;
-end;
-
-destructor TPaintingThread.Destroy;
-begin
-  DoTerminate;
-  inherited;
-end;
-
-procedure TPaintingThread.Execute;
-var
-  Tmp: TGraphicObject;
-  TmpIter: TGraphicObjIterator;
-  Cont: Integer;
-  TmpCanvas: TCanvas;
-  TmpClipRect: TRect2D;
-begin
-  if not Assigned(fOwner) then
-    Exit;
-  with fOwner do
-    try
-      TmpCanvas := OffScreenCanvas.Canvas;
-      TmpClipRect := RectToRect2D(ClientRect);
-      TmpCanvas.Lock;
-      try
-        if fShowGrid and not fGridOnTop then
-          DrawGrid(fRect, TmpCanvas);
-        if (fViewportObjects <> nil) then
-          TmpIter := fViewportObjects.GetIterator
-        else if not Assigned(fCADCmp) or fCADCmp.IsBlocked then
-          Exit
-        else
-          TmpIter := fCADCmp.GetListOfObjects;
-        try
-          Tmp := TmpIter.First;
-          if fDrawMode = DRAWMODE_NODRAW then
-            Exit;
-          Cont := 0;
-          if fCopingFrequency > 0 then
-            while Tmp <> nil do
-            begin
-              DrawObject(Tmp, OffScreenCanvas, TmpClipRect);
-              Inc(Cont);
-              if Cont >= fCopingFrequency then
-              begin
-                Synchronize(DoCopyCanvasThreadSafe);
-                Cont := 0;
-              end;
-              Tmp := TmpIter.Next;
-              if Terminated then
-                Break;
-            end
-          else
-            while Tmp <> nil do
-            begin
-              DrawObject(Tmp, OffScreenCanvas, TmpClipRect);
-              Tmp := TmpIter.Next;
-              if Terminated then
-                Break;
-            end;
-        finally
-          TmpIter.Free;
-        end;
-        if fShowGrid and fGridOnTop then
-          DrawGrid(fRect, TmpCanvas);
-      finally
-        TmpCanvas.UnLock;
-      end;
-    except
-    end;
-  Synchronize(fOwner.DoCopyCanvasThreadSafe);
-end;
-
-// =====================================================================
 // TLayer
 // =====================================================================
 
@@ -14487,7 +14780,7 @@ begin
   end;
 end;
 
-procedure TLayer.SetPen(Pn: TPen);
+procedure TLayer.SetPen(Pn: TCADSimplePen);
 begin
   if Assigned(Pn) then
   begin
@@ -14496,7 +14789,7 @@ begin
   end;
 end;
 
-procedure TLayer.SetBrush(Br: TBrush);
+procedure TLayer.SetBrush(Br: TCADSimpleBrush);
 begin
   if Assigned(Br) then
   begin
@@ -14510,12 +14803,12 @@ begin
   inherited Create;
   fIdx := Idx;
   fName := Format('Layer %d', [Idx]);
-  fPen := TPen.Create;
-  fPen.Color := clBlack;
-  fPen.Style := psSolid;
-  fBrush := TBrush.Create;
-  fBrush.Color := clWhite;
-  fBrush.Style := bsSolid;
+  fPen := TCADSimplePen.Create;
+  fPen.Color := cadclBlack;
+  fPen.Style := cpsSolid;
+  fBrush := TCADSimpleBrush.Create;
+  fBrush.Color := cadclWhite;
+  fBrush.Style := cbsSolid;
   fDecorativePen := TDecorativePen.Create;
   fActive := True;
   fVisible := True;
@@ -14535,103 +14828,73 @@ begin
   inherited Destroy;
 end;
 
-procedure TLayer.SaveToStream(const Stream: TStream);
+procedure TLayer.SaveToJSON(const AJSON: TJSONObject);
 var
-  TmpColor: TColor;
-  TmpPenStyle: TPenStyle;
-  TmpPenMode: TPenMode;
-  TmpWidth: Integer;
-  TmpBrushStyle: TBrushStyle;
-  TmpBool: Boolean;
+  TmpPen, TmpBrush: TJSONObject;
+  TmpPattern: String;
+  Cont: Integer;
 begin
-  TmpColor := fPen.Color;
-  Stream.Write(TmpColor, SizeOf(TmpColor));
-  TmpPenStyle := fPen.Style;
-  Stream.Write(TmpPenStyle, SizeOf(TmpPenStyle));
-  TmpPenMode := fPen.Mode;
-  Stream.Write(TmpPenMode, SizeOf(TmpPenMode));
-  TmpWidth := fPen.Width;
-  Stream.Write(TmpWidth, SizeOf(TmpWidth));
+  JSetInt(AJSON, 'index', fIdx);
+  JSetStr(AJSON, 'name', String(fName));
 
-  TmpColor := fBrush.Color;
-  Stream.Write(TmpColor, SizeOf(TmpColor));
-  TmpBrushStyle := fBrush.Style;
-  Stream.Write(TmpBrushStyle, SizeOf(TmpBrushStyle));
+  TmpPen := TJSONObject.Create;
+  JSetStr(TmpPen, 'color', ColorToJSONStr(fPen.Color));
+  JSetInt(TmpPen, 'width', fPen.Width);
+  JSetEnum(TmpPen, 'style', Ord(fPen.Style), CADPenStyleNames);
+  JSetEnum(TmpPen, 'mode', Ord(fPen.Mode), CADPenModeNames);
+  JSetValue(AJSON, 'pen', TmpPen);
 
-  TmpWidth := fDecorativePen.PatternLenght;
-  Stream.Write(TmpWidth, SizeOf(TmpWidth));
-  for TmpWidth := 0 to fDecorativePen.PatternLenght - 1 do
-  begin
-    TmpBool := fDecorativePen.PenStyle[TmpWidth];
-    Stream.Write(TmpBool, SizeOf(TmpBool));
-  end;
+  TmpBrush := TJSONObject.Create;
+  JSetStr(TmpBrush, 'color', ColorToJSONStr(fBrush.Color));
+  JSetEnum(TmpBrush, 'style', Ord(fBrush.Style), CADBrushStyleNames);
+  JSetValue(AJSON, 'brush', TmpBrush);
 
-  Stream.Write(fActive, SizeOf(Boolean));
-  Stream.Write(fVisible, SizeOf(Boolean));
-  Stream.Write(fOpaque, SizeOf(Boolean));
-  Stream.Write(fStreamable, SizeOf(Boolean));
-  Stream.Write(fName, SizeOf(TLayerName));
+  TmpPattern := '';
+  for Cont := 0 to fDecorativePen.PatternLenght - 1 do
+    if fDecorativePen.PenStyle[Cont] then
+      TmpPattern := TmpPattern + '1'
+    else
+      TmpPattern := TmpPattern + '0';
+  if TmpPattern <> '' then
+    JSetStr(AJSON, 'pattern', TmpPattern);
+
+  JSetBool(AJSON, 'active', fActive);
+  JSetBool(AJSON, 'visible', fVisible);
+  JSetBool(AJSON, 'opaque', fOpaque);
+  JSetBool(AJSON, 'streamable', fStreamable);
 end;
 
-procedure TLayer.LoadFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+procedure TLayer.LoadFromJSON(const AJSON: TJSONObject);
 var
-  TmpColor: TColor;
-  TmpPenStyle: TPenStyle;
-  TmpPenMode: TPenMode;
-  TmpCont, TmpWidth: Integer;
-  TmpBrushStyle: TBrushStyle;
-  TmpBool: Boolean;
+  TmpPen, TmpBrush: TJSONObject;
 begin
-  Stream.Read({%H-}TmpColor, SizeOf(TmpColor));
-  fPen.Color := TmpColor;
-  Stream.Read({%H-}TmpPenStyle, SizeOf(TmpPenStyle));
-  fPen.Style := TmpPenStyle;
-  Stream.Read({%H-}TmpPenMode, SizeOf(TmpPenMode));
-  fPen.Mode := TmpPenMode;
-  TmpWidth := 0;
-  Stream.Read(TmpWidth, SizeOf(TmpWidth));
-  fPen.Width := TmpWidth;
+  fName := JGetStr(AJSON, 'name', String(fName));
 
-  Stream.Read(TmpColor, SizeOf(TmpColor));
-  fBrush.Color := TmpColor;
-  Stream.Read({%H-}TmpBrushStyle, SizeOf(TmpBrushStyle));
-  fBrush.Style := TmpBrushStyle;
-  if (Version < 'CAD422') then
-    Stream.Read(TmpColor, SizeOf(TmpColor));
-
-  if (Version >= 'CAD41') then
+  TmpPen := JGetObject(AJSON, 'pen');
+  if TmpPen <> nil then
   begin
-    Stream.Read(TmpWidth, SizeOf(TmpWidth));
-    for TmpCont := 0 to TmpWidth - 1 do
-    begin
-      TmpBool := False;
-      Stream.Read(TmpBool, SizeOf(TmpBool));
-      fDecorativePen.PenStyle[TmpCont] := TmpBool;
-    end;
+    fPen.Color := JSONStrToColor(JGetStr(TmpPen, 'color'), fPen.Color);
+    fPen.Width := JGetInt(TmpPen, 'width', fPen.Width);
+    fPen.Style := TCADPenStyle(JGetEnum(TmpPen, 'style', Ord(fPen.Style),
+      CADPenStyleNames));
+    fPen.Mode := TCADPenMode(JGetEnum(TmpPen, 'mode', Ord(fPen.Mode),
+      CADPenModeNames));
   end;
 
-  Stream.Read(fActive, SizeOf(Boolean));
-  if (Version >= 'CAD4') then
-    Stream.Read(fVisible, SizeOf(Boolean))
-  else
-    fVisible := True;
-  Stream.Read(fOpaque, SizeOf(Boolean));
-  if (Version = 'CAD3  ') then
+  TmpBrush := JGetObject(AJSON, 'brush');
+  if TmpBrush <> nil then
   begin
-    Stream.Read(fStreamable, SizeOf(Boolean));
-    fName := Format('Layer %d', [fIdx]);
-  end
-  else if Version >= 'CAD33' then
-  begin
-    Stream.Read(fStreamable, SizeOf(Boolean));
-    Stream.Read(fName, SizeOf(TLayerName));
-  end
-  else
-  begin
-    fStreamable := True;
-    fName := Format('Layer %d', [fIdx]);
+    fBrush.Color := JSONStrToColor(JGetStr(TmpBrush, 'color'), fBrush.Color);
+    fBrush.Style := TCADBrushStyle(JGetEnum(TmpBrush, 'style',
+      Ord(fBrush.Style), CADBrushStyleNames));
   end;
+
+  fDecorativePen.SetPenStyle(JGetStr(AJSON, 'pattern', ''));
+
+  fActive := JGetBool(AJSON, 'active', fActive);
+  fVisible := JGetBool(AJSON, 'visible', fVisible);
+  fOpaque := JGetBool(AJSON, 'opaque', fOpaque);
+  fStreamable := JGetBool(AJSON, 'streamable', fStreamable);
   fModified := True;
 end;
 
@@ -14640,16 +14903,10 @@ begin
   Result := fVisible;
   if not fVisible then
     Exit;
-  with Cnv do
-  begin
-    Canvas.Pen.Assign(Pen);
-    Canvas.Brush.Assign(Brush);
-    Canvas.Font.Color := Pen.Color;
-    if not fOpaque then
-      WinAPI.Windows.SetBkMode(Canvas.Handle, WinAPI.Windows.TRANSPARENT)
-    else
-      WinAPI.Windows.SetBkMode(Canvas.Handle, WinAPI.Windows.Opaque);
-  end;
+  Cnv.Pen.Assign(fPen);
+  Cnv.Brush.Assign(fBrush);
+  Cnv.Graphics.FontColor := fPen.Color;
+  Cnv.Graphics.Transparent := not fOpaque;
   Cnv.DecorativePen.Assign(fDecorativePen);
 end;
 
@@ -14675,14 +14932,14 @@ begin
   for Cont := 0 to 255 do
   begin
     TLayer(fLayers[Cont]).fName := Format('Layer %d', [Cont]);
-    TLayer(fLayers[Cont]).fPen.Color := clBlack;
-    TLayer(fLayers[Cont]).fPen.Style := psSolid;
+    TLayer(fLayers[Cont]).fPen.Color := cadclBlack;
+    TLayer(fLayers[Cont]).fPen.Style := cpsSolid;
     { CS4-FIX: this used to allocate a fresh TBrush over the one created in
       TLayer.Create - leaking 256 brushes per call and, because the new brush
       had no OnChange handler, silently breaking fModified tracking (and so
       the layer's participation in SaveToStream). Reuse the existing brush. }
-    TLayer(fLayers[Cont]).fBrush.Color := clWhite;
-    TLayer(fLayers[Cont]).fBrush.Style := bsSolid;
+    TLayer(fLayers[Cont]).fBrush.Color := cadclWhite;
+    TLayer(fLayers[Cont]).fBrush.Style := cbsSolid;
     TLayer(fLayers[Cont]).fActive := True;
     TLayer(fLayers[Cont]).fVisible := True;
     TLayer(fLayers[Cont]).fOpaque := False;
@@ -14718,39 +14975,40 @@ begin
   inherited Destroy;
 end;
 
-procedure TLayers.SaveToStream(const Stream: TStream);
+function TLayers.SaveToJSON: TJSONArray;
 var
-  Cont: Word;
+  Cont: Integer;
+  TmpObj: TJSONObject;
 begin
-  Cont := 1;
-  Stream.Write(Cont, SizeOf(Cont));
-  for Cont := 0 to 255 do
-  begin
-    if TLayer(fLayers[Cont]).fModified then
-    begin
-      Stream.Write(Cont, SizeOf(Cont));
-      TLayer(fLayers[Cont]).SaveToStream(Stream);
-    end;
+  Result := TJSONArray.Create;
+  try
+    for Cont := 0 to 255 do
+      if TLayer(fLayers[Cont]).fModified then
+      begin
+        TmpObj := TJSONObject.Create;
+        JAddItem(Result, TmpObj);
+        TLayer(fLayers[Cont]).SaveToJSON(TmpObj);
+      end;
+  except
+    Result.Free;
+    Raise;
   end;
-  Cont := 256;
-  Stream.Write(Cont, SizeOf(Cont));
 end;
 
-procedure TLayers.LoadFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+procedure TLayers.LoadFromJSON(const AJSON: TJSONArray);
 var
-  Cont: Word;
+  Cont, TmpIdx: Integer;
+  TmpObj: TJSONObject;
 begin
-  Cont := 0;
-  Stream.Read(Cont, SizeOf(Cont));
-  if Cont <> 1 then
-    Raise ECADFileNotValid.Create('TLayers.LoadFromStream: No layers found');
-  while Stream.Position < Stream.Size do
+  if AJSON = nil then
+    Exit;
+  for Cont := 0 to AJSON.Count - 1 do
   begin
-    Stream.Read(Cont, SizeOf(Cont));
-    if Cont = 256 then
-      Break;
-    TLayer(fLayers[Cont]).LoadFromStream(Stream, Version);
+    TmpObj := JItemObject(AJSON, Cont);
+    TmpIdx := JGetInt(TmpObj, 'index', -1);
+    if (TmpIdx < 0) or (TmpIdx > 255) then
+      Raise ECADFileNotValid.Create('TLayers.LoadFromJSON: invalid layer index');
+    TLayer(fLayers[TmpIdx]).LoadFromJSON(TmpObj);
   end;
 end;
 
@@ -14761,34 +15019,34 @@ begin
 end;
 
 // =====================================================================
-// TCADCmp
+// TFNCCADCmp
 // =====================================================================
 
-function TCADCmp.GetObjectsCount: Integer;
+function TFNCCADCmp.GetObjectsCount: Integer;
 begin
   Result := fListOfObjects.Count;
 end;
 
-function TCADCmp.GetSourceBlocksCount: Integer;
+function TFNCCADCmp.GetSourceBlocksCount: Integer;
 begin
   Result := fListOfBlocks.Count;
 end;
 
-function TCADCmp.GetListOfObjects: TGraphicObjIterator;
+function TFNCCADCmp.GetListOfObjects: TGraphicObjIterator;
 begin
   Result := fListOfObjects.GetIterator;
 end;
 
-function TCADCmp.GetListOfBlocks: TGraphicObjIterator;
+function TFNCCADCmp.GetListOfBlocks: TGraphicObjIterator;
 begin
   Result := fListOfBlocks.GetIterator;
 end;
 
-procedure TCADCmp.SetListOfObjects(NL: TGraphicObjList);
+procedure TFNCCADCmp.SetListOfObjects(NL: TGraphicObjList);
 begin
   if HasIterators then
     Raise ECADSysException.Create
-      ('TCADCmp.SetListOfObjects: Cannot change ObjectList when the current one has active iterators.');
+      ('TFNCCADCmp.SetListOfObjects: Cannot change ObjectList when the current one has active iterators.');
   if Assigned(NL) then
   begin
     DeleteAllObjects;
@@ -14797,11 +15055,11 @@ begin
   end;
 end;
 
-procedure TCADCmp.SetListOfBlocks(NL: TGraphicObjList);
+procedure TFNCCADCmp.SetListOfBlocks(NL: TGraphicObjList);
 begin
   if HasIterators then
     Raise ECADSysException.Create
-      ('TCADCmp.SetListOfBlocks: Cannot change BlocksList when the current one has active iterators.');
+      ('TFNCCADCmp.SetListOfBlocks: Cannot change BlocksList when the current one has active iterators.');
   if Assigned(NL) then
   begin
     DeleteAllSourceBlocks;
@@ -14810,38 +15068,38 @@ begin
   end;
 end;
 
-function TCADCmp.GetExclusiveListOfObjects: TExclusiveGraphicObjIterator;
+function TFNCCADCmp.GetExclusiveListOfObjects: TExclusiveGraphicObjIterator;
 begin
   Result := fListOfObjects.GetExclusiveIterator;
 end;
 
-function TCADCmp.GetExclusiveListOfBlocks: TExclusiveGraphicObjIterator;
+function TFNCCADCmp.GetExclusiveListOfBlocks: TExclusiveGraphicObjIterator;
 begin
   Result := fListOfBlocks.GetExclusiveIterator;
 end;
 
-function TCADCmp.GetIsBlocked: Boolean;
+function TFNCCADCmp.GetIsBlocked: Boolean;
 begin
   Result := fListOfObjects.HasExclusiveIterators or
     fListOfBlocks.HasExclusiveIterators;
 end;
 
-function TCADCmp.GetHasIterators: Boolean;
+function TFNCCADCmp.GetHasIterators: Boolean;
 begin
   Result := fListOfObjects.HasIterators or fListOfBlocks.HasIterators;
 end;
 
-function TCADCmp.GetViewport(Idx: Integer): TCADViewport;
+function TFNCCADCmp.GetViewport(Idx: Integer): TFNCCADViewport;
 begin
-  Result := TCADViewport(fListOfViewport[Idx]);
+  Result := TFNCCADViewport(fListOfViewport[Idx]);
 end;
 
-function TCADCmp.GetViewportsCount: Integer;
+function TFNCCADCmp.GetViewportsCount: Integer;
 begin
   Result := fListOfViewport.Count;
 end;
 
-constructor TCADCmp.Create(AOwner: TComponent);
+constructor TFNCCADCmp.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
@@ -14861,7 +15119,7 @@ begin
 end;
 
 // Used because BlockList can contain circular references.
-procedure TCADCmp.DeleteAllSourceBlocks;
+procedure TFNCCADCmp.DeleteAllSourceBlocks;
 var
   TmpObj: TGraphicObject;
   Deleted: Integer;
@@ -14885,7 +15143,7 @@ begin
       if (Deleted = 0) and (fListOfBlocks.Count > 0) then
       begin
         Raise ECADSourceBlockIsReferenced.Create
-          ('TCADCmp.FreeSourceBlocks: CADSys 4.0 Severe error'#10#13'The drawing contains circular reference of source blocks. They will be not deleted !');
+          ('TFNCCADCmp.FreeSourceBlocks: CADSys 4.0 Severe error'#10#13'The drawing contains circular reference of source blocks. They will be not deleted !');
         Exit;
       end;
     until TmpIter.Count = 0;
@@ -14894,7 +15152,7 @@ begin
   end;
 end;
 
-procedure TCADCmp.DeleteAllObjects;
+procedure TFNCCADCmp.DeleteAllObjects;
 begin
   try
     fListOfObjects.Clear;
@@ -14903,7 +15161,7 @@ begin
   fNextID := 0;
 end;
 
-destructor TCADCmp.Destroy;
+destructor TFNCCADCmp.Destroy;
 var
   Cont: Integer;
 begin
@@ -14912,174 +15170,219 @@ begin
   DeleteAllSourceBlocks;
   fListOfBlocks.Free;
   for Cont := 0 to fListOfViewport.Count - 1 do
-    TCADViewport(fListOfViewport[Cont]).fCADCmp := nil;
+    TFNCCADViewport(fListOfViewport[Cont]).fCADCmp := nil;
   fListOfViewport.Free;
   fLayers.Free;
   inherited Destroy;
 end;
 
-procedure TCADCmp.SaveToStream(const Stream: TStream);
+function TFNCCADCmp.SaveToJSON: TJSONObject;
 var
-  TmpByte: Byte;
+  TmpBlocks, TmpObjects: TJSONArray;
 begin
-  with Stream do
-  begin
-    { Write the signature for the version. }
-    Write(fVersion, SizeOf(fVersion));
-    { Save the layer informations. }
-    fLayers.SaveToStream(Stream);
-    { Save the source blocks. }
-    TmpByte := 2;
-    Write(TmpByte, SizeOf(TmpByte));
-    SaveBlocksToStream(Stream, False);
-    { Save the objects. }
-    TmpByte := 3;
-    Write(TmpByte, SizeOf(TmpByte));
-    SaveObjectsToStream(Stream);
+  Result := TJSONObject.Create;
+  try
+    JSetStr(Result, 'format', CADSysJSONFormat);
+    JSetStr(Result, 'version', CADSysJSONVersion);
+    JSetStr(Result, 'kind', 'drawing');
+    JSetValue(Result, 'layers', fLayers.SaveToJSON);
+    TmpBlocks := TJSONArray.Create;
+    JSetValue(Result, 'blocks', TmpBlocks);
+    SaveBlocksToJSON(TmpBlocks, False);
+    TmpObjects := TJSONArray.Create;
+    JSetValue(Result, 'objects', TmpObjects);
+    SaveObjectsToJSON(TmpObjects);
+  except
+    Result.Free;
+    Raise;
   end;
 end;
 
-procedure TCADCmp.MergeFromStream(const Stream: TStream);
+function TFNCCADCmp.SaveLibraryToJSON: TJSONObject;
 var
-  TmpVersion: TCADVersion;
-  TmpByte: Byte;
-  TmpBool: Boolean;
+  TmpBlocks: TJSONArray;
 begin
-  with Stream do
-  begin
-    Read({%H-}TmpVersion, SizeOf(TmpVersion));
-    TmpBool := TmpVersion = CADSysVersion;
-    if (not TmpBool) and Assigned(fOnVerError) then
-      fOnVerError(Self, stDrawing, Stream, TmpBool)
-    else if (not TmpBool) and Assigned(fOnVerErrorEx) then
-      fOnVerErrorEx(Self, stDrawing, Stream, TmpVersion, TmpBool)
-    else if (not TmpBool) and (Copy(TmpVersion, 1, 3) = 'CAD') then
-    begin
-      { Se la versione del file è CAD422 allora eseguo la conversione a CAD423 automaticamente.
-        Funziona solo per la versione CAD422 con TRealType=Single }
-      TmpBool := True;
-    end;
-    if TmpBool then
-    begin
-      { Load the layer informations. }
-      fLayers.LoadFromStream(Stream, TmpVersion);
-      { Load the source blocks. }
-      TmpByte := 0;
-      Read(TmpByte, SizeOf(TmpByte));
-      if TmpByte <> 2 then
-        Raise ECADFileNotValid.Create
-          ('TCADCmp.MergeFromStream: no blocks found');
-      LoadBlocksFromStream(Stream, TmpVersion);
-      { Load the objects. }
-      Read(TmpByte, SizeOf(TmpByte));
-      if TmpByte <> 3 then
-        Raise ECADFileNotValid.Create
-          ('TCADCmp.MergeFromStream: no objects found');
-      LoadObjectsFromStream(Stream, TmpVersion);
-    end
-    else
-      Raise ECADFileNotValid.Create
-        ('TCADCmp.MergeFromStream: Invalid stream version.');
+  Result := TJSONObject.Create;
+  try
+    JSetStr(Result, 'format', CADSysJSONFormat);
+    JSetStr(Result, 'version', CADSysJSONVersion);
+    JSetStr(Result, 'kind', 'library');
+    TmpBlocks := TJSONArray.Create;
+    JSetValue(Result, 'blocks', TmpBlocks);
+    SaveBlocksToJSON(TmpBlocks, True);
+  except
+    Result.Free;
+    Raise;
   end;
 end;
 
-procedure TCADCmp.LoadFromStream(const Stream: TStream);
+procedure TFNCCADCmp.CheckJSONDocument(const AJSON: TJSONObject;
+  const Kind: String; const AStreamType: TStreamType);
+var
+  TmpVersion: String;
+  TmpResume: Boolean;
+begin
+  if AJSON = nil then
+    Raise ECADFileNotValid.Create('TFNCCADCmp: no document');
+  if not SameText(JGetStr(AJSON, 'format'), CADSysJSONFormat) then
+    Raise ECADFileNotValid.Create
+      ('TFNCCADCmp: the document is not a CADSys drawing');
+  if not SameText(JGetStr(AJSON, 'kind'), Kind) then
+    Raise ECADFileNotValid.Create('TFNCCADCmp: the document is not a ' + Kind);
+  TmpVersion := JGetStr(AJSON, 'version');
+  TmpResume := TmpVersion = CADSysJSONVersion;
+  if (not TmpResume) and Assigned(fOnVerError) then
+    fOnVerError(Self, AStreamType, TmpVersion, TmpResume);
+  if not TmpResume then
+    Raise ECADFileNotValid.Create('TFNCCADCmp: unsupported document version "' +
+      TmpVersion + '"');
+end;
+
+procedure TFNCCADCmp.SaveToStream(const Stream: TStream);
+var
+  TmpDoc: TJSONObject;
+begin
+  TmpDoc := SaveToJSON;
+  try
+    JSONToStream(TmpDoc, Stream);
+  finally
+    TmpDoc.Free;
+  end;
+end;
+
+function TFNCCADCmp.SaveToJSONString(const Pretty: Boolean): String;
+var
+  TmpDoc: TJSONObject;
+begin
+  TmpDoc := SaveToJSON;
+  try
+    Result := JSONToText(TmpDoc, Pretty);
+  finally
+    TmpDoc.Free;
+  end;
+end;
+
+procedure TFNCCADCmp.LoadFromJSONString(const AText: String);
+var
+  TmpDoc: TJSONObject;
+begin
+  TmpDoc := TextToJSONObject(AText);
+  try
+    LoadFromJSON(TmpDoc);
+  finally
+    TmpDoc.Free;
+  end;
+end;
+
+procedure TFNCCADCmp.MergeFromJSON(const AJSON: TJSONObject);
+begin
+  CheckJSONDocument(AJSON, 'drawing', stDrawing);
+  fLayers.LoadFromJSON(JGetArray(AJSON, 'layers'));
+  LoadBlocksFromJSON(JGetArray(AJSON, 'blocks'));
+  LoadObjectsFromJSON(JGetArray(AJSON, 'objects'));
+end;
+
+procedure TFNCCADCmp.MergeFromStream(const Stream: TStream);
+var
+  TmpDoc: TJSONObject;
+begin
+  TmpDoc := JSONFromStream(Stream);
+  try
+    MergeFromJSON(TmpDoc);
+  finally
+    TmpDoc.Free;
+  end;
+end;
+
+procedure TFNCCADCmp.LoadFromJSON(const AJSON: TJSONObject);
 begin
   { Delete all objects. }
   DeleteAllObjects;
   DeleteSavedSourceBlocks;
-  MergeFromStream(Stream);
+  MergeFromJSON(AJSON);
 end;
 
-procedure TCADCmp.LoadLibrary(const Stream: TStream);
+procedure TFNCCADCmp.LoadFromStream(const Stream: TStream);
 var
-  TmpVersion: TCADVersion;
-  TmpByte: Byte;
-  TmpBool: Boolean;
+  TmpDoc: TJSONObject;
 begin
-  with Stream do
-  begin
-    Read({%H-}TmpVersion, SizeOf(TmpVersion));
-    TmpBool := TmpVersion = CADSysVersion;
-    if (not TmpBool) and Assigned(fOnVerError) then
-      fOnVerError(Self, stLibrary, Stream, TmpBool)
-    else if (not TmpBool) and Assigned(fOnVerErrorEx) then
-      fOnVerErrorEx(Self, stLibrary, Stream, TmpVersion, TmpBool)
-    else if (not TmpBool) and (Copy(TmpVersion, 1, 3) = 'CAD') then
-    begin
-      { Se la versione del file è CAD422 allora eseguo la conversione a CAD423 automaticamente.
-        Funziona solo per la versione CAD422 con TRealType=Single }
-      TmpBool := True;
-    end;
-    if TmpBool then
-    begin
-      { Load the source blocks. }
-      TmpByte := 0;
-      Read(TmpByte, SizeOf(TmpByte));
-      if TmpByte <> 2 then
-        Raise ECADFileNotValid.Create('TCADCmp.LoadLibrary: no blocks found');
-      LoadBlocksFromStream(Stream, TmpVersion);
-    end
-    else
-      Raise ECADFileNotValid.Create
-        ('TCADCmp.LoadLibrary: Invalid stream version.');
-  end;
-end;
-
-procedure TCADCmp.SaveLibrary(const Stream: TStream);
-var
-  TmpByte: Byte;
-begin
-  with Stream do
-  begin
-    { Write the signature for the version. }
-    Write(fVersion, SizeOf(fVersion));
-    { Save the source blocks. }
-    TmpByte := 2;
-    Write(TmpByte, SizeOf(TmpByte));
-    SaveBlocksToStream(Stream, True);
-  end;
-end;
-
-procedure TCADCmp.MergeFromFile(const FileName: String);
-var
-  TmpStr: TFileStream;
-begin
-  TmpStr := TFileStream.Create(FileName, fmOpenRead);
+  TmpDoc := JSONFromStream(Stream);
   try
-    MergeFromStream(TmpStr);
+    LoadFromJSON(TmpDoc);
+  finally
+    TmpDoc.Free;
+  end;
+end;
+
+procedure TFNCCADCmp.LoadLibraryFromJSON(const AJSON: TJSONObject);
+begin
+  CheckJSONDocument(AJSON, 'library', stLibrary);
+  LoadBlocksFromJSON(JGetArray(AJSON, 'blocks'));
+end;
+
+procedure TFNCCADCmp.LoadLibrary(const Stream: TStream);
+var
+  TmpDoc: TJSONObject;
+begin
+  TmpDoc := JSONFromStream(Stream);
+  try
+    LoadLibraryFromJSON(TmpDoc);
+  finally
+    TmpDoc.Free;
+  end;
+end;
+
+procedure TFNCCADCmp.SaveLibrary(const Stream: TStream);
+var
+  TmpDoc: TJSONObject;
+begin
+  TmpDoc := SaveLibraryToJSON;
+  try
+    JSONToStream(TmpDoc, Stream);
+  finally
+    TmpDoc.Free;
+  end;
+end;
+
+procedure TFNCCADCmp.MergeFromFile(const FileName: String);
+var
+  TmpDoc: TJSONObject;
+begin
+  TmpDoc := JSONFromFile(FileName);
+  try
+    MergeFromJSON(TmpDoc);
     RepaintViewports;
   finally
-    TmpStr.Free;
+    TmpDoc.Free;
   end;
 end;
 
-procedure TCADCmp.LoadFromFile(const FileName: String);
+procedure TFNCCADCmp.LoadFromFile(const FileName: String);
 var
-  TmpStr: TFileStream;
+  TmpDoc: TJSONObject;
 begin
-  TmpStr := TFileStream.Create(FileName, fmOpenRead);
+  TmpDoc := JSONFromFile(FileName);
   try
-    LoadFromStream(TmpStr);
+    LoadFromJSON(TmpDoc);
     RepaintViewports;
   finally
-    TmpStr.Free;
+    TmpDoc.Free;
   end;
 end;
 
-procedure TCADCmp.SaveToFile(const FileName: String);
+procedure TFNCCADCmp.SaveToFile(const FileName: String);
 var
-  TmpStr: TFileStream;
+  TmpDoc: TJSONObject;
 begin
-  TmpStr := TFileStream.Create(FileName, fmOpenWrite or fmCreate);
+  TmpDoc := SaveToJSON;
   try
-    SaveToStream(TmpStr);
+    JSONToFile(TmpDoc, FileName);
   finally
-    TmpStr.Free;
+    TmpDoc.Free;
   end;
 end;
 
-function TCADCmp.AddSourceBlock(ID: LongInt; const Obj: TGraphicObject)
+function TFNCCADCmp.AddSourceBlock(ID: LongInt; const Obj: TGraphicObject)
   : TGraphicObject;
 begin
   Result := Obj;
@@ -15097,7 +15400,7 @@ begin
   fListOfBlocks.Add(Obj);
 end;
 
-function TCADCmp.GetSourceBlock(ID: LongInt): TGraphicObject;
+function TFNCCADCmp.GetSourceBlock(ID: LongInt): TGraphicObject;
 var
   TmpIter: TGraphicObjIterator;
 begin
@@ -15109,27 +15412,27 @@ begin
   end;
 end;
 
-function TCADCmp.FindSourceBlock(const SrcName: TSourceBlockName)
+function TFNCCADCmp.FindSourceBlock(const SrcName: TSourceBlockName)
   : TGraphicObject;
 begin
   Result := nil;
 end;
 
-procedure TCADCmp.DeleteSourceBlockByID(const ID: LongInt);
+procedure TFNCCADCmp.DeleteSourceBlockByID(const ID: LongInt);
 var
   TmpObj: TGraphicObject;
 begin
   TmpObj := GetSourceBlock(ID);
   if TmpObj = nil then
     Raise ECADListObjNotFound.Create
-      ('TCADCmp.DeleteSourceBlock: No source block found');
+      ('TFNCCADCmp.DeleteSourceBlock: No source block found');
   try
     fListOfBlocks.Delete(ID);
   except
   end;
 end;
 
-function TCADCmp.AddObject(ID: LongInt; const Obj: TGraphicObject)
+function TFNCCADCmp.AddObject(ID: LongInt; const Obj: TGraphicObject)
   : TGraphicObject;
 begin
   Result := Obj;
@@ -15151,7 +15454,7 @@ begin
     fOnAddObject(Self, Obj);
 end;
 
-function TCADCmp.InsertObject(ID, IDInsertPoint: LongInt;
+function TFNCCADCmp.InsertObject(ID, IDInsertPoint: LongInt;
   const Obj: TGraphicObject): TGraphicObject;
 begin
   Result := Obj;
@@ -15173,44 +15476,44 @@ begin
     fOnAddObject(Self, Obj);
 end;
 
-procedure TCADCmp.MoveObject(const IDOrigin, IDDestination: LongInt);
+procedure TFNCCADCmp.MoveObject(const IDOrigin, IDDestination: LongInt);
 begin
   fListOfObjects.Move(IDOrigin, IDDestination);
 end;
 
-procedure TCADCmp.RemoveObject(const ID: LongInt);
+procedure TFNCCADCmp.RemoveObject(const ID: LongInt);
 var
   TmpObj: TGraphicObject;
 begin
   TmpObj := GetObject(ID);
   if TmpObj = nil then
-    Raise ECADListObjNotFound.Create('TCADCmp.RemoveObject: No object found');
+    Raise ECADListObjNotFound.Create('TFNCCADCmp.RemoveObject: No object found');
   TmpObj.fOwnerCAD := nil;
   fListOfObjects.Remove(ID);
 end;
 
-procedure TCADCmp.DeleteObject(const ID: LongInt);
+procedure TFNCCADCmp.DeleteObject(const ID: LongInt);
 var
   TmpObj: TGraphicObject;
 begin
   TmpObj := GetObject(ID);
   if TmpObj = nil then
-    Raise ECADListObjNotFound.Create('TCADCmp.DeleteObject: No object found');
+    Raise ECADListObjNotFound.Create('TFNCCADCmp.DeleteObject: No object found');
   fListOfObjects.Delete(ID);
 end;
 
-procedure TCADCmp.ChangeObjectLayer(const ID: LongInt; const NewLayer: Byte);
+procedure TFNCCADCmp.ChangeObjectLayer(const ID: LongInt; const NewLayer: Byte);
 var
   TmpObj: TGraphicObject;
 begin
   TmpObj := GetObject(ID);
   if TmpObj = nil then
     Raise ECADListObjNotFound.Create
-      ('TCADCmp.ChangeObjectLayer: No object found');
+      ('TFNCCADCmp.ChangeObjectLayer: No object found');
   TmpObj.Layer := NewLayer;
 end;
 
-function TCADCmp.GetObject(ID: LongInt): TGraphicObject;
+function TFNCCADCmp.GetObject(ID: LongInt): TGraphicObject;
 var
   TmpIter: TGraphicObjIterator;
 begin
@@ -15222,14 +15525,14 @@ begin
   end;
 end;
 
-procedure TCADCmp.AddViewports(const VP: TCADViewport);
+procedure TFNCCADCmp.AddViewports(const VP: TFNCCADViewport);
 begin
   if not Assigned(VP) then
     Exit;
   fListOfViewport.Add(VP);
 end;
 
-procedure TCADCmp.DelViewports(const VP: TCADViewport);
+procedure TFNCCADCmp.DelViewports(const VP: TFNCCADViewport);
 var
   Cont: Integer;
 begin
@@ -15240,35 +15543,44 @@ begin
     fListOfViewport.Delete(Cont);
 end;
 
-procedure TCADCmp.RepaintViewports;
+procedure TFNCCADCmp.RepaintViewports;
 var
   Cont: Integer;
 begin
   for Cont := 0 to fListOfViewport.Count - 1 do
-    TCADViewport(fListOfViewport.Items[Cont]).Repaint;
+    TFNCCADViewport(fListOfViewport.Items[Cont]).Repaint;
 end;
 
-procedure TCADCmp.RefreshViewports;
+procedure TFNCCADCmp.RefreshViewports;
 var
   Cont: Integer;
 begin
   for Cont := 0 to fListOfViewport.Count - 1 do
-    TCADViewport(fListOfViewport.Items[Cont]).Refresh;
+    TFNCCADViewport(fListOfViewport.Items[Cont]).Refresh;
 end;
 
-procedure TCADCmp.RedrawObject(const Obj: TGraphicObject);
+procedure TFNCCADCmp.RedrawObject(const Obj: TGraphicObject);
 var
   Cont: Integer;
 begin
   for Cont := 0 to fListOfViewport.Count - 1 do
-    with TCADViewport(fListOfViewport.Items[Cont]) do
+    with TFNCCADViewport(fListOfViewport.Items[Cont]) do
     begin
-      DrawObject(Obj, OffScreenCanvas, RectToRect2D(ClientRect));
+      { Drawing into the back buffer needs a scene open on the
+        frameworks that have them - see BeginOffScreenScene. This is
+        the DrawOnAdd path: one object straight into the buffer rather
+        than a full repaint. }
+      BeginOffScreenScene;
+      try
+        DrawObject(Obj, OffScreenCanvas, RectToRect2D(ControlRect));
+      finally
+        EndOffScreenScene;
+      end;
       Refresh;
     end;
 end;
 
-procedure TCADCmp.SetDefaultBrush(const Brush: TBrush);
+procedure TFNCCADCmp.SetDefaultBrush(const Brush: TCADBrush);
 var
   Cont: Byte;
 begin
@@ -15280,7 +15592,7 @@ begin
     end;
 end;
 
-procedure TCADCmp.SetDefaultPen(const Pen: TPen);
+procedure TFNCCADCmp.SetDefaultPen(const Pen: TCADPen);
 var
   Cont: Byte;
 begin
@@ -15292,100 +15604,212 @@ begin
     end;
 end;
 
-procedure TCADCmp.SetDefaultLayersColor(const C: TColor);
+procedure TFNCCADCmp.SetDefaultLayersColor(const C: TColor);
 var
   Cont: Byte;
 begin
   for Cont := 0 to 255 do
     if not fLayers[Cont].Modified then
     begin
-      fLayers[Cont].Pen.Color := C;
+      { Published as a TColor so the Object Inspector keeps its colour
+        picker; layers hold it as an opaque drawing-layer colour.
+        TColorToCADColor resolves a system colour through
+        CADResolveSystemColor, which the VCL backend installs. }
+      fLayers[Cont].Pen.Color := TColorToCADColor(C);
       fLayers[Cont].fModified := False;
     end;
 end;
 
-function TCADCmp.GetDefaultLayersColor: TColor;
+function TFNCCADCmp.GetDefaultLayersColor: TColor;
 begin
-  Result := fLayers[0].Pen.Color;
+  Result := CADColorToTColor(fLayers[0].Pen.Color);
 end;
 
 // =====================================================================
-// TCADViewport
+// TFNCCADViewport
 // =====================================================================
 
-procedure TCADViewport.CopyBitmapOnCanvas(const DestCnv: TCanvas;
-  const Bmp: TBitmap; IRect: TRect; IsTransparent: Boolean;
+procedure TFNCCADViewport.CopyBitmapOnCanvas(const AGraphics: TTMSFNCGraphics;
+  const Bmp: TTMSFNCBitmap; IRect: TRect; IsTransparent: Boolean;
   TransparentColor: TColor);
 begin
-  if (IsTransparent and not(csDesigning in ComponentState)) then
-  begin
-    DestCnv.Brush.Style := bsClear;
-    DestCnv.BrushCopy(IRect, Bmp, IRect, TransparentColor);
-  end
-  else
-    DestCnv.CopyRect(IRect, Bmp.Canvas, IRect);
+  { IsTransparent and TransparentColor are what the GDI BrushCopy path
+    used; FNC has no per-colour transparency, so a transparent viewport
+    is step 5's problem and the buffer is drawn as it is. }
+  AGraphics.DrawBitmap(RectF(IRect.Left, IRect.Top, IRect.Right,
+    IRect.Bottom), Bmp, False, True, False, False);
 end;
 
-procedure TCADViewport.CreateParams(var Params: TCreateParams);
+function TFNCCADViewport.CreateOffScreenCanvas: TDecorativeCanvas;
 begin
-  inherited CreateParams(Params);
-  with Params.WindowClass do
+{$IFDEF CADSYS_VCL}
+  { The back buffer is a TPicture over a GDI bitmap, so the GDI backend
+    can draw the display list straight into it - no FNC layer per line,
+    which is worth keeping on the target that has the choice. }
+  Result := TDecorativeCanvas.Create(fOffScreenBitmap.Bitmap.Canvas);
+{$ELSE}
+  { Everywhere else the buffer is drawn through FNC. The TTMSFNCGraphics
+    is created over the bitmap's own canvas and handed to the backend to
+    own, so freeing fOffScreenCanvas frees the whole stack. }
+  { A bitmap with no size has no usable canvas, and this can run before
+    the control has been given its bounds. One pixel is enough to build
+    the stack on; the first resize replaces it with the real size. }
+{$IFDEF CADSYS_FMX}
+  if (fOffScreenBitmap.Width < 1) or (fOffScreenBitmap.Height < 1) then
+    fOffScreenBitmap.SetSize(Max(1, Round(Width)), Max(1, Round(Height)));
+  fOffScreenFNC := TTMSFNCGraphics.Create(fOffScreenBitmap.Canvas);
+{$ELSE}
+  if (fOffScreenBitmap.Bitmap.Width < 1) or
+    (fOffScreenBitmap.Bitmap.Height < 1) then
+    fOffScreenBitmap.Bitmap.SetSize(Max(1, Round(Width)),
+      Max(1, Round(Height)));
+  fOffScreenFNC := TTMSFNCGraphics.Create(fOffScreenBitmap.Bitmap.Canvas);
+{$ENDIF}
+  fOffScreenCAD := TCADFNCGraphics.Create(fOffScreenFNC, ControlRect, True);
+  Result := TDecorativeCanvas.Create(fOffScreenCAD, True);
+{$ENDIF}
+end;
+
+procedure TFNCCADViewport.ResizeOffScreen;
+{$IFNDEF CADSYS_VCL}
+var
+  TmpRebuild: Boolean;
+{$ENDIF}
+begin
+  if fOffScreenBitmap = nil then
+    Exit;
+{$IFNDEF CADSYS_VCL}
+  { The drawing stack comes down BEFORE the bitmap is resized, and the
+    order matters more than it looks.
+
+    An FMX TBitmap.SetSize destroys the canvas object and makes a new
+    one. The TTMSFNCGraphics built on top is still holding the old
+    reference and has no way of being told, so tearing it down
+    afterwards means freeing an object that points at freed memory -
+    which is exactly the EInvalidPointer this used to raise the moment
+    the viewport was given a parent and an alignment.
+
+    The GDI backend needs none of this: a VCL TBitmap keeps the same
+    TCanvas across a resize, and the backend reads Bitmap.Canvas
+    through the TPicture on every call anyway. }
+  TmpRebuild := fOffScreenCanvas <> nil;
+  if TmpRebuild then
   begin
-    Style := Style and not(CS_HREDRAW or CS_VREDRAW);
-    if fTransparent and not(csDesigning in ComponentState) then
-    begin
-      Style := Style and not WS_CLIPCHILDREN;
-      Style := Style and not WS_CLIPSIBLINGS;
-      Params.ExStyle := Params.ExStyle or WS_EX_TRANSPARENT;
-    end;
+    fOffScreenCanvas.Free;
+    fOffScreenCanvas := nil;
+    fOffScreenFNC := nil;
+    fOffScreenCAD := nil;
+    { The scene belonged to the canvas that has just gone. }
+    fOffScreenSceneDepth := 0;
   end;
+{$ENDIF}
+{$IFDEF CADSYS_FMX}
+  fOffScreenBitmap.SetSize(Round(Width), Round(Height));
+{$ELSE}
+  fOffScreenBitmap.Bitmap.SetSize(Width, Height);
+{$ENDIF}
+{$IFNDEF CADSYS_VCL}
+  if TmpRebuild then
+    fOffScreenCanvas := CreateOffScreenCanvas;
+{$ENDIF}
 end;
 
-function TCADViewport.CreateOffScreenCanvas(const Cnv: TCanvas)
-  : TDecorativeCanvas;
+function TFNCCADViewport.ControlRect: TRect;
 begin
-  Result := TDecorativeCanvas.Create(Cnv);
+  { Round, because Width and Height are Single on FMX. }
+  Result := Rect(0, 0, Round(Width), Round(Height));
 end;
 
-procedure TCADViewport.WMEraseBkgnd(var Message: TWMEraseBkgnd);
+function TFNCCADViewport.IsRealized: Boolean;
 begin
-  { CS4-FIX (P12): the old condition erased in the DEFAULT configuration (no
-    OnClearCanvas, not transparent) - exactly the case where the blit that
-    follows covers every pixel. Only the transparent and design-time cases
-    actually need the inherited erase. }
-  if fTransparent or (csDesigning in ComponentState) then
-    inherited
-  else
-    Message.Result := 1;
+{$IFDEF CADSYS_FMX}
+  Result := not(csDestroying in ComponentState);
+{$ELSE}
+  Result := HandleAllocated;
+{$ENDIF}
 end;
 
-// procedure TCADViewport.WMSize(var Message: TLMSize);
+procedure TFNCCADViewport.BeginOffScreenScene;
+begin
+{$IFNDEF CADSYS_VCL}
+  if fOffScreenFNC = nil then
+    Exit;
+  Inc(fOffScreenSceneDepth);
+  if fOffScreenSceneDepth > 1 then
+    Exit;
+{$IFDEF CADSYS_FMX}
+  { The canvas's own BeginScene, deliberately not
+    TTMSFNCGraphics.BeginScene.
+
+    FNC's FMX implementation follows BeginScene with Clear(gcNull).
+    That is harmless for a full repaint, which clears the surface
+    itself a moment later - and fatal for an incremental one, because
+    adding a single object to a drawing would erase every object
+    already in the buffer. Which is exactly what happened: finishing a
+    polyline made the whole drawing vanish.
+
+    The canvas method does only what its name says. }
+  if fOffScreenFNC.Canvas <> nil then
+    fOffScreenFNC.Canvas.BeginScene;
+{$ELSE}
+  { LCL does not clear on BeginScene, so the FNC call is fine there. }
+  fOffScreenFNC.BeginScene;
+{$ENDIF}
+  if fOffScreenCAD <> nil then
+    fOffScreenCAD.ApplyClip;
+{$ENDIF}
+end;
+
+procedure TFNCCADViewport.EndOffScreenScene;
+begin
+{$IFNDEF CADSYS_VCL}
+  if (fOffScreenFNC = nil) or (fOffScreenSceneDepth = 0) then
+    Exit;
+  Dec(fOffScreenSceneDepth);
+  if fOffScreenSceneDepth > 0 then
+    Exit;
+  { The clip goes back before the scene closes, in the reverse order it
+    was taken. This surface is ours, so a leaked clip here would not
+    affect anyone else - but a state stack that is only balanced most
+    of the time is not worth having. }
+  if fOffScreenCAD <> nil then
+    fOffScreenCAD.ReleaseClip;
+{$IFDEF CADSYS_FMX}
+  if fOffScreenFNC.Canvas <> nil then
+    fOffScreenFNC.Canvas.EndScene;
+{$ELSE}
+  fOffScreenFNC.EndScene;
+{$ENDIF}
+{$ENDIF}
+end;
+
+// procedure TFNCCADViewport.WMSize(var Message: TLMSize);
 // begin
 // inherited;
 // DoResize;
 // end;
 
-procedure TCADViewport.SetBounds(ALeft, ATop, AWidth, AHeight: Integer);
+procedure TFNCCADViewport.Resize;
 begin
-  inherited SetBounds(ALeft, ATop, AWidth, AHeight);
+  inherited Resize;
   DoResize;
 end;
 
-procedure TCADViewport.CMMouseEnter(var Message: TMessage);
+procedure TFNCCADViewport.HandleMouseEnter;
 begin
-  inherited;
+  inherited HandleMouseEnter;
   if Assigned(fOnMouseEnter) then
     fOnMouseEnter(Self);
 end;
 
-procedure TCADViewport.CMMouseLeave(var Message: TMessage);
+procedure TFNCCADViewport.HandleMouseLeave;
 begin
-  inherited;
+  inherited HandleMouseLeave;
   if Assigned(fOnMouseLeave) then
     fOnMouseLeave(Self);
 end;
 
-procedure TCADViewport.SetDeltaX(const V: TRealType);
+procedure TFNCCADViewport.SetDeltaX(const V: TRealType);
 begin
   if fGridDeltaX <> V then
   begin
@@ -15395,7 +15819,7 @@ begin
   end;
 end;
 
-procedure TCADViewport.SetDeltaY(const V: TRealType);
+procedure TFNCCADViewport.SetDeltaY(const V: TRealType);
 begin
   if fGridDeltaY <> V then
   begin
@@ -15405,7 +15829,7 @@ begin
   end;
 end;
 
-procedure TCADViewport.SetSubX(const V: TRealType);
+procedure TFNCCADViewport.SetSubX(const V: TRealType);
 begin
   if fGridSubX <> V then
   begin
@@ -15415,7 +15839,7 @@ begin
   end;
 end;
 
-procedure TCADViewport.SetSubY(const V: TRealType);
+procedure TFNCCADViewport.SetSubY(const V: TRealType);
 begin
   if fGridSubY <> V then
   begin
@@ -15425,41 +15849,39 @@ begin
   end;
 end;
 
-procedure TCADViewport.SetBackColor(const Cl: TColor);
+procedure TFNCCADViewport.SetBackColor(const Cl: TColor);
 begin
   if fBackGroundColor <> Cl then
   begin
-    StopRepaint;
     fBackGroundColor := Cl;
-    fRubberPen.Color := fRubberPenColor xor Cl;
+    { The rubber pen used to be pre-XOR-ed with the background. It is a
+      plain colour now, so the background no longer concerns it. }
     Repaint;
   end;
 end;
 
-procedure TCADViewport.SetTransparent(const B: Boolean);
+procedure TFNCCADViewport.SetTransparent(const B: Boolean);
 begin
   if (fTransparent <> B) then
   begin
-    StopRepaint;
     fTransparent := B;
-    { CS4-FIX (P12): a transparent viewport genuinely needs the parent's
-      pixels underneath, so it must not claim to be opaque. }
-    if B then
-      ControlStyle := ControlStyle - [csOpaque]
-    else
-      ControlStyle := ControlStyle + [csOpaque];
+    { The control no longer paints through a window DC of its own, so
+      csOpaque and the WS_EX_TRANSPARENT window style that used to go with
+      it mean nothing here. Making a viewport show what is behind it is
+      step 5's problem, together with printing and the clipboard - for now
+      the flag only reaches CopyBitmapOnCanvas, which ignores it. }
     Repaint;
   end;
 end;
 
-procedure TCADViewport.SetOnClearCanvas(const H: TClearCanvas);
+procedure TFNCCADViewport.SetOnClearCanvas(const H: TClearCanvas);
 begin
   StopRepaint;
   fOnClear := H;
   Repaint;
 end;
 
-procedure TCADViewport.SetShowGrid(const B: Boolean);
+procedure TFNCCADViewport.SetShowGrid(const B: Boolean);
 begin
   if fShowGrid <> B then
   begin
@@ -15469,7 +15891,7 @@ begin
   end;
 end;
 
-procedure TCADViewport.SetGridColor(const Cl: TColor);
+procedure TFNCCADViewport.SetGridColor(const Cl: TColor);
 begin
   if fGridColor <> Cl then
   begin
@@ -15479,7 +15901,7 @@ begin
   end;
 end;
 
-procedure TCADViewport.SetCADCmp(Cad: TCADCmp);
+procedure TFNCCADViewport.SetCADCmp(Cad: TFNCCADCmp);
 begin
   if Cad <> fCADCmp then
   begin
@@ -15494,73 +15916,51 @@ begin
   end;
 end;
 
-procedure TCADViewport.ClearCanvas(Sender: TObject; Cnv: TCanvas;
+procedure TFNCCADViewport.ClearCanvas(Sender: TObject; Cnv: TDecorativeCanvas;
   const ARect: TRect2D; const BackCol: TColor);
 begin
-  with Cnv do
-  begin
-    Brush.Color := BackCol;
-    Brush.Style := bsSolid;
-    with TransformRect2D(ARect, fViewportToScreen) do
-      FillRect(Rect(Round(Left), Round(Top), Round(Right) + 1,
-        Round(Bottom) + 1));
-  end;
+  Cnv.Brush.Color := TColorToCADColor(BackCol);
+  Cnv.Brush.Style := cbsSolid;
+  with TransformRect2D(ARect, fViewportToScreen) do
+    Cnv.Graphics.FillRect(Rect(Round(Left), Round(Top), Round(Right) + 1,
+      Round(Bottom) + 1));
 end;
 
-procedure TCADViewport.DoCopyCanvas(const GenEvent: Boolean);
+procedure TFNCCADViewport.DoCopyCanvas(const {%H-}GenEvent: Boolean);
 begin
-  CopyBackBufferRectOnCanvas(Rect(0, 0, Width, Height), GenEvent);
+  { The buffer reaches the screen in Draw now, so all this can do is ask
+    for one. GenEvent is ignored: Draw fires OnPaint itself. }
+  Invalidate;
 end;
 
-procedure TCADViewport.DoCopyCanvasThreadSafe;
+procedure TFNCCADViewport.CopyBackBufferRectOnCanvas(const {%H-}Rect: TRect;
+  const {%H-}GenEvent: Boolean);
 begin
-  CopyBackBufferRectOnCanvas(Rect(0, 0, Width, Height), False);
+  { Kept because descendants override it. Painting happens in Draw. }
+  Invalidate;
 end;
 
-procedure TCADViewport.CopyBackBufferRectOnCanvas(const Rect: TRect;
-  const GenEvent: Boolean);
-begin
-  if HandleAllocated then
-  begin
-    fOffScreenCanvas.Canvas.Lock;
-    try
-      CopyBitmapOnCanvas(Canvas, fOffScreenBitmap, Rect, fTransparent,
-        fBackGroundColor);
-    finally
-      fOffScreenCanvas.Canvas.UnLock;
-    end;
-  end;
-  if Assigned(fOnPaint) and GenEvent and (not fDisablePaintEvent) then
-    try
-      fDisablePaintEvent := True;
-      fOnPaint(Self);
-    finally
-      fDisablePaintEvent := False;
-    end;
-end;
-
-constructor TCADViewport.Create(AOwner: TComponent);
+constructor TFNCCADViewport.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
   fViewGuard := TCADSysCriticalSection.Create;
-  { CS4-FIX (P12): the offscreen bitmap always covers the whole client rect,
-    so the control is opaque. Without csOpaque the VCL erases the background
-    immediately before DoCopyCanvas blits over the identical area - one
-    wasted full-client FillRect per frame, plus flicker. SetTransparent
-    removes csOpaque again if transparency is switched on. }
-  ControlStyle := ControlStyle + [csOpaque];
-  ControlStyle := ControlStyle + [csClickEvents, csSetCaption, csDoubleClicks];
-  fPaintingThread := nil;
   CopingFrequency := 0;
   fDrawMode := DRAWMODE_NORMAL;
-  fOffScreenBitmap := TBitmap.Create;
-  fOffScreenBitmap.PixelFormat := pf24bit;
+  { A TTMSFNCBitmap is a TPicture on VCL and LCL and a TBitmap on FMX.
+    Either way it has a Canvas the display list can be drawn into, and it
+    is what TTMSFNCGraphics.DrawBitmap takes, so the buffer reaches the
+    screen without a framework-specific blit. }
+  fOffScreenBitmap := TTMSFNCBitmap.Create;
+{$IFNDEF CADSYS_FMX}
+  { An FMX bitmap is always 32-bit premultiplied and has no say in it. }
+  fOffScreenBitmap.Bitmap.PixelFormat := pf24bit;
+{$ENDIF}
   Height := 50;
   Width := 50;
   fOnClear := nil;
-  fBackGroundColor := clSilver;
-  fGridColor := clGray;
+  fBackGroundColor := cadtcSilver;
+  fGridColor := cadtcGray;
   fShowGrid := False;
   fTransparent := False;
   fInUpdate := False;
@@ -15576,206 +15976,348 @@ begin
   fVisualWindow := Rect2D(0.0, 0.0, 100.0, 100.0);
   fScreenToViewport := IdentityTransf2D;
   fViewportToScreen := IdentityTransf2D;
-  fRubberPen := TPen.Create;
+  fRubberPen := TCADSimplePen.Create;
   fUseThread := False;
   with fRubberPen do
   begin
-    Mode := pmXOr;
-    Style := psSolid;
+    Mode := cpmCopy;
+    Style := cpsSolid;
     Width := 2;
   end;
-  SetRubberColor(clRed);
+  SetRubberColor(cadtcRed);
   fAspectRatio := 0.0;
   fGridOnTop := False;
-  // fOffScreenBitmap.Height := Height;
-  // fOffScreenBitmap.Width := Width;
-  fOffScreenCanvas := CreateOffScreenCanvas(fOffScreenBitmap.Canvas);
-  fOnScreenCanvas := TDecorativeCanvas.Create(Canvas);
+  fOffScreenCanvas := CreateOffScreenCanvas;
+  { Nothing is attached until Draw runs. }
+  fOnScreenGraphics := TCADFNCGraphics.Create(nil, Rect(0, 0, 0, 0), False);
+  fOnScreenCanvas := TDecorativeCanvas.Create(fOnScreenGraphics, False);
 end;
 
-destructor TCADViewport.Destroy;
+destructor TFNCCADViewport.Destroy;
 begin
-  StopPaintingThread;
   fRubberPen.Free;
   if Assigned(fCADCmp) and (not(csDesigning in ComponentState)) then
     fCADCmp.DelViewports(Self);
   fViewGuard.Free;
+  { The backend owns the buffer's TTMSFNCGraphics where there is one, so
+    this frees the whole off-screen stack. }
   fOffScreenCanvas.Free;
-  fOnScreenCanvas.Free;
   fOffScreenCanvas := nil;
+{$IFNDEF CADSYS_VCL}
+  fOffScreenFNC := nil;
+  fOffScreenCAD := nil;
+{$ENDIF}
+  { The canvas does not own the graphics, so both go, in that order. }
+  fOnScreenCanvas.Free;
   fOnScreenCanvas := nil;
+  fOnScreenGraphics.Free;
+  fOnScreenGraphics := nil;
   fOffScreenBitmap.Free;
   fOffScreenBitmap := nil;
   inherited Destroy;
 end;
 
-procedure TCADViewport.BeginUpdate;
+procedure TFNCCADViewport.BeginUpdate;
 begin
   StopRepaint;
   fInUpdate := True;
 end;
 
-procedure TCADViewport.EndUpdate;
+procedure TFNCCADViewport.EndUpdate;
 begin
   fInUpdate := False;
   Repaint;
 end;
 
-procedure TCADViewport.SetRubberColor(const Cl: TColor);
+procedure TFNCCADViewport.SetRubberColor(const Cl: TColor);
 begin
   if Cl <> fRubberPenColor then
   begin
-    StopRepaint;
     fRubberPenColor := Cl;
-    fRubberPen.Color := Cl xor fBackGroundColor;
+    { Plain colour now: the overlay is redrawn, not XOR-ed, so there is
+      nothing to cancel out against the background. }
+    fRubberPen.Color := TColorToCADColor(Cl);
   end;
 end;
 
-procedure TCADViewport.Paint;
+{ The CAD program used to subclass this control's window and pick the
+  WM_MOUSE* and WM_KEY* messages out of the stream. FNC routes input
+  through these virtuals instead, which is the only form of it that
+  exists on every framework. A hook that returns False has consumed the
+  event, so the control's own handling is skipped - that is what the old
+  code expressed by not propagating the message. }
+
+procedure TFNCCADViewport.DoCADMouseDown(Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 begin
-  if fPaintingThread = nil then
-    DoCopyCanvas(True);
 end;
 
-procedure TCADViewport.RefreshRect(const ARect: TRect);
+procedure TFNCCADViewport.DoCADMouseMove(Shift: TShiftState; X, Y: Integer);
+begin
+end;
+
+procedure TFNCCADViewport.DoCADMouseUp(Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+end;
+
+procedure TFNCCADViewport.HandleMouseDown(Button: TTMSFNCMouseButton;
+  Shift: TShiftState; X, Y: Single);
+var
+  TmpX, TmpY: SmallInt;
+begin
+  TmpX := Round(X);
+  TmpY := Round(Y);
+  if Assigned(fCADMouseDown) and not fCADMouseDown(Self, Button, Shift,
+    TmpX, TmpY) then
+    Exit;
+  if not fDisableMouseEvents then
+    DoCADMouseDown(Button, Shift, TmpX, TmpY);
+  inherited HandleMouseDown(Button, Shift, X, Y);
+end;
+
+procedure TFNCCADViewport.HandleMouseMove(Shift: TShiftState; X, Y: Single);
+var
+  TmpX, TmpY: SmallInt;
+begin
+  TmpX := Round(X);
+  TmpY := Round(Y);
+  if Assigned(fCADMouseMove) and not fCADMouseMove(Self, Shift, TmpX,
+    TmpY) then
+    Exit;
+  if not fDisableMouseEvents then
+    DoCADMouseMove(Shift, TmpX, TmpY);
+  inherited HandleMouseMove(Shift, X, Y);
+end;
+
+procedure TFNCCADViewport.HandleMouseUp(Button: TTMSFNCMouseButton;
+  Shift: TShiftState; X, Y: Single);
+var
+  TmpX, TmpY: SmallInt;
+begin
+  TmpX := Round(X);
+  TmpY := Round(Y);
+  if Assigned(fCADMouseUp) and not fCADMouseUp(Self, Button, Shift, TmpX,
+    TmpY) then
+    Exit;
+  if not fDisableMouseEvents then
+    DoCADMouseUp(Button, Shift, TmpX, TmpY);
+  inherited HandleMouseUp(Button, Shift, X, Y);
+end;
+
+procedure TFNCCADViewport.HandleDblClick(X, Y: Single);
+begin
+  if Assigned(fCADDblClick) and not fCADDblClick(Self) then
+    Exit;
+  inherited HandleDblClick(X, Y);
+end;
+
+procedure TFNCCADViewport.HandleKeyDown(var Key: Word; Shift: TShiftState);
+begin
+  if Assigned(fCADKeyDown) and not fCADKeyDown(Self, Key, Shift) then
+    Exit;
+  inherited HandleKeyDown(Key, Shift);
+end;
+
+procedure TFNCCADViewport.HandleKeyUp(var Key: Word; Shift: TShiftState);
+begin
+  if Assigned(fCADKeyUp) and not fCADKeyUp(Self, Key, Shift) then
+    Exit;
+  inherited HandleKeyUp(Key, Shift);
+end;
+
+procedure TFNCCADViewport.Draw(AGraphics: TTMSFNCGraphics; ARect: TRectF);
 var
   TmpRect: TRect;
 begin
-  if fPaintingThread <> nil then
+  inherited Draw(AGraphics, ARect);
+  if fOffScreenBitmap = nil then
     Exit;
-  TmpRect := Rect(ARect.Left - 1, ARect.Top - 1, ARect.Right + 1,
-    ARect.Bottom + 1);
-  CopyBackBufferRectOnCanvas(TmpRect, True);
+  TmpRect := Rect(Round(ARect.Left), Round(ARect.Top), Round(ARect.Right),
+    Round(ARect.Bottom));
+  { Set before anything that can call back into us: an OnPaint handler
+    that asks for the overlay again must see that a paint is already
+    running, or it will ask for another one from inside this one. }
+  fInDraw := True;
+  try
+    CopyBitmapOnCanvas(AGraphics, fOffScreenBitmap, TmpRect, fTransparent,
+      fBackGroundColor);
+
+    if Assigned(fOnPaint) and (not fDisablePaintEvent) then
+      try
+        fDisablePaintEvent := True;
+        fOnPaint(Self);
+      finally
+        fDisablePaintEvent := False;
+      end;
+
+    { The transient overlay goes on top, and this is the only moment it
+      can be drawn: the canvas exists only for the duration of this call. }
+    fOnScreenGraphics.Attach(AGraphics, TmpRect);
+    { We are inside the framework's paint, so there is a scene and the
+      clip can be applied. }
+    fOnScreenGraphics.ApplyClip;
+    Inc(fOverlayDepth);
+    try
+      fOnScreenCanvas.Rubber := True;
+      DrawOverlay;
+    finally
+      fOnScreenCanvas.Rubber := False;
+      Dec(fOverlayDepth);
+      { Detaching gives the clip back; the canvas belongs to the
+        framework and the rest of the form still has to paint on it. }
+      fOnScreenGraphics.Attach(nil, TmpRect);
+    end;
+  finally
+    fInDraw := False;
+  end;
 end;
 
-procedure TCADViewport.DoResize;
+procedure TFNCCADViewport.DrawOverlay;
 begin
-  StopRepaint;
-  fOffScreenBitmap.Height := Height;
-  fOffScreenBitmap.Width := Width;
+  if Assigned(fOnPaintOverlay) then
+    fOnPaintOverlay(Self);
+end;
+
+procedure TFNCCADViewport.RefreshRect(const {%H-}ARect: TRect);
+begin
+  { FNC repaints the whole control, so the rectangle is ignored. }
+  Invalidate;
+end;
+
+procedure TFNCCADViewport.DoResize;
+begin
+  ResizeOffScreen;
   ChangeViewportTransform(fVisualWindow);
   if Assigned(fOnResize) then
     fOnResize(Self);
 end;
 
-procedure TCADViewport.StopPaintingThread;
+procedure TFNCCADViewport.BeginOverlay;
 begin
-  if Assigned(fPaintingThread) then
-    try
-      TPaintingThread(fPaintingThread).Terminate;
-      if Assigned(fPaintingThread) then
-        TPaintingThread(fPaintingThread).WaitFor;
-      fPaintingThread := nil;
-      if Assigned(fOnPaint) and (not fDisablePaintEvent) then
-        try
-          fDisablePaintEvent := True;
-          fOnPaint(Self);
-        finally
-          fDisablePaintEvent := False;
-        end;
-    finally
-      fPaintingThread := nil;
-    end;
+  Inc(fOverlayDepth);
 end;
 
-procedure TCADViewport.OnThreadEnded(Sender: TObject);
+procedure TFNCCADViewport.EndOverlay;
 begin
-  fPaintingThread := nil;
-  if Assigned(fOnPaint) and (not fDisablePaintEvent) then
-    try
-      fDisablePaintEvent := True;
-      fOnPaint(Self);
-    finally
-      fDisablePaintEvent := False;
-    end;
-  if Assigned(fOnEndRedraw) then
-    fOnEndRedraw(Self);
+  if fOverlayDepth = 0 then
+    Exit;
+  Dec(fOverlayDepth);
+  { Inside Draw the overlay is being painted right now, so there is
+    nothing to ask for. Outside it, the control has no canvas and the
+    caller's drawing went nowhere - ask for a paint, which repaints the
+    buffer and then runs the overlay painters for real. Repeated asks
+    inside one message cycle coalesce into a single paint. }
+  if (fOverlayDepth = 0) and not fInDraw then
+    Invalidate;
 end;
 
-procedure TCADViewport.UpdateViewport(const ARect: TRect2D);
-var
-  Tmp: TGraphicObject;
-  TmpIter: TGraphicObjIterator;
-  TmpCanvas: TCanvas;
-  TmpClipRect: TRect2D;
-  Cont: Integer;
+procedure TFNCCADViewport.RefreshOverlay;
+begin
+  if fInDraw then
+    Exit;
+  Invalidate;
+end;
+
+function TFNCCADViewport.InOverlay: Boolean;
+begin
+  Result := fOverlayDepth > 0;
+end;
+
+procedure TFNCCADViewport.UpdateViewport(const ARect: TRect2D);
 begin
   if fInUpdate then
     Exit;
   StopRepaint;
-  if Assigned(fOnClear) then
-    fOnClear(Self, fOffScreenCanvas.Canvas, ARect, fBackGroundColor)
-  else
-    ClearCanvas(Self, fOffScreenCanvas.Canvas, ARect, fBackGroundColor);
-  if Assigned(fOnBeginRedraw) then
-    fOnBeginRedraw(Self);
-  if fUseThread then
-  begin
-    fPaintingThread := TPaintingThread.Create(Self, ARect);
-    TPaintingThread(fPaintingThread).OnTerminate := OnThreadEnded;
-    TPaintingThread(fPaintingThread).Start;
-  end
-  else
-    try
-      try
-        TmpCanvas := fOffScreenCanvas.Canvas;
-        TmpClipRect := RectToRect2D(ClientRect);
-        TmpCanvas.Lock;
-        try
-          if fShowGrid and not fGridOnTop then
-            DrawGrid(ARect, TmpCanvas);
-          if fDrawMode = DRAWMODE_NODRAW then
-            Exit;
-          if (fViewportObjects <> nil) then
-            TmpIter := fViewportObjects.GetIterator
-          else if not Assigned(fCADCmp) or fCADCmp.IsBlocked then
-            Exit
-          else
-            TmpIter := fCADCmp.GetListOfObjects;
-          Tmp := TmpIter.First;
-          try
-            Cont := 0;
-            if fCopingFrequency > 0 then
-              while Tmp <> nil do
-              begin
-                DrawObject(Tmp, fOffScreenCanvas, TmpClipRect);
-                Inc(Cont);
-                if Cont = fCopingFrequency then
-                begin
-                  DoCopyCanvas(False);
-                  Cont := 0;
-                end;
-                Tmp := TmpIter.Next;
-              end
-            else
-              while Tmp <> nil do
-              begin
-                DrawObject(Tmp, fOffScreenCanvas, TmpClipRect);
-                Tmp := TmpIter.Next;
-              end;
-          finally
-            TmpIter.Free;
-          end;
-          if fShowGrid and fGridOnTop then
-            DrawGrid(ARect, TmpCanvas);
-        finally
-          TmpCanvas.UnLock;
-        end;
-      except
-      end;
-    finally
-      DoCopyCanvas(True);
-      if Assigned(fOnEndRedraw) then
-        fOnEndRedraw(Self);
-    end;
+  { Drawing into the back buffer is only legal between BeginScene and
+    EndScene on the frameworks that have scenes at all; on the VCL both
+    are no-ops and GDI draws whenever it likes. }
+  BeginOffScreenScene;
+  try
+    DoUpdateViewport(ARect);
+  finally
+    EndOffScreenScene;
+  end;
 end;
 
-procedure TCADViewport.RepaintRect(const ARect: TRect2D);
+procedure TFNCCADViewport.DoUpdateViewport(const ARect: TRect2D);
+var
+  Tmp: TGraphicObject;
+  TmpIter: TGraphicObjIterator;
+  TmpClipRect: TRect2D;
+  Cont: Integer;
+begin
+  { Translucent layer colours are flattened onto this by backends that
+    cannot blend, so it has to match what the surface was cleared to. }
+  fOffScreenCanvas.Graphics.BlendBackground :=
+    TColorToCADColor(fBackGroundColor);
+  fOnScreenCanvas.Graphics.BlendBackground :=
+    TColorToCADColor(fBackGroundColor);
+  if Assigned(fOnClear) then
+    fOnClear(Self, fOffScreenCanvas, ARect, fBackGroundColor)
+  else
+    ClearCanvas(Self, fOffScreenCanvas, ARect, fBackGroundColor);
+  if Assigned(fOnBeginRedraw) then
+    fOnBeginRedraw(Self);
+  fInRepainting := True;
+  try
+    try
+      { The canvas used to be locked around this: the painting thread ran
+        the traversal while the main thread could blit. Both are gone. }
+      TmpClipRect := RectToRect2D(ControlRect);
+      if fShowGrid and not fGridOnTop then
+        DrawGrid(ARect, fOffScreenCanvas);
+      if fDrawMode = DRAWMODE_NODRAW then
+        Exit;
+      if (fViewportObjects <> nil) then
+        TmpIter := fViewportObjects.GetIterator
+      else if not Assigned(fCADCmp) or fCADCmp.IsBlocked then
+        Exit
+      else
+        TmpIter := fCADCmp.GetListOfObjects;
+      Tmp := TmpIter.First;
+      try
+        Cont := 0;
+        if fCopingFrequency > 0 then
+          while Tmp <> nil do
+          begin
+            DrawObject(Tmp, fOffScreenCanvas, TmpClipRect);
+            Inc(Cont);
+            if Cont = fCopingFrequency then
+            begin
+              DoCopyCanvas(False);
+              Cont := 0;
+            end;
+            Tmp := TmpIter.Next;
+          end
+        else
+          while Tmp <> nil do
+          begin
+            DrawObject(Tmp, fOffScreenCanvas, TmpClipRect);
+            Tmp := TmpIter.Next;
+          end;
+      finally
+        TmpIter.Free;
+      end;
+      if fShowGrid and fGridOnTop then
+        DrawGrid(ARect, fOffScreenCanvas);
+    except
+    end;
+  finally
+    fInRepainting := False;
+    DoCopyCanvas(True);
+    if Assigned(fOnEndRedraw) then
+      fOnEndRedraw(Self);
+  end;
+end;
+
+procedure TFNCCADViewport.RepaintRect(const ARect: TRect2D);
 begin
   UpdateViewport(ARect);
 end;
 
-procedure TCADViewport.DrawGrid(const ARect: TRect2D; const Cnv: TCanvas);
+procedure TFNCCADViewport.DrawGrid(const ARect: TRect2D;
+  const Cnv: TDecorativeCanvas);
 var
   CurrX, CurrY: TRealType;
   Pnt1, Pnt2: TPoint2D;
@@ -15807,106 +16349,89 @@ var
     end;
   end;
 
-var
-  TmpCnv: TDecorativeCanvas;
 begin
   if (fGridDeltaX <= 0.0) or (fGridDeltaY <= 0.0) then
     Exit;
-  TmpCnv := TDecorativeCanvas.Create(Cnv);
-  with Cnv do
-    try
-      SetBkMode(Handle, TRANSPARENT);
-      Pen.Color := fGridColor;
-      Pen.Width := 1;
-      Pen.Mode := pmCopy;
-      Pen.Style := psSolid;
-      Brush.Color := fBackGroundColor;
-      Brush.Style := bsSolid;
-      // Draw the grid subdivisions if any.
-      if ((fGridSubX > 0) and (fGridSubY > 0)) then
-      begin
-        TmpCnv.DecorativePen.SetPenStyle('10');
-        DrawGridLines(TmpCnv, fGridDeltaX / fGridSubX, fGridDeltaY / fGridSubY);
-        TmpCnv.DecorativePen.SetPenStyle('');
-      end;
-      // Draw the grid main divisions.
-      Pen.Style := psSolid;
-      DrawGridLines(TmpCnv, fGridDeltaX, fGridDeltaY);
-      // Draw the main axes.
-      Pen.Width := 2;
-      Pnt1 := ViewportToScreen(Point2D(ARect.Left, 0.0));
-      Pnt2 := ViewportToScreen(Point2D(ARect.Right, 0.0));
-      MoveTo(Round(Pnt1.X), Round(Pnt1.Y));
-      LineTo(Round(Pnt2.X), Round(Pnt2.Y));
-      Pnt1 := ViewportToScreen(Point2D(0.0, ARect.Bottom));
-      Pnt2 := ViewportToScreen(Point2D(0.0, ARect.Top));
-      MoveTo(Round(Pnt1.X), Round(Pnt1.Y));
-      LineTo(Round(Pnt2.X), Round(Pnt2.Y));
-    finally
-      TmpCnv.Free;
-    end;
+  { The caller owns the canvas; the grid used to wrap the raw TCanvas in
+    one of its own here. }
+  Cnv.Graphics.Transparent := True;
+  Cnv.Pen.Color := TColorToCADColor(fGridColor);
+  Cnv.Pen.Width := 1;
+  Cnv.Pen.Mode := cpmCopy;
+  Cnv.Pen.Style := cpsSolid;
+  Cnv.Brush.Color := TColorToCADColor(fBackGroundColor);
+  Cnv.Brush.Style := cbsSolid;
+  // Draw the grid subdivisions if any.
+  if ((fGridSubX > 0) and (fGridSubY > 0)) then
+  begin
+    Cnv.DecorativePen.SetPenStyle('10');
+    DrawGridLines(Cnv, fGridDeltaX / fGridSubX, fGridDeltaY / fGridSubY);
+    Cnv.DecorativePen.SetPenStyle('');
+  end;
+  // Draw the grid main divisions.
+  Cnv.Pen.Style := cpsSolid;
+  DrawGridLines(Cnv, fGridDeltaX, fGridDeltaY);
+  // Draw the main axes.
+  Cnv.Pen.Width := 2;
+  Pnt1 := ViewportToScreen(Point2D(ARect.Left, 0.0));
+  Pnt2 := ViewportToScreen(Point2D(ARect.Right, 0.0));
+  Cnv.MoveTo(Round(Pnt1.X), Round(Pnt1.Y));
+  Cnv.LineTo(Round(Pnt2.X), Round(Pnt2.Y));
+  Pnt1 := ViewportToScreen(Point2D(0.0, ARect.Bottom));
+  Pnt2 := ViewportToScreen(Point2D(0.0, ARect.Top));
+  Cnv.MoveTo(Round(Pnt1.X), Round(Pnt1.Y));
+  Cnv.LineTo(Round(Pnt2.X), Round(Pnt2.Y));
 end;
 
-function TCADViewport.GetInRepaint: Boolean;
+function TFNCCADViewport.GetInRepaint: Boolean;
 begin
-  Result := Assigned(fPaintingThread);
+  Result := fInRepainting;
 end;
 
-procedure TCADViewport.Repaint;
+procedure TFNCCADViewport.Repaint;
 begin
-  if (csReadingState in ControlState) then
+  { Was 'csReadingState in ControlState'. ControlState belongs to the VCL
+    and LCL TControl and has no FMX counterpart; csLoading is in
+    System.Classes and means the same thing here - do not paint while the
+    form is still streaming properties in. It is set slightly earlier and
+    cleared slightly later, so if anything it guards a touch more. }
+  if csLoading in ComponentState then
     Exit;
+{$IFNDEF CADSYS_FMX}
+  { A transparent viewport shows whatever its parent painted, so the
+    parent has to go first. FMX parents are TFmxObjects and have no
+    Repaint; transparency there is step 5e's problem, along with the
+    rest of TCADFNCGraphics' missing per-colour transparency. }
   if fTransparent and Assigned(Parent) then
     Parent.Repaint;
+{$ENDIF}
   RepaintRect(fVisualWindow);
 end;
 
-procedure TCADViewport.WaitForRepaintEnd;
+procedure TFNCCADViewport.WaitForRepaintEnd;
 begin
-  if Assigned(fPaintingThread) then
-    try
-      // Devo aspettare.
-      TPaintingThread(fPaintingThread).WaitFor;
-    finally
-      fPaintingThread := nil;
-    end;
+  { Repainting is synchronous. Nothing to wait for. }
 end;
 
-procedure TCADViewport.StopRepaint;
+procedure TFNCCADViewport.StopRepaint;
 begin
-  StopPaintingThread;
+  { Repainting is synchronous. Nothing to interrupt. }
 end;
 
-procedure TCADViewport.Refresh;
+procedure TFNCCADViewport.Refresh;
 begin
   Invalidate;
 end;
 
-procedure TCADViewport.Invalidate;
-begin
-  if (csReadingState in ControlState) or (csLoading in ComponentState) then
-  begin
-    inherited;
-    Exit;
-  end;
-  if (csDesigning in ComponentState) then
-    inherited;
-  if HandleAllocated then
-    Paint;
-end;
-
-procedure TCADViewport.Notification(AComponent: TComponent;
+procedure TFNCCADViewport.Notification(AComponent: TComponent;
   Operation: TOperation);
 begin
   if (AComponent = CADCmp) and (Operation = opRemove) then
-  begin
-    StopPaintingThread;
     CADCmp := nil;
-  end;
   inherited Notification(AComponent, Operation);
 end;
 
-procedure TCADViewport.ChangeViewportTransform(ViewWin: TRect2D);
+procedure TFNCCADViewport.ChangeViewportTransform(ViewWin: TRect2D);
 var
   OldView: TRect2D;
 begin
@@ -15935,13 +16460,13 @@ begin
   end;
 end;
 
-procedure TCADViewport.UpdateViewportTransform;
+procedure TFNCCADViewport.UpdateViewportTransform;
 var
   NewTransf: TTransf2D;
 begin
   StopRepaint;
   try
-    NewTransf := BuildViewportTransform(fVisualWindow, ClientRect,
+    NewTransf := BuildViewportTransform(fVisualWindow, ControlRect,
       fAspectRatio);
     fScreenToViewport := InvertTransform2D(NewTransf);
     fViewportToScreen := NewTransf;
@@ -15952,23 +16477,23 @@ begin
   Repaint;
 end;
 
-function TCADViewport.BuildViewportTransform(var ViewWin: TRect2D;
+function TFNCCADViewport.BuildViewportTransform(var ViewWin: TRect2D;
   const ScreenWin: TRect; const AspectRatio: TRealType): TTransf2D;
 begin
   Result := IdentityTransf2D;
 end;
 
-procedure TCADViewport.ZoomWindow(const NewWindow: TRect2D);
+procedure TFNCCADViewport.ZoomWindow(const NewWindow: TRect2D);
 begin
   ChangeViewportTransform(NewWindow);
 end;
 
-function TCADViewport.GetAperture(const L: Word): TRealType;
+function TFNCCADViewport.GetAperture(const L: Word): TRealType;
 begin
   Result := GetPixelAperture.X * L;
 end;
 
-function TCADViewport.SetLayer(const L: TLayer): Boolean;
+function TFNCCADViewport.SetLayer(const L: TLayer): Boolean;
 begin
   if (L <> nil) then
     Result := L.SetCanvas(fOffScreenCanvas)
@@ -15976,21 +16501,23 @@ begin
     Result := False;
 end;
 
-procedure TCADViewport.CalibrateCnv(const Cnv: TCanvas;
-  XScale, YScale: TRealType);
+procedure TFNCCADViewport.CalibrateMM(const AMMPerPixelX,
+  AMMPerPixelY: TRealType; XScale, YScale: TRealType);
 var
   TmpWin: TRect2D;
   TmpAspect, LogWidth, LogHeight: TRealType;
 begin
-  StopRepaint;
+  { It used to read the device's size and resolution through GetDeviceCaps.
+    Only the caller knows what surface it is going to draw on, so it passes
+    the millimetres-per-pixel in - see CADCalibrateToCanvas in
+    FNCCS4ExportVCL for the VCL screen-or-printer version. }
   if (XScale = 0) or (YScale = 0) then
     Exit;
+  if (AMMPerPixelX = 0) or (AMMPerPixelY = 0) then
+    Exit;
   TmpWin := fVisualWindow;
-  // Questa è la dimensione di un pixel in mm.
-  LogHeight := GetDeviceCaps(Cnv.Handle, VERTSIZE) /
-    GetDeviceCaps(Cnv.Handle, VERTRES);
-  LogWidth := GetDeviceCaps(Cnv.Handle, HORZSIZE) /
-    GetDeviceCaps(Cnv.Handle, HORZRES);
+  LogHeight := AMMPerPixelY;
+  LogWidth := AMMPerPixelX;
   try
     TmpAspect := LogHeight / LogWidth;
     TmpWin.Right := fVisualWindow.Left + LogWidth * Width * XScale;
@@ -16001,12 +16528,7 @@ begin
   end;
 end;
 
-procedure TCADViewport.Calibrate(const XScale, YScale: TRealType);
-begin
-  CalibrateCnv(Canvas, XScale, YScale);
-end;
-
-procedure TCADViewport.MoveWindow(const NewStartX, NewStartY: TRealType);
+procedure TFNCCADViewport.MoveWindow(const NewStartX, NewStartY: TRealType);
 var
   TmpWin: TRect2D;
   Temp: TRealType;
@@ -16023,7 +16545,7 @@ begin
   ChangeViewportTransform(TmpWin);
 end;
 
-procedure TCADViewport.ZoomIn;
+procedure TFNCCADViewport.ZoomIn;
 var
   TmpWin: TRect2D;
   Temp: TRealType;
@@ -16040,7 +16562,7 @@ begin
   ChangeViewportTransform(TmpWin);
 end;
 
-procedure TCADViewport.ZoomOut;
+procedure TFNCCADViewport.ZoomOut;
 var
   TmpWin: TRect2D;
   Temp: TRealType;
@@ -16057,7 +16579,7 @@ begin
   ChangeViewportTransform(TmpWin);
 end;
 
-procedure TCADViewport.PanWindow(const DeltaX, DeltaY: TRealType);
+procedure TFNCCADViewport.PanWindow(const DeltaX, DeltaY: TRealType);
 var
   TmpWin: TRect2D;
 begin
@@ -16073,14 +16595,9 @@ begin
   ChangeViewportTransform(TmpWin);
 end;
 
-procedure TCADViewport.CopyToClipboard(const Clp: TClipboard);
-begin
-  StopRepaint;
-  Clp.Assign(fOffScreenBitmap);
-end;
-
-procedure TCADViewport.CopyToCanvas(const Cnv: TCanvas;
+procedure TFNCCADViewport.CopyToCanvas(const Cnv: TDecorativeCanvas;
   const Mode: TCanvasCopyMode; const View: TCanvasCopyView;
+  const AMMPerPixelX, AMMPerPixelY: TRealType;
   const XScale, YScale: TRealType);
 var
   OldView: TRect2D;
@@ -16098,10 +16615,10 @@ begin
       cvExtension:
         ZoomToExtension;
       cvScale:
-        CalibrateCnv(Cnv, XScale, YScale);
+        CalibrateMM(AMMPerPixelX, AMMPerPixelY, XScale, YScale);
     end;
     fAspectRatio := fOldAspect;
-    CopyRectToCanvas(VisualRect, ClientRect, Cnv, Mode);
+    CopyRectToCanvas(VisualRect, ControlRect, Cnv, Mode);
   finally
     fAspectRatio := fOldAspect;
     ZoomWindow(OldView);
@@ -16109,33 +16626,33 @@ begin
   end;
 end;
 
-function TCADViewport.GetCopyRectViewportToScreen(CADRect: TRect2D;
+function TFNCCADViewport.GetCopyRectViewportToScreen(CADRect: TRect2D;
   const CanvasRect: TRect; const Mode: TCanvasCopyMode): TTransf2D;
 begin
   Result := GetViewportToScreen;
 end;
 
-function TCADViewport.ScreenToViewport(const SPt: TPoint2D): TPoint2D;
+function TFNCCADViewport.ScreenToViewport(const SPt: TPoint2D): TPoint2D;
 begin
   Result := TransformPoint2D(SPt, fScreenToViewport);
 end;
 
-function TCADViewport.ViewportToScreen(const WPt: TPoint2D): TPoint2D;
+function TFNCCADViewport.ViewportToScreen(const WPt: TPoint2D): TPoint2D;
 begin
   Result := CartesianPoint2D(TransformPoint2D(WPt, fViewportToScreen));
 end;
 
-function TCADViewport.GetViewportToScreen: TTransf2D;
+function TFNCCADViewport.GetViewportToScreen: TTransf2D;
 begin
   Result := fViewportToScreen;
 end;
 
-function TCADViewport.GetScreenToViewport: TTransf2D;
+function TFNCCADViewport.GetScreenToViewport: TTransf2D;
 begin
   Result := fScreenToViewport;
 end;
 
-function TCADViewport.GetPixelAperture: TPoint2D;
+function TFNCCADViewport.GetPixelAperture: TPoint2D;
 begin
   Result.X := Abs(fScreenToViewport[1, 1]);
   Result.Y := Abs(fScreenToViewport[2, 2]);
@@ -16143,15 +16660,10 @@ begin
 end;
 
 // =====================================================================
-// TRuler
+// TFNCRuler
 // =====================================================================
 
-procedure TRuler.WMEraseBkgnd(var Message: TWMEraseBkgnd);
-begin
-  Message.Result := 1;
-end;
-
-procedure TRuler.SetOwnerView(V: TCADViewport);
+procedure TFNCRuler.SetOwnerView(V: TFNCCADViewport);
 begin
   if V <> fOwnerView then
   begin
@@ -16160,25 +16672,37 @@ begin
   end;
 end;
 
-procedure TRuler.SetOrientation(O: TRulerOrientationType);
+procedure TFNCRuler.SetOrientation(O: TRulerOrientationType);
+
 begin
+
   if fOrientation <> O then
+
   begin
+
     fOrientation := O;
+
+    ApplyThickness;
     Invalidate;
+
   end;
+
 end;
 
-procedure TRuler.SetSize(S: Integer);
+procedure TFNCRuler.SetThickness(S: Integer);
 begin
   if S <> fSize then
   begin
     fSize := S;
+    { The control resizes itself. A caller that had to set Thickness and
+      then Height to the same number would get it wrong on a scaled
+      display, because only one of the two is a logical value. }
+    ApplyThickness;
     Invalidate;
   end;
 end;
 
-procedure TRuler.SetFontSize(S: Integer);
+procedure TFNCRuler.SetFontSize(S: Integer);
 begin
   if S <> fFontSize then
   begin
@@ -16187,7 +16711,7 @@ begin
   end;
 end;
 
-procedure TRuler.SetStepSize(S: TRealType);
+procedure TFNCRuler.SetStepSize(S: TRealType);
 begin
   if S <> fStepSize then
   begin
@@ -16196,7 +16720,7 @@ begin
   end;
 end;
 
-procedure TRuler.SetStepDivisions(D: Integer);
+procedure TFNCRuler.SetStepDivisions(D: Integer);
 begin
   if D <> fStepDivisions then
   begin
@@ -16205,7 +16729,7 @@ begin
   end;
 end;
 
-procedure TRuler.SetTicksColor(C: TColor);
+procedure TFNCRuler.SetTicksColor(C: TColor);
 begin
   if C <> fTicksColor then
   begin
@@ -16214,166 +16738,331 @@ begin
   end;
 end;
 
-constructor TRuler.Create(AOwner: TComponent);
+destructor TFNCRuler.Destroy;
+begin
+  fCanvas.Free;
+  fCanvas := nil;
+  fGraphics.Free;
+  fGraphics := nil;
+  inherited Destroy;
+end;
+
+{ The ruler draws through the drawing layer like everything else, so the
+  same code will run on FMX and LCL. Nothing is attached between paints. }
+
+function TFNCRuler.RulerScale: Single;
+begin
+  if fScaleOverride > 0 then
+    Result := fScaleOverride
+  else
+    Result := PaintScaleFactor;
+  if Result <= 0 then
+    Result := 1.0;
+end;
+
+function TFNCRuler.ScaleRuler(const Value: Integer): Integer;
+begin
+  Result := Round(Value * RulerScale);
+end;
+
+function TFNCRuler.ScaledThickness: Integer;
+begin
+  Result := ScaleRuler(fSize);
+  if Result < 4 then
+    Result := 4;
+end;
+
+procedure TFNCRuler.ChangeDPIScale(M, D: Integer);
+begin
+  inherited ChangeDPIScale(M, D);
+  { Before ApplyThickness, which reads it back through ScaledThickness.
+    RulerScale on the right is still the old scale, which is the point:
+    M/D is a step, not an absolute. }
+  if (M > 0) and (D > 0) then
+    fScaleOverride := RulerScale * M / D;
+  ApplyThickness;
+  Invalidate;
+end;
+
+procedure TFNCRuler.ApplyThickness;
+begin
+  case fOrientation of
+    otOrizontal:
+      Height := ScaledThickness;
+    otVertical:
+      Width := ScaledThickness;
+  end;
+end;
+
+function TFNCRuler.RulerFontHeight: Integer;
+const
+  { In points, and only used on FMX. See below. }
+  DefaultFontPoints = 8;
+var
+  TmpPixels: Integer;
+begin
+  if fFontSize <= 0 then
+  begin
+{$IFDEF CADSYS_FMX}
+    { FMX has no control font to follow: neither FMX's TControl nor
+      TTMSFNCCustomControl declares one, so there is nothing to
+      inherit from the form the way there is on VCL and LCL. The ruler
+      picks its own logical size instead and lets FMX scale the scene,
+      which is what RulerScale being 1.0 on FMX means. }
+    TmpPixels := Round(DefaultFontPoints * 96 / 72);
+    Result := -ScaleRuler(TmpPixels);
+{$ELSE}
+    { Follow the control's own Font, like any other VCL or LCL control
+      does. This is the default, and the only spelling that cannot go
+      wrong: the framework already maintains Font for the display the
+      control is on, so there is no DPI arithmetic here to get wrong,
+      and the labels come out the same size as the rest of the window
+      by construction rather than by coincidence. }
+    Result := Font.Height;
+    if Result = 0 then
+      Result := -12;
+{$ENDIF}
+    Exit;
+  end;
+
+  { FontSize is in points; the drawing layer wants a LOGFONT pixel
+    height, negative for the character height. Scaled for the display,
+    because a point is a physical size. }
+  TmpPixels := Round(fFontSize * 96 / 72);
+  Result := -ScaleRuler(TmpPixels);
+end;
+
+procedure TFNCRuler.SelectRulerFont;
+var
+  TmpFont: TCADFontSpec;
+begin
+  TmpFont := TCADFontSpec.Default;
+{$IFNDEF CADSYS_FMX}
+  { Same reason as in RulerFontHeight: there is no control font on
+    FMX, so there the drawing layer's own default face stands. }
+  TmpFont.FaceName := Font.Name;
+{$ENDIF}
+  TmpFont.Height := RulerFontHeight;
+  fCanvas.Graphics.SelectFont(TmpFont);
+end;
+
+function TFNCRuler.RulerTextWidth(const S: String): Integer;
+var
+  TmpRect: TRect;
+begin
+  TmpRect := Rect(0, 0, 0, 0);
+  fCanvas.Graphics.DrawText(S, TmpRect, CAD_DT_CALCRECT or
+    CAD_DT_SINGLELINE or CAD_DT_NOPREFIX);
+  Result := TmpRect.Right - TmpRect.Left;
+end;
+
+procedure TFNCRuler.RulerTextOut(const X, Y: Integer; const S: String);
+var
+  TmpRect: TRect;
+begin
+  TmpRect := Rect(X, Y, X + RulerTextWidth(S) + 2,
+    Y + 2 * Abs(RulerFontHeight) + 4);
+  fCanvas.Graphics.DrawText(S, TmpRect, CAD_DT_TOP or CAD_DT_LEFT or
+    CAD_DT_SINGLELINE or CAD_DT_NOPREFIX or CAD_DT_NOCLIP);
+end;
+
+constructor TFNCRuler.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
   fOwnerView := nil;
   fSize := 20;
-  fFontSize := 6;
+  fFontSize := 0;
   fStepSize := 10.0;
   fStepDivisions := 5;
   fOrientation := otVertical;
-  fTicksColor := clBlack;
-  Color := clWhite;
-  Canvas.Font.Name := 'Verdana';
-  Width := fSize;
-  Height := fSize * 4;
+  fTicksColor := cadtcBlack;
+  fHasMark := False;
+  { gcWhite rather than a TColor constant: an FNC control's Color is a
+    TTMSFNCGraphicsColor, which is a TColor on VCL and LCL but a
+    TAlphaColor on FMX. The gc* constants are declared per flavour with
+    the right value for each. }
+  Color := gcWhite;
+  fGraphics := TCADFNCGraphics.Create(nil, Rect(0, 0, 0, 0), False);
+  fCanvas := TDecorativeCanvas.Create(fGraphics, False);
+  { Its thickness across, and something arbitrary along - whoever
+    places it decides the other dimension. }
+  Width := ScaledThickness;
+  Height := ScaledThickness * 4;
 end;
 
-procedure TRuler.Paint;
+procedure TFNCRuler.Draw(AGraphics: TTMSFNCGraphics; ARect: TRectF);
 var
   TmpStep, TmpVal: TRealType;
   TmpPt: TPoint;
   LastPt, MinSize: Integer;
+  TmpRect: TRect;
 begin
-  if fOwnerView = nil then
-    Exit;
-  with Canvas do
-  begin
-    Font.Size := fFontSize;
-    Font.Color := fTicksColor;
-    Brush.Color := Color;
-    Pen.Color := fTicksColor;
-    Pen.Width := 1;
-    FillRect(ClientRect);
-    SetBkMode(Handle, TRANSPARENT);
-    case fOrientation of
-      otOrizontal:
-        begin
-          TmpVal := Trunc(fOwnerView.VisualRect.Left / fStepSize) * fStepSize;
-          TmpStep := fStepSize;
-          MinSize := TextWidth(Format('%12.2f', [TmpVal]));
-          // Trova lo step ottimo.
-          TmpPt := Point2DToPoint
-            (fOwnerView.ViewportToScreen(Point2D(TmpVal - fStepSize, 0)));
-          LastPt := TmpPt.X;
-          while TmpVal <= fOwnerView.VisualRect.Right do
+  inherited Draw(AGraphics, ARect);
+  TmpRect := Rect(Round(ARect.Left), Round(ARect.Top), Round(ARect.Right),
+    Round(ARect.Bottom));
+  fGraphics.Attach(AGraphics, TmpRect);
+  fGraphics.ApplyClip;
+  try
+    fCanvas.Brush.Color := FNCToCADColor(Color);
+    fCanvas.Brush.Style := cbsSolid;
+    fCanvas.Graphics.FillRect(TmpRect);
+    if fOwnerView = nil then
+      Exit;
+    fCanvas.Pen.Color := TColorToCADColor(fTicksColor);
+    fCanvas.Pen.Width := 1;
+    fCanvas.Pen.Style := cpsSolid;
+    fCanvas.Graphics.FontColor := TColorToCADColor(fTicksColor);
+    fCanvas.Graphics.Transparent := True;
+    SelectRulerFont;
+    try
+      case fOrientation of
+        otOrizontal:
           begin
+            TmpVal := Trunc(fOwnerView.VisualRect.Left / fStepSize) * fStepSize;
+            TmpStep := fStepSize;
+            MinSize := RulerTextWidth(Format('%12.2f', [TmpVal]));
+            // Trova lo step ottimo.
             TmpPt := Point2DToPoint
-              (fOwnerView.ViewportToScreen(Point2D(TmpVal, 0)));
-            if Abs(TmpPt.X - LastPt) > MinSize then
-              Break;
-            TmpVal := TmpVal + TmpStep;
-            TmpStep := TmpStep * 2.0;
-          end;
-          // Disegna il righello.
-          TmpVal := Trunc(fOwnerView.VisualRect.Left / TmpStep) * TmpStep;
-          if TmpStep / fOwnerView.VisualRect.Right < 0.01 then
-            Exit;
-          while TmpVal <= fOwnerView.VisualRect.Right do
-          begin
-            TmpPt := Point2DToPoint
-              (fOwnerView.ViewportToScreen(Point2D(TmpVal, 0)));
-            MoveTo(TmpPt.X, ClientRect.Top);
-            LineTo(TmpPt.X, ClientRect.Bottom);
-            TextOut(TmpPt.X, ClientRect.Bottom - Font.Size - 2,
-              Format('%6.2f', [TmpVal]));
-            TmpVal := TmpVal + TmpStep;
-          end;
-          // Subdivisions.
-          if fStepDivisions > 0 then
-          begin
-            TmpStep := TmpStep / fStepDivisions;
-            TmpVal := Trunc(fOwnerView.VisualRect.Left / TmpStep) * TmpStep;
+              (fOwnerView.ViewportToScreen(Point2D(TmpVal - fStepSize, 0)));
+            LastPt := TmpPt.X;
             while TmpVal <= fOwnerView.VisualRect.Right do
             begin
               TmpPt := Point2DToPoint
                 (fOwnerView.ViewportToScreen(Point2D(TmpVal, 0)));
-              MoveTo(TmpPt.X, ClientRect.Top);
-              LineTo(TmpPt.X, ClientRect.Top + fSize div 2);
+              if Abs(TmpPt.X - LastPt) > MinSize then
+                Break;
+              TmpVal := TmpVal + TmpStep;
+              TmpStep := TmpStep * 2.0;
+            end;
+            // Disegna il righello.
+            TmpVal := Trunc(fOwnerView.VisualRect.Left / TmpStep) * TmpStep;
+            if TmpStep / fOwnerView.VisualRect.Right < 0.01 then
+              Exit;
+            while TmpVal <= fOwnerView.VisualRect.Right do
+            begin
+              TmpPt := Point2DToPoint
+                (fOwnerView.ViewportToScreen(Point2D(TmpVal, 0)));
+              fCanvas.MoveTo(TmpPt.X, ControlRect.Top);
+              fCanvas.LineTo(TmpPt.X, ControlRect.Bottom);
+              RulerTextOut(TmpPt.X,
+                ControlRect.Bottom - Abs(RulerFontHeight) - 2,
+                Format('%6.2f', [TmpVal]));
               TmpVal := TmpVal + TmpStep;
             end;
+            // Subdivisions.
+            if fStepDivisions > 0 then
+            begin
+              TmpStep := TmpStep / fStepDivisions;
+              TmpVal := Trunc(fOwnerView.VisualRect.Left / TmpStep) * TmpStep;
+              while TmpVal <= fOwnerView.VisualRect.Right do
+              begin
+                TmpPt := Point2DToPoint
+                  (fOwnerView.ViewportToScreen(Point2D(TmpVal, 0)));
+                fCanvas.MoveTo(TmpPt.X, ControlRect.Top);
+                fCanvas.LineTo(TmpPt.X,
+                  ControlRect.Top + ScaledThickness div 2);
+                TmpVal := TmpVal + TmpStep;
+              end;
+            end;
           end;
-        end;
-      otVertical:
-        begin
-          TmpVal := Trunc(fOwnerView.VisualRect.Bottom / fStepSize) * fStepSize;
-          TmpStep := fStepSize;
-          MinSize := 2 * Font.Size;
-          // Trova lo step ottimo.
-          TmpPt := Point2DToPoint(fOwnerView.ViewportToScreen(Point2D(0,
-            TmpVal - fStepSize)));
-          LastPt := TmpPt.Y;
-          while TmpVal <= fOwnerView.VisualRect.Top do
+        otVertical:
           begin
+            TmpVal := Trunc(fOwnerView.VisualRect.Bottom / fStepSize)
+              * fStepSize;
+            TmpStep := fStepSize;
+            MinSize := 2 * Abs(RulerFontHeight);
+            // Trova lo step ottimo.
             TmpPt := Point2DToPoint(fOwnerView.ViewportToScreen(Point2D(0,
-              TmpVal)));
-            if Abs(TmpPt.Y - LastPt) > MinSize then
-              Break;
-            TmpVal := TmpVal + TmpStep;
-            TmpStep := TmpStep * 2.0;
-          end;
-          // Disegna il righello.
-          TmpVal := Trunc(fOwnerView.VisualRect.Bottom / TmpStep) * TmpStep;
-          if TmpStep / fOwnerView.VisualRect.Right < 0.01 then
-            Exit;
-          while TmpVal <= fOwnerView.VisualRect.Top do
-          begin
-            TmpPt := Point2DToPoint(fOwnerView.ViewportToScreen(Point2D(0,
-              TmpVal)));
-            MoveTo(ClientRect.Left, TmpPt.Y);
-            LineTo(ClientRect.Right, TmpPt.Y);
-            TextOut(ClientRect.Left + fSize div 2, TmpPt.Y,
-              Format('%-6.2f', [TmpVal]));
-            TmpVal := TmpVal + TmpStep;
-          end;
-          // Subdivisions.
-          if fStepDivisions > 0 then
-          begin
-            TmpStep := TmpStep / fStepDivisions;
-            TmpVal := Trunc(fOwnerView.VisualRect.Bottom / TmpStep) * TmpStep;
+              TmpVal - fStepSize)));
+            LastPt := TmpPt.Y;
             while TmpVal <= fOwnerView.VisualRect.Top do
             begin
               TmpPt := Point2DToPoint(fOwnerView.ViewportToScreen(Point2D(0,
                 TmpVal)));
-              MoveTo(ClientRect.Left, TmpPt.Y);
-              LineTo(ClientRect.Left + fSize div 2, TmpPt.Y);
+              if Abs(TmpPt.Y - LastPt) > MinSize then
+                Break;
+              TmpVal := TmpVal + TmpStep;
+              TmpStep := TmpStep * 2.0;
+            end;
+            // Disegna il righello.
+            TmpVal := Trunc(fOwnerView.VisualRect.Bottom / TmpStep) * TmpStep;
+            if TmpStep / fOwnerView.VisualRect.Right < 0.01 then
+              Exit;
+            while TmpVal <= fOwnerView.VisualRect.Top do
+            begin
+              TmpPt := Point2DToPoint(fOwnerView.ViewportToScreen(Point2D(0,
+                TmpVal)));
+              fCanvas.MoveTo(ControlRect.Left, TmpPt.Y);
+              fCanvas.LineTo(ControlRect.Right, TmpPt.Y);
+              RulerTextOut(ControlRect.Left + ScaledThickness div 2, TmpPt.Y,
+                Format('%-6.2f', [TmpVal]));
               TmpVal := TmpVal + TmpStep;
             end;
+            // Subdivisions.
+            if fStepDivisions > 0 then
+            begin
+              TmpStep := TmpStep / fStepDivisions;
+              TmpVal := Trunc(fOwnerView.VisualRect.Bottom / TmpStep) * TmpStep;
+              while TmpVal <= fOwnerView.VisualRect.Top do
+              begin
+                TmpPt := Point2DToPoint(fOwnerView.ViewportToScreen(Point2D(0,
+                  TmpVal)));
+                fCanvas.MoveTo(ControlRect.Left, TmpPt.Y);
+                fCanvas.LineTo(ControlRect.Left + ScaledThickness div 2,
+                  TmpPt.Y);
+                TmpVal := TmpVal + TmpStep;
+              end;
+            end;
           end;
-        end;
+      end;
+      DrawMark;
+    finally
+      fCanvas.Graphics.ResetFont;
     end;
+  finally
+    fGraphics.Attach(nil, TmpRect);
   end;
 end;
 
-procedure TRuler.SetMark(Value: TRealType);
+procedure TFNCRuler.SetMark(Value: TRealType);
+begin
+  { It used to repaint the ruler and draw the mark straight onto the
+    canvas. An FNC control may only draw inside Draw, so the mark is
+    remembered and painted there. }
+  fMark := Value;
+  fHasMark := True;
+  Invalidate;
+end;
+
+function TFNCRuler.ControlRect: TRect;
+begin
+  Result := Rect(0, 0, Round(Width), Round(Height));
+end;
+
+procedure TFNCRuler.DrawMark;
 var
   TmpPt: TPoint;
 begin
-  Paint;
-  if fOwnerView = nil then
+  if (not fHasMark) or (fOwnerView = nil) then
     Exit;
-  with Canvas do
-  begin
-    Pen.Color := fTicksColor;
-    Pen.Width := 3;
-    case fOrientation of
-      otOrizontal:
-        begin
-          TmpPt := Point2DToPoint
-            (fOwnerView.ViewportToScreen(Point2D(Value, 0)));
-          MoveTo(TmpPt.X, ClientRect.Top);
-          LineTo(TmpPt.X, ClientRect.Bottom);
-        end;
-      otVertical:
-        begin
-          TmpPt := Point2DToPoint
-            (fOwnerView.ViewportToScreen(Point2D(0, Value)));
-          MoveTo(ClientRect.Left, TmpPt.Y);
-          LineTo(ClientRect.Right, TmpPt.Y);
-        end;
-    end;
+  fCanvas.Pen.Color := TColorToCADColor(fTicksColor);
+  fCanvas.Pen.Width := 3;
+  case fOrientation of
+    otOrizontal:
+      begin
+        TmpPt := Point2DToPoint
+          (fOwnerView.ViewportToScreen(Point2D(fMark, 0)));
+        fCanvas.MoveTo(TmpPt.X, ControlRect.Top);
+        fCanvas.LineTo(TmpPt.X, ControlRect.Bottom);
+      end;
+    otVertical:
+      begin
+        TmpPt := Point2DToPoint
+          (fOwnerView.ViewportToScreen(Point2D(0, fMark)));
+        fCanvas.MoveTo(ControlRect.Left, TmpPt.Y);
+        fCanvas.LineTo(ControlRect.Right, TmpPt.Y);
+      end;
   end;
 end;
 
@@ -16434,48 +17123,22 @@ begin
   inherited Destroy;
 end;
 
-constructor TObject2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpTransf: TTransf2D;
-  TmpTransfS: TTransf2DSingle;
+constructor TObject2D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    if (Version >= 'CAD423') then
-    begin
-      Read({%H-}TmpTransf, SizeOf(TTransf2D));
-      SaveTransform(TmpTransf);
-    end
-    else
-    begin
-      Read({%H-}TmpTransfS, SizeOf(TTransf2DSingle));
-      TmpTransf[1, 1] := TmpTransfS[1, 1];
-      TmpTransf[1, 2] := TmpTransfS[1, 2];
-      TmpTransf[1, 3] := TmpTransfS[1, 3];
-      TmpTransf[2, 1] := TmpTransfS[2, 1];
-      TmpTransf[2, 2] := TmpTransfS[2, 2];
-      TmpTransf[2, 3] := TmpTransfS[2, 3];
-      TmpTransf[3, 1] := TmpTransfS[3, 1];
-      TmpTransf[3, 2] := TmpTransfS[3, 2];
-      TmpTransf[3, 3] := TmpTransfS[3, 3];
-      SaveTransform(TmpTransf);
-    end;
-  end;
+  if JHas(AJSON, 'transform') then
+    SaveTransform(JGetTransf2D(AJSON, 'transform'));
   fHandler := nil;
 end;
 
-procedure TObject2D.SaveToStream(const Stream: TStream);
-var
-  TmpTransf: TTransf2D;
+procedure TObject2D.SaveToJSON(const AJSON: TJSONObject);
 begin
-  inherited SaveToStream(Stream);
-  with Stream do
+  inherited SaveToJSON(AJSON);
+  { An object without a model transform leaves the member out. }
+  if HasTransform then
   begin
     SaveTransform(ModelTransform);
-    TmpTransf := ModelTransform;
-    Write(TmpTransf, SizeOf(TTransf2D));
+    JSetTransf2D(AJSON, 'transform', ModelTransform);
   end;
 end;
 
@@ -16533,7 +17196,7 @@ procedure TObject2D.DrawControlPoints(const VT: TTransf2D;
   const Width: Integer);
 begin
   // Draw the bounding box.
-  if fDrawBoundingBox and (Cnv.Canvas.Pen.Mode <> pmXOr) then
+  if fDrawBoundingBox and not Cnv.Rubber then
     DrawBoundingBox2D(Cnv, Box, ClipRect2D, VT);
   if Assigned(fHandler) then
     fHandler.DrawControlPoints(Self, VT, Cnv, Width);
@@ -16708,67 +17371,45 @@ begin
   inherited Destroy;
 end;
 
-procedure TContainer2D.SaveToStream(const Stream: TStream);
+procedure TContainer2D.SaveToJSON(const AJSON: TJSONObject);
 var
   TmpObj: TObject2D;
-  TmpLong: LongInt;
-  TmpWord: Word;
+  TmpArray: TJSONArray;
   TmpIter: TGraphicObjIterator;
 begin
-  inherited SaveToStream(Stream);
-  // Crea un iterator temporaneo.
+  inherited SaveToJSON(AJSON);
+  TmpArray := TJSONArray.Create;
+  JSetValue(AJSON, 'objects', TmpArray);
   TmpIter := fObjects.GetIterator;
-  with Stream do
-    try
-      { Write the number of objects in the container. }
-      TmpLong := fObjects.Count;
-      Write(TmpLong, SizeOf(TmpLong));
-      { Now write the objects in the container. }
-      TmpObj := TObject2D(TmpIter.First);
-      while TmpObj <> nil do
-      begin
-        TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
-        { Save the class index. }
-        Write(TmpWord, SizeOf(TmpWord));
-        { Save the object. }
-        TmpObj.SaveToStream(Stream);
-        TmpObj := TObject2D(TmpIter.Next);
-      end;
-    finally // Libera l'iterator
-      TmpIter.Free;
+  try
+    TmpObj := TObject2D(TmpIter.First);
+    while TmpObj <> nil do
+    begin
+      JAddItem(TmpArray, CADSysObjectToJSON(TmpObj));
+      TmpObj := TObject2D(TmpIter.Next);
     end;
+  finally
+    TmpIter.Free;
+  end;
 end;
 
-constructor TContainer2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TContainer2D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpClass: TGraphicObjectClass;
+  TmpArray: TJSONArray;
   TmpObj: TGraphicObject;
-  TmpLong: LongInt;
-  TmpWord: Word;
+  Cont: Integer;
 begin
   inherited;
-  with Stream do
-  begin
-    { Read the number of objects in the container. }
-    TmpLong := 0;
-    Read(TmpLong, SizeOf(TmpLong));
-    fObjects := TGraphicObjList.Create;
-    fObjects.FreeOnClear := True;
-    { Now read the objects for the container. }
-    while TmpLong > 0 do
+  fObjects := TGraphicObjList.Create;
+  fObjects.FreeOnClear := True;
+  TmpArray := JGetArray(AJSON, 'objects');
+  if TmpArray <> nil then
+    for Cont := 0 to TmpArray.Count - 1 do
     begin
-      { Read the type of object. }
-      TmpWord := 0;
-      Read(TmpWord, SizeOf(TmpWord));
-      { Retrive the class type from the registered classes. }
-      TmpClass := CADSysFindClassByIndex(TmpWord);
-      TmpObj := TmpClass.CreateFromStream(Stream, Version);
+      TmpObj := CADSysObjectFromJSON(JItemObject(TmpArray, Cont));
       TmpObj.UpdateExtension(Self);
       fObjects.Add(TmpObj);
-      Dec(TmpLong);
     end;
-  end;
   UpdateExtension(Self);
 end;
 
@@ -16846,35 +17487,18 @@ end;
   assigns Pen.Brush or Brush.Bitmap, so these six fields are the whole of
   the state the children actually touch. }
 type
-  TSavedCanvasState = record
-    PenColor: TColor;
-    PenStyle: TPenStyle;
-    PenMode: TPenMode;
-    PenWidth: Integer;
-    BrushColor: TColor;
-    BrushStyle: TBrushStyle;
-  end;
+  TSavedCanvasState = TCADGraphicsState;
 
 procedure _SaveCanvasState(const Cnv: TDecorativeCanvas;
   var St: TSavedCanvasState);
 begin
-  St.PenColor := Cnv.Canvas.Pen.Color;
-  St.PenStyle := Cnv.Canvas.Pen.Style;
-  St.PenMode := Cnv.Canvas.Pen.Mode;
-  St.PenWidth := Cnv.Canvas.Pen.Width;
-  St.BrushColor := Cnv.Canvas.Brush.Color;
-  St.BrushStyle := Cnv.Canvas.Brush.Style;
+  St := Cnv.Graphics.SaveState;
 end;
 
 procedure _RestoreCanvasState(const Cnv: TDecorativeCanvas;
   const St: TSavedCanvasState);
 begin
-  Cnv.Canvas.Pen.Color := St.PenColor;
-  Cnv.Canvas.Pen.Style := St.PenStyle;
-  Cnv.Canvas.Pen.Mode := St.PenMode;
-  Cnv.Canvas.Pen.Width := St.PenWidth;
-  Cnv.Canvas.Brush.Color := St.BrushColor;
-  Cnv.Canvas.Brush.Style := St.BrushStyle;
+  Cnv.Graphics.RestoreState(St);
 end;
 
 procedure TContainer2D.Draw(const VT: TTransf2D; const Cnv: TDecorativeCanvas;
@@ -16970,22 +17594,19 @@ begin
   inherited Destroy;
 end;
 
-constructor TSourceBlock2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TSourceBlock2D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  Stream.Read(fToBeSaved, SizeOf(fToBeSaved));
-  Stream.Read(fLibraryBlock, SizeOf(fLibraryBlock));
-  Stream.Read(fName, SizeOf(fName));
+  fLibraryBlock := JGetBool(AJSON, 'libraryBlock', False);
+  fName := StringToBlockName(JGetStr(AJSON, 'name'));
   fNReference := 0;
 end;
 
-procedure TSourceBlock2D.SaveToStream(const Stream: TStream);
+procedure TSourceBlock2D.SaveToJSON(const AJSON: TJSONObject);
 begin
-  inherited SaveToStream(Stream);
-  Stream.Write(fToBeSaved, SizeOf(fToBeSaved));
-  Stream.Write(fLibraryBlock, SizeOf(fLibraryBlock));
-  Stream.Write(fName, SizeOf(fName));
+  inherited SaveToJSON(AJSON);
+  JSetBool(AJSON, 'libraryBlock', fLibraryBlock);
+  JSetStr(AJSON, 'name', BlockNameToStr(fName));
 end;
 
 procedure TSourceBlock2D.Assign(const Obj: TGraphicObject);
@@ -17044,45 +17665,20 @@ begin
   inherited Destroy;
 end;
 
-constructor TBlock2D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  origPS: TPoint2DSingle;
+constructor TBlock2D.CreateFromJSON(const AJSON: TJSONObject);
 begin
-  { Load the standard properties }
+  { TFNCCADCmp uses fSourceName to find the source block. }
   inherited;
-  with Stream do
-  begin
-    { TCADCmp will use the value of FSourceName to find out the reference of the source block. }
-    Read(fSourceName, SizeOf(fSourceName));
-    if (Version >= 'CAD423') then
-    begin
-      Read(fOriginPoint, SizeOf(fOriginPoint));
-    end
-    else
-    begin
-      origPS.X := 0;
-      origPS.Y := 0;
-      origPS.W := 0;
-      Read(origPS, SizeOf(origPS));
-      fOriginPoint.X := origPS.X;
-      fOriginPoint.Y := origPS.Y;
-      fOriginPoint.W := origPS.W;
-    end;
-  end;
+  fSourceName := StringToBlockName(JGetStr(AJSON, 'sourceName'));
+  fOriginPoint := JGetPoint2D(AJSON, 'origin');
   fSourceBlock := nil;
 end;
 
-procedure TBlock2D.SaveToStream(const Stream: TStream);
+procedure TBlock2D.SaveToJSON(const AJSON: TJSONObject);
 begin
-  { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-  begin
-    { Save the ID of the source block. }
-    Write(fSourceName, SizeOf(fSourceName));
-    Write(fOriginPoint, SizeOf(fOriginPoint));
-  end;
+  inherited SaveToJSON(AJSON);
+  JSetStr(AJSON, 'sourceName', BlockNameToStr(fSourceName));
+  JSetPoint2D(AJSON, 'origin', fOriginPoint);
 end;
 
 procedure TBlock2D.Assign(const Obj: TGraphicObject);
@@ -17187,294 +17783,191 @@ end;
 
 
 // =====================================================================
-// TCADCmp2D
+// TFNCCADCmp2D
 // =====================================================================
 
-procedure TCADCmp2D.SaveObjectsToJSON(const AJSONObject: TJSONObject);
-var
-  TmpObj: TObject2D;
-  TmpWord: Word;
-  TmpLong, TmpObjPerc: LongInt;
-  TmpIter: TGraphicObjIterator;
-begin
-  // WORK IN PROGRESS!!!!
-  // TmpIter := ObjectList.GetPrivilegedIterator;
-  // // with Stream do
-  // try
-  // { Save the objects. }
-  // TmpLong := TmpIter.Count;
-  // if TmpLong > 0 then
-  // TmpObjPerc := 100 div TmpLong
-  // else
-  // TmpObjPerc := 0;
-  // Write(TmpLong, SizeOf(TmpLong));
-  // TmpObj := TmpIter.First as TObject2D;
-  // while TmpObj <> nil do
-  // begin
-  // if Layers[TmpObj.Layer].Streamable and TmpObj.fToBeSaved then
-  // begin
-  // TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
-  // { Save the class index. }
-  // Write(TmpWord, SizeOf(TmpWord));
-  // TmpObj.SaveToJSON(AJSONObject);
-  // if Assigned(OnSaveProgress) then
-  // OnSaveProgress(Self, 100 - TmpObjPerc * TmpLong);
-  // Dec(TmpLong);
-  // end;
-  // TmpObj := TmpIter.Next as TObject2D;
-  // end;
-  // { End the list of objects if not all objects were saved. }
-  // if TmpLong > 0 then
-  // begin
-  // TmpWord := 65535;
-  // Write(TmpWord, SizeOf(TmpWord));
-  // end;
-  // finally
-  // TmpIter.Free;
-  // end;
-end;
 
-procedure TCADCmp2D.SaveObjectsToStream(const Stream: TStream);
+procedure TFNCCADCmp2D.SaveObjectsToJSON(const AJSON: TJSONArray);
 var
   TmpObj: TObject2D;
-  TmpWord: Word;
   TmpLong, TmpObjPerc: LongInt;
   TmpIter: TGraphicObjIterator;
 begin
   TmpIter := ObjectList.GetPrivilegedIterator;
-  with Stream do
-    try
-      { Save the objects. }
-      TmpLong := TmpIter.Count;
-      if TmpLong > 0 then
-        TmpObjPerc := 100 div TmpLong
-      else
-        TmpObjPerc := 0;
-      Write(TmpLong, SizeOf(TmpLong));
-      TmpObj := TmpIter.First as TObject2D;
-      while TmpObj <> nil do
+  try
+    TmpLong := TmpIter.Count;
+    if TmpLong > 0 then
+      TmpObjPerc := 100 div TmpLong
+    else
+      TmpObjPerc := 0;
+    TmpObj := TmpIter.First as TObject2D;
+    while TmpObj <> nil do
+    begin
+      if Layers[TmpObj.Layer].Streamable and TmpObj.fToBeSaved then
       begin
-        if Layers[TmpObj.Layer].Streamable and TmpObj.fToBeSaved then
-        begin
-          TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
-          { Save the class index. }
-          Write(TmpWord, SizeOf(TmpWord));
-          TmpObj.SaveToStream(Stream);
-          if Assigned(OnSaveProgress) then
-            OnSaveProgress(Self, 100 - TmpObjPerc * TmpLong);
-          Dec(TmpLong);
-        end;
-        TmpObj := TmpIter.Next as TObject2D;
+        JAddItem(AJSON, CADSysObjectToJSON(TmpObj));
+        if Assigned(OnSaveProgress) then
+          OnSaveProgress(Self, 100 - TmpObjPerc * TmpLong);
+        Dec(TmpLong);
       end;
-      { End the list of objects if not all objects were saved. }
-      if TmpLong > 0 then
-      begin
-        TmpWord := 65535;
-        Write(TmpWord, SizeOf(TmpWord));
-      end;
-    finally
-      TmpIter.Free;
+      TmpObj := TmpIter.Next as TObject2D;
     end;
+  finally
+    TmpIter.Free;
+  end;
 end;
 
 {$WARNINGS OFF}
 
-procedure TCADCmp2D.LoadObjectsFromJSON(const AJSONObject: TJSONObject;
-  const Version: TCADVersion);
-begin
 
-end;
-
-procedure TCADCmp2D.LoadObjectsFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+procedure TFNCCADCmp2D.LoadObjectsFromJSON(const AJSON: TJSONArray);
 var
-  TmpClass: TGraphicObjectClass;
   TmpObj: TGraphicObject;
-  TmpLong, TmpObjPerc: LongInt;
-  TmpWord: Word;
+  Cont, TmpObjPerc: Integer;
   TmpBlocksIter: TExclusiveGraphicObjIterator;
 begin
+  if AJSON = nil then
+    Exit;
   TmpBlocksIter := SourceBlocksExclusiveIterator;
-  with Stream do
-    try
-      TmpLong := 0;
-      Read(TmpLong, SizeOf(TmpLong));
-      if TmpLong > 0 then
-        TmpObjPerc := 100 div TmpLong
-      else
-        TmpObjPerc := 0;
-      while TmpLong > 0 do
-      begin
-        { Read the type of object and the length of the record. }
-        TmpWord := 0;
-        Read(TmpWord, SizeOf(TmpWord));
-        if TmpWord = 65535 then
-          { End prematurely. }
-          Break;
-        Dec(TmpLong);
-        { Retrive the class type from the registered classes. }
-        try
-          TmpClass := CADSysFindClassByIndex(TmpWord);
-        except
-          on ECADObjClassNotFound do
-          begin
-            ShowMessage('Object class not found. Object not load');
-            Break;
-          end;
-        end;
-        TmpObj := TmpClass.CreateFromStream(Stream, Version);
-        if Assigned(OnLoadProgress) then
-          OnLoadProgress(Self, TmpObjPerc);
-        if not(TmpObj is TObject2D) then
-        begin
-          ShowMessage('Not 2D Object. Object discarded.');
-          TmpObj.Free;
-          Continue;
-        end;
-        if TmpObj is TContainer2D then
-          try
-            TContainer2D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
-          except
-            on ECADListObjNotFound do
-            begin
-              ShowMessage
-                ('Source block not found. The block will not be loaded');
-              TmpObj.Free;
-              Continue;
-            end;
-          end
-        else if TmpObj is TBlock2D then
-          try
-            TBlock2D(TmpObj).UpdateReference(TmpBlocksIter);
-          except
-            on ECADListObjNotFound do
-            begin
-              ShowMessage
-                ('Source block not found. The block will not be loaded');
-              TmpObj.Free;
-              Continue;
-            end;
-          end;
-        CurrentLayer := TmpObj.Layer;
-        inherited AddObject(-1, TGraphicObject(TmpObj));
-      end;
-    finally
-      TmpBlocksIter.Free;
-    end;
-end;
-{$WARNINGS ON}
-
-procedure TCADCmp2D.SaveBlocksToStream(const Stream: TStream;
-  const AsLibrary: Boolean);
-var
-  TmpObj: TSourceBlock2D;
-  TmpWord: Word;
-  TmpPos, TmpLong: LongInt;
-  TmpIter: TGraphicObjIterator;
-begin
-  TmpIter := BlockList.GetPrivilegedIterator;
-  with Stream do
-    try
-      TmpLong := SourceBlocksCount;
-      TmpPos := Stream.Position;
-      Write(TmpLong, SizeOf(TmpLong));
-      TmpObj := TmpIter.First as TSourceBlock2D;
-      TmpLong := 0;
-      while TmpObj <> nil do
-      begin
-        if TmpObj.ToBeSaved and not(TmpObj.IsLibraryBlock xor AsLibrary) then
-        begin
-          TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
-          { Save the class index. }
-          Write(TmpWord, SizeOf(TmpWord));
-          TmpObj.SaveToStream(Stream);
-          Inc(TmpLong);
-        end;
-        TmpObj := TmpIter.Next as TSourceBlock2D;
-      end;
-      Seek(TmpPos, soFromBeginning);
-      Write(TmpLong, SizeOf(TmpLong));
-      Seek(0, soFromEnd);
-    finally
-      TmpIter.Free;
-    end;
-end;
-
-{$WARNINGS OFF}
-
-procedure TCADCmp2D.LoadBlocksFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpClass: TGraphicObjectClass;
-  TmpObj: TGraphicObject;
-  TmpLong: LongInt;
-  TmpWord: Word;
-  TmpBlocksIter: TGraphicObjIterator;
-begin
-  with Stream do
-  begin
-    { Load the source blocks. }
-    TmpLong := 0;
-    Read(TmpLong, SizeOf(TmpLong));
-    while TmpLong > 0 do
+  try
+    if AJSON.Count > 0 then
+      TmpObjPerc := 100 div AJSON.Count
+    else
+      TmpObjPerc := 0;
+    for Cont := 0 to AJSON.Count - 1 do
     begin
-      { Read the type of object and the length of the record. }
-      TmpWord := 0;
-      Read(TmpWord, SizeOf(TmpWord));
-      Dec(TmpLong);
-      { Retrive the class type from the registered classes. }
+      TmpObj := nil;
       try
-        TmpClass := CADSysFindClassByIndex(TmpWord);
+        TmpObj := CADSysObjectFromJSON(JItemObject(AJSON, Cont));
       except
         on ECADObjClassNotFound do
         begin
-          ShowMessage('Object class not found. Object not load');
+          CADSysWarn('Object class not found. Object not load');
           Continue;
         end;
       end;
-      TmpObj := TmpClass.CreateFromStream(Stream, Version);
-      TmpBlocksIter := SourceBlocksIterator;
-      try
-        TSourceBlock2D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
-      except
-        on ECADListObjNotFound do
-        begin
-          ShowMessage('Source block not found. The block will not be loaded');
-          TmpObj.Free;
-          TmpBlocksIter.Free;
-          Continue;
-        end;
+      if Assigned(OnLoadProgress) then
+        OnLoadProgress(Self, TmpObjPerc);
+      if not(TmpObj is TObject2D) then
+      begin
+        CADSysWarn('Not 2D Object. Object discarded.');
+        TmpObj.Free;
+        Continue;
       end;
-      TmpBlocksIter.Free;
-      AddSourceBlock(TSourceBlock2D(TmpObj));
+      if TmpObj is TContainer2D then
+        try
+          TContainer2D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
+        except
+          on ECADListObjNotFound do
+          begin
+            CADSysWarn('Source block not found. The block will not be loaded');
+            TmpObj.Free;
+            Continue;
+          end;
+        end
+      else if TmpObj is TBlock2D then
+        try
+          TBlock2D(TmpObj).UpdateReference(TmpBlocksIter);
+        except
+          on ECADListObjNotFound do
+          begin
+            CADSysWarn('Source block not found. The block will not be loaded');
+            TmpObj.Free;
+            Continue;
+          end;
+        end;
+      CurrentLayer := TmpObj.Layer;
+      inherited AddObject(-1, TGraphicObject(TmpObj));
     end;
+  finally
+    TmpBlocksIter.Free;
   end;
 end;
 {$WARNINGS ON}
 
-function TCADCmp2D.AddSourceBlock(const Obj: TSourceBlock2D): TSourceBlock2D;
+procedure TFNCCADCmp2D.SaveBlocksToJSON(const AJSON: TJSONArray;
+  const AsLibrary: Boolean);
+var
+  TmpObj: TSourceBlock2D;
+  TmpIter: TGraphicObjIterator;
+begin
+  TmpIter := BlockList.GetPrivilegedIterator;
+  try
+    TmpObj := TmpIter.First as TSourceBlock2D;
+    while TmpObj <> nil do
+    begin
+      if TmpObj.ToBeSaved and not(TmpObj.IsLibraryBlock xor AsLibrary) then
+        JAddItem(AJSON, CADSysObjectToJSON(TmpObj));
+      TmpObj := TmpIter.Next as TSourceBlock2D;
+    end;
+  finally
+    TmpIter.Free;
+  end;
+end;
+
+{$WARNINGS OFF}
+
+procedure TFNCCADCmp2D.LoadBlocksFromJSON(const AJSON: TJSONArray);
+var
+  TmpObj: TGraphicObject;
+  Cont: Integer;
+  TmpBlocksIter: TGraphicObjIterator;
+begin
+  if AJSON = nil then
+    Exit;
+  for Cont := 0 to AJSON.Count - 1 do
+  begin
+    TmpObj := nil;
+    try
+      TmpObj := CADSysObjectFromJSON(JItemObject(AJSON, Cont));
+    except
+      on ECADObjClassNotFound do
+      begin
+        CADSysWarn('Object class not found. Object not load');
+        Continue;
+      end;
+    end;
+    TmpBlocksIter := SourceBlocksIterator;
+    try
+      TSourceBlock2D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
+    except
+      on ECADListObjNotFound do
+      begin
+        CADSysWarn('Source block not found. The block will not be loaded');
+        TmpObj.Free;
+        TmpBlocksIter.Free;
+        Continue;
+      end;
+    end;
+    TmpBlocksIter.Free;
+    AddSourceBlock(TSourceBlock2D(TmpObj));
+  end;
+end;
+{$WARNINGS ON}
+
+function TFNCCADCmp2D.AddSourceBlock(const Obj: TSourceBlock2D): TSourceBlock2D;
 begin
   Result := Obj;
   inherited AddSourceBlock(-1, Obj);
 end;
 
-procedure TCADCmp2D.DeleteSourceBlock(const SrcName: TSourceBlockName);
+procedure TFNCCADCmp2D.DeleteSourceBlock(const SrcName: TSourceBlockName);
 var
   TmpSource: TSourceBlock2D;
 begin
   TmpSource := TSourceBlock2D(FindSourceBlock(SrcName));
   if TmpSource.NumOfReferences > 0 then
     Raise ECADSysException.Create
-      ('TCADCmp2D.DeleteSourceBlock: Remove the references before the source');
+      ('TFNCCADCmp2D.DeleteSourceBlock: Remove the references before the source');
   DeleteSourceBlockByID(TmpSource.ID);
 end;
 
-function TCADCmp2D.GetSourceBlock(const ID: LongInt): TSourceBlock2D;
+function TFNCCADCmp2D.GetSourceBlock(const ID: LongInt): TSourceBlock2D;
 begin
   Result := inherited GetSourceBlock(ID) as TSourceBlock2D;
 end;
 
-function TCADCmp2D.FindSourceBlock(const SrcName: TSourceBlockName)
+function TFNCCADCmp2D.FindSourceBlock(const SrcName: TSourceBlockName)
   : TSourceBlock2D;
 var
   TmpIter: TGraphicObjIterator;
@@ -17492,10 +17985,10 @@ begin
     TmpIter.Free;
   end;
   Raise ECADListObjNotFound.Create
-    (Format('TCADCmp2D.FindSourceBlock: Source block %s not found', [SrcName]));
+    (Format('TFNCCADCmp2D.FindSourceBlock: Source block %s not found', [SrcName]));
 end;
 
-function TCADCmp2D.BlockObjects(const SrcName: TSourceBlockName;
+function TFNCCADCmp2D.BlockObjects(const SrcName: TSourceBlockName;
   const Objs: TGraphicObjIterator): TSourceBlock2D;
 var
   TmpObj: TObject2D;
@@ -17515,7 +18008,7 @@ begin
   end;
 end;
 
-procedure TCADCmp2D.DeleteSavedSourceBlocks;
+procedure TFNCCADCmp2D.DeleteSavedSourceBlocks;
 var
   TmpObj: TGraphicObject;
   TmpIter: TExclusiveGraphicObjIterator;
@@ -17539,7 +18032,7 @@ begin
   end;
 end;
 
-procedure TCADCmp2D.DeleteLibrarySourceBlocks;
+procedure TFNCCADCmp2D.DeleteLibrarySourceBlocks;
 var
   TmpObj: TGraphicObject;
   TmpIter: TExclusiveGraphicObjIterator;
@@ -17562,21 +18055,21 @@ begin
   end;
 end;
 
-function TCADCmp2D.AddObject(const ID: LongInt; const Obj: TObject2D)
+function TFNCCADCmp2D.AddObject(const ID: LongInt; const Obj: TObject2D)
   : TObject2D;
 begin
   Result := Obj;
   inherited AddObject(ID, TGraphicObject(Obj));
 end;
 
-function TCADCmp2D.InsertObject(const ID, IDInsertPoint: LongInt;
+function TFNCCADCmp2D.InsertObject(const ID, IDInsertPoint: LongInt;
   const Obj: TObject2D): TObject2D;
 begin
   Result := Obj;
   inherited InsertObject(ID, IDInsertPoint, TGraphicObject(Obj));
 end;
 
-function TCADCmp2D.AddBlock(const ID: LongInt; const SrcName: TSourceBlockName)
+function TFNCCADCmp2D.AddBlock(const ID: LongInt; const SrcName: TSourceBlockName)
   : TObject2D;
 var
   Tmp: TBlock2D;
@@ -17593,12 +18086,12 @@ begin
   end;
 end;
 
-function TCADCmp2D.GetObject(const ID: LongInt): TObject2D;
+function TFNCCADCmp2D.GetObject(const ID: LongInt): TObject2D;
 begin
   Result := inherited GetObject(ID) as TObject2D;
 end;
 
-procedure TCADCmp2D.TransformObjects(const ListOfObj: array of LongInt;
+procedure TFNCCADCmp2D.TransformObjects(const ListOfObj: array of LongInt;
   const T: TTransf2D);
 var
   Cont: LongInt;
@@ -17626,7 +18119,7 @@ begin
         except
           on Exception do
             Raise ECADListObjNotFound.Create
-              ('TCADCmp2D.TransformObjects: Object not found');
+              ('TFNCCADCmp2D.TransformObjects: Object not found');
         end;
         if Tmp <> nil then
         begin
@@ -17641,12 +18134,12 @@ begin
     RepaintViewports;
 end;
 
-procedure TCADCmp2D.RedrawObject(const Obj: TObject2D);
+procedure TFNCCADCmp2D.RedrawObject(const Obj: TObject2D);
 begin
   inherited RedrawObject(Obj);
 end;
 
-function TCADCmp2D.GetExtension: TRect2D;
+function TFNCCADCmp2D.GetExtension: TRect2D;
 var
   Tmp: TObject2D;
   TmpIter: TGraphicObjIterator;
@@ -17683,31 +18176,31 @@ begin
 end;
 
 // =====================================================================
-// TCADViewport2D
+// TFNCCADViewport2D
 // =====================================================================
 
-procedure TCADViewport2D.SetCADCmp(Cad: TCADCmp);
+procedure TFNCCADViewport2D.SetCADCmp(Cad: TFNCCADCmp);
 begin
   if (Cad <> fCADCmp2D) then
   begin
     inherited SetCADCmp(Cad);
-    fCADCmp2D := Cad as TCADCmp2D;
+    fCADCmp2D := Cad as TFNCCADCmp2D;
   end;
 end;
 
-procedure TCADViewport2D.SetCADCmp2D(CAD2D: TCADCmp2D);
+procedure TFNCCADViewport2D.SetCADCmp2D(CAD2D: TFNCCADCmp2D);
 begin
   SetCADCmp(CAD2D);
 end;
 
-constructor TCADViewport2D.Create(AOwner: TComponent);
+constructor TFNCCADViewport2D.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
   fPickFilter := TObject2D;
 end;
 
-procedure TCADViewport2D.DrawObject(const Obj: TGraphicObject;
+procedure TFNCCADViewport2D.DrawObject(const Obj: TGraphicObject;
   const Cnv: TDecorativeCanvas; const ClipRect2D: TRect2D);
 begin
   if not TObject2D(Obj).IsVisible(VisualRect, DrawMode) then
@@ -17719,9 +18212,9 @@ begin
         Draw(ViewportToScreenTransform, Cnv, ClipRect2D, DrawMode);
         if ShowControlPoints then
         begin
-          Cnv.Canvas.Pen.Color := RubberPenColor;
-          Cnv.Canvas.Pen.Width := 1;
-          Cnv.Canvas.Brush.Color := ControlPointsColor;
+          Cnv.Pen.Color := TColorToCADColor(RubberPenColor);
+          Cnv.Pen.Width := 1;
+          Cnv.Brush.Color := TColorToCADColor(ControlPointsColor);
           DrawControlPoints(ViewportToScreenTransform, Cnv, ClipRect2D,
             ControlPointsWidth);
         end;
@@ -17730,22 +18223,23 @@ begin
     end;
 end;
 
-procedure TCADViewport2D.DrawObjectWithRubber(const Obj: TGraphicObject;
+procedure TFNCCADViewport2D.DrawObjectWithRubber(const Obj: TGraphicObject;
   const Cnv: TDecorativeCanvas; const ClipRect2D: TRect2D);
 begin
   if not TObject2D(Obj).IsVisible(VisualRect, DrawMode) then
     Exit;
   with Obj as TObject2D do
     try
-      Cnv.Canvas.Pen.Assign(RubberPen);
-      Cnv.Canvas.Brush.Color := RubberPen.Color;
-      Cnv.Canvas.Brush.Style := bsSolid;
+      Cnv.Rubber := True;
+      Cnv.Pen.Assign(RubberPen);
+      Cnv.Brush.Color := RubberPen.Color;
+      Cnv.Brush.Style := cbsSolid;
       Draw(ViewportToScreenTransform, Cnv, ClipRect2D, DrawMode);
       if ShowControlPoints then
       begin
-        Cnv.Canvas.Pen.Assign(RubberPen);
-        Cnv.Canvas.Pen.Width := 1;
-        Cnv.Canvas.Brush.Color := ControlPointsColor;
+        Cnv.Pen.Assign(RubberPen);
+        Cnv.Pen.Width := 1;
+        Cnv.Brush.Color := TColorToCADColor(ControlPointsColor);
         DrawControlPoints(ViewportToScreenTransform, Cnv, ClipRect2D,
           ControlPointsWidth);
       end;
@@ -17753,7 +18247,7 @@ begin
     end;
 end;
 
-procedure TCADViewport2D.DrawObject2D(const Obj: TObject2D;
+procedure TFNCCADViewport2D.DrawObject2D(const Obj: TObject2D;
   const CtrlPts: Boolean);
 var
   TmpFlag: Boolean;
@@ -17763,14 +18257,21 @@ begin
   TmpFlag := ShowControlPoints;
   ShowControlPoints := ShowControlPoints or CtrlPts;
   try
-    DrawObject(Obj, OffScreenCanvas, RectToRect2D(ClientRect));
-    DrawObject(Obj, OnScreenCanvas, RectToRect2D(ClientRect));
+    BeginOffScreenScene;
+    try
+      DrawObject(Obj, OffScreenCanvas, RectToRect2D(ControlRect));
+    finally
+      EndOffScreenScene;
+    end;
+    { The on-screen canvas has nothing attached outside a paint, so this
+      is a no-op then and draws for real when called from one. }
+    DrawObject(Obj, OnScreenCanvas, RectToRect2D(ControlRect));
   finally
     ShowControlPoints := TmpFlag;
   end;
 end;
 
-procedure TCADViewport2D.DrawObject2DWithRubber(const Obj: TObject2D;
+procedure TFNCCADViewport2D.DrawObject2DWithRubber(const Obj: TObject2D;
   const CtrlPts: Boolean);
 var
   TmpFlag: Boolean;
@@ -17779,15 +18280,18 @@ begin
     Exit;
   TmpFlag := ShowControlPoints;
   ShowControlPoints := ShowControlPoints or CtrlPts;
+  BeginOverlay;
   try
-    DrawObjectWithRubber(Obj, OnScreenCanvas, RectToRect2D(ClientRect));
+    DrawObjectWithRubber(Obj, OnScreenCanvas, RectToRect2D(ControlRect));
   finally
     ShowControlPoints := TmpFlag;
+    EndOverlay;
   end;
 end;
 
-procedure TCADViewport2D.CopyRectToCanvas(CADRect: TRect2D;
-  const CanvasRect: TRect; const Cnv: TCanvas; const Mode: TCanvasCopyMode);
+procedure TFNCCADViewport2D.CopyRectToCanvas(CADRect: TRect2D;
+  const CanvasRect: TRect; const Cnv: TDecorativeCanvas;
+  const Mode: TCanvasCopyMode);
 var
   Tmp: TObject2D;
   TmpTransform: TTransf2D;
@@ -17796,10 +18300,10 @@ var
   TmpCanvas: TDecorativeCanvas;
   TmpClipRect: TRect2D;
 begin
-  StopRepaint;
   if not Assigned(fCADCmp2D) then
     Exit;
-  TmpCanvas := TDecorativeCanvas.Create(Cnv);
+  { The canvas belongs to the caller now, so it is not freed here. }
+  TmpCanvas := Cnv;
   if (ViewportObjects <> nil) then
     TmpIter := ViewportObjects.GetIterator
   else
@@ -17816,7 +18320,7 @@ begin
     Tmp := TObject2D(TmpIter.First);
     TmpFlag := ShowControlPoints;
     ShowControlPoints := False;
-    TmpClipRect := RectToRect2D(ClientRect);
+    TmpClipRect := RectToRect2D(ControlRect);
     while Tmp <> nil do
     begin
       if Tmp.IsVisible(CADRect, DrawMode) then
@@ -17829,11 +18333,10 @@ begin
     ShowControlPoints := TmpFlag;
   finally
     TmpIter.Free;
-    TmpCanvas.Free;
   end;
 end;
 
-function TCADViewport2D.GetCopyRectViewportToScreen(CADRect: TRect2D;
+function TFNCCADViewport2D.GetCopyRectViewportToScreen(CADRect: TRect2D;
   const CanvasRect: TRect; const Mode: TCanvasCopyMode): TTransf2D;
 begin
   case Mode of
@@ -17846,7 +18349,7 @@ begin
   end;
 end;
 
-procedure TCADViewport2D.ZoomToExtension;
+procedure TFNCCADViewport2D.ZoomToExtension;
 var
   NewWindow2D: TRect2D;
   Marg: TRealType;
@@ -17869,7 +18372,7 @@ begin
   ZoomWindow(NewWindow2D);
 end;
 
-procedure TCADViewport2D.GroupObjects(const ResultLst: TGraphicObjList;
+procedure TFNCCADViewport2D.GroupObjects(const ResultLst: TGraphicObjList;
   Frm: TRect2D; const Mode: TGroupMode; const RemoveFromCAD: Boolean);
 var
   Tmp: TObject2D;
@@ -17918,7 +18421,7 @@ begin
   end;
 end;
 
-function TCADViewport2D.PickObject(Pt: TPoint2D; Aperture: Word;
+function TFNCCADViewport2D.PickObject(Pt: TPoint2D; Aperture: Word;
   FirstFound: Boolean; var NPoint: Integer): TObject2D;
 var
   TmpNPoint: Integer;
@@ -17966,7 +18469,7 @@ begin
   end;
 end;
 
-function TCADViewport2D.PickListOfObjects(const PickedObjects: TList;
+function TFNCCADViewport2D.PickListOfObjects(const PickedObjects: TList;
   Pt: TPoint2D; Aperture: Word): Integer;
 var
   Tmp: TObject2D;
@@ -18007,7 +18510,7 @@ begin
   end;
 end;
 
-function TCADViewport2D.WorldToObject(const Obj: TObject2D; WPt: TPoint2D)
+function TFNCCADViewport2D.WorldToObject(const Obj: TObject2D; WPt: TPoint2D)
   : TPoint2D;
 begin
   WPt := CartesianPoint2D(WPt);
@@ -18017,7 +18520,7 @@ begin
     Result := WPt;
 end;
 
-function TCADViewport2D.ObjectToWorld(const Obj: TObject2D; OPt: TPoint2D)
+function TFNCCADViewport2D.ObjectToWorld(const Obj: TObject2D; OPt: TPoint2D)
   : TPoint2D;
 begin
   OPt := CartesianPoint2D(OPt);
@@ -18027,43 +18530,45 @@ begin
     Result := OPt;
 end;
 
-procedure TCADViewport2D.MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure TFNCCADViewport2D.DoCADMouseMove(Shift: TShiftState; X, Y: Integer);
 var
   Pos2D: TPoint2D;
 begin
-  Pos2D := ScreenToViewport(Point2D(X, Y));
-  if (not DisableMouseEvents) and Assigned(fOnMouseMove2D) then
+  if Assigned(fOnMouseMove2D) then
+  begin
+    Pos2D := ScreenToViewport(Point2D(X, Y));
     fOnMouseMove2D(Self, Shift, Pos2D.X, Pos2D.Y, X, Y);
-  inherited MouseMove(Shift, X, Y);
+  end;
+  inherited DoCADMouseMove(Shift, X, Y);
 end;
 
-procedure TCADViewport2D.MouseDown(Button: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
+procedure TFNCCADViewport2D.DoCADMouseDown(Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 var
   Pos2D: TPoint2D;
 begin
-  if (not DisableMouseEvents) and Assigned(fOnMouseDown2D) then
+  if Assigned(fOnMouseDown2D) then
   begin
     Pos2D := ScreenToViewport(Point2D(X, Y));
     fOnMouseDown2D(Self, Button, Shift, Pos2D.X, Pos2D.Y, X, Y);
   end;
-  inherited MouseDown(Button, Shift, X, Y);
+  inherited DoCADMouseDown(Button, Shift, X, Y);
 end;
 
-procedure TCADViewport2D.MouseUp(Button: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
+procedure TFNCCADViewport2D.DoCADMouseUp(Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 var
   Pos2D: TPoint2D;
 begin
-  if (not DisableMouseEvents) and Assigned(fOnMouseUp2D) then
+  if Assigned(fOnMouseUp2D) then
   begin
     Pos2D := ScreenToViewport(Point2D(X, Y));
     fOnMouseUp2D(Self, Button, Shift, Pos2D.X, Pos2D.Y, X, Y);
   end;
-  inherited MouseUp(Button, Shift, X, Y);
+  inherited DoCADMouseUp(Button, Shift, X, Y);
 end;
 
-function TCADViewport2D.BuildViewportTransform(var ViewWin: TRect2D;
+function TFNCCADViewport2D.BuildViewportTransform(var ViewWin: TRect2D;
   const ScreenWin: TRect; const AspectRatio: TRealType): TTransf2D;
 begin
   Result := GetVisualTransform2D(ViewWin, ScreenWin, AspectRatio);
@@ -18126,56 +18631,22 @@ begin
   inherited Destroy;
 end;
 
-constructor TObject3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpTransf: TTransf3D;
-  TmpTransfS: TTransf3DSingle;
+constructor TObject3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  with Stream do
-  begin
-    if (Version >= 'CAD423') then
-    begin
-      Read({%H-}TmpTransf, SizeOf(TTransf3D));
-      SaveTransform(TmpTransf);
-    end
-    else
-    begin
-      Read({%H-}TmpTransfS, SizeOf(TTransf3DSingle));
-      TmpTransf[1, 1] := TmpTransfS[1, 1];
-      TmpTransf[1, 2] := TmpTransfS[1, 2];
-      TmpTransf[1, 3] := TmpTransfS[1, 3];
-      TmpTransf[1, 4] := TmpTransfS[1, 4];
-      TmpTransf[2, 1] := TmpTransfS[2, 1];
-      TmpTransf[2, 2] := TmpTransfS[2, 2];
-      TmpTransf[2, 3] := TmpTransfS[2, 3];
-      TmpTransf[2, 4] := TmpTransfS[2, 4];
-      TmpTransf[3, 1] := TmpTransfS[3, 1];
-      TmpTransf[3, 2] := TmpTransfS[3, 2];
-      TmpTransf[3, 3] := TmpTransfS[3, 3];
-      TmpTransf[3, 4] := TmpTransfS[3, 4];
-      TmpTransf[4, 1] := TmpTransfS[4, 1];
-      TmpTransf[4, 2] := TmpTransfS[4, 2];
-      TmpTransf[4, 3] := TmpTransfS[4, 3];
-      TmpTransf[4, 4] := TmpTransfS[4, 4];
-      SaveTransform(TmpTransf);
-    end;
-  end;
+  if JHas(AJSON, 'transform') then
+    SaveTransform(JGetTransf3D(AJSON, 'transform'));
   fBox := Rect3D(MinCoord, MinCoord, MinCoord, MaxCoord, MaxCoord, MaxCoord);
   fDrawBoundingBox := True;
 end;
 
-procedure TObject3D.SaveToStream(const Stream: TStream);
-var
-  TmpTransf: TTransf3D;
+procedure TObject3D.SaveToJSON(const AJSON: TJSONObject);
 begin
-  inherited SaveToStream(Stream);
-  with Stream do
+  inherited SaveToJSON(AJSON);
+  if HasTransform then
   begin
     SaveTransform(ModelTransform);
-    TmpTransf := ModelTransform;
-    Write(TmpTransf, SizeOf(TTransf3D));
+    JSetTransf3D(AJSON, 'transform', ModelTransform);
   end;
 end;
 
@@ -18218,9 +18689,8 @@ procedure TObject3D.DrawControlPoints(const NormTransf: TTransf3D;
   const Width: Integer);
 begin
   { Draw the bounding box. }
-  with Cnv do
-    if fDrawBoundingBox and (Canvas.Pen.Mode <> pmXOr) then
-      DrawBoundingBox3D(Cnv, VRP, fBox, NormTransf, VT);
+  if fDrawBoundingBox and not Cnv.Rubber then
+    DrawBoundingBox3D(Cnv, VRP, fBox, NormTransf, VT);
   if Assigned(fHandler) then
     fHandler.DrawControlPoints(Self, NormTransf, VRP, VT, Cnv, Width);
 end;
@@ -18409,67 +18879,45 @@ begin
   inherited Destroy;
 end;
 
-procedure TContainer3D.SaveToStream(const Stream: TStream);
+procedure TContainer3D.SaveToJSON(const AJSON: TJSONObject);
 var
   TmpObj: TObject3D;
-  TmpLong: LongInt;
-  TmpWord: Word;
+  TmpArray: TJSONArray;
   TmpIter: TGraphicObjIterator;
 begin
-  inherited SaveToStream(Stream);
-  // Crea un iterator temporaneo.
+  inherited SaveToJSON(AJSON);
+  TmpArray := TJSONArray.Create;
+  JSetValue(AJSON, 'objects', TmpArray);
   TmpIter := fObjects.GetIterator;
-  with Stream do
-    try
-      { Write the number of objects in the container. }
-      TmpLong := fObjects.Count;
-      Write(TmpLong, SizeOf(TmpLong));
-      { Now write the objects in the container. }
-      TmpObj := TObject3D(TmpIter.First);
-      while TmpObj <> nil do
-      begin
-        { Save the object. }
-        TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
-        { Save the class index. }
-        Write(TmpWord, SizeOf(TmpWord));
-        TmpObj.SaveToStream(Stream);
-        TmpObj := TObject3D(TmpIter.Next);
-      end;
-    finally
-      TmpIter.Free;
+  try
+    TmpObj := TObject3D(TmpIter.First);
+    while TmpObj <> nil do
+    begin
+      JAddItem(TmpArray, CADSysObjectToJSON(TmpObj));
+      TmpObj := TObject3D(TmpIter.Next);
     end;
+  finally
+    TmpIter.Free;
+  end;
 end;
 
-constructor TContainer3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TContainer3D.CreateFromJSON(const AJSON: TJSONObject);
 var
-  TmpClass: TGraphicObjectClass;
+  TmpArray: TJSONArray;
   TmpObj: TGraphicObject;
-  TmpLong: LongInt;
-  TmpWord: Word;
+  Cont: Integer;
 begin
   inherited;
-  with Stream do
-  begin
-    { Read the number of objects in the container. }
-    TmpLong := 0;
-    Read(TmpLong, SizeOf(TmpLong));
-    fObjects := TGraphicObjList.Create;
-    fObjects.FreeOnClear := True;
-    { Now read the object for the container. }
-    while TmpLong > 0 do
+  fObjects := TGraphicObjList.Create;
+  fObjects.FreeOnClear := True;
+  TmpArray := JGetArray(AJSON, 'objects');
+  if TmpArray <> nil then
+    for Cont := 0 to TmpArray.Count - 1 do
     begin
-      { Read the type of object. }
-      TmpWord := 0;
-      Read(TmpWord, SizeOf(TmpWord));
-      { Retrive the class type from the registered classes. }
-      TmpClass := CADSysFindClassByIndex(TmpWord);
-      TmpObj := TmpClass.CreateFromStream(Stream, Version);
+      TmpObj := CADSysObjectFromJSON(JItemObject(TmpArray, Cont));
       TmpObj.UpdateExtension(Self);
       fObjects.Add(TmpObj);
-      Dec(TmpLong);
     end;
-  end;
   UpdateExtension(Self);
 end;
 
@@ -18638,22 +19086,19 @@ begin
   inherited Destroy;
 end;
 
-constructor TSourceBlock3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TSourceBlock3D.CreateFromJSON(const AJSON: TJSONObject);
 begin
   inherited;
-  Stream.Read(fToBeSaved, SizeOf(fToBeSaved));
-  Stream.Read(fLibraryBlock, SizeOf(fLibraryBlock));
-  Stream.Read(fName, SizeOf(fName));
+  fLibraryBlock := JGetBool(AJSON, 'libraryBlock', False);
+  fName := StringToBlockName(JGetStr(AJSON, 'name'));
   fNReference := 0;
 end;
 
-procedure TSourceBlock3D.SaveToStream(const Stream: TStream);
+procedure TSourceBlock3D.SaveToJSON(const AJSON: TJSONObject);
 begin
-  inherited SaveToStream(Stream);
-  Stream.Write(fToBeSaved, SizeOf(fToBeSaved));
-  Stream.Write(fLibraryBlock, SizeOf(fLibraryBlock));
-  Stream.Write(fName, SizeOf(fName));
+  inherited SaveToJSON(AJSON);
+  JSetBool(AJSON, 'libraryBlock', fLibraryBlock);
+  JSetStr(AJSON, 'name', BlockNameToStr(fName));
 end;
 
 procedure TSourceBlock3D.Assign(const Obj: TGraphicObject);
@@ -18711,36 +19156,14 @@ begin
   inherited Destroy;
 end;
 
-constructor TBlock3D.CreateFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+constructor TBlock3D.CreateFromJSON(const AJSON: TJSONObject);
 var
   TmpPt: TPoint3D;
-  TmpPts: TPoint3DSingle;
 begin
-  { Load the standard properties }
+  { TFNCCADCmp uses fSourceName to find the source block. }
   inherited;
-  with Stream do
-  begin
-    { TCADCmp will use the value of FSourceID
-      to find out the reference of the source block. }
-    Read(fSourceName, SizeOf(fSourceName));
-    if (Version >= 'CAD423') then
-    begin
-      Read(fOriginPoint, SizeOf(fOriginPoint));
-    end
-    else
-    begin
-      TmpPts.X := 0;
-      TmpPts.Y := 0;
-      TmpPts.Z := 0;
-      TmpPts.W := 0;
-      Read(TmpPts, SizeOf(TmpPts));
-      fOriginPoint.X := TmpPts.X;
-      fOriginPoint.Y := TmpPts.Y;
-      fOriginPoint.Z := TmpPts.Z;
-      fOriginPoint.W := TmpPts.W;
-    end;
-  end;
+  fSourceName := StringToBlockName(JGetStr(AJSON, 'sourceName'));
+  fOriginPoint := JGetPoint3D(AJSON, 'origin');
   if HasTransform then
     TmpPt := TransformPoint3D(fOriginPoint, ModelTransform)
   else
@@ -18749,16 +19172,11 @@ begin
     TmpPt.Z));
 end;
 
-procedure TBlock3D.SaveToStream(const Stream: TStream);
+procedure TBlock3D.SaveToJSON(const AJSON: TJSONObject);
 begin
-  { Save the standard properties }
-  inherited SaveToStream(Stream);
-  with Stream do
-  begin
-    { Save the ID of the source block. }
-    Write(fSourceName, SizeOf(fSourceName));
-    Write(fOriginPoint, SizeOf(fOriginPoint));
-  end;
+  inherited SaveToJSON(AJSON);
+  JSetStr(AJSON, 'sourceName', BlockNameToStr(fSourceName));
+  JSetPoint3D(AJSON, 'origin', fOriginPoint);
 end;
 
 procedure TBlock3D.Assign(const Obj: TGraphicObject);
@@ -18866,238 +19284,189 @@ begin
 end;
 
 // =====================================================================
-// TCADCmp3D
+// TFNCCADCmp3D
 // =====================================================================
 
-procedure TCADCmp3D.SaveObjectsToStream(const Stream: TStream);
+procedure TFNCCADCmp3D.SaveObjectsToJSON(const AJSON: TJSONArray);
 var
   TmpObj: TObject3D;
-  TmpWord: Word;
   TmpLong, TmpObjPerc: LongInt;
   TmpIter: TGraphicObjIterator;
 begin
   TmpIter := ObjectList.GetPrivilegedIterator;
-  with Stream do
-    try
-      { Save the objects. }
-      TmpLong := ObjectsCount;
-      if TmpLong > 0 then
-        TmpObjPerc := 100 div TmpLong
-      else
-        TmpObjPerc := 0;
-      Write(TmpLong, SizeOf(TmpLong));
-      TmpObj := TmpIter.First as TObject3D;
-      while TmpObj <> nil do
+  try
+    TmpLong := TmpIter.Count;
+    if TmpLong > 0 then
+      TmpObjPerc := 100 div TmpLong
+    else
+      TmpObjPerc := 0;
+    TmpObj := TmpIter.First as TObject3D;
+    while TmpObj <> nil do
+    begin
+      if Layers[TmpObj.Layer].Streamable and TmpObj.fToBeSaved then
       begin
-        if Layers[TmpObj.Layer].Streamable and TmpObj.fToBeSaved then
-        begin
-          TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
-          { Save the class index. }
-          Write(TmpWord, SizeOf(TmpWord));
-          TmpObj.SaveToStream(Stream);
-          if Assigned(OnSaveProgress) then
-            OnSaveProgress(Self, 100 - TmpObjPerc * TmpLong);
-          Dec(TmpLong);
-        end;
-        TmpObj := TmpIter.Next as TObject3D;
+        JAddItem(AJSON, CADSysObjectToJSON(TmpObj));
+        if Assigned(OnSaveProgress) then
+          OnSaveProgress(Self, 100 - TmpObjPerc * TmpLong);
+        Dec(TmpLong);
       end;
-      { End the list of objects if not all objects were saved. }
-      if TmpLong > 0 then
-      begin
-        TmpWord := 65535;
-        Write(TmpWord, SizeOf(TmpWord));
-      end;
-    finally
-      TmpIter.Free;
+      TmpObj := TmpIter.Next as TObject3D;
     end;
+  finally
+    TmpIter.Free;
+  end;
 end;
 
 {$WARNINGS OFF}
 
-procedure TCADCmp3D.LoadObjectsFromStream(const Stream: TStream;
-  const Version: TCADVersion);
+procedure TFNCCADCmp3D.LoadObjectsFromJSON(const AJSON: TJSONArray);
 var
-  TmpClass: TGraphicObjectClass;
   TmpObj: TGraphicObject;
-  TmpLong, TmpObjPerc: LongInt;
-  TmpWord: Word;
+  Cont, TmpObjPerc: Integer;
   TmpBlocksIter: TExclusiveGraphicObjIterator;
 begin
+  if AJSON = nil then
+    Exit;
   TmpBlocksIter := SourceBlocksExclusiveIterator;
-  with Stream do
-    try
-      TmpLong := 0;
-      Read(TmpLong, SizeOf(TmpLong));
-      if TmpLong > 0 then
-        TmpObjPerc := 100 div TmpLong
-      else
-        TmpObjPerc := 0;
-      while TmpLong > 0 do
-      begin
-        { Read the type of object and the length of the record. }
-        TmpWord := 0;
-        Read(TmpWord, SizeOf(TmpWord));
-        if TmpWord = 65535 then
-          { End prematurely. }
-          Break;
-        Dec(TmpLong);
-        { Retrive the class type from the registered classes. }
-        try
-          TmpClass := CADSysFindClassByIndex(TmpWord);
-        except
-          on ECADObjClassNotFound do
-          begin
-            ShowMessage('Object class not found. Object not load');
-            Break;
-          end;
-        end;
-        TmpObj := TmpClass.CreateFromStream(Stream, Version);
-        if Assigned(OnLoadProgress) then
-          OnLoadProgress(Self, TmpObjPerc);
-        if TmpObj is TContainer3D then
-          try
-            TContainer3D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
-          except
-            on ECADListObjNotFound do
-            begin
-              ShowMessage
-                ('Source block not found. The block will not be loaded');
-              TmpObj.Free;
-              Continue;
-            end;
-          end
-        else if TmpObj is TBlock3D then
-          try
-            TBlock3D(TmpObj).UpdateReference(TmpBlocksIter);
-          except
-            on ECADListObjNotFound do
-            begin
-              ShowMessage
-                ('Source block not found. The block will not be loaded');
-              TmpObj.Free;
-              Continue;
-            end;
-          end;
-        CurrentLayer := TmpObj.Layer;
-        inherited AddObject(-1, TGraphicObject(TmpObj));
-      end;
-    finally
-      TmpBlocksIter.Free;
-    end;
-end;
-{$WARNINGS ON}
-
-procedure TCADCmp3D.SaveBlocksToStream(const Stream: TStream;
-  const AsLibrary: Boolean);
-var
-  TmpObj: TSourceBlock3D;
-  TmpWord: Word;
-  TmpLong, TmpPos: LongInt;
-  TmpIter: TGraphicObjIterator;
-begin
-  TmpIter := BlockList.GetPrivilegedIterator;
-  with Stream do
-    try
-      TmpLong := SourceBlocksCount;
-      TmpPos := Stream.Position;
-      Write(TmpLong, SizeOf(TmpLong));
-      TmpObj := TmpIter.First as TSourceBlock3D;
-      TmpLong := 0;
-      while TmpObj <> nil do
-      begin
-        if TmpObj.ToBeSaved and not(TmpObj.IsLibraryBlock xor AsLibrary) then
-        begin
-          TmpWord := CADSysFindClassIndex(TmpObj.ClassName);
-          { Save the class index. }
-          Write(TmpWord, SizeOf(TmpWord));
-          TmpObj.SaveToStream(Stream);
-          Inc(TmpLong);
-        end;
-        TmpObj := TmpIter.Next as TSourceBlock3D;
-      end;
-      Seek(TmpPos, soFromBeginning);
-      Write(TmpLong, SizeOf(TmpLong));
-      Seek(0, soFromEnd);
-    finally
-      TmpIter.Free;
-    end;
-end;
-
-{$WARNINGS OFF}
-
-procedure TCADCmp3D.LoadBlocksFromStream(const Stream: TStream;
-  const Version: TCADVersion);
-var
-  TmpClass: TGraphicObjectClass;
-  TmpObj: TGraphicObject;
-  TmpLong: LongInt;
-  TmpWord: Word;
-  TmpBlocksIter: TGraphicObjIterator;
-begin
-  with Stream do
-  begin
-    { Load the source blocks. }
-    TmpLong := 0;
-    Read(TmpLong, SizeOf(TmpLong));
-    while TmpLong > 0 do
+  try
+    if AJSON.Count > 0 then
+      TmpObjPerc := 100 div AJSON.Count
+    else
+      TmpObjPerc := 0;
+    for Cont := 0 to AJSON.Count - 1 do
     begin
-      { Read the type of object and the length of the record. }
-      TmpWord := 0;
-      Read(TmpWord, SizeOf(TmpWord));
-      Dec(TmpLong);
-      { Retrive the class type from the registered classes. }
+      TmpObj := nil;
       try
-        TmpClass := CADSysFindClassByIndex(TmpWord);
+        TmpObj := CADSysObjectFromJSON(JItemObject(AJSON, Cont));
       except
         on ECADObjClassNotFound do
         begin
-          ShowMessage('Object class not found. Object not load');
+          CADSysWarn('Object class not found. Object not load');
           Continue;
         end;
       end;
-      TmpObj := TmpClass.CreateFromStream(Stream, Version);
-      TmpBlocksIter := SourceBlocksIterator;
-      try
-        TSourceBlock3D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
-      except
-        on ECADListObjNotFound do
-        begin
-          ShowMessage('Source block not found. The block will not be loaded');
-          TmpObj.Free;
-          TmpBlocksIter.Free;
-          Continue;
-        end;
+      if Assigned(OnLoadProgress) then
+        OnLoadProgress(Self, TmpObjPerc);
+      if not(TmpObj is TObject3D) then
+      begin
+        CADSysWarn('Not 3D Object. Object discarded.');
+        TmpObj.Free;
+        Continue;
       end;
-      TmpBlocksIter.Free;
-      AddSourceBlock(TSourceBlock3D(TmpObj));
+      if TmpObj is TContainer3D then
+        try
+          TContainer3D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
+        except
+          on ECADListObjNotFound do
+          begin
+            CADSysWarn('Source block not found. The block will not be loaded');
+            TmpObj.Free;
+            Continue;
+          end;
+        end
+      else if TmpObj is TBlock3D then
+        try
+          TBlock3D(TmpObj).UpdateReference(TmpBlocksIter);
+        except
+          on ECADListObjNotFound do
+          begin
+            CADSysWarn('Source block not found. The block will not be loaded');
+            TmpObj.Free;
+            Continue;
+          end;
+        end;
+      CurrentLayer := TmpObj.Layer;
+      inherited AddObject(-1, TGraphicObject(TmpObj));
     end;
+  finally
+    TmpBlocksIter.Free;
   end;
 end;
 {$WARNINGS ON}
 
-function TCADCmp3D.AddSourceBlock(Obj: TSourceBlock3D): TSourceBlock3D;
+procedure TFNCCADCmp3D.SaveBlocksToJSON(const AJSON: TJSONArray;
+  const AsLibrary: Boolean);
+var
+  TmpObj: TSourceBlock3D;
+  TmpIter: TGraphicObjIterator;
+begin
+  TmpIter := BlockList.GetPrivilegedIterator;
+  try
+    TmpObj := TmpIter.First as TSourceBlock3D;
+    while TmpObj <> nil do
+    begin
+      if TmpObj.ToBeSaved and not(TmpObj.IsLibraryBlock xor AsLibrary) then
+        JAddItem(AJSON, CADSysObjectToJSON(TmpObj));
+      TmpObj := TmpIter.Next as TSourceBlock3D;
+    end;
+  finally
+    TmpIter.Free;
+  end;
+end;
+
+{$WARNINGS OFF}
+
+procedure TFNCCADCmp3D.LoadBlocksFromJSON(const AJSON: TJSONArray);
+var
+  TmpObj: TGraphicObject;
+  Cont: Integer;
+  TmpBlocksIter: TGraphicObjIterator;
+begin
+  if AJSON = nil then
+    Exit;
+  for Cont := 0 to AJSON.Count - 1 do
+  begin
+    TmpObj := nil;
+    try
+      TmpObj := CADSysObjectFromJSON(JItemObject(AJSON, Cont));
+    except
+      on ECADObjClassNotFound do
+      begin
+        CADSysWarn('Object class not found. Object not load');
+        Continue;
+      end;
+    end;
+    TmpBlocksIter := SourceBlocksIterator;
+    try
+      TSourceBlock3D(TmpObj).UpdateSourceReferences(TmpBlocksIter);
+    except
+      on ECADListObjNotFound do
+      begin
+        CADSysWarn('Source block not found. The block will not be loaded');
+        TmpObj.Free;
+        TmpBlocksIter.Free;
+        Continue;
+      end;
+    end;
+    TmpBlocksIter.Free;
+    AddSourceBlock(TSourceBlock3D(TmpObj));
+  end;
+end;
+{$WARNINGS ON}
+
+function TFNCCADCmp3D.AddSourceBlock(Obj: TSourceBlock3D): TSourceBlock3D;
 begin
   Result := Obj;
   inherited AddSourceBlock(-1, Obj);
 end;
 
-procedure TCADCmp3D.DeleteSourceBlock(const SrcName: TSourceBlockName);
+procedure TFNCCADCmp3D.DeleteSourceBlock(const SrcName: TSourceBlockName);
 var
   TmpSource: TSourceBlock3D;
 begin
   TmpSource := TSourceBlock3D(FindSourceBlock(SrcName));
   if TmpSource.NumberOfReferences > 0 then
     Raise ECADSysException.Create
-      ('TCADCmp3D.DeleteSourceBlock: Remove the references before the source');
+      ('TFNCCADCmp3D.DeleteSourceBlock: Remove the references before the source');
   DeleteSourceBlockByID(TmpSource.ID);
 end;
 
-function TCADCmp3D.GetSourceBlock(ID: LongInt): TSourceBlock3D;
+function TFNCCADCmp3D.GetSourceBlock(ID: LongInt): TSourceBlock3D;
 begin
   Result := inherited GetSourceBlock(ID) as TSourceBlock3D;
 end;
 
-function TCADCmp3D.FindSourceBlock(const SrcName: TSourceBlockName)
+function TFNCCADCmp3D.FindSourceBlock(const SrcName: TSourceBlockName)
   : TSourceBlock3D;
 var
   TmpIter: TGraphicObjIterator;
@@ -19115,10 +19484,10 @@ begin
     TmpIter.Free;
   end;
   Raise ECADListObjNotFound.Create
-    ('TCADCmp3D.FindSourceBlock: Source block not found');
+    ('TFNCCADCmp3D.FindSourceBlock: Source block not found');
 end;
 
-function TCADCmp3D.BlockObjects(const SrcName: TSourceBlockName;
+function TFNCCADCmp3D.BlockObjects(const SrcName: TSourceBlockName;
   const Objs: TGraphicObjIterator): TSourceBlock3D;
 var
   TmpObj: TObject3D;
@@ -19138,7 +19507,7 @@ begin
   end;
 end;
 
-procedure TCADCmp3D.DeleteSavedSourceBlocks;
+procedure TFNCCADCmp3D.DeleteSavedSourceBlocks;
 var
   TmpObj: TGraphicObject;
   TmpIter: TExclusiveGraphicObjIterator;
@@ -19162,7 +19531,7 @@ begin
   end;
 end;
 
-procedure TCADCmp3D.DeleteLibrarySourceBlocks;
+procedure TFNCCADCmp3D.DeleteLibrarySourceBlocks;
 var
   TmpObj: TGraphicObject;
   TmpIter: TExclusiveGraphicObjIterator;
@@ -19185,20 +19554,20 @@ begin
   end;
 end;
 
-function TCADCmp3D.AddObject(ID: LongInt; const Obj: TObject3D): TObject3D;
+function TFNCCADCmp3D.AddObject(ID: LongInt; const Obj: TObject3D): TObject3D;
 begin
   Result := Obj;
   inherited AddObject(ID, TGraphicObject(Obj));
 end;
 
-function TCADCmp3D.InsertObject(ID, IDInsertPoint: LongInt; Obj: TObject3D)
+function TFNCCADCmp3D.InsertObject(ID, IDInsertPoint: LongInt; Obj: TObject3D)
   : TObject3D;
 begin
   Result := Obj;
   inherited InsertObject(ID, IDInsertPoint, TGraphicObject(Obj));
 end;
 
-function TCADCmp3D.AddBlock(ID: LongInt; const SrcName: TSourceBlockName)
+function TFNCCADCmp3D.AddBlock(ID: LongInt; const SrcName: TSourceBlockName)
   : TObject3D;
 var
   Tmp: TBlock3D;
@@ -19215,12 +19584,12 @@ begin
   end;
 end;
 
-function TCADCmp3D.GetObject(ID: LongInt): TObject3D;
+function TFNCCADCmp3D.GetObject(ID: LongInt): TObject3D;
 begin
   Result := inherited GetObject(ID) as TObject3D;
 end;
 
-procedure TCADCmp3D.TransformObjects(ListOfObj: array of LongInt; T: TTransf3D);
+procedure TFNCCADCmp3D.TransformObjects(ListOfObj: array of LongInt; T: TTransf3D);
 var
   Cont: LongInt;
   Tmp: TObject3D;
@@ -19247,7 +19616,7 @@ begin
         except
           on Exception do
             Raise ECADListObjNotFound.Create
-              ('TCADCmp3D.TransformObjects: Object not found');
+              ('TFNCCADCmp3D.TransformObjects: Object not found');
         end;
         if Tmp <> nil then
         begin
@@ -19262,12 +19631,12 @@ begin
     RepaintViewports;
 end;
 
-procedure TCADCmp3D.RedrawObject(Obj: TObject3D);
+procedure TFNCCADCmp3D.RedrawObject(Obj: TObject3D);
 begin
   inherited RedrawObject(Obj);
 end;
 
-function TCADCmp3D.GetExtension: TRect3D;
+function TFNCCADCmp3D.GetExtension: TRect3D;
 var
   Tmp: TObject3D;
   TmpIter: TGraphicObjIterator;
@@ -19309,39 +19678,42 @@ begin
 end;
 
 // =====================================================================
-// TCADViewport3D
+// TFNCCADViewport3D
 // =====================================================================
 
-procedure TCADViewport3D.SetCADCmp(Cad: TCADCmp);
+procedure TFNCCADViewport3D.SetCADCmp(Cad: TFNCCADCmp);
 begin
   if (Cad <> fCADCmp3D) then
   begin
     inherited SetCADCmp(Cad);
-    fCADCmp3D := Cad as TCADCmp3D;
+    fCADCmp3D := Cad as TFNCCADCmp3D;
   end;
 end;
 
-procedure TCADViewport3D.CopyBackBufferRectOnCanvas(const Rect: TRect;
-  const GenEvent: Boolean);
+procedure TFNCCADViewport3D.DrawOverlay;
 begin
-  inherited;
-  if fAxis.Visible and HandleAllocated then
-    fAxis.PaintAxes(Point(ClientRect.Left, ClientRect.Bottom), Canvas);
+  { The axis widget sits on top of the drawing, like the rubber band, so
+    it belongs to the overlay. It used to be painted straight after the
+    blit, which no longer exists. }
+  if Assigned(fAxis) and fAxis.Visible then
+    fAxis.PaintAxes(Point(ControlRect.Left, ControlRect.Bottom),
+      OnScreenCanvas);
+  inherited DrawOverlay;
 end;
 
-procedure TCADViewport3D.SetCADCmp3D(Cad: TCADCmp3D);
+procedure TFNCCADViewport3D.SetCADCmp3D(Cad: TFNCCADCmp3D);
 begin
   SetCADCmp(Cad);
 end;
 
 // Trasforma da WRC a VRC. Aggiorna fViewOrientation.
-function TCADViewport3D.BuildViewOrientationTransform(const LVRP: TPoint3D;
+function TFNCCADViewport3D.BuildViewOrientationTransform(const LVRP: TPoint3D;
   const LVUP, LVPN: TVector3D): TTransf3D;
 begin
   Result := ViewOrientationTransform3D(LVRP, LVPN, LVUP);
 end;
 
-procedure TCADViewport3D.UpdateViewportOrientation;
+procedure TFNCCADViewport3D.UpdateViewportOrientation;
 var
   OldHand: TNotifyEvent;
 begin
@@ -19360,11 +19732,11 @@ begin
   finally
     OnViewMappingChanged := OldHand;
   end;
-  if HandleAllocated then
+  if IsRealized then
     Repaint;
 end;
 
-procedure TCADViewport3D.SetVPN(V: TVector3D);
+procedure TFNCCADViewport3D.SetVPN(V: TVector3D);
 begin
   if not IsSameVector3D(V, fVPN) then
   begin
@@ -19373,7 +19745,7 @@ begin
   end;
 end;
 
-procedure TCADViewport3D.SetVRP(P: TPoint3D);
+procedure TFNCCADViewport3D.SetVRP(P: TPoint3D);
 begin
   if not IsSamePoint3D(P, fVRP) then
   begin
@@ -19382,7 +19754,7 @@ begin
   end;
 end;
 
-procedure TCADViewport3D.SetVUP(V: TVector3D);
+procedure TFNCCADViewport3D.SetVUP(V: TVector3D);
 begin
   if not IsSameVector3D(V, fVUP) then
   begin
@@ -19391,7 +19763,7 @@ begin
   end;
 end;
 
-procedure TCADViewport3D.SetFClip(F: TRealType);
+procedure TFNCCADViewport3D.SetFClip(F: TRealType);
 begin
   if F <> fFrontPlane then
   begin
@@ -19402,7 +19774,7 @@ begin
   end;
 end;
 
-procedure TCADViewport3D.SetBClip(B: TRealType);
+procedure TFNCCADViewport3D.SetBClip(B: TRealType);
 begin
   if B <> fBackPlane then
   begin
@@ -19413,22 +19785,22 @@ begin
   end;
 end;
 
-function TCADViewport3D.GetPRPlanePosition: TPoint3D;
+function TFNCCADViewport3D.GetPRPlanePosition: TPoint3D;
 begin
   Result := fVRP;
 end;
 
-function TCADViewport3D.GetViewPoint: TPoint3D;
+function TFNCCADViewport3D.GetViewPoint: TPoint3D;
 begin
   Result := ExtrudePoint3D(fVRP, fVPN, -fPRPlaneViewPointDistance);
 end;
 
-function TCADViewport3D.GetCameraUP: TVector3D;
+function TFNCCADViewport3D.GetCameraUP: TVector3D;
 begin
   Result := fVUP;
 end;
 
-constructor TCADViewport3D.Create(AOwner: TComponent);
+constructor TFNCCADViewport3D.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
 
@@ -19442,14 +19814,14 @@ begin
   fFrontPlane := 10000;
 end;
 
-destructor TCADViewport3D.Destroy;
+destructor TFNCCADViewport3D.Destroy;
 begin
   fAxis.Free;
 
   inherited;
 end;
 
-function TCADViewport3D.BuildViewportTransform(var ViewWin: TRect2D;
+function TFNCCADViewport3D.BuildViewportTransform(var ViewWin: TRect2D;
   const ScreenWin: TRect; const AspectRatio: TRealType): TTransf2D;
 var
   TmpS: TRect2D;
@@ -19465,7 +19837,7 @@ begin
   fViewMapping := GetVisualTransform2D(TmpS, ScreenWin, 0.0);
 end;
 
-procedure TCADViewport3D.DrawObject(const Obj: TGraphicObject;
+procedure TFNCCADViewport3D.DrawObject(const Obj: TGraphicObject;
   const Cnv: TDecorativeCanvas; const ClipRect2D: TRect2D);
 begin
   if not TObject3D(Obj).IsVisible(fViewNormalization, fVRP, DrawMode) then
@@ -19477,9 +19849,9 @@ begin
         Draw(fViewNormalization, fVRP, fViewMapping, Cnv, DrawMode);
         if ShowControlPoints then
         begin
-          Cnv.Canvas.Pen.Color := RubberPenColor;
-          Cnv.Canvas.Pen.Width := 1;
-          Cnv.Canvas.Brush.Color := ControlPointsColor;
+          Cnv.Pen.Color := TColorToCADColor(RubberPenColor);
+          Cnv.Pen.Width := 1;
+          Cnv.Brush.Color := TColorToCADColor(ControlPointsColor);
           DrawControlPoints(fViewNormalization, fVRP, fViewMapping, Cnv,
             ControlPointsWidth);
         end;
@@ -19488,21 +19860,22 @@ begin
     end;
 end;
 
-procedure TCADViewport3D.DrawObjectWithRubber(const Obj: TGraphicObject;
+procedure TFNCCADViewport3D.DrawObjectWithRubber(const Obj: TGraphicObject;
   const Cnv: TDecorativeCanvas; const ClipRect2D: TRect2D);
 begin
   if not TObject3D(Obj).IsVisible(fViewNormalization, fVRP, DrawMode) then
     Exit;
   with (Obj as TObject3D) do
     try
-      Cnv.Canvas.Pen.Assign(RubberPen);
-      Cnv.Canvas.Brush.Color := RubberPen.Color;
-      Cnv.Canvas.Brush.Style := bsSolid;
+      Cnv.Rubber := True;
+      Cnv.Pen.Assign(RubberPen);
+      Cnv.Brush.Color := RubberPen.Color;
+      Cnv.Brush.Style := cbsSolid;
       Draw(fViewNormalization, fVRP, fViewMapping, Cnv, DrawMode);
       if ShowControlPoints then
       begin
-        Cnv.Canvas.Pen.Assign(RubberPen);
-        Cnv.Canvas.Brush.Color := ControlPointsColor;
+        Cnv.Pen.Assign(RubberPen);
+        Cnv.Brush.Color := TColorToCADColor(ControlPointsColor);
         DrawControlPoints(fViewNormalization, fVRP, fViewMapping, Cnv,
           ControlPointsWidth);
       end;
@@ -19510,14 +19883,14 @@ begin
     end;
 end;
 
-procedure TCADViewport3D._DrawObject2D(const Obj: TGraphicObject;
+procedure TFNCCADViewport3D._DrawObject2D(const Obj: TGraphicObject;
   const Cnv: TDecorativeCanvas);
 var
   TmpClipRect: TRect2D;
 begin
   if not TObject2D(Obj).IsVisible(VisualRect, DrawMode) then
     Exit;
-  TmpClipRect := RectToRect2D(ClientRect);
+  TmpClipRect := RectToRect2D(ControlRect);
   with Obj as TObject2D do
     try
       if (CADCmp.Layers.SetCanvas(Cnv, Layer)) then
@@ -19525,9 +19898,9 @@ begin
         Draw(ViewportToScreenTransform, Cnv, TmpClipRect, DrawMode);
         if ShowControlPoints then
         begin
-          Cnv.Canvas.Pen.Color := RubberPenColor;
-          Cnv.Canvas.Pen.Width := 1;
-          Cnv.Canvas.Brush.Color := ControlPointsColor;
+          Cnv.Pen.Color := TColorToCADColor(RubberPenColor);
+          Cnv.Pen.Width := 1;
+          Cnv.Brush.Color := TColorToCADColor(ControlPointsColor);
           DrawControlPoints(ViewportToScreenTransform, Cnv, TmpClipRect,
             ControlPointsWidth);
         end;
@@ -19536,25 +19909,26 @@ begin
     end;
 end;
 
-procedure TCADViewport3D._DrawObjectWithRubber2D(const Obj: TGraphicObject;
+procedure TFNCCADViewport3D._DrawObjectWithRubber2D(const Obj: TGraphicObject;
   const Cnv: TDecorativeCanvas);
 var
   TmpClipRect: TRect2D;
 begin
   if not TObject2D(Obj).IsVisible(VisualRect, DrawMode) then
     Exit;
-  with Obj as TObject2D, Cnv do
+  TmpClipRect := RectToRect2D(ControlRect);
+  with Obj as TObject2D do
     try
-      TmpClipRect := RectToRect2D(ClientRect);
-      Canvas.Pen.Assign(RubberPen);
-      Canvas.Brush.Color := RubberPen.Color;
-      Canvas.Brush.Style := bsSolid;
+      Cnv.Rubber := True;
+      Cnv.Pen.Assign(RubberPen);
+      Cnv.Brush.Color := RubberPen.Color;
+      Cnv.Brush.Style := cbsSolid;
       Draw(ViewportToScreenTransform, Cnv, TmpClipRect, DrawMode);
       if ShowControlPoints then
       begin
-        Cnv.Canvas.Pen.Assign(RubberPen);
-        Cnv.Canvas.Pen.Width := 1;
-        Cnv.Canvas.Brush.Color := ControlPointsColor;
+        Cnv.Pen.Assign(RubberPen);
+        Cnv.Pen.Width := 1;
+        Cnv.Brush.Color := TColorToCADColor(ControlPointsColor);
         DrawControlPoints(ViewportToScreenTransform, Cnv, TmpClipRect,
           ControlPointsWidth);
       end;
@@ -19562,7 +19936,7 @@ begin
     end;
 end;
 
-procedure TCADViewport3D.DrawObject2D(const Obj: TObject2D;
+procedure TFNCCADViewport3D.DrawObject2D(const Obj: TObject2D;
   const CtrlPts: Boolean);
 var
   TmpFlag: Boolean;
@@ -19572,14 +19946,19 @@ begin
   TmpFlag := ShowControlPoints;
   ShowControlPoints := ShowControlPoints or CtrlPts;
   try
-    DrawObject(Obj, OffScreenCanvas, RectToRect2D(ClientRect));
+    BeginOffScreenScene;
+    try
+      DrawObject(Obj, OffScreenCanvas, RectToRect2D(ControlRect));
+    finally
+      EndOffScreenScene;
+    end;
     _DrawObject2D(Obj, OnScreenCanvas);
   finally
     ShowControlPoints := TmpFlag;
   end;
 end;
 
-procedure TCADViewport3D.DrawObject2DWithRubber(const Obj: TObject2D;
+procedure TFNCCADViewport3D.DrawObject2DWithRubber(const Obj: TObject2D;
   const CtrlPts: Boolean);
 var
   TmpFlag: Boolean;
@@ -19588,14 +19967,16 @@ begin
     Exit;
   TmpFlag := ShowControlPoints;
   ShowControlPoints := ShowControlPoints or CtrlPts;
+  BeginOverlay;
   try
     _DrawObjectWithRubber2D(Obj, OnScreenCanvas);
   finally
     ShowControlPoints := TmpFlag;
+    EndOverlay;
   end;
 end;
 
-procedure TCADViewport3D.DrawObject3D(const Obj: TObject3D;
+procedure TFNCCADViewport3D.DrawObject3D(const Obj: TObject3D;
   const CtrlPts: Boolean);
 var
   TmpFlag: Boolean;
@@ -19605,14 +19986,21 @@ begin
   TmpFlag := ShowControlPoints;
   ShowControlPoints := ShowControlPoints or CtrlPts;
   try
-    DrawObject(Obj, OffScreenCanvas, RectToRect2D(ClientRect));
-    DrawObject(Obj, OnScreenCanvas, RectToRect2D(ClientRect));
+    BeginOffScreenScene;
+    try
+      DrawObject(Obj, OffScreenCanvas, RectToRect2D(ControlRect));
+    finally
+      EndOffScreenScene;
+    end;
+    { The on-screen canvas has nothing attached outside a paint, so this
+      is a no-op then and draws for real when called from one. }
+    DrawObject(Obj, OnScreenCanvas, RectToRect2D(ControlRect));
   finally
     ShowControlPoints := TmpFlag;
   end;
 end;
 
-procedure TCADViewport3D.DrawObject3DWithRubber(const Obj: TObject3D;
+procedure TFNCCADViewport3D.DrawObject3DWithRubber(const Obj: TObject3D;
   const CtrlPts: Boolean);
 var
   TmpFlag: Boolean;
@@ -19621,15 +20009,18 @@ begin
     Exit;
   TmpFlag := ShowControlPoints;
   ShowControlPoints := ShowControlPoints or CtrlPts;
+  BeginOverlay;
   try
-    DrawObjectWithRubber(Obj, OnScreenCanvas, RectToRect2D(ClientRect));
+    DrawObjectWithRubber(Obj, OnScreenCanvas, RectToRect2D(ControlRect));
   finally
     ShowControlPoints := TmpFlag;
+    EndOverlay;
   end;
 end;
 
-procedure TCADViewport3D.CopyRectToCanvas(CADRect: TRect2D;
-  const CanvasRect: TRect; const Cnv: TCanvas; const Mode: TCanvasCopyMode);
+procedure TFNCCADViewport3D.CopyRectToCanvas(CADRect: TRect2D;
+  const CanvasRect: TRect; const Cnv: TDecorativeCanvas;
+  const Mode: TCanvasCopyMode);
 var
   Tmp: TObject3D;
   TmpTransform: TTransf2D;
@@ -19640,7 +20031,8 @@ var
 begin
   if not Assigned(fCADCmp3D) or fCADCmp3D.IsBlocked then
     Exit;
-  TmpCanvas := TDecorativeCanvas.Create(Cnv);
+  { The canvas belongs to the caller now, so it is not freed here. }
+  TmpCanvas := Cnv;
   if (ViewportObjects <> nil) then
     TmpIter := ViewportObjects.GetIterator
   else
@@ -19663,10 +20055,11 @@ begin
       if Tmp.IsVisible(fViewNormalization, fVRP, DrawMode) then
       begin
         fCADCmp3D.Layers.SetCanvas(TmpCanvas, Tmp.Layer);
-        if Cnv.Pen.Color = clWhite then
-          Cnv.Pen.Color := clBlack;
-        if Cnv.Brush.Color = clWhite then
-          Cnv.Brush.Color := clBlack;
+        { White on white prints as nothing. }
+        if Cnv.Pen.Color = cadclWhite then
+          Cnv.Pen.Color := cadclBlack;
+        if Cnv.Brush.Color = cadclWhite then
+          Cnv.Brush.Color := cadclBlack;
         Tmp.Draw(fViewNormalization, fVRP, TmpTransform, TmpCanvas, DrawMode);
       end;
       Tmp := TObject3D(TmpIter.Next);
@@ -19674,11 +20067,10 @@ begin
     ShowControlPoints := TmpFlag;
   finally
     TmpIter.Free;
-    TmpCanvas.Free;
   end;
 end;
 
-procedure TCADViewport3D.SetCamera(const ProjectionPlaneP, ViewP: TPoint3D;
+procedure TFNCCADViewport3D.SetCamera(const ProjectionPlaneP, ViewP: TPoint3D;
   const Up: TVector3D);
 begin
   StopRepaint;
@@ -19689,7 +20081,7 @@ begin
   UpdateViewportOrientation;
 end;
 
-procedure TCADViewport3D.ZoomToBox(const Box: TRect3D);
+procedure TFNCCADViewport3D.ZoomToBox(const Box: TRect3D);
 var
   ExtWin: TRect2D;
   ExtBox: TRect3D;
@@ -19734,7 +20126,7 @@ begin
   end;
 end;
 
-procedure TCADViewport3D.ZoomToExtension;
+procedure TFNCCADViewport3D.ZoomToExtension;
 var
   ExtWin: TRect2D;
   ExtBox: TRect3D;
@@ -19782,7 +20174,7 @@ begin
   end;
 end;
 
-procedure TCADViewport3D.GroupObjects(const ResultLst: TGraphicObjList;
+procedure TFNCCADViewport3D.GroupObjects(const ResultLst: TGraphicObjList;
   Frm: TRect2D; const Mode: TGroupMode; const RemoveFromCAD: Boolean);
 var
   Tmp: TObject3D;
@@ -19837,14 +20229,14 @@ begin
   end;
 end;
 
-function TCADViewport3D.GetPixelAperture: TPoint2D;
+function TFNCCADViewport3D.GetPixelAperture: TPoint2D;
 begin
   Result.X := 1 / fViewMapping[1, 1];
   Result.Y := 1 / fViewMapping[2, 2];
   Result.W := 1.0;
 end;
 
-function TCADViewport3D.PickObject(Pt: TPoint3D; Aperture: Word;
+function TFNCCADViewport3D.PickObject(Pt: TPoint3D; Aperture: Word;
   FirstFound: Boolean; var NPoint: Integer): TObject3D;
 var
   TmpNPoint: Integer;
@@ -19894,7 +20286,7 @@ begin
   end;
 end;
 
-function TCADViewport3D.PickListOfObjects(const PickedObjects: TList;
+function TFNCCADViewport3D.PickListOfObjects(const PickedObjects: TList;
   Pt: TPoint3D; Aperture: Word): Integer;
 var
   Tmp: TObject3D;
@@ -19938,53 +20330,51 @@ begin
   end;
 end;
 
-procedure TCADViewport3D.MouseMove(Shift: TShiftState; X, Y: Integer);
+procedure TFNCCADViewport3D.DoCADMouseMove(Shift: TShiftState; X, Y: Integer);
 var
   Pos2D: TPoint2D;
   Pos3D: TPoint3D;
 begin
-  if (not DisableMouseEvents) and Assigned(FOnMouseMove3D) then
+  if Assigned(FOnMouseMove3D) then
   begin
     Pos2D := TransformPoint2D(Point2D(X, Y), ScreenToViewportTransform);
     Pos3D := ViewportToWorld(Pos2D);
     FOnMouseMove3D(Self, Shift, Pos3D.X, Pos3D.Y, Pos3D.Z, X, Y);
   end;
-  inherited MouseMove(Shift, X, Y);
+  inherited DoCADMouseMove(Shift, X, Y);
 end;
 
-procedure TCADViewport3D.MouseDown(Button: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
+procedure TFNCCADViewport3D.DoCADMouseDown(Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 var
   Pos2D: TPoint2D;
   Pos3D: TPoint3D;
 begin
-  if (Button = mbRight) and (Shift = [ssAlt, ssShift, ssRight]) then
-    ShowMessage('TCADCmp3D developed by PV :)');
-  if (not DisableMouseEvents) and Assigned(FOnMouseDown3D) then
+  if Assigned(FOnMouseDown3D) then
   begin
     Pos2D := TransformPoint2D(Point2D(X, Y), ScreenToViewportTransform);
     Pos3D := ViewportToWorld(Pos2D);
     FOnMouseDown3D(Self, Button, Shift, Pos3D.X, Pos3D.Y, Pos3D.Z, X, Y);
   end;
-  inherited MouseDown(Button, Shift, X, Y);
+  inherited DoCADMouseDown(Button, Shift, X, Y);
 end;
 
-procedure TCADViewport3D.MouseUp(Button: TMouseButton; Shift: TShiftState;
-  X, Y: Integer);
+procedure TFNCCADViewport3D.DoCADMouseUp(Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 var
   Pos2D: TPoint2D;
   Pos3D: TPoint3D;
 begin
-  if (not DisableMouseEvents) and Assigned(FOnMouseUp3D) then
+  if Assigned(FOnMouseUp3D) then
   begin
     Pos2D := TransformPoint2D(Point2D(X, Y), ScreenToViewportTransform);
     Pos3D := ViewportToWorld(Pos2D);
     FOnMouseUp3D(Self, Button, Shift, Pos3D.X, Pos3D.Y, Pos3D.Z, X, Y);
   end;
-  inherited MouseUp(Button, Shift, X, Y);
+  inherited DoCADMouseUp(Button, Shift, X, Y);
 end;
 
-function TCADViewport3D.WorldToObject(Obj: TObject3D; WPt: TPoint3D): TPoint3D;
+function TFNCCADViewport3D.WorldToObject(Obj: TObject3D; WPt: TPoint3D): TPoint3D;
 begin
   WPt := CartesianPoint3D(WPt);
   if Obj.HasTransform then
@@ -19993,7 +20383,7 @@ begin
     Result := WPt;
 end;
 
-function TCADViewport3D.ObjectToWorld(Obj: TObject3D; OPt: TPoint3D): TPoint3D;
+function TFNCCADViewport3D.ObjectToWorld(Obj: TObject3D; OPt: TPoint3D): TPoint3D;
 begin
   OPt := CartesianPoint3D(OPt);
   if Obj.HasTransform then
@@ -20002,12 +20392,12 @@ begin
     Result := OPt;
 end;
 
-function TCADViewport3D.WorldToViewport(WPt: TPoint3D): TPoint2D;
+function TFNCCADViewport3D.WorldToViewport(WPt: TPoint3D): TPoint2D;
 begin
   Result := Point3DToPoint2D(TransformPoint3D(WPt, fViewOrientation));
 end;
 
-function TCADViewport3D.ViewportToWorld(VPt: TPoint2D): TPoint3D;
+function TFNCCADViewport3D.ViewportToWorld(VPt: TPoint2D): TPoint3D;
 var
   Pt3D: TPoint3D;
 begin
@@ -20016,45 +20406,45 @@ begin
     InvertTransform3D(fViewOrientation)));
 end;
 
-function TCADViewport3D.WorldToNRC(WPt: TPoint3D): TPoint3D;
+function TFNCCADViewport3D.WorldToNRC(WPt: TPoint3D): TPoint3D;
 begin
   Result := CartesianPoint3D(TransformPoint3D(WPt, fViewNormalization));
 end;
 
-function TCADViewport3D.NRCToScreen(NPt: TPoint3D): TPoint;
+function TFNCCADViewport3D.NRCToScreen(NPt: TPoint3D): TPoint;
 begin
   Result := Point2DToPoint(TransformPoint2D(Point3DToPoint2D(NPt),
     fViewMapping));
 end;
 
 // =====================================================================
-// TCADParallelViewport3D
+// TFNCCADParallelViewport3D
 // =====================================================================
 
-function TCADParallelViewport3D.BuildViewNormalizationTransform(View: TRect2D;
+function TFNCCADParallelViewport3D.BuildViewNormalizationTransform(View: TRect2D;
   FP, BP: TRealType): TTransf3D;
 begin
   Result := ParallelViewNormalization3D(View, FP, BP);
 end;
 
-function TCADParallelViewport3D.GetRayVersor(const WPt: TPoint3D): TVector3D;
+function TFNCCADParallelViewport3D.GetRayVersor(const WPt: TPoint3D): TVector3D;
 begin
   Result.X := -VPN.X;
   Result.Y := -VPN.Y;
   Result.Z := -VPN.Z;
 end;
 
-constructor TCADParallelViewport3D.Create(AOwner: TComponent);
+constructor TFNCCADParallelViewport3D.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   SetCamera(Point3D(-100, -100, 100), Point3D(0, 0, 0), Versor3D(0, 0, 1));
 end;
 
 // =====================================================================
-// TCADOrtogonalViewport3D
+// TFNCCADOrtogonalViewport3D
 // =====================================================================
 
-constructor TCADOrtogonalViewport3D.Create(AOwner: TComponent);
+constructor TFNCCADOrtogonalViewport3D.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   fElevation := 0.0;
@@ -20063,7 +20453,7 @@ begin
   UpdateViewportOrientation;
 end;
 
-function TCADOrtogonalViewport3D.BuildViewOrientationTransform
+function TFNCCADOrtogonalViewport3D.BuildViewOrientationTransform
   (const LVRP: TPoint3D; const LVUP, LVPN: TVector3D): TTransf3D;
 var
   TmpUP, TmpN: TVector3D;
@@ -20105,7 +20495,7 @@ begin
   Result := inherited BuildViewOrientationTransform(TmpVRP, TmpUP, TmpN);
 end;
 
-procedure TCADOrtogonalViewport3D.SetView(V: TOrtoViewType);
+procedure TFNCCADOrtogonalViewport3D.SetView(V: TOrtoViewType);
 begin
   if V <> fView then
   begin
@@ -20114,7 +20504,7 @@ begin
   end;
 end;
 
-procedure TCADOrtogonalViewport3D.SetDirection(D: TOrtoDirectionType);
+procedure TFNCCADOrtogonalViewport3D.SetDirection(D: TOrtoDirectionType);
 begin
   if D <> fDirection then
   begin
@@ -20123,7 +20513,7 @@ begin
   end;
 end;
 
-procedure TCADOrtogonalViewport3D.SetElevation(E: TRealType);
+procedure TFNCCADOrtogonalViewport3D.SetElevation(E: TRealType);
 begin
   if E <> fElevation then
   begin
@@ -20133,17 +20523,17 @@ begin
 end;
 
 // =====================================================================
-// TCADPerspectiveViewport3D
+// TFNCCADPerspectiveViewport3D
 // =====================================================================
 
-procedure TCADPerspectiveViewport3D.SetBClip(B: TRealType);
+procedure TFNCCADPerspectiveViewport3D.SetBClip(B: TRealType);
 begin
   if B <= -fPlaneDistance then
     B := -fPlaneDistance + 0.1;
   inherited SetBClip(B);
 end;
 
-procedure TCADPerspectiveViewport3D.SetPlaneDistance(D: TRealType);
+procedure TFNCCADPerspectiveViewport3D.SetPlaneDistance(D: TRealType);
 begin
   if D <> fPlaneDistance then
   begin
@@ -20154,18 +20544,18 @@ begin
   end;
 end;
 
-function TCADPerspectiveViewport3D.GetCenterOfProjection: TPoint3D;
+function TFNCCADPerspectiveViewport3D.GetCenterOfProjection: TPoint3D;
 begin
   Result := ExtrudePoint3D(VRP, VPN, fPlaneDistance);
 end;
 
-function TCADPerspectiveViewport3D.BuildViewNormalizationTransform
+function TFNCCADPerspectiveViewport3D.BuildViewNormalizationTransform
   (View: TRect2D; FP, BP: TRealType): TTransf3D;
 begin
   Result := PerspectiveViewNormalization3D(View, fPlaneDistance, FP, BP);
 end;
 
-constructor TCADPerspectiveViewport3D.Create(AOwner: TComponent);
+constructor TFNCCADPerspectiveViewport3D.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   SetCamera(Point3D(-100, -100, 100), Point3D(0, 0, 0), Versor3D(0, 0, 1));
@@ -20173,7 +20563,7 @@ begin
   SetFieldOfView(DegToRad(30.0), 1.0);
 end;
 
-function TCADPerspectiveViewport3D.GetRayVersor(const WPt: TPoint3D): TVector3D;
+function TFNCCADPerspectiveViewport3D.GetRayVersor(const WPt: TPoint3D): TVector3D;
 var
   COP: TPoint3D;
 begin
@@ -20181,7 +20571,7 @@ begin
   Result := Direction3D(COP, WPt);
 end;
 
-procedure TCADPerspectiveViewport3D.SetFieldOfView(const Angle,
+procedure TFNCCADPerspectiveViewport3D.SetFieldOfView(const Angle,
   Aspect: TRealType);
 var
   VW: TRect2D;
@@ -20199,57 +20589,71 @@ end;
 // TCAD3DAxis
 // =====================================================================
 
-procedure DrawAx(Cnv: TCanvas; Org: TPoint; Dir: TVector2D; Sz: Integer;
-  Cl: TColor; AxT: Byte);
+procedure DrawAx(Cnv: TDecorativeCanvas; Org: TPoint; Dir: TVector2D;
+  Sz: Integer; Cl: TColor; AxT: Byte);
+const
+  AxisLabels: array [0 .. 2] of string = ('X', 'Y', 'Z');
 var
   NormDir: TVector2D;
-  First: TPoint;
+  First, Cur: TPoint;
   DDX, DDY, DNX, DNY: Integer;
-begin
-  with Cnv do
+  TmpRect: TRect;
+  TmpFont: TCADFontSpec;
+
+  { The original walked the arrow head off the canvas' PenPos. The drawing
+    layer does not expose one, so the position is carried along here. }
+  procedure LineToPt(const X, Y: Integer);
   begin
-    Pen.Color := Cl;
-    Pen.Mode := pmCopy;
-    Pen.Style := psSolid;
-    Pen.Width := 1;
-    NormDir := Perpendicular2D(Dir);
-    First.X := Org.X + Trunc(Sz * 1.5);
-    First.Y := Org.Y - Trunc(Sz * 1.5);
-    DNX := Trunc(NormDir.X * Sz / 8);
-    DNY := Trunc(NormDir.Y * Sz / 8);
-    DDX := Trunc(Dir.X * Sz / 4);
-    DDY := Trunc(Dir.Y * Sz / 4);
-    MoveTo(First.X, First.Y);
-    LineTo(PenPos.X + Trunc(Dir.X * Sz), PenPos.Y + Trunc(Dir.Y * Sz));
-    LineTo(PenPos.X + DNX - DDX, PenPos.Y + DNY - DDY);
-    LineTo(PenPos.X - 2 * DNX, PenPos.Y - 2 * DNY);
-    LineTo(First.X + Trunc(Dir.X * Sz), First.Y + Trunc(Dir.Y * Sz));
-    // Label.
-    First.X := First.X + DDX + LongInt(Trunc(Dir.X * Sz));
-    First.Y := First.Y + DDY + LongInt(Trunc(Dir.Y * Sz));
-    SetBkMode(Handle, TRANSPARENT);
-    Font.Color := Cl;
-    Font.Name := 'Arial';
-    Font.Size := 7;
-    case AxT of
-      0: // Asse X.
-        TextOut(First.X, First.Y, 'X');
-      1: // Asse Y.
-        TextOut(First.X, First.Y, 'Y');
-      2: // Asse Z.
-        TextOut(First.X, First.Y, 'Z');
-    end;
+    Cnv.LineTo(X, Y);
+    Cur := Point(X, Y);
+  end;
+
+begin
+  Cnv.Pen.Color := TColorToCADColor(Cl);
+  Cnv.Pen.Mode := cpmCopy;
+  Cnv.Pen.Style := cpsSolid;
+  Cnv.Pen.Width := 1;
+  NormDir := Perpendicular2D(Dir);
+  First.X := Org.X + Trunc(Sz * 1.5);
+  First.Y := Org.Y - Trunc(Sz * 1.5);
+  DNX := Trunc(NormDir.X * Sz / 8);
+  DNY := Trunc(NormDir.Y * Sz / 8);
+  DDX := Trunc(Dir.X * Sz / 4);
+  DDY := Trunc(Dir.Y * Sz / 4);
+  Cnv.MoveTo(First.X, First.Y);
+  Cur := First;
+  LineToPt(Cur.X + Trunc(Dir.X * Sz), Cur.Y + Trunc(Dir.Y * Sz));
+  LineToPt(Cur.X + DNX - DDX, Cur.Y + DNY - DDY);
+  LineToPt(Cur.X - 2 * DNX, Cur.Y - 2 * DNY);
+  LineToPt(First.X + Trunc(Dir.X * Sz), First.Y + Trunc(Dir.Y * Sz));
+  // Label.
+  First.X := First.X + DDX + LongInt(Trunc(Dir.X * Sz));
+  First.Y := First.Y + DDY + LongInt(Trunc(Dir.Y * Sz));
+  if AxT > 2 then
+    Exit;
+  Cnv.Graphics.Transparent := True;
+  Cnv.Graphics.FontColor := TColorToCADColor(Cl);
+  TmpFont := TCADFontSpec.Default;
+  TmpFont.FaceName := 'Arial';
+  TmpFont.Height := -9; // 7pt at 96 dpi
+  Cnv.Graphics.SelectFont(TmpFont);
+  try
+    TmpRect := Rect(First.X, First.Y, First.X + 4 * Sz, First.Y + 2 * Sz);
+    Cnv.Graphics.DrawText(AxisLabels[AxT], TmpRect,
+      CAD_DT_TOP or CAD_DT_LEFT or CAD_DT_SINGLELINE or CAD_DT_NOCLIP);
+  finally
+    Cnv.Graphics.ResetFont;
   end;
 end;
 
-constructor TCAD3DAxis.Create(Owner: TCADViewport3D);
+constructor TCAD3DAxis.Create(Owner: TFNCCADViewport3D);
 begin
   inherited Create;
 
   fOwnerView := Owner;
-  fXColor := clRed;
-  fYColor := clBlue;
-  fZColor := clGreen;
+  fXColor := cadtcRed;
+  fYColor := cadtcBlue;
+  fZColor := cadtcGreen;
   fVisible := True;
   fSize := 30;
 end;
@@ -20303,24 +20707,35 @@ procedure TCAD3DAxis.PaintAxes;
 var
   Dir: TVector2D;
   ZeroPt2D, OnePt2D: TPoint2D;
+  V: TFNCCADViewport3D;
 begin
-  with fOwnerView do
-    try
-      ZeroPt2D := ViewportToScreen(WorldToViewport(Point3D(0, 0, 0)));
-      { X }
-      OnePt2D := ViewportToScreen(WorldToViewport(Point3D(1, 0, 0)));
-      Dir := Direction2D(ZeroPt2D, OnePt2D);
-      DrawAx(Cnv, P, Dir, fSize, fXColor, 0);
-      { Y }
-      OnePt2D := ViewportToScreen(WorldToViewport(Point3D(0, 1, 0)));
-      Dir := Direction2D(ZeroPt2D, OnePt2D);
-      DrawAx(Cnv, P, Dir, fSize, fYColor, 1);
-      { Z }
-      OnePt2D := ViewportToScreen(WorldToViewport(Point3D(0, 0, 1)));
-      Dir := Direction2D(ZeroPt2D, OnePt2D);
-      DrawAx(Cnv, P, Dir, fSize, fZColor, 2);
-    except
-    end;
+  { This used to be 'with fOwnerView do'. Inside one, an unqualified name
+    is looked up on the viewport before this class, and FMX's TControl
+    has an FSize of its own - so fSize silently stopped being this
+    object's Integer and became a TControlSize. Pascal does not
+    distinguish fSize from FSize, and nothing about the code said which
+    one it meant.
+
+    A local alias costs one line and removes the whole class of
+    accident: every field below is now unambiguously ours, and every
+    call unambiguously the viewport's. }
+  V := fOwnerView;
+  try
+    ZeroPt2D := V.ViewportToScreen(V.WorldToViewport(Point3D(0, 0, 0)));
+    { X }
+    OnePt2D := V.ViewportToScreen(V.WorldToViewport(Point3D(1, 0, 0)));
+    Dir := Direction2D(ZeroPt2D, OnePt2D);
+    DrawAx(Cnv, P, Dir, fSize, fXColor, 0);
+    { Y }
+    OnePt2D := V.ViewportToScreen(V.WorldToViewport(Point3D(0, 1, 0)));
+    Dir := Direction2D(ZeroPt2D, OnePt2D);
+    DrawAx(Cnv, P, Dir, fSize, fYColor, 1);
+    { Z }
+    OnePt2D := V.ViewportToScreen(V.WorldToViewport(Point3D(0, 0, 1)));
+    Dir := Direction2D(ZeroPt2D, OnePt2D);
+    DrawAx(Cnv, P, Dir, fSize, fZColor, 2);
+  except
+  end;
 end;
 
 // =====================================================================
@@ -20345,7 +20760,7 @@ end;
 // TCADState
 // =====================================================================
 
-constructor TCADState.Create(const CADPrg: TCADPrg;
+constructor TCADState.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create;
@@ -20390,7 +20805,7 @@ end;
 // TCADIdleState.
 // =====================================================================
 
-constructor TCADIdleState.Create(const CADPrg: TCADPrg;
+constructor TCADIdleState.Create(const CADPrg: TFNCCADPrg;
   const StateParam: TCADPrgParam; var NextState: TCADStateClass);
 begin
   inherited Create(CADPrg, StateParam, NextState);
@@ -20401,59 +20816,53 @@ begin
 end;
 
 // =====================================================================
-// TCADPrg
+// TFNCCADPrg
 // =====================================================================
 
-procedure TCADPrg.SetLinkedViewport(V: TCADViewport);
+procedure TFNCCADPrg.SetLinkedViewport(V: TFNCCADViewport);
 begin
   if V = fLinkedViewport then
     Exit;
-  { Subclassing component. Charles F. I. Savage gave my this idea from its
-    TCADViewport subclassing. Thanks Charles. }
-  if Assigned(fNewWndProc) then
-  begin
-{$IFDEF windows}
-    if not(csDestroying in fLinkedViewport.ComponentState) then
-      { CS4-FIX (X1): SetWindowLong truncates a WndProc pointer on Win64. }
-      SetWindowLongPtr(fLinkedViewport.Handle, GWLP_WNDPROC,
-        LONG_PTR(fOldWndProc));
-    FreeObjectInstance(fNewWndProc);
-{$ELSE}
-    if not(csDestroying in fLinkedViewport.ComponentState) then
-      fLinkedViewport.WindowProc := fOldWndProc;
-{$ENDIF}
-    fNewWndProc := nil;
-  end;
-  // Reassign the old on paint.
+  { This used to subclass the viewport's window and pick the mouse and
+    key messages out of the stream. There is no window to subclass on
+    FMX or LCL, so the viewport routes its input through hooks instead -
+    see TCADViewportMouseHook. }
   if Assigned(fLinkedViewport) then
   begin
-    fLinkedViewport.OnPaint := fOldOnPaint;
     if fShowCursorCross then
       HideCursorCross;
+    fLinkedViewport.OnCADMouseDown := nil;
+    fLinkedViewport.OnCADMouseMove := nil;
+    fLinkedViewport.OnCADMouseUp := nil;
+    fLinkedViewport.OnCADDblClick := nil;
+    fLinkedViewport.OnCADKeyDown := nil;
+    fLinkedViewport.OnCADKeyUp := nil;
+    fLinkedViewport.OnPaint := fOldOnPaint;
+    fLinkedViewport.OnPaintOverlay := fOldOnPaintOverlay;
   end;
   fLinkedViewport := V;
   if Assigned(V) then
   begin
     V.FreeNotification(Self);
-{$IFDEF windows}
-    fNewWndProc := MakeObjectInstance(SubclassedWinProc);
-    { CS4-FIX (X1): SetWindowLong truncates a WndProc pointer on Win64. }
-    fOldWndProc := Pointer(SetWindowLongPtr(V.Handle, GWLP_WNDPROC,
-      LONG_PTR(fNewWndProc)));
-{$ELSE}
-    fNewWndProc := SubclassedWinProc;
-    fOldWndProc := V.WindowProc;
-    V.WindowProc := fNewWndProc;
-{$ENDIF}
+    V.OnCADMouseDown := ViewOnMouseDown;
+    V.OnCADMouseMove := ViewOnMouseMove;
+    V.OnCADMouseUp := ViewOnMouseUp;
+    V.OnCADDblClick := ViewOnDblClick;
+    V.OnCADKeyDown := ViewOnKeyDown;
+    V.OnCADKeyUp := ViewOnKeyUp;
     // Assign the new OnPaint because it is called not only by window msgs.
     fOldOnPaint := V.OnPaint;
     V.OnPaint := ViewOnPaint;
+    { Whenever the viewport repaints, it asks us to put the cursor cross
+      and the state's decorations back on top. }
+    fOldOnPaintOverlay := V.OnPaintOverlay;
+    V.OnPaintOverlay := PaintOverlay;
     if fShowCursorCross then
       HideCursorCross;
   end;
 end;
 
-procedure TCADPrg.SetDefaultState(DefState: TCADStateClass);
+procedure TFNCCADPrg.SetDefaultState(DefState: TCADStateClass);
 var
   TmpState: TCADStateClass;
 begin
@@ -20469,7 +20878,7 @@ begin
     fDefaultState := DefState;
 end;
 
-procedure TCADPrg.SendEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
+procedure TFNCCADPrg.SendEvent(Event: TCADPrgEvent; MouseButton: TCS4MouseButton;
   Shift: TShiftState; Key: Word);
 var
   NextState: TCADStateClass;
@@ -20511,7 +20920,7 @@ begin
   end;
 end;
 
-procedure TCADPrg.GoToDefaultState(const LastState: TClass;
+procedure TFNCCADPrg.GoToDefaultState(const LastState: TClass;
   const LastParam: TCADPrgParam);
 var
   TmpState: TCADStateClass;
@@ -20575,26 +20984,64 @@ begin
     fOnIdle(Self);
 end;
 
-procedure TCADPrg.ViewOnPaint(Sender: TObject);
+procedure TFNCCADPrg.PaintOverlay(Sender: TObject);
 begin
-  if fShowCursorCross then
-    HideCursorCross;
+  { The viewport has just put the drawing back; everything that lives on
+    top of it has to be painted again. }
   if Assigned(CurrentState) then
     SendEvent(cePaint, cmbNone, [], 0);
-  if Assigned(fOldOnPaint) then
-    fOldOnPaint(Sender);
+  if Assigned(fOldOnPaintOverlay) then
+    fOldOnPaintOverlay(Sender);
   if fShowCursorCross then
-    DrawCursorCross;
+    PaintCursorCross;
 end;
 
-function TCADPrg.ViewOnDblClick(Sender: TObject): Boolean;
+procedure TFNCCADPrg.DrawCursorCross;
+begin
+  if (not Assigned(fLinkedViewport)) or fLinkedViewport.InRepainting then
+    Exit;
+  try
+    UpdateCursorCrossPos;
+    { The cross used to be moved by XOR-ing it away and drawing it again.
+      Now the viewport restores the area from its back buffer and the
+      overlay is painted from scratch. }
+    fLinkedViewport.RefreshOverlay;
+  except
+  end;
+end;
+
+procedure TFNCCADPrg.HideCursorCross;
+begin
+  if (not Assigned(fLinkedViewport)) or fLinkedViewport.InRepainting then
+    Exit;
+  { The overlay is repainted from the viewport's Draw, which happens after
+    this returns, so there is no window in which to suppress the cross.
+    ShowCursorCross is what decides whether it appears - and every caller
+    of this either clears that first or repaints and shows it again. }
+  try
+    fLinkedViewport.RefreshOverlay;
+  except
+  end;
+end;
+
+procedure TFNCCADPrg.ViewOnPaint(Sender: TObject);
+begin
+  { Only chain the application's handler. The overlay is painted by
+    PaintOverlay, which the viewport calls from DrawOverlay immediately
+    after this - asking for it here would be asking for a second paint
+    from inside the first. }
+  if Assigned(fOldOnPaint) then
+    fOldOnPaint(Sender);
+end;
+
+function TFNCCADPrg.ViewOnDblClick(Sender: TObject): Boolean;
 begin
   if Assigned(CurrentState) then
     SendEvent(ceMouseDblClick, cmbNone, [], 0);
   Result := True;
 end;
 
-function TCADPrg.ViewOnKeyDown(Sender: TObject; var Key: Word;
+function TFNCCADPrg.ViewOnKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState): Boolean;
 var
   MouseButton: TCS4MouseButton;
@@ -20613,7 +21060,7 @@ begin
   Result := True;
 end;
 
-function TCADPrg.ViewOnKeyUp(Sender: TObject; var Key: Word;
+function TFNCCADPrg.ViewOnKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState): Boolean;
 var
   MouseButton: TCS4MouseButton;
@@ -20632,7 +21079,7 @@ begin
   Result := True;
 end;
 
-function TCADPrg.ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
+function TFNCCADPrg.ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
   var X, Y: SmallInt): Boolean;
 var
   MouseButton: TCS4MouseButton;
@@ -20653,17 +21100,22 @@ begin
   Result := True;
 end;
 
-function TCADPrg.ViewOnMouseDown(Sender: TObject; Button: TMouseButton;
+function TFNCCADPrg.ViewOnMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; var X, Y: SmallInt): Boolean;
 var
   MouseButton: TCS4MouseButton;
 begin
+  { The buttons are spelled TMouseButton.mbLeft rather than mbLeft.
+    System.UITypes declares the enumeration with SCOPEDENUMS on, so the
+    bare names are unscoped re-exports that live in Vcl.Controls - which
+    this unit no longer uses. The scoped spelling needs no framework
+    unit on any of the three targets. }
   fCurrentMousePoint := Point(X, Y);
-  if Button = mbLeft then
+  if Button = TMouseButton.mbLeft then
     MouseButton := cmbLeft
-  else if Button = mbRight then
+  else if Button = TMouseButton.mbRight then
     MouseButton := cmbRight
-  else if Button = mbMiddle then
+  else if Button = TMouseButton.mbMiddle then
     MouseButton := cmbMiddle
   else
     MouseButton := cmbNone;
@@ -20672,17 +21124,17 @@ begin
   Result := True;
 end;
 
-function TCADPrg.ViewOnMouseUp(Sender: TObject; Button: TMouseButton;
+function TFNCCADPrg.ViewOnMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; var X, Y: SmallInt): Boolean;
 var
   MouseButton: TCS4MouseButton;
 begin
   fCurrentMousePoint := Point(X, Y);
-  if Button = mbLeft then
+  if Button = TMouseButton.mbLeft then
     MouseButton := cmbLeft
-  else if Button = mbRight then
+  else if Button = TMouseButton.mbRight then
     MouseButton := cmbRight
-  else if Button = mbMiddle then
+  else if Button = TMouseButton.mbMiddle then
     MouseButton := cmbMiddle
   else
     MouseButton := cmbNone;
@@ -20691,23 +21143,21 @@ begin
   Result := True;
 end;
 
-constructor TCADPrg.Create(AOwner: TComponent);
+constructor TFNCCADPrg.Create(AOwner: TComponent);
 var
   TmpState: TCADStateClass;
 begin
   inherited Create(AOwner);
-  fCursorColor := clGray;
+  fCursorColor := cadtcGray;
   fShowCursorCross := False;
   fLinkedViewport := nil;
-  fNewWndProc := nil;
-  fOldWndProc := nil;
   fDefaultState := TCADIdleState;
   fCurrentState := fDefaultState.Create(Self, nil, {%H-}TmpState);
   fIgnoreEvents := False;
   fRefreshAfterOp := True;
 end;
 
-destructor TCADPrg.Destroy;
+destructor TFNCCADPrg.Destroy;
 begin
   if Assigned(fCurrentState) then
   begin
@@ -20724,91 +21174,14 @@ begin
   inherited Destroy;
 end;
 
-procedure TCADPrg.Notification(AComponent: TComponent; Operation: TOperation);
+procedure TFNCCADPrg.Notification(AComponent: TComponent; Operation: TOperation);
 begin
   inherited Notification(AComponent, Operation);
   if (AComponent = LinkedViewport) and (Operation = opRemove) then
     LinkedViewport := nil;
 end;
 
-procedure TCADPrg.SubclassedWinProc(var Msg: TMessage);
-var
-  LastSet, Propagate: Boolean;
-begin
-  Propagate := True;
-  if not(csDesigning in ComponentState) then
-    case Msg.Msg of
-      WM_MOUSEMOVE:
-        with TWMMouseMove(Msg) do
-          Propagate := ViewOnMouseMove(LinkedViewport, KeysToShiftState(Keys),
-            XPos, YPos);
-      CM_INVALIDATE:
-        begin
-{$IFDEF windows}
-          Msg.Result := CallWindowProc(fOldWndProc, fLinkedViewport.Handle,
-            Msg.Msg, Msg.WParam, Msg.LParam);
-{$ELSE}
-          if Assigned(fOldWndProc) then
-            fOldWndProc(Msg);
-{$ENDIF}
-          ViewOnPaint(Self);
-          Propagate := False;
-        end;
-      WM_LBUTTONDOWN:
-        with TWMMouse(Msg) do
-          Propagate := ViewOnMouseDown(LinkedViewport, mbLeft,
-            KeysToShiftState(Keys), XPos, YPos);
-      WM_RBUTTONDOWN:
-        with TWMMouse(Msg) do
-          Propagate := ViewOnMouseDown(LinkedViewport, mbRight,
-            KeysToShiftState(Keys), XPos, YPos);
-      WM_LBUTTONUP:
-        with TWMMouse(Msg) do
-          Propagate := ViewOnMouseUp(LinkedViewport, mbLeft,
-            KeysToShiftState(Keys), XPos, YPos);
-      WM_RBUTTONUP:
-        with TWMMouse(Msg) do
-          Propagate := ViewOnMouseUp(LinkedViewport, mbRight,
-            KeysToShiftState(Keys), XPos, YPos);
-      WM_RBUTTONDBLCLK:
-        begin
-          ViewOnDblClick(LinkedViewport);
-          with TWMMouse(Msg) do
-            Propagate := ViewOnMouseDown(LinkedViewport, mbRight,
-              KeysToShiftState(Keys), XPos, YPos);
-        end;
-      WM_LBUTTONDBLCLK:
-        begin
-          ViewOnDblClick(LinkedViewport);
-          with TWMMouse(Msg) do
-            Propagate := ViewOnMouseDown(LinkedViewport, mbLeft,
-              KeysToShiftState(Keys), XPos, YPos);
-        end;
-      WM_KEYDOWN:
-        with TWMKeyDown(Msg) do
-          Propagate := ViewOnKeyDown(LinkedViewport, CharCode,
-            KeyDataToShiftState(KeyData));
-      WM_KEYUP:
-        with TWMKeyUp(Msg) do
-          Propagate := ViewOnKeyUp(LinkedViewport, CharCode,
-            KeyDataToShiftState(KeyData));
-    end;
-  LastSet := fLinkedViewport.DisableMouseEvents;
-  try
-    fLinkedViewport.DisableMouseEvents := not Propagate;
-{$IFDEF windows}
-    Msg.Result := CallWindowProc(fOldWndProc, fLinkedViewport.Handle, Msg.Msg,
-      Msg.WParam, Msg.LParam);
-{$ELSE}
-    if Assigned(fOldWndProc) then
-      fOldWndProc(Msg);
-{$ENDIF}
-  finally
-    fLinkedViewport.DisableMouseEvents := LastSet;
-  end;
-end;
-
-function TCADPrg.StartOperation(const StartState: TCADStateClass;
+function TFNCCADPrg.StartOperation(const StartState: TCADStateClass;
   Param: TCADPrgParam): Boolean;
 var
   NewNext: TCADStateClass;
@@ -20856,7 +21229,7 @@ begin
   Result := True;
 end;
 
-procedure TCADPrg.StopOperation;
+procedure TFNCCADPrg.StopOperation;
 begin
   if not fIsBusy or (fCurrentState = nil) then
     Exit;
@@ -20866,7 +21239,7 @@ begin
     fOnStop(Self, fCurrentOperation, nil);
 end;
 
-procedure TCADPrg.Reset;
+procedure TFNCCADPrg.Reset;
 begin
   if Assigned(fCurrentState) then
   begin
@@ -20878,7 +21251,7 @@ begin
     GoToDefaultState(nil, nil)
 end;
 
-function TCADPrg.SuspendOperation(const StartState: TCADStateClass;
+function TFNCCADPrg.SuspendOperation(const StartState: TCADStateClass;
   Param: TCADPrgParam): Boolean;
 var
   NewNext: TCADStateClass;
@@ -20929,7 +21302,7 @@ begin
   Result := True;
 end;
 
-procedure TCADPrg.SendUserEvent(const Code: Word);
+procedure TFNCCADPrg.SendUserEvent(const Code: Word);
 begin
   if not Assigned(fLinkedViewport) then
     Exit;
@@ -20940,16 +21313,16 @@ begin
   end;
 end;
 
-procedure TCADPrg.SendCADEvent(Event: TCADPrgEvent; MouseButton: TMouseButton;
+procedure TFNCCADPrg.SendCADEvent(Event: TCADPrgEvent; MouseButton: TMouseButton;
   Shift: TShiftState; Key: Word);
 var
   Button: TCS4MouseButton;
 begin
-  if MouseButton = mbLeft then
+  if MouseButton = TMouseButton.mbLeft then
     Button := cmbLeft
-  else if MouseButton = mbRight then
+  else if MouseButton = TMouseButton.mbRight then
     Button := cmbRight
-  else if MouseButton = mbMiddle then
+  else if MouseButton = TMouseButton.mbMiddle then
     Button := cmbMiddle
   else
     Button := cmbNone;
@@ -20962,19 +21335,19 @@ begin
   end;
 end;
 
-procedure TCADPrg.RepaintAfterOperation;
+procedure TFNCCADPrg.RepaintAfterOperation;
 begin
   fMustRepaint := True;
   fRepaintRect := Rect2D(0.0, 0.0, 0.0, 0.0);
 end;
 
-procedure TCADPrg.RepaintRectAfterOperation(const ARect: TRect2D);
+procedure TFNCCADPrg.RepaintRectAfterOperation(const ARect: TRect2D);
 begin
   fMustRepaint := True;
   fRepaintRect := ARect;
 end;
 
-procedure TCADPrg.SetShowCursorCross(B: Boolean);
+procedure TFNCCADPrg.SetShowCursorCross(B: Boolean);
 begin
   if fShowCursorCross <> B then
   begin
@@ -20984,32 +21357,30 @@ begin
   end;
 end;
 
-procedure TCADPrg.SetCursorColor(C: TColor);
+procedure TFNCCADPrg.SetCursorColor(C: TColor);
 begin
   if C = fCursorColor then
     Exit;
-  if fShowCursorCross then
-    DrawCursorCross;
   fCursorColor := C;
   if fShowCursorCross then
     DrawCursorCross;
 end;
 
 // =====================================================================
-// TCADPrg2D
+// TFNCCADPrg2D
 // =====================================================================
 
-function TCADPrg2D.GetVPPoint: TPoint2D;
+function TFNCCADPrg2D.GetVPPoint: TPoint2D;
 begin
   Result := fCurrentViewportPoint;
 end;
 
-procedure TCADPrg2D.SetVPPoint(const Pt: TPoint2D);
+procedure TFNCCADPrg2D.SetVPPoint(const Pt: TPoint2D);
 begin
   fCurrentViewportPoint := CartesianPoint2D(Pt);
 end;
 
-function TCADPrg2D.GetVPSnappedPoint: TPoint2D;
+function TFNCCADPrg2D.GetVPSnappedPoint: TPoint2D;
 begin
   Result := GetVPPoint;
   if not UseSnap then
@@ -21026,7 +21397,7 @@ begin
     fSnapFilter(Self, CurrentState, fSnapOriginPoint, Result);
 end;
 
-function TCADPrg2D.ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
+function TFNCCADPrg2D.ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
   var X, Y: SmallInt): Boolean;
 begin
   fCurrentViewportPoint := Viewport2D.ScreenToViewport(Point2D(X, Y));
@@ -21045,7 +21416,7 @@ begin
     Result := inherited ViewOnMouseMove(Sender, Shift, X, Y);
 end;
 
-function TCADPrg2D.ViewOnMouseDown(Sender: TObject; Button: TMouseButton;
+function TFNCCADPrg2D.ViewOnMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; var X, Y: SmallInt): Boolean;
 begin
   fCurrentViewportPoint := Viewport2D.ScreenToViewport(Point2D(X, Y));
@@ -21064,7 +21435,7 @@ begin
     Result := inherited ViewOnMouseDown(Sender, Button, Shift, X, Y);
 end;
 
-function TCADPrg2D.ViewOnMouseUp(Sender: TObject; Button: TMouseButton;
+function TFNCCADPrg2D.ViewOnMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; var X, Y: SmallInt): Boolean;
 begin
   fCurrentViewportPoint := Viewport2D.ScreenToViewport(Point2D(X, Y));
@@ -21083,17 +21454,17 @@ begin
     Result := inherited ViewOnMouseUp(Sender, Button, Shift, X, Y);
 end;
 
-function TCADPrg2D.GetViewport2D: TCADViewport2D;
+function TFNCCADPrg2D.GetViewport2D: TFNCCADViewport2D;
 begin
-  Result := LinkedViewport as TCADViewport2D;
+  Result := LinkedViewport as TFNCCADViewport2D;
 end;
 
-procedure TCADPrg2D.SetViewport2D(View2D: TCADViewport2D);
+procedure TFNCCADPrg2D.SetViewport2D(View2D: TFNCCADViewport2D);
 begin
   LinkedViewport := View2D;
 end;
 
-constructor TCADPrg2D.Create(AOwner: TComponent);
+constructor TFNCCADPrg2D.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   XSnap := 10.0;
@@ -21102,100 +21473,85 @@ begin
   fSnapOriginPoint := Point2D(MaxCoord, MaxCoord);
 end;
 
-destructor TCADPrg2D.Destroy;
+destructor TFNCCADPrg2D.Destroy;
 begin
   SetViewport2D(nil);
   inherited Destroy;
 end;
 
-procedure _DrawCursorCross2D(const ViewP: TCADViewport2D; const Pt: TPoint2D);
+procedure _DrawCursorCross2D(const ViewP: TFNCCADViewport2D; const Pt: TPoint2D);
 var
   ScrPt: TPoint;
 begin
   with ViewP do
   begin
     ScrPt := Point2DToPoint(ViewportToScreen(Pt));
-    Canvas.MoveTo(ScrPt.X, ClientRect.Top);
-    Canvas.LineTo(ScrPt.X, ClientRect.Bottom);
-    Canvas.MoveTo(ClientRect.Left, ScrPt.Y);
-    Canvas.LineTo(ClientRect.Right, ScrPt.Y);
+    OnScreenCanvas.MoveTo(ScrPt.X, ControlRect.Top);
+    OnScreenCanvas.LineTo(ScrPt.X, ControlRect.Bottom);
+    OnScreenCanvas.MoveTo(ControlRect.Left, ScrPt.Y);
+    OnScreenCanvas.LineTo(ControlRect.Right, ScrPt.Y);
   end;
 end;
 
-procedure TCADPrg2D.DrawCursorCross;
+procedure TFNCCADPrg2D.UpdateCursorCrossPos;
 begin
-  if (not Assigned(Viewport)) or (Viewport.HandleAllocated = False) or
-    (Viewport.InRepainting) then
-    Exit;
-  with Viewport2D do
-    try
-      Canvas.Pen.Mode := pmXOr;
-      Canvas.Pen.Color := CursorColor xor BackGroundColor;
-      Canvas.Pen.Style := psSolid;
-      Canvas.Pen.Width := 1;
-      _DrawCursorCross2D(Viewport2D, fLastCursorPos);
-      fLastCursorPos := CurrentViewportSnappedPoint;
-      _DrawCursorCross2D(Viewport2D, fLastCursorPos);
-    except
-    end;
+  fLastCursorPos := CurrentViewportSnappedPoint;
 end;
 
-procedure TCADPrg2D.HideCursorCross;
+procedure TFNCCADPrg2D.PaintCursorCross;
 begin
-  if (not Assigned(Viewport)) or (Viewport.HandleAllocated = False) or
-    (Viewport.InRepainting) then
+  if (not Assigned(Viewport2D)) or (not Viewport2D.IsRealized) then
     Exit;
-  with Viewport2D do
-    try
-      Canvas.Pen.Mode := pmXOr;
-      Canvas.Pen.Color := CursorColor xor BackGroundColor;
-      Canvas.Pen.Style := psSolid;
-      Canvas.Pen.Width := 1;
-      _DrawCursorCross2D(Viewport2D, fLastCursorPos);
-    except
-    end;
+  with Viewport2D.OnScreenCanvas do
+  begin
+    Pen.Mode := cpmCopy;
+    Pen.Color := TColorToCADColor(CursorColor);
+    Pen.Style := cpsSolid;
+    Pen.Width := 1;
+  end;
+  _DrawCursorCross2D(Viewport2D, fLastCursorPos);
 end;
 
 // =====================================================================
-// TCADPrg3D
+// TFNCCADPrg3D
 // =====================================================================
 
-function TCADPrg3D.GetVPPoint: TPoint2D;
+function TFNCCADPrg3D.GetVPPoint: TPoint2D;
 begin
   Result := fCurrentViewportPoint;
 end;
 
-procedure TCADPrg3D.SetVPPoint(const Pt: TPoint2D);
+procedure TFNCCADPrg3D.SetVPPoint(const Pt: TPoint2D);
 begin
   fCurrentViewportPoint := CartesianPoint2D(Pt);
   fCurrentWorldPoint := Viewport3D.ViewportToWorld(Pt);
 end;
 
-procedure TCADPrg3D.SetWorldPoint(Pt: TPoint3D);
+procedure TFNCCADPrg3D.SetWorldPoint(Pt: TPoint3D);
 begin
   fCurrentWorldPoint := CartesianPoint3D(Pt);
   fCurrentViewportPoint := Viewport3D.WorldToViewport(Pt);
 end;
 
-function TCADPrg3D.WorldToWorkingPlane(WPt: TPoint3D): TPoint3D;
+function TFNCCADPrg3D.WorldToWorkingPlane(WPt: TPoint3D): TPoint3D;
 begin
   Result := CastPointOnPlane3D(WPt, Viewport3D.GetRayVersor(WPt),
     fWorkingPlaneNormal, fWorkingPlaneOrigin);
 end;
 
-function TCADPrg3D.GetCurrentWorkPlanePoint: TPoint3D;
+function TFNCCADPrg3D.GetCurrentWorkPlanePoint: TPoint3D;
 begin
   Result := CastPointOnPlane3D(fCurrentWorldPoint,
     Viewport3D.GetRayVersor(fCurrentWorldPoint), fWorkingPlaneNormal,
     fWorkingPlaneOrigin);
 end;
 
-function TCADPrg3D.GetWorkingPlaneXDir: TVector3D;
+function TFNCCADPrg3D.GetWorkingPlaneXDir: TVector3D;
 begin
   Result := CrossProd3D(fWorkingPlaneUP, fWorkingPlaneNormal);
 end;
 
-function TCADPrg3D.GetWPSnappedPoint: TPoint3D;
+function TFNCCADPrg3D.GetWPSnappedPoint: TPoint3D;
 var
   TmpPt, TmpOrg: TPoint2D;
   TmpPt3D: TPoint3D;
@@ -21234,7 +21590,7 @@ begin
     fWorkingPlaneOrigin);
 end;
 
-function TCADPrg3D.ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
+function TFNCCADPrg3D.ViewOnMouseMove(Sender: TObject; Shift: TShiftState;
   var X, Y: SmallInt): Boolean;
 begin
   fCurrentViewportPoint := Viewport3D.ScreenToViewport(Point2D(X, Y));
@@ -21255,7 +21611,7 @@ begin
     Result := inherited ViewOnMouseMove(Sender, Shift, X, Y);
 end;
 
-function TCADPrg3D.ViewOnMouseDown(Sender: TObject; Button: TMouseButton;
+function TFNCCADPrg3D.ViewOnMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; var X, Y: SmallInt): Boolean;
 begin
   fCurrentViewportPoint := Viewport3D.ScreenToViewport(Point2D(X, Y));
@@ -21276,7 +21632,7 @@ begin
     Result := inherited ViewOnMouseDown(Sender, Button, Shift, X, Y);
 end;
 
-function TCADPrg3D.ViewOnMouseUp(Sender: TObject; Button: TMouseButton;
+function TFNCCADPrg3D.ViewOnMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; var X, Y: SmallInt): Boolean;
 begin
   fCurrentViewportPoint := Viewport3D.ScreenToViewport(Point2D(X, Y));
@@ -21297,17 +21653,17 @@ begin
     Result := inherited ViewOnMouseUp(Sender, Button, Shift, X, Y);
 end;
 
-function TCADPrg3D.GetViewport3D: TCADViewport3D;
+function TFNCCADPrg3D.GetViewport3D: TFNCCADViewport3D;
 begin
-  Result := LinkedViewport as TCADViewport3D;
+  Result := LinkedViewport as TFNCCADViewport3D;
 end;
 
-procedure TCADPrg3D.SetViewport3D(View3D: TCADViewport3D);
+procedure TFNCCADPrg3D.SetViewport3D(View3D: TFNCCADViewport3D);
 begin
   LinkedViewport := View3D;
 end;
 
-constructor TCADPrg3D.Create(AOwner: TComponent);
+constructor TFNCCADPrg3D.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   XSnap := 10.0;
@@ -21319,13 +21675,13 @@ begin
   fSnapOriginPoint := Point3D(MaxCoord, MaxCoord, MaxCoord);
 end;
 
-destructor TCADPrg3D.Destroy;
+destructor TFNCCADPrg3D.Destroy;
 begin
   SetViewport3D(nil);
   inherited Destroy;
 end;
 
-procedure _DrawWorkPlaneCursor(Viewport: TCADViewport3D; const PosWPt: TPoint3D;
+procedure _DrawWorkPlaneCursor(Viewport: TFNCCADViewport3D; const PosWPt: TPoint3D;
   const X, Y, Z: TVector3D; const Siz: TRealType);
 var
   SPt, AxSPt: TPoint;
@@ -21339,128 +21695,106 @@ begin
     if AxPt.W <> 1.0 then
       Exit;
     // Disegna una griglietta
-    Canvas.Pen.Color := GridColor xor BackGroundColor;
-    Canvas.Pen.Style := psDot;
-    SetBkMode(Canvas.Handle, TRANSPARENT);
+    OnScreenCanvas.Pen.Color := TColorToCADColor(GridColor);
+    OnScreenCanvas.Pen.Style := cpsDot;
+    OnScreenCanvas.Graphics.Transparent := True;
     AxPt := ExtrudePoint3D(PosWPt, X, -Siz / 2.0);
     AxPt := ExtrudePoint3D(AxPt, Y, -Siz / 2.0);
     SPt := NRCToScreen(WorldToNRC(AxPt));
     AxPt := ExtrudePoint3D(AxPt, Y, Siz);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
     AxPt := PosWPt;
     AxPt := ExtrudePoint3D(AxPt, Y, -Siz / 2.0);
     SPt := NRCToScreen(WorldToNRC(AxPt));
     AxPt := ExtrudePoint3D(AxPt, Y, Siz / 2.0);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
     AxPt := ExtrudePoint3D(PosWPt, X, Siz / 2.0);
     AxPt := ExtrudePoint3D(AxPt, Y, -Siz / 2.0);
     SPt := NRCToScreen(WorldToNRC(AxPt));
     AxPt := ExtrudePoint3D(AxPt, Y, Siz);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
 
     AxPt := ExtrudePoint3D(PosWPt, Y, -Siz / 2.0);
     AxPt := ExtrudePoint3D(AxPt, X, -Siz / 2.0);
     SPt := NRCToScreen(WorldToNRC(AxPt));
     AxPt := ExtrudePoint3D(AxPt, X, Siz);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
     AxPt := PosWPt;
     AxPt := ExtrudePoint3D(AxPt, X, -Siz / 2.0);
     SPt := NRCToScreen(WorldToNRC(AxPt));
     AxPt := ExtrudePoint3D(AxPt, X, Siz / 2.0);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
     AxPt := ExtrudePoint3D(PosWPt, Y, Siz / 2.0);
     AxPt := ExtrudePoint3D(AxPt, X, -Siz / 2.0);
     SPt := NRCToScreen(WorldToNRC(AxPt));
     AxPt := ExtrudePoint3D(AxPt, X, Siz);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
     // Disegna gli assi.
-    Canvas.Pen.Style := psSolid;
+    OnScreenCanvas.Pen.Style := cpsSolid;
     SPt := NRCToScreen(WorldToNRC(PosWPt));
     // Asse X
     if Assigned(fAxis) then
-      Canvas.Pen.Color := fAxis.fXColor xor BackGroundColor
+      OnScreenCanvas.Pen.Color :=
+        TColorToCADColor(fAxis.fXColor)
     else
-      Canvas.Pen.Color := clRed xor BackGroundColor;
+      OnScreenCanvas.Pen.Color := cadclRed;
     AxPt := ExtrudePoint3D(PosWPt, X, Siz / 2.0);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
     // Disegna il segmento.
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
     // Asse Y
     if Assigned(fAxis) then
-      Canvas.Pen.Color := fAxis.fYColor xor BackGroundColor
+      OnScreenCanvas.Pen.Color :=
+        TColorToCADColor(fAxis.fYColor)
     else
-      Canvas.Pen.Color := clBlue xor BackGroundColor;
+      OnScreenCanvas.Pen.Color := cadclBlue;
     AxPt := ExtrudePoint3D(PosWPt, Y, Siz / 2.0);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
     // Disegna il segmento.
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
     // Asse Z
     if Assigned(fAxis) then
-      Canvas.Pen.Color := fAxis.fZColor xor BackGroundColor
+      OnScreenCanvas.Pen.Color :=
+        TColorToCADColor(fAxis.fZColor)
     else
-      Canvas.Pen.Color := clGreen xor BackGroundColor;
+      OnScreenCanvas.Pen.Color := cadclGreen;
     AxPt := ExtrudePoint3D(PosWPt, Z, Siz / 4.0);
     AxSPt := NRCToScreen(WorldToNRC(AxPt));
 
     // Disegna il segmento.
-    Canvas.MoveTo(SPt.X, SPt.Y);
-    Canvas.LineTo(AxSPt.X, AxSPt.Y);
+    OnScreenCanvas.MoveTo(SPt.X, SPt.Y);
+    OnScreenCanvas.LineTo(AxSPt.X, AxSPt.Y);
   end;
 end;
 
-procedure TCADPrg3D.DrawCursorCross;
+procedure TFNCCADPrg3D.UpdateCursorCrossPos;
 begin
-  if (not Assigned(Viewport)) or (Viewport.HandleAllocated = False) or
-    (Viewport.InRepainting) then
-    Exit;
-  with Viewport3D do
-    try
-      Canvas.Pen.Mode := pmXOr;
-      Canvas.Pen.Width := 1;
-
-      // Cancella quello vecchio.
-      _DrawWorkPlaneCursor(Viewport3D, fLastCursorPos,
-        CrossProd3D(fWorkingPlaneUP, fWorkingPlaneNormal), fWorkingPlaneUP,
-        fWorkingPlaneNormal, fCursorSize);
-      // Disegna quello nuovo
-      fLastCursorPos := CurrentWorkingPlanePoint;
-      _DrawWorkPlaneCursor(Viewport3D, fLastCursorPos,
-        CrossProd3D(fWorkingPlaneUP, fWorkingPlaneNormal), fWorkingPlaneUP,
-        fWorkingPlaneNormal, fCursorSize);
-    except
-    end;
+  fLastCursorPos := CurrentWorkingPlanePoint;
 end;
 
-procedure TCADPrg3D.HideCursorCross;
+procedure TFNCCADPrg3D.PaintCursorCross;
 begin
-  if (not Assigned(Viewport)) or (Viewport.HandleAllocated = False) or
-    (Viewport.InRepainting) then
+  if (not Assigned(Viewport3D)) or (not Viewport3D.IsRealized) then
     Exit;
-  with Viewport3D do
-    try
-      Canvas.Pen.Mode := pmXOr;
-      Canvas.Pen.Width := 1;
-
-      // Cancella il cursore
-      _DrawWorkPlaneCursor(Viewport3D, fLastCursorPos,
-        CrossProd3D(fWorkingPlaneUP, fWorkingPlaneNormal), fWorkingPlaneUP,
-        fWorkingPlaneNormal, fCursorSize);
-    except
-    end;
+  Viewport3D.OnScreenCanvas.Pen.Mode := cpmCopy;
+  Viewport3D.OnScreenCanvas.Pen.Width := 1;
+  _DrawWorkPlaneCursor(Viewport3D, fLastCursorPos,
+    CrossProd3D(fWorkingPlaneUP, fWorkingPlaneNormal), fWorkingPlaneUP,
+    fWorkingPlaneNormal, fCursorSize);
 end;
 
 // =====================================================================
@@ -21482,23 +21816,23 @@ end;
 constructor TCADSysCriticalSection.Create;
 begin
   inherited Create;
-  InitializeCriticalSection(FSection);
+  FSection := TCriticalSection.Create;
 end;
 
 destructor TCADSysCriticalSection.Destroy;
 begin
-  DeleteCriticalSection(FSection);
+  FSection.Free;
   inherited Destroy;
 end;
 
 procedure TCADSysCriticalSection.Acquire;
 begin
-  EnterCriticalSection(FSection);
+  FSection.Acquire;
 end;
 
 procedure TCADSysCriticalSection.Release;
 begin
-  LeaveCriticalSection(FSection);
+  FSection.Release;
 end;
 
 procedure TCADSysCriticalSection.Enter;
